@@ -1,4 +1,5 @@
-﻿namespace LocadoraAutomoveis.Testes.Dominio.ModuloPadrao
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+namespace LocadoraAutomoveis.Testes.Dominio.ModuloPadrao
 {
     [TestClass]
     public class PadraoTeste

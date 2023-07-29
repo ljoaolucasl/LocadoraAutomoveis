@@ -3,8 +3,6 @@ using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.ModuloPadrao;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace LocadoraAutomoveis.WinApp
 {
@@ -28,9 +26,9 @@ namespace LocadoraAutomoveis.WinApp
 
             _telaPrincipal = this;
 
-            ConfigurarBotoesDicionario();
-
             ConfigurarInstancias();
+
+            ConfigurarBotoesDicionario();
         }
 
         public static void AtualizarStatus(string status)
@@ -40,16 +38,7 @@ namespace LocadoraAutomoveis.WinApp
 
         private void ConfigurarInstancias()
         {
-            var configure = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appSettings.json")
-                .Build();
-
-            var option = new DbContextOptionsBuilder<ContextoDados>()
-                .UseSqlServer(configure.GetConnectionString("SqlServer"))
-                .Options;
-
-            _contextoDb = new ContextoDados(option);
+            _contextoDb = new LocadoraAutomoveisDesignFactory().CreateDbContext(null);
 
             _repositorioPadrao = new RepositorioPadrao(_contextoDb);
             _servicoPadrao = new ServicoPadrao(_repositorioPadrao);

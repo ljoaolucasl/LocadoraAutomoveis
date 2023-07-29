@@ -6,7 +6,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Compartilhado
 {
     public class ContextoDados : DbContext
     {
-        public ContextoDados(DbContextOptions options) : base(options)
+        public ContextoDados(DbContextOptions<ContextoDados> options) : base(options)
         {
         }
 

@@ -11,6 +11,10 @@ namespace LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis
             Nome = nome;
         }
 
+        public CategoriaAutomoveis()
+        {
+        }
+
         public override bool Equals(object? obj)
         {
             return obj is CategoriaAutomoveis categoria &&

@@ -4,7 +4,7 @@ using LocadoraAutomoveis.Dominio.ModuloPadrao;
 
 namespace LocadoraAutomoveis.Infraestrutura.Mapeadores
 {
-    public class MapeadorPadrao : IEntityTypeConfiguration<Padrao>
+    public class MapeadorPadrao// : IEntityTypeConfiguration<Padrao>
     {
         public void Configure(EntityTypeBuilder<Padrao> builder)
         {

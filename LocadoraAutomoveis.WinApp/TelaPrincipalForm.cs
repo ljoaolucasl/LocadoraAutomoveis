@@ -56,7 +56,7 @@ namespace LocadoraAutomoveis.WinApp
         #region CRUD
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            _controladorBase.Adicionar();
+            _controladorBase.Inserir();
             ResetarBotoes();
         }
 

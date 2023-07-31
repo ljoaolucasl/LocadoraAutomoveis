@@ -1,27 +1,35 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Dominio.Compartilhado;
 using LocadoraAutomoveis.Dominio.ModuloParceiro;
+using LocadoraAutomoveis.Infraestrutura.Repositorios;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
     public class ServicoParceiro : IServicoBase<Parceiro>
     {
-        public Result Inserir(Parceiro padraoParaAdicionar)
+        private readonly RepositorioParceiro _repositorioParceiro;
+
+        public ServicoParceiro(RepositorioParceiro repositorioParceiro)
+        {
+            _repositorioParceiro = repositorioParceiro;
+        }
+
+        public Result Inserir(Parceiro parceiroParaAdicionar)
         {
             throw new NotImplementedException();
         }
 
-        public Result Editar(Parceiro padraoParaEditar)
+        public Result Editar(Parceiro parceiroParaEditar)
         {
             throw new NotImplementedException();
         }
 
-        public Result Excluir(Parceiro padraoParaExcluir)
+        public Result Excluir(Parceiro parceiroParaExcluir)
         {
             throw new NotImplementedException();
         }
 
-        public Parceiro SelecionarRegistroPorID(int padraoID)
+        public Parceiro SelecionarRegistroPorID(int parceiroID)
         {
             throw new NotImplementedException();
         }
@@ -31,7 +39,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             throw new NotImplementedException();
         }
 
-        public Result ValidarRegistro(Parceiro padraoParaValidar)
+        public Result ValidarRegistro(Parceiro parceiroParaValidar)
         {
             throw new NotImplementedException();
         }

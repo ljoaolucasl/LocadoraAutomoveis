@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            textBox1 = new TextBox();
+            txtNome = new TextBox();
             btnCancelar = new Button();
             btnGravar = new Button();
+            lbErroNome = new Label();
             SuspendLayout();
             // 
             // label1
@@ -43,12 +44,12 @@
             label1.TabIndex = 0;
             label1.Text = "Nome:";
             // 
-            // textBox1
+            // txtNome
             // 
-            textBox1.Location = new Point(70, 42);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(259, 23);
-            textBox1.TabIndex = 1;
+            txtNome.Location = new Point(70, 42);
+            txtNome.Name = "txtNome";
+            txtNome.Size = new Size(259, 23);
+            txtNome.TabIndex = 1;
             // 
             // btnCancelar
             // 
@@ -57,7 +58,7 @@
             btnCancelar.Location = new Point(259, 119);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(85, 37);
-            btnCancelar.TabIndex = 5;
+            btnCancelar.TabIndex = 3;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             // 
@@ -68,18 +69,30 @@
             btnGravar.Location = new Point(168, 119);
             btnGravar.Name = "btnGravar";
             btnGravar.Size = new Size(85, 37);
-            btnGravar.TabIndex = 4;
+            btnGravar.TabIndex = 2;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = true;
+            btnGravar.Click += btnGravar_Click;
+            // 
+            // lbErroNome
+            // 
+            lbErroNome.AutoSize = true;
+            lbErroNome.ForeColor = Color.FromArgb(192, 0, 0);
+            lbErroNome.Location = new Point(70, 24);
+            lbErroNome.Name = "lbErroNome";
+            lbErroNome.Size = new Size(92, 15);
+            lbErroNome.TabIndex = 6;
+            lbErroNome.Text = "*mensagemErro";
             // 
             // TelaParceiroForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(358, 168);
+            Controls.Add(lbErroNome);
             Controls.Add(btnCancelar);
             Controls.Add(btnGravar);
-            Controls.Add(textBox1);
+            Controls.Add(txtNome);
             Controls.Add(label1);
             Name = "TelaParceiroForm";
             Text = "Cadastro de Parceiro";
@@ -90,8 +103,9 @@
         #endregion
 
         private Label label1;
-        private TextBox textBox1;
+        private TextBox txtNome;
         private Button btnCancelar;
         private Button btnGravar;
+        private Label lbErroNome;
     }
 }

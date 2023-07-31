@@ -196,7 +196,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
         }
 
         [TestMethod]
-        public void Nao_Deve_adicionar_categoria_quando_relacionada_ao_automovel()
+        public void Nao_Deve_excluir_categoria_quando_relacionada_ao_automovel()
         {
             //arrange
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>())).Returns(true);
@@ -217,7 +217,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
         }
 
         [TestMethod]
-        public void Nao_Deve_adicionar_categoria_quando_relacionada_ao_plano_de_cobranca()
+        public void Nao_Deve_excluir_categoria_quando_relacionada_ao_plano_de_cobranca()
         {
             //arrange
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>())).Returns(true);
@@ -238,7 +238,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
         }
 
         [TestMethod]
-        public void Nao_Deve_adicionar_categoria_quando_relacionada_ao_aluguel_em_aberto()
+        public void Nao_Deve_excluir_categoria_quando_relacionada_ao_aluguel_em_aberto()
         {
             //arrange
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>())).Returns(true);
@@ -259,7 +259,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
         }
 
         [TestMethod]
-        public void Nao_Deve_adicionar_categoria_quando_falha_na_exclusao()
+        public void Nao_Deve_excluir_categoria_quando_falha_na_exclusao()
         {
             //arrange
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>())).Returns(true);

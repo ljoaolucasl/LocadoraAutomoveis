@@ -1,35 +1,36 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
-using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Extensions;
+using System.Windows.Forms;
 
-namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
+namespace LocadoraAutomoveis.WinApp.ModuloFuncionario
 {
-    public partial class TelaCategoriaAutomoveisForm : Form, ITelaBase<CategoriaAutomoveis>
+    public partial class TelaFuncionarioForm : Form, ITelaBase<Funcionario>
     {
-        private CategoriaAutomoveis _categoria;
+        private Funcionario _funcionario;
 
         private Result _resultado;
 
-        public event Func<CategoriaAutomoveis, Result> OnGravarRegistro;
+        public event Func<Funcionario, Result> OnGravarRegistro;
 
-        public TelaCategoriaAutomoveisForm()
+        public TelaFuncionarioForm()
         {
             InitializeComponent();
-
-            this.ConfigurarDialog();
         }
 
-        public CategoriaAutomoveis? Entidade
+        public Funcionario? Entidade
         {
-            get => _categoria;
+            get => _funcionario;
 
             set
             {
                 //txtId.Text = Convert.ToString(value.ID);
                 txtNome.Text = value.Nome;
-                _categoria = value;
+                dateAdmissao.Text = value.Admissao.ToString();
+                txtSalario.Text = value.Salario.ToString();
+                _funcionario = value;
             }
         }
 
@@ -45,12 +46,13 @@ namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
         {
             ResetarErros();
 
-            _categoria = new CategoriaAutomoveis(txtNome.Text);
+            var salario = Convert.ToInt32(txtSalario.Text);
+            _funcionario = new Funcionario(txtNome.Text, Convert.ToDateTime(dateAdmissao), Convert.ToDecimal(txtSalario.Text));
 
             //if (_categoria.ID == 0)
             //    _categoria.ID = int.Parse(txtId.Text);
 
-            _resultado = OnGravarRegistro(_categoria);
+            _resultado = OnGravarRegistro(_funcionario);
 
             if (_resultado.IsFailed)
                 MostrarErros();
@@ -63,6 +65,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
                 switch (item.PropertyName)
                 {
                     case "Nome": lbErroNome.Text = item.ErrorMessage; lbErroNome.Visible = true; break;
+                    case "Admissao": lbErroAdmissao.Text = item.ErrorMessage; lbErroAdmissao.Visible = true; break;
+                    case "Salario": lbErroSalario.Text = item.ErrorMessage; lbErroSalario.Visible = true; break;
                 }
             }
         }
@@ -70,6 +74,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
         private void ResetarErros()
         {
             lbErroNome.Visible = false;
+            lbErroAdmissao.Visible = false;
+            lbErroSalario.Visible = false;
 
             _resultado.Errors.Clear();
             _resultado.Reasons.Clear();

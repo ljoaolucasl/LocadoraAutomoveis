@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis
 {
-    public class ValidadorCategoriaAutomoveis : AbstractValidator<CategoriaAutomoveis>
+    public class ValidadorCategoriaAutomoveis : AbstractValidator<CategoriaAutomoveis>, IValidadorCategoria
     {
         public ValidadorCategoriaAutomoveis()
         {

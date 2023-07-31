@@ -58,7 +58,7 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado
 
             OnComandosAdicionaisAddAndEdit?.Invoke(tela, tela.Entidade);
 
-            tela.OnGravarRegistro += _servico.Adicionar;
+            tela.OnGravarRegistro += _servico.Inserir;
 
             TelaPrincipalForm.AtualizarStatus($"Cadastrando {typeof(TEntidade).Name}");
 

@@ -4,8 +4,9 @@
     {
         List<T> SelecionarTodos();
         T? SelecionarPorID(int id);
-        void Adicionar(T objetoParaAdicionar);
+        void Inserir(T objetoParaAdicionar);
         void Editar(T objetoParaEditar);
         void Excluir(T objetoParaDeletar);
+        bool Existe(T objetoParaVerificar);
     }
 }

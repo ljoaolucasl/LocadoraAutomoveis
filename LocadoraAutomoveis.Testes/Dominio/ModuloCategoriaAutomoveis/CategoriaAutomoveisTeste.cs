@@ -24,45 +24,56 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloCategoriaAutomoveis
         }
 
         [TestMethod]
-        public void Deve_ter_no_minimo_3_caracteres()
+        public void Nao_deve_aceitar_menos_que_3_caracteres()
         {
+            //arrange
             CategoriaAutomoveis categoria = new("Ca");
 
+            //action
             ValidationResult resultado = new ValidadorCategoriaAutomoveis().Validate(categoria);
 
+            //assert
             resultado.IsValid.Should().BeFalse();
         }
 
         [TestMethod]
         public void Nao_deve_aceitar_caracteres_especiais()
         {
+            //arrange
             CategoriaAutomoveis categoria = new("Caminhonete@");
 
+            //action
             ValidationResult resultado = new ValidadorCategoriaAutomoveis().Validate(categoria);
 
+            //assert
             resultado.IsValid.Should().BeFalse();
         }
 
         [TestMethod]
         public void Nao_deve_aceitar_campo_vazio()
         {
+            //arrange
             CategoriaAutomoveis categoria = new("");
 
+            //action
             ValidationResult resultado = new ValidadorCategoriaAutomoveis().Validate(categoria);
 
+            //assert
             resultado.IsValid.Should().BeFalse();
         }
 
         [TestMethod]
         public void Nao_deve_aceitar_categoria_repetida()
         {
+            //arrange
             CategoriaAutomoveis categoria1 = new("Caminhonete");
             CategoriaAutomoveis categoria2 = new("Caminhonete");
+            _repositorioCategoriaAutomoveis.Inserir(categoria1);
 
-            _repositorioCategoriaAutomoveis.Adicionar(categoria1);
-
+            //action
             bool resultado = new ValidadorCategoriaAutomoveis().ValidarCategoriaExistente(categoria2, _repositorioCategoriaAutomoveis.SelecionarTodos());
 
+            //assert
             resultado.Should().BeTrue();
         }
     }

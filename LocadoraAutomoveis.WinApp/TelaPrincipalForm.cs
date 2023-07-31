@@ -1,8 +1,9 @@
 using LocadoraAutomoveis.Aplicacao.Servicos;
+using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
 using LocadoraAutomoveis.WinApp.Compartilhado;
-using LocadoraAutomoveis.WinApp.ModuloPadrao;
+using LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis;
 
 namespace LocadoraAutomoveis.WinApp
 {
@@ -16,9 +17,9 @@ namespace LocadoraAutomoveis.WinApp
 
         private DataGridView _grid;
 
-        private RepositorioPadrao _repositorioPadrao;
-        private ServicoPadrao _servicoPadrao;
-        private TabelaPadraoControl _tabelaPadrao;
+        private RepositorioCategoriaAutomoveis _repositorioCategoria;
+        private ServicoCategoriaAutomoveis _servicoCategoria;
+        private TabelaCategoriaAutomoveisControl _tabelaCategoria;
 
         public TelaPrincipalForm()
         {
@@ -40,15 +41,15 @@ namespace LocadoraAutomoveis.WinApp
         {
             _contextoDb = new LocadoraAutomoveisDesignFactory().CreateDbContext(null);
 
-            _repositorioPadrao = new RepositorioPadrao(_contextoDb);
-            _servicoPadrao = new ServicoPadrao(_repositorioPadrao);
-            _tabelaPadrao = new TabelaPadraoControl();
+            _repositorioCategoria = new RepositorioCategoriaAutomoveis(_contextoDb);
+            _servicoCategoria = new ServicoCategoriaAutomoveis(_repositorioCategoria, new ValidadorCategoriaAutomoveis);
+            _tabelaCategoria = new TabelaCategoriaAutomoveisControl();
         }
 
         #region BotoesTabelas
-        private void btnPadrao_Click(object sender, EventArgs e)
+        private void btnCategoria_Click(object sender, EventArgs e)
         {
-            _controladorBase = new ControladorPadrao(_repositorioPadrao, _servicoPadrao, _tabelaPadrao);
+            _controladorBase = new ControladorCategoriaAutomoveis(_repositorioCategoria, _servicoCategoria, _tabelaCategoria);
             ConfigurarTelaPrincipal();
         }
         #endregion
@@ -115,7 +116,7 @@ namespace LocadoraAutomoveis.WinApp
 
         private void ConfigurarBotoesDicionario()
         {
-            coresBotoes.Add(_tabelaPadrao, btnPadrao);
+            coresBotoes.Add(_tabelaCategoria, btnCategoria);
         }
 
         private void btnColor_MouseEnter(object sender, EventArgs e)

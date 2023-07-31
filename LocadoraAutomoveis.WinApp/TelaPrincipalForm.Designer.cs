@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             barraBotoes = new ToolStrip();
-            btnPadrao = new ToolStripButton();
+            btnCategoria = new ToolStripButton();
             barraAcoes = new ToolStrip();
             btnAdicionar = new ToolStripButton();
             btnEditar = new ToolStripButton();
@@ -48,7 +48,7 @@
             // 
             barraBotoes.BackColor = Color.FromArgb(0, 165, 100);
             barraBotoes.GripStyle = ToolStripGripStyle.Hidden;
-            barraBotoes.Items.AddRange(new ToolStripItem[] { btnPadrao });
+            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCategoria });
             barraBotoes.LayoutStyle = ToolStripLayoutStyle.Flow;
             barraBotoes.Location = new Point(0, 0);
             barraBotoes.Name = "barraBotoes";
@@ -56,24 +56,24 @@
             barraBotoes.TabIndex = 0;
             barraBotoes.Text = "toolStrip1";
             // 
-            // btnPadrao
+            // btnCategoria
             // 
-            btnPadrao.BackColor = Color.FromArgb(0, 165, 100);
-            btnPadrao.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnPadrao.Font = new Font("Tahoma", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            btnPadrao.ForeColor = Color.White;
-            btnPadrao.ImageTransparentColor = Color.Magenta;
-            btnPadrao.Margin = new Padding(0);
-            btnPadrao.Name = "btnPadrao";
-            btnPadrao.Padding = new Padding(15);
-            btnPadrao.RightToLeft = RightToLeft.No;
-            btnPadrao.Size = new Size(106, 58);
-            btnPadrao.Text = "Padrão";
-            btnPadrao.TextDirection = ToolStripTextDirection.Horizontal;
-            btnPadrao.ToolTipText = "Padrão";
-            btnPadrao.Click += btnPadrao_Click;
-            btnPadrao.MouseEnter += btnColor_MouseEnter;
-            btnPadrao.MouseLeave += btnColor_MouseLeave;
+            btnCategoria.BackColor = Color.FromArgb(0, 165, 100);
+            btnCategoria.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnCategoria.Font = new Font("Tahoma", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCategoria.ForeColor = Color.White;
+            btnCategoria.ImageTransparentColor = Color.Magenta;
+            btnCategoria.Margin = new Padding(0);
+            btnCategoria.Name = "btnCategoria";
+            btnCategoria.Padding = new Padding(15);
+            btnCategoria.RightToLeft = RightToLeft.No;
+            btnCategoria.Size = new Size(130, 58);
+            btnCategoria.Text = "Categoria";
+            btnCategoria.TextDirection = ToolStripTextDirection.Horizontal;
+            btnCategoria.ToolTipText = "Categoria";
+            btnCategoria.Click += btnCategoria_Click;
+            btnCategoria.MouseEnter += btnColor_MouseEnter;
+            btnCategoria.MouseLeave += btnColor_MouseLeave;
             // 
             // barraAcoes
             // 
@@ -185,7 +185,7 @@
         #endregion
 
         private ToolStrip barraBotoes;
-        private ToolStripButton btnPadrao;
+        private ToolStripButton btnCategoria;
         private ToolStrip barraAcoes;
         private ToolStripButton btnAdicionar;
         private ToolStripButton btnEditar;

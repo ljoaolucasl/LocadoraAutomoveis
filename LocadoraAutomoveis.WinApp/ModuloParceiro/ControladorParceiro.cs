@@ -1,5 +1,6 @@
 ﻿using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloParceiro;
+using LocadoraAutomoveis.Infraestrutura.Repositorios;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 
 namespace LocadoraAutomoveis.WinApp.ModuloParceiro

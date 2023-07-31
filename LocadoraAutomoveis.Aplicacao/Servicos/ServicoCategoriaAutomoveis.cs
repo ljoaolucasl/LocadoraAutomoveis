@@ -19,7 +19,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
         }
 
         #region CRUD
-        public Result Adicionar(CategoriaAutomoveis categoriaParaAdicionar)
+        public Result Inserir(CategoriaAutomoveis categoriaParaAdicionar)
         {
             Log.Debug("Tentando adicionar a Categoria '{NOME}'", categoriaParaAdicionar.Nome);
 
@@ -31,7 +31,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
                 return resultado;
             }
 
-            _repositorioCategoriaAutomoveis.Adicionar(categoriaParaAdicionar);
+            _repositorioCategoriaAutomoveis.Inserir(categoriaParaAdicionar);
 
             Log.Debug("Adicionado a Categoria '{NOME} #{ID}' com sucesso!", categoriaParaAdicionar.Nome, categoriaParaAdicionar.ID);
 
@@ -50,7 +50,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
                 return resultado;
             }
 
-            _repositorioCategoriaAutomoveis.Adicionar(categoriaParaEditar);
+            _repositorioCategoriaAutomoveis.Inserir(categoriaParaEditar);
 
             Log.Debug("Editado a Categoria '{NOME} #{ID}' com sucesso!", categoriaParaEditar.Nome, categoriaParaEditar.ID);
 

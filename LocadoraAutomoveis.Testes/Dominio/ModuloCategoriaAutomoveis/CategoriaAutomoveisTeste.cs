@@ -59,7 +59,7 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloCategoriaAutomoveis
             CategoriaAutomoveis categoria1 = new("Caminhonete");
             CategoriaAutomoveis categoria2 = new("Caminhonete");
 
-            _repositorioCategoriaAutomoveis.Adicionar(categoria1);
+            _repositorioCategoriaAutomoveis.Inserir(categoria1);
 
             bool resultado = new ValidadorCategoriaAutomoveis().ValidarCategoriaExistente(categoria2, _repositorioCategoriaAutomoveis.SelecionarTodos());
 

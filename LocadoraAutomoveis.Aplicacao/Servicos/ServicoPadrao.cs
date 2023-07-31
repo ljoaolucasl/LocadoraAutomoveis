@@ -19,7 +19,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
         }
 
         #region CRUD
-        public Result Adicionar(Padrao padraoParaAdicionar)
+        public Result Inserir(Padrao padraoParaAdicionar)
         {
             Log.Debug("Tentando adicionar o Padrão '{NOME}'", padraoParaAdicionar.Nome);
 
@@ -31,7 +31,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
                 return resultado;
             }
 
-            _repositorioPadrao.Adicionar(padraoParaAdicionar);
+            _repositorioPadrao.Inserir(padraoParaAdicionar);
 
             Log.Debug("Adicionado o Padrão '{NOME} #{ID}' com sucesso!", padraoParaAdicionar.Nome, padraoParaAdicionar.ID);
 
@@ -50,7 +50,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
                 return resultado;
             }
 
-            _repositorioPadrao.Adicionar(padraoParaEditar);
+            _repositorioPadrao.Inserir(padraoParaEditar);
 
             Log.Debug("Editado o Padrão '{NOME} #{ID}' com sucesso!", padraoParaEditar.Nome, padraoParaEditar.ID);
 

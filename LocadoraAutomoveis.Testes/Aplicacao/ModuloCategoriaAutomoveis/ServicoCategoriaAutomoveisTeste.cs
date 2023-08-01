@@ -1,8 +1,6 @@
 ﻿using FizzWare.NBuilder;
-using FluentAssertions;
 using FluentResults;
 using FluentResults.Extensions.FluentAssertions;
-using FluentValidation.Results;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;

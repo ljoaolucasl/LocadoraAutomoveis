@@ -1,5 +1,4 @@
 ﻿using FizzWare.NBuilder;
-using FluentAssertions;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;

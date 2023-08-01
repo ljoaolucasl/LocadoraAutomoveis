@@ -28,32 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            gridCupom = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)gridCupom).BeginInit();
+            gridParceiro = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)gridParceiro).BeginInit();
             SuspendLayout();
             // 
             // gridCupom
             // 
-            gridCupom.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            gridCupom.Dock = DockStyle.Fill;
-            gridCupom.Location = new Point(0, 0);
-            gridCupom.Name = "gridCupom";
-            gridCupom.RowTemplate.Height = 25;
-            gridCupom.Size = new Size(150, 150);
-            gridCupom.TabIndex = 0;
+            gridParceiro.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            gridParceiro.Dock = DockStyle.Fill;
+            gridParceiro.Location = new Point(0, 0);
+            gridParceiro.Name = "gridCupom";
+            gridParceiro.RowTemplate.Height = 25;
+            gridParceiro.Size = new Size(150, 150);
+            gridParceiro.TabIndex = 0;
             // 
             // TabelaParceiroControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(gridCupom);
+            Controls.Add(gridParceiro);
             Name = "TabelaParceiroControl";
-            ((System.ComponentModel.ISupportInitialize)gridCupom).EndInit();
+            ((System.ComponentModel.ISupportInitialize)gridParceiro).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private DataGridView gridCupom;
+        private DataGridView gridParceiro;
     }
 }

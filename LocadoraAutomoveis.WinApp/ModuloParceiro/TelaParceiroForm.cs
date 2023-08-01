@@ -1,6 +1,5 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
-using LocadoraAutomoveis.Dominio.ModuloPadrao;
 using LocadoraAutomoveis.Dominio.ModuloParceiro;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Extensions;
@@ -29,7 +28,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloParceiro
             set
             {
                 txtNome.Text = value.Nome;
-                _padrao = value;
+                _parceiro = value;
             }
         }
 

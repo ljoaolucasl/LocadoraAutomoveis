@@ -3,9 +3,10 @@
     public interface IRepositorioBase<T> where T : EntidadeBase
     {
         List<T> SelecionarTodos();
-        T? SelecionarPorID(int id);
-        void Adicionar(T objetoParaAdicionar);
-        void Editar(T objetoParaEditar);
-        void Excluir(T objetoParaDeletar);
+        T? SelecionarPorID(Guid id);
+        void Inserir(T registroParaAdicionar);
+        void Editar(T registroParaEditar);
+        void Excluir(T registroParaDeletar);
+        bool Existe(T registroParaVerificar, bool exclusao = false);
     }
 }

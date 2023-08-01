@@ -1,11 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using LocadoraAutomoveis.Dominio.Compartilhado;
+using Microsoft.Win32;
+using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 
 namespace LocadoraAutomoveis.Infraestrutura.Compartilhado
 {
     public abstract class RepositorioBase<TEntidade> : IRepositorioBase<TEntidade>
         where TEntidade : EntidadeBase
     {
+        public RepositorioBase()
+        {
+        }
+
         public ContextoDados ContextoDb { get; }
 
         public DbSet<TEntidade> Registros { get; }
@@ -16,7 +22,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Compartilhado
             Registros = contextoDb.Set<TEntidade>();
         }
 
-        public void Adicionar(TEntidade objetoParaAdicionar)
+        public void Inserir(TEntidade objetoParaAdicionar)
         {
             ContextoDb.Add(objetoParaAdicionar);
             ContextoDb.SaveChanges();
@@ -34,7 +40,9 @@ namespace LocadoraAutomoveis.Infraestrutura.Compartilhado
             ContextoDb.SaveChanges();
         }
 
-        public TEntidade? SelecionarPorID(int id)
+        public abstract bool Existe(TEntidade objetoParaVerificar, bool exclusao = false);
+
+        public TEntidade? SelecionarPorID(Guid id)
         {
             return Registros.Where(r => r.ID == id).FirstOrDefault();
         }

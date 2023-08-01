@@ -18,7 +18,9 @@ namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
         {
             InitializeComponent();
 
-            this.ConfigurarDialog();
+            _resultado = new Result();
+
+            _categoria = new CategoriaAutomoveis();
         }
 
         public CategoriaAutomoveis? Entidade
@@ -27,7 +29,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
 
             set
             {
-                //txtId.Text = Convert.ToString(value.ID);
                 txtNome.Text = value.Nome;
                 _categoria = value;
             }
@@ -45,15 +46,19 @@ namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
         {
             ResetarErros();
 
-            _categoria = new CategoriaAutomoveis(txtNome.Text);
-
-            //if (_categoria.ID == 0)
-            //    _categoria.ID = int.Parse(txtId.Text);
+            _categoria = ObterCategoria();
 
             _resultado = OnGravarRegistro(_categoria);
 
             if (_resultado.IsFailed)
                 MostrarErros();
+        }
+
+        private CategoriaAutomoveis ObterCategoria()
+        {
+            _categoria.Nome = txtNome.Text;
+
+            return _categoria;
         }
 
         private void MostrarErros()
@@ -62,7 +67,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
             {
                 switch (item.PropertyName)
                 {
-                    case "Nome": lbErroNome.Text = item.ErrorMessage; lbErroNome.Visible = true; break;
+                    case "Nome": lbErroNome.Text = item.ErrorMessage; lbErroNome.Visible = true; txtNome.Focus(); break;
                 }
             }
         }

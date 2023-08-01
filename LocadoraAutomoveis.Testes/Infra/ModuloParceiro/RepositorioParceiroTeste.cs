@@ -23,7 +23,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloParceiro
 
             BuilderSetup.SetCreatePersistenceMethod<Parceiro>(_repositorioParceiro.Inserir);
 
-            BuilderSetup.DisablePropertyNamingFor<Parceiro, int>(x => x.ID);
+            BuilderSetup.DisablePropertyNamingFor<Parceiro, Guid>(x => x.ID);
         }
     }
 }

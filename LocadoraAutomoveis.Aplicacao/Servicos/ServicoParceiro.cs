@@ -78,7 +78,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             return Result.Ok();
         }
 
-        public Parceiro SelecionarRegistroPorID(int parceiroID)
+        public Parceiro SelecionarRegistroPorID(Guid parceiroID)
         {
             return _repositorioParceiro.SelecionarPorID(parceiroID);
         }

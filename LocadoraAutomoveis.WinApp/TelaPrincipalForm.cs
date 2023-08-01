@@ -42,7 +42,7 @@ namespace LocadoraAutomoveis.WinApp
             _contextoDb = new LocadoraAutomoveisDesignFactory().CreateDbContext(null);
 
             _repositorioCategoria = new RepositorioCategoriaAutomoveis(_contextoDb);
-            _servicoCategoria = new ServicoCategoriaAutomoveis(_repositorioCategoria, new ValidadorCategoriaAutomoveis);
+            _servicoCategoria = new ServicoCategoriaAutomoveis(_repositorioCategoria, new ValidadorCategoriaAutomoveis());
             _tabelaCategoria = new TabelaCategoriaAutomoveisControl();
         }
 

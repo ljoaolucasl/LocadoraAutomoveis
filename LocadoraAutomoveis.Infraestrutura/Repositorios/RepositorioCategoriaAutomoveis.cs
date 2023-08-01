@@ -16,7 +16,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Repositorios
 
         public override bool Existe(CategoriaAutomoveis categoriaParaVerificar)
         {
-            return Registros.Any(c => string.Equals(c.Nome.RemoverAcento(), categoriaParaVerificar.Nome.RemoverAcento(), StringComparison.OrdinalIgnoreCase) && c.ID != categoriaParaVerificar.ID);
+            return Registros.ToList().Any(c => string.Equals(c.Nome.RemoverAcento(), categoriaParaVerificar.Nome.RemoverAcento(), StringComparison.OrdinalIgnoreCase) && c.ID != categoriaParaVerificar.ID);
         }
     }
 }

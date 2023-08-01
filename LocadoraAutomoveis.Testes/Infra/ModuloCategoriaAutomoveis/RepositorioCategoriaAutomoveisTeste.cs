@@ -98,5 +98,33 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
             listaCategorias[3].Should().Be(categoria4);
             listaCategorias.Count.Should().Be(4);
         }
+
+        [TestMethod]
+        public void Deve_verificar_se_categoria_existe()
+        {
+            //arrange
+            var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
+            var categoria2 = new CategoriaAutomoveis(categoria1.Nome);
+
+            //action
+            bool resultado = _repositorioCategoriaAutomoveis.Existe(categoria2);
+
+            //assert
+            resultado.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Deve_permitir_se_categoria_com_nome_e_ID_iguais()
+        {
+            //arrange
+            var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
+            var categoria2 = new CategoriaAutomoveis(categoria1.Nome) { ID = categoria1.ID };
+
+            //action
+            bool resultado = _repositorioCategoriaAutomoveis.Existe(categoria2);
+
+            //assert
+            resultado.Should().BeFalse();
+        }
     }
 }

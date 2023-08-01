@@ -1,5 +1,6 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
+using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloParceiro;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Extensions;
@@ -19,6 +20,10 @@ namespace LocadoraAutomoveis.WinApp.ModuloParceiro
             InitializeComponent();
 
             this.ConfigurarDialog();
+
+            _resultado = new Result();
+
+            _parceiro = new Parceiro();
         }
 
         public Parceiro? Entidade
@@ -44,15 +49,19 @@ namespace LocadoraAutomoveis.WinApp.ModuloParceiro
         {
             ResetarErros();
 
-            _parceiro = new Parceiro(txtNome.Text);
-
-            //if (_parceiro.ID == 0)
-            //    _parceiro.ID = int.Parse(txtId.Text);
+            _parceiro = ObterParceiro();
 
             _resultado = OnGravarRegistro(_parceiro);
 
             if (_resultado.IsFailed)
                 MostrarErros();
+        }
+
+        private Parceiro ObterParceiro()
+        {
+            _parceiro.Nome = txtNome.Text;
+
+            return _parceiro;
         }
 
         private void MostrarErros()

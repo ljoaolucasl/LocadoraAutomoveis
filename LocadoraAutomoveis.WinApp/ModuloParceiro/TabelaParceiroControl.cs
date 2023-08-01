@@ -25,6 +25,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloParceiro
                 gridParceiro.Rows.Add(row);
             }
 
+            gridParceiro.Columns[0].Visible = false;
+
             TelaPrincipalForm.AtualizarStatus($"Visualizando {parceiros.Count} Parceiros");
         }
 

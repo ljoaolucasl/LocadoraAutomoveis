@@ -22,7 +22,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
 
             _contexto.RemoveRange(_repositorioCategoriaAutomoveis.Registros);
 
-            BuilderSetup.SetCreatePersistenceMethod<CategoriaAutomoveis>(_repositorioCategoriaAutomoveis.Adicionar);
+            BuilderSetup.SetCreatePersistenceMethod<CategoriaAutomoveis>(_repositorioCategoriaAutomoveis.Inserir);
 
             BuilderSetup.DisablePropertyNamingFor<CategoriaAutomoveis, int>(x => x.ID);
         }

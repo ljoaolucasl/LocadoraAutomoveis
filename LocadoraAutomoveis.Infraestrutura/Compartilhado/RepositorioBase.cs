@@ -16,7 +16,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Compartilhado
             Registros = contextoDb.Set<TEntidade>();
         }
 
-        public void Adicionar(TEntidade objetoParaAdicionar)
+        public void Inserir(TEntidade objetoParaAdicionar)
         {
             ContextoDb.Add(objetoParaAdicionar);
             ContextoDb.SaveChanges();

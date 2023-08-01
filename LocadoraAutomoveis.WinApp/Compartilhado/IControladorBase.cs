@@ -8,7 +8,7 @@
 
         string ToolTipExcluir { get; }
 
-        void Adicionar();
+        void Inserir();
 
         void Editar();
 

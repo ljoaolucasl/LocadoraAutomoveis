@@ -52,13 +52,13 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado
         public virtual string ToolTipEditar => $"Editar {typeof(TEntidade).Name} existente";
         public virtual string ToolTipExcluir => $"Excluir {typeof(TEntidade).Name} existente";
 
-        public virtual void Adicionar()
+        public virtual void Inserir()
         {
             TTela tela = new();
 
             OnComandosAdicionaisAddAndEdit?.Invoke(tela, tela.Entidade);
 
-            tela.OnGravarRegistro += _servico.Adicionar;
+            tela.OnGravarRegistro += _servico.Inserir;
 
             TelaPrincipalForm.AtualizarStatus($"Cadastrando {typeof(TEntidade).Name}");
 

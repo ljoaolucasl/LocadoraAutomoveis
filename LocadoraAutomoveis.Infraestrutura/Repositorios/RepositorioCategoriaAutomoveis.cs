@@ -14,8 +14,11 @@ namespace LocadoraAutomoveis.Infraestrutura.Repositorios
         {
         }
 
-        public override bool Existe(CategoriaAutomoveis categoriaParaVerificar)
+        public override bool Existe(CategoriaAutomoveis categoriaParaVerificar, bool exclusao = false)
         {
+            if (exclusao)
+                return Registros.Contains(categoriaParaVerificar);
+
             return Registros.ToList().Any(c => string.Equals(c.Nome.RemoverAcento(), categoriaParaVerificar.Nome.RemoverAcento(), StringComparison.OrdinalIgnoreCase) && c.ID != categoriaParaVerificar.ID);
         }
     }

@@ -85,7 +85,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
         {
             Log.Debug("Tentando excluir a Categoria '{NOME} #{ID}'", categoriaParaExcluir.Nome, categoriaParaExcluir.ID);
 
-            if (!_repositorioCategoriaAutomoveis.Existe(categoriaParaExcluir))
+            if (_repositorioCategoriaAutomoveis.Existe(categoriaParaExcluir, true) == false)
             {
                 Log.Warning("Categoria {ID} não encontrada para excluir", categoriaParaExcluir.ID);
 
@@ -117,7 +117,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
         }
         #endregion
 
-        public CategoriaAutomoveis SelecionarRegistroPorID(int categoriaID)
+        public CategoriaAutomoveis SelecionarRegistroPorID(Guid categoriaID)
         {
             return _repositorioCategoriaAutomoveis.SelecionarPorID(categoriaID);
         }

@@ -40,9 +40,9 @@ namespace LocadoraAutomoveis.Infraestrutura.Compartilhado
             ContextoDb.SaveChanges();
         }
 
-        public abstract bool Existe(TEntidade objetoParaVerificar);
+        public abstract bool Existe(TEntidade objetoParaVerificar, bool exclusao = false);
 
-        public TEntidade? SelecionarPorID(int id)
+        public TEntidade? SelecionarPorID(Guid id)
         {
             return Registros.Where(r => r.ID == id).FirstOrDefault();
         }

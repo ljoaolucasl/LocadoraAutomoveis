@@ -116,7 +116,7 @@ namespace LocadoraAutomoveis.WinApp
 
         private void ConfigurarBotoesDicionario()
         {
-            coresBotoes.Add(_tabelaCategoria, btnCategoria);
+            coresBotoes.Add(_tabelaCategoria.Controls[0], btnCategoria);
         }
 
         private void btnColor_MouseEnter(object sender, EventArgs e)
@@ -142,7 +142,7 @@ namespace LocadoraAutomoveis.WinApp
 
         private void plPrincipal_ControlRemoved(object sender, ControlEventArgs e)
         {
-            coresBotoes.TryGetValue(e.Control, out ToolStripButton btn);
+            coresBotoes.TryGetValue(e.Control.Controls[0], out ToolStripButton btn);
 
             btn.BackColor = Color.FromArgb(0, 165, 100);
             btn.ForeColor = Color.White;

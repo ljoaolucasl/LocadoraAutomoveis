@@ -24,7 +24,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
 
             BuilderSetup.SetCreatePersistenceMethod<CategoriaAutomoveis>(_repositorioCategoriaAutomoveis.Inserir);
 
-            BuilderSetup.DisablePropertyNamingFor<CategoriaAutomoveis, int>(x => x.ID);
+            BuilderSetup.DisablePropertyNamingFor<CategoriaAutomoveis, Guid>(x => x.ID);
         }
 
         [TestMethod]
@@ -100,7 +100,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
         }
 
         [TestMethod]
-        public void Deve_verificar_se_categoria_existe()
+        public void Deve_verificar_se_categoria_existe_validacao()
         {
             //arrange
             var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
@@ -114,7 +114,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
         }
 
         [TestMethod]
-        public void Deve_permitir_se_categoria_com_nome_e_ID_iguais()
+        public void Deve_permitir_se_categoria_com_nome_e_ID_iguais_validacao()
         {
             //arrange
             var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
@@ -125,6 +125,20 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
 
             //assert
             resultado.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Deve_verificar_se_categoria_existe_exclusao()
+        {
+            //arrange
+            var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
+            var categoria2 = _repositorioCategoriaAutomoveis.SelecionarPorID(categoria1.ID);
+
+            //action
+            bool resultado = _repositorioCategoriaAutomoveis.Existe(categoria2, true);
+
+            //assert
+            resultado.Should().BeTrue();
         }
     }
 }

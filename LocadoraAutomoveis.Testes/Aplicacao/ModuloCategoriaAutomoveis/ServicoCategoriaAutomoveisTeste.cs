@@ -68,7 +68,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
         public void Nao_Deve_inserir_categoria_quando_ja_existe()
         {
             //arrange
-            _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>())).Returns(true);
+            _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>(), false)).Returns(true);
 
             //action
             var resultado = _servico.Inserir(_categoria);
@@ -135,7 +135,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
         public void Nao_Deve_editar_categoria_quando_ja_existe()
         {
             //arrange
-            _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>())).Returns(true);
+            _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>(), false)).Returns(true);
 
             //action
             var resultado = _servico.Editar(_categoria);
@@ -170,7 +170,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
         {
             //arrange
             var categoria = Builder<CategoriaAutomoveis>.CreateNew().Build();
-            _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>())).Returns(true);
+            _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>(), true)).Returns(true);
 
             //action
             var resultado = _servico.Excluir(categoria);
@@ -184,7 +184,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
         public void Nao_Deve_excluir_categoria_quando_nao_existente()
         {
             //arrange
-            _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>())).Returns(false);
+            _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>(), false)).Returns(false);
 
             //action
             var resultado = _servico.Excluir(Builder<CategoriaAutomoveis>.CreateNew().Build());
@@ -199,7 +199,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
         public void Nao_Deve_excluir_categoria_quando_relacionada_ao_automovel()
         {
             //arrange
-            _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>())).Returns(true);
+            _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>(), true)).Returns(true);
             var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
             FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
 
@@ -220,7 +220,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
         public void Nao_Deve_excluir_categoria_quando_relacionada_ao_plano_de_cobranca()
         {
             //arrange
-            _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>())).Returns(true);
+            _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>(), true)).Returns(true);
             var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
             FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
 
@@ -241,7 +241,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
         public void Nao_Deve_excluir_categoria_quando_relacionada_ao_aluguel_em_aberto()
         {
             //arrange
-            _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>())).Returns(true);
+            _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>(), true)).Returns(true);
             var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
             FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
 
@@ -262,7 +262,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
         public void Nao_Deve_excluir_categoria_quando_falha_na_exclusao()
         {
             //arrange
-            _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>())).Returns(true);
+            _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>(), true)).Returns(true);
             var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
             FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
 

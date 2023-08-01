@@ -62,6 +62,7 @@
             btnGravar.TabIndex = 2;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = true;
+            btnGravar.Click += btnAdd_Click;
             // 
             // btnCancelar
             // 
@@ -83,6 +84,7 @@
             lbErroNome.Size = new Size(92, 15);
             lbErroNome.TabIndex = 4;
             lbErroNome.Text = "*mensagemErro";
+            lbErroNome.Visible = false;
             // 
             // TelaCategoriaAutomoveisForm
             // 

@@ -3,8 +3,10 @@
     public interface ITabelaBase<TEntidade>
         where TEntidade : EntidadeBase
     {
-        public void AtualizarLista(List<TEntidade> registros);
+        DataGridView ObterGrid();
 
-        public TEntidade ObterRegistroSelecionado();
+        void AtualizarLista(List<TEntidade> registros);
+
+        TEntidade ObterRegistroSelecionado();
     }
 }

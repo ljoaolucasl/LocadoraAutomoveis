@@ -25,7 +25,14 @@ namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
                 gridCategoriaAutomoveis.Rows.Add(row);
             }
 
+            gridCategoriaAutomoveis.Columns[0].Visible = false;
+
             TelaPrincipalForm.AtualizarStatus($"Visualizando {padroes.Count} Padrões");
+        }
+
+        public DataGridView ObterGrid()
+        {
+            return gridCategoriaAutomoveis;
         }
 
         public CategoriaAutomoveis ObterRegistroSelecionado()

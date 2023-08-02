@@ -1,8 +1,13 @@
 using LocadoraAutomoveis.Aplicacao.Servicos;
+using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloParceiro;
+using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
 using LocadoraAutomoveis.WinApp.Compartilhado;
-using LocadoraAutomoveis.WinApp.ModuloPadrao;
+using LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.WinApp.ModuloParceiro;
+using LocadoraAutomoveis.WinApp.ModuloTaxaEServico;
 
 namespace LocadoraAutomoveis.WinApp
 {
@@ -16,9 +21,17 @@ namespace LocadoraAutomoveis.WinApp
 
         private DataGridView _grid;
 
-        private RepositorioPadrao _repositorioPadrao;
-        private ServicoPadrao _servicoPadrao;
-        private TabelaPadraoControl _tabelaPadrao;
+        private RepositorioCategoriaAutomoveis _repositorioCategoria;
+        private ServicoCategoriaAutomoveis _servicoCategoria;
+        private TabelaCategoriaAutomoveisControl _tabelaCategoria;
+
+        private RepositorioTaxaEServico _repositorioTaxaEServico;
+        private ServicoTaxaEServico _servicoTaxaEServico;
+        private TabelaTaxaEServicoControl _tabelaTaxaEServico;
+
+        private RepositorioParceiro _repositorioParceiro;
+        private ServicoParceiro _servicoParceiro;
+        private TabelaParceiroControl _tabelaParceiro;
 
         public TelaPrincipalForm()
         {
@@ -40,15 +53,35 @@ namespace LocadoraAutomoveis.WinApp
         {
             _contextoDb = new LocadoraAutomoveisDesignFactory().CreateDbContext(null);
 
-            _repositorioPadrao = new RepositorioPadrao(_contextoDb);
-            _servicoPadrao = new ServicoPadrao(_repositorioPadrao);
-            _tabelaPadrao = new TabelaPadraoControl();
+            _repositorioCategoria = new RepositorioCategoriaAutomoveis(_contextoDb);
+            _servicoCategoria = new ServicoCategoriaAutomoveis(_repositorioCategoria, new ValidadorCategoriaAutomoveis());
+            _tabelaCategoria = new TabelaCategoriaAutomoveisControl();
+
+            _repositorioTaxaEServico = new RepositorioTaxaEServico(_contextoDb);
+            _servicoTaxaEServico = new ServicoTaxaEServico(_repositorioTaxaEServico, new ValidadorTaxaEServico());
+            _tabelaTaxaEServico = new TabelaTaxaEServicoControl();
+
+            _repositorioParceiro = new RepositorioParceiro(_contextoDb);
+            _servicoParceiro = new ServicoParceiro(_repositorioParceiro, new ValidadorParceiro());
+            _tabelaParceiro = new TabelaParceiroControl();
         }
 
         #region BotoesTabelas
-        private void btnPadrao_Click(object sender, EventArgs e)
+        private void btnCategoria_Click(object sender, EventArgs e)
         {
-            _controladorBase = new ControladorPadrao(_repositorioPadrao, _servicoPadrao, _tabelaPadrao);
+            _controladorBase = new ControladorCategoriaAutomoveis(_repositorioCategoria, _servicoCategoria, _tabelaCategoria);
+            ConfigurarTelaPrincipal();
+        }
+
+        private void btnTaxa_Click(object sender, EventArgs e)
+        {
+            _controladorBase = new ControladorTaxaEServico(_repositorioTaxaEServico, _servicoTaxaEServico, _tabelaTaxaEServico);
+            ConfigurarTelaPrincipal();
+        }
+
+        private void btnParceiro_Click(object sender, EventArgs e)
+        {
+            _controladorBase = new ControladorParceiro(_repositorioParceiro, _servicoParceiro, _tabelaParceiro);
             ConfigurarTelaPrincipal();
         }
         #endregion
@@ -56,7 +89,7 @@ namespace LocadoraAutomoveis.WinApp
         #region CRUD
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            _controladorBase.Adicionar();
+            _controladorBase.Inserir();
             ResetarBotoes();
         }
 
@@ -83,7 +116,7 @@ namespace LocadoraAutomoveis.WinApp
 
         private void InicializarTabela()
         {
-            _grid = _controladorBase.ObterTabela();
+            _grid = _controladorBase.ObterGrid();
             _grid.Dock = DockStyle.Fill;
 
             plPrincipal.Controls.Clear();
@@ -115,7 +148,9 @@ namespace LocadoraAutomoveis.WinApp
 
         private void ConfigurarBotoesDicionario()
         {
-            coresBotoes.Add(_tabelaPadrao, btnPadrao);
+            coresBotoes.Add(_tabelaCategoria.Controls[0], btnCategoria);
+            coresBotoes.Add(_tabelaTaxaEServico.Controls[0], btnTaxa);
+            coresBotoes.Add(_tabelaParceiro.Controls[0], btnParceiro);
         }
 
         private void btnColor_MouseEnter(object sender, EventArgs e)

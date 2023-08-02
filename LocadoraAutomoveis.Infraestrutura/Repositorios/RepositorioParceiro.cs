@@ -11,6 +11,10 @@ namespace LocadoraAutomoveis.Infraestrutura.Repositorios
         {
         }
 
+        public RepositorioParceiro()
+        {            
+        }
+
         public override bool Existe(Parceiro parceiroParaVerificar, bool exclusao = false)
         {
             if (exclusao)

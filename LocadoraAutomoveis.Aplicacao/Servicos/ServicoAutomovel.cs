@@ -1,5 +1,7 @@
 ﻿using FluentResults;
+using FluentValidation.Results;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
+using LocadoraAutomoveis.Aplicacao.Extensions;
 using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using Microsoft.Data.SqlClient;
 using Serilog;
@@ -11,94 +13,94 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
         private readonly IRepositorioAutomovel _repositorioAutomovel;
         private readonly IValidadorAutomovel _validadorAutomovel;
 
-        public ServicoCategoriaAutomoveis(IRepositorioAutomovel repositorioAutomovel, IValidadorAutomovel validadorAutomovel)
+        public ServicoAutomovel(IRepositorioAutomovel repositorioAutomovel, IValidadorAutomovel validadorAutomovel)
         {
             _repositorioAutomovel = repositorioAutomovel;
             _validadorAutomovel = validadorAutomovel;
         }
 
         #region CRUD
-        public Result Inserir(CategoriaAutomoveis categoriaParaAdicionar)
+        public Result Inserir(Automovel automovelParaAdicionar)
         {
-            Log.Debug("Tentando adicionar a Categoria '{NOME}'", categoriaParaAdicionar.Nome);
+            Log.Debug("Tentando inserir o Automóvel '{PLACA}'", automovelParaAdicionar.Placa);
 
-            Result resultado = ValidarRegistro(categoriaParaAdicionar);
+            Result resultado = ValidarRegistro(automovelParaAdicionar);
 
             if (resultado.IsFailed)
             {
-                Log.Warning("Falha ao tentar adicionar a Categoria '{NOME}'", categoriaParaAdicionar.Nome);
+                Log.Warning("Falha ao tentar inserir o Automóvel '{PLACA}'", automovelParaAdicionar.Placa);
                 return resultado;
             }
 
             try
             {
-                _repositorioAutomovel.Inserir(categoriaParaAdicionar);
+                _repositorioAutomovel.Inserir(automovelParaAdicionar);
 
-                Log.Debug("Adicionado a Categoria '{NOME} #{ID}' com sucesso!", categoriaParaAdicionar.Nome, categoriaParaAdicionar.ID);
+                Log.Debug("Inserido o Automóvel '{PLACA} #{ID}' com sucesso!", automovelParaAdicionar.Placa, automovelParaAdicionar.ID);
 
                 return Result.Ok();
             }
             catch (Exception ex)
             {
-                CustomError erro = new CustomError("Falha ao tentar inserir categoria ", "Categoria", ex.Message);
+                CustomError erro = new("Falha ao tentar inserir o Automóvel ", "Automovel", ex.Message);
 
-                Log.Error(ex, erro.ErrorMessage + "{C}", categoriaParaAdicionar);
+                Log.Error(ex, erro.ErrorMessage + "{A}", automovelParaAdicionar);
 
                 return Result.Fail(erro);
             }
         }
 
-        public Result Editar(CategoriaAutomoveis categoriaParaEditar)
+        public Result Editar(Automovel automovelParaEditar)
         {
-            Log.Debug("Tentando editar a Categoria '{NOME} #{ID}'", categoriaParaEditar.Nome, categoriaParaEditar.ID);
+            Log.Debug("Tentando editar o Automóvel '{PLACA} #{ID}'", automovelParaEditar.Placa, automovelParaEditar.ID);
 
-            Result resultado = ValidarRegistro(categoriaParaEditar);
+            Result resultado = ValidarRegistro(automovelParaEditar);
 
             if (resultado.IsFailed)
             {
-                Log.Warning("Falha ao tentar editar a Categoria '{NOME} #{ID}'", categoriaParaEditar.Nome, categoriaParaEditar.ID);
+                Log.Warning("Falha ao tentar editar o Automóvel '{PLACA} #{ID}'", automovelParaEditar.Placa, automovelParaEditar.ID);
                 return resultado;
             }
             try
             {
-                _repositorioAutomovel.Editar(categoriaParaEditar);
+                _repositorioAutomovel.Editar(automovelParaEditar);
 
-                Log.Debug("Editado a Categoria '{NOME} #{ID}' com sucesso!", categoriaParaEditar.Nome, categoriaParaEditar.ID);
+                Log.Debug("Editado o Automóvel '{PLACA} #{ID}' com sucesso!", automovelParaEditar.Placa, automovelParaEditar.ID);
 
                 return Result.Ok();
             }
             catch (Exception ex)
             {
-                CustomError erro = new CustomError("Falha ao tentar editar categoria ", "Categoria", ex.Message);
+                CustomError erro = new("Falha ao tentar editar o Automóvel ", "Automovel", ex.Message);
 
-                Log.Error(ex, erro.ErrorMessage + "{C}", categoriaParaEditar);
+                Log.Error(ex, erro.ErrorMessage + "{A}", automovelParaEditar);
 
                 return Result.Fail(erro);
             }
         }
 
-        public Result Excluir(CategoriaAutomoveis categoriaParaExcluir)
+        public Result Excluir(Automovel automovelParaExcluir)
         {
-            Log.Debug("Tentando excluir a Categoria '{NOME} #{ID}'", categoriaParaExcluir.Nome, categoriaParaExcluir.ID);
+            Log.Debug("Tentando excluir o Automóvel '{PLACA} #{ID}'", automovelParaExcluir.Placa, automovelParaExcluir.ID);
 
-            if (_repositorioAutomovel.Existe(categoriaParaExcluir, true) == false)
+            if (_repositorioAutomovel.Existe(automovelParaExcluir, true) == false)
             {
-                Log.Warning("Categoria {ID} não encontrada para excluir", categoriaParaExcluir.ID);
+                Log.Warning("Automóvel {ID} não encontrado para excluir", automovelParaExcluir.ID);
 
-                return Result.Fail("Categoria não encontrada");
+                return Result.Fail("Automóvel não encontrado");
             }
 
             try
             {
-                _repositorioAutomovel.Excluir(categoriaParaExcluir);
+                _repositorioAutomovel.Excluir(automovelParaExcluir);
 
-                Log.Debug("Excluído a Categoria '{NOME} #{ID}' com sucesso!", categoriaParaExcluir.Nome, categoriaParaExcluir.ID);
+                Log.Debug("Excluído o Automóvel '{PLACA} #{ID}' com sucesso!", automovelParaExcluir.Placa, automovelParaExcluir.ID);
 
                 return Result.Ok();
             }
             catch (SqlException ex)
             {
-                Log.Warning("Falha ao tentar excluir a Categoria '{NOME} #{ID}'", categoriaParaExcluir.Nome, categoriaParaExcluir.ID, ex);
+                Log.Warning("Falha ao tentar excluir o Automóvel '{PLACA} #{ID}'", automovelParaExcluir.Placa, automovelParaExcluir.ID, ex);
 
                 List<IError> erros = new();
 
@@ -113,17 +115,17 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
         }
         #endregion
 
-        public CategoriaAutomoveis SelecionarRegistroPorID(Guid categoriaID)
+        public Automovel SelecionarRegistroPorID(Guid categoriaID)
         {
             return _repositorioAutomovel.SelecionarPorID(categoriaID);
         }
 
-        public IEnumerable<CategoriaAutomoveis> SelecionarTodosOsRegistros()
+        public IEnumerable<Automovel> SelecionarTodosOsRegistros()
         {
             return _repositorioAutomovel.SelecionarTodos();
         }
 
-        public Result ValidarRegistro(CategoriaAutomoveis categoriaParaValidar)
+        public Result ValidarRegistro(Automovel categoriaParaValidar)
         {
             List<IError> erros = new();
 
@@ -133,7 +135,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
                 erros = validacao.ConverterParaListaDeErros();
 
             if (_repositorioAutomovel.Existe(categoriaParaValidar))
-                erros.Add(new CustomError("Essa Categoria já existe", "Nome"));
+                erros.Add(new CustomError("Esse Automóvel já existe", "Placa"));
 
             return Result.Fail(erros);
         }

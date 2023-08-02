@@ -40,7 +40,7 @@
             stripStatus = new StatusStrip();
             lbStatus = new ToolStripStatusLabel();
             plPrincipal = new Panel();
-            btnParceiro = new ToolStripButton();
+            btnTaxa = new ToolStripButton();
             barraBotoes.SuspendLayout();
             barraAcoes.SuspendLayout();
             stripStatus.SuspendLayout();
@@ -48,34 +48,53 @@
             // 
             // barraBotoes
             // 
-            barraBotoes.BackColor = Color.FromArgb(0, 165, 100);
+            barraBotoes.BackColor = Color.Gainsboro;
+            barraBotoes.Dock = DockStyle.Left;
+            barraBotoes.GripMargin = new Padding(0);
             barraBotoes.GripStyle = ToolStripGripStyle.Hidden;
-            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCategoria, btnTaxa, btnParceiro });
+            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCategoria, btnTaxa });
             barraBotoes.LayoutStyle = ToolStripLayoutStyle.Flow;
             barraBotoes.Location = new Point(0, 0);
             barraBotoes.Name = "barraBotoes";
-            barraBotoes.Size = new Size(1013, 58);
+            barraBotoes.Padding = new Padding(0);
+            barraBotoes.RenderMode = ToolStripRenderMode.System;
+            barraBotoes.Size = new Size(259, 626);
             barraBotoes.TabIndex = 0;
             barraBotoes.Text = "toolStrip1";
             // 
             // btnCategoria
             // 
-            btnCategoria.BackColor = Color.FromArgb(0, 165, 100);
+            btnCategoria.BackColor = Color.Gainsboro;
             btnCategoria.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnCategoria.Font = new Font("Tahoma", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            btnCategoria.ForeColor = Color.White;
+            btnCategoria.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCategoria.ForeColor = Color.Black;
             btnCategoria.ImageTransparentColor = Color.Magenta;
             btnCategoria.Margin = new Padding(0);
             btnCategoria.Name = "btnCategoria";
-            btnCategoria.Padding = new Padding(15);
+            btnCategoria.Padding = new Padding(20, 10, 20, 10);
             btnCategoria.RightToLeft = RightToLeft.No;
-            btnCategoria.Size = new Size(130, 58);
-            btnCategoria.Text = "Categoria";
+            btnCategoria.Size = new Size(258, 42);
+            btnCategoria.Text = "Categoria de Automóveis";
             btnCategoria.TextDirection = ToolStripTextDirection.Horizontal;
             btnCategoria.ToolTipText = "Categoria";
             btnCategoria.Click += btnCategoria_Click;
-            btnCategoria.MouseEnter += btnColor_MouseEnter;
-            btnCategoria.MouseLeave += btnColor_MouseLeave;
+            // 
+            // btnTaxa
+            // 
+            btnTaxa.BackColor = Color.Gainsboro;
+            btnTaxa.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnTaxa.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnTaxa.ForeColor = Color.Black;
+            btnTaxa.ImageTransparentColor = Color.Magenta;
+            btnTaxa.Margin = new Padding(0);
+            btnTaxa.Name = "btnTaxa";
+            btnTaxa.Padding = new Padding(20, 10, 20, 10);
+            btnTaxa.RightToLeft = RightToLeft.No;
+            btnTaxa.Size = new Size(258, 42);
+            btnTaxa.Text = "Taxa e Serviços";
+            btnTaxa.TextDirection = ToolStripTextDirection.Horizontal;
+            btnTaxa.ToolTipText = "Taxa e Serviços";
+            btnTaxa.Click += btnTaxa_Click;
             // 
             // btnTaxa
             // 
@@ -96,12 +115,13 @@
             // 
             // barraAcoes
             // 
+            barraAcoes.AutoSize = false;
             barraAcoes.BackColor = Color.White;
             barraAcoes.GripStyle = ToolStripGripStyle.Hidden;
             barraAcoes.Items.AddRange(new ToolStripItem[] { btnAdicionar, btnEditar, btnExcluir, separadorBarra, lbTipoCadastro });
-            barraAcoes.Location = new Point(0, 58);
+            barraAcoes.Location = new Point(259, 0);
             barraAcoes.Name = "barraAcoes";
-            barraAcoes.Size = new Size(1013, 53);
+            barraAcoes.Size = new Size(754, 53);
             barraAcoes.TabIndex = 1;
             // 
             // btnAdicionar
@@ -157,9 +177,9 @@
             // stripStatus
             // 
             stripStatus.Items.AddRange(new ToolStripItem[] { lbStatus });
-            stripStatus.Location = new Point(0, 604);
+            stripStatus.Location = new Point(259, 604);
             stripStatus.Name = "stripStatus";
-            stripStatus.Size = new Size(1013, 22);
+            stripStatus.Size = new Size(754, 22);
             stripStatus.TabIndex = 2;
             stripStatus.Text = "statusStrip1";
             // 
@@ -171,29 +191,12 @@
             // plPrincipal
             // 
             plPrincipal.Dock = DockStyle.Fill;
-            plPrincipal.Location = new Point(0, 111);
+            plPrincipal.Location = new Point(259, 53);
             plPrincipal.Name = "plPrincipal";
-            plPrincipal.Size = new Size(1013, 493);
+            plPrincipal.Size = new Size(754, 551);
             plPrincipal.TabIndex = 3;
             plPrincipal.ControlAdded += plPrincipal_ControlAdded;
             plPrincipal.ControlRemoved += plPrincipal_ControlRemoved;
-            // 
-            // btnParceiro
-            // 
-            btnParceiro.BackColor = Color.FromArgb(0, 165, 100);
-            btnParceiro.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnParceiro.Font = new Font("Tahoma", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            btnParceiro.ForeColor = Color.White;
-            btnParceiro.ImageTransparentColor = Color.Magenta;
-            btnParceiro.Margin = new Padding(0);
-            btnParceiro.Name = "btnParceiro";
-            btnParceiro.Padding = new Padding(15);
-            btnParceiro.RightToLeft = RightToLeft.No;
-            btnParceiro.Size = new Size(116, 58);
-            btnParceiro.Text = "Parceiro";
-            btnParceiro.TextDirection = ToolStripTextDirection.Horizontal;
-            btnParceiro.ToolTipText = "Parceiro";
-            btnParceiro.Click += btnParceiro_Click;
             // 
             // TelaPrincipalForm
             // 

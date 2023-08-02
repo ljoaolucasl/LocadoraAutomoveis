@@ -76,7 +76,6 @@
             btnCategoria.Size = new Size(258, 42);
             btnCategoria.Text = "Categoria de Automóveis";
             btnCategoria.TextDirection = ToolStripTextDirection.Horizontal;
-            btnCategoria.ToolTipText = "Categoria";
             btnCategoria.Click += btnCategoria_Click;
             // 
             // btnTaxa

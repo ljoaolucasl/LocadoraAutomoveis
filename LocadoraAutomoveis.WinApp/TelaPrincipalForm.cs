@@ -1,11 +1,13 @@
 using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.Dominio.ModuloParceiro;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.WinApp.ModuloFuncionario;
 using LocadoraAutomoveis.WinApp.ModuloParceiro;
 using LocadoraAutomoveis.WinApp.ModuloTaxaEServico;
 
@@ -24,6 +26,10 @@ namespace LocadoraAutomoveis.WinApp
         private RepositorioCategoriaAutomoveis _repositorioCategoria;
         private ServicoCategoriaAutomoveis _servicoCategoria;
         private TabelaCategoriaAutomoveisControl _tabelaCategoria;
+
+        private RepositorioFuncionario _repositorioFuncionario;
+        private ServicoFuncionario _servicoFuncionario;
+        private TabelaFuncionarioControl _tabelaFuncionario;
 
         private RepositorioTaxaEServico _repositorioTaxaEServico;
         private ServicoTaxaEServico _servicoTaxaEServico;
@@ -57,6 +63,10 @@ namespace LocadoraAutomoveis.WinApp
             _servicoCategoria = new ServicoCategoriaAutomoveis(_repositorioCategoria, new ValidadorCategoriaAutomoveis());
             _tabelaCategoria = new TabelaCategoriaAutomoveisControl();
 
+            _repositorioFuncionario = new RepositorioFuncionario(_contextoDb);
+            _servicoFuncionario = new ServicoFuncionario(_repositorioFuncionario, new ValidadorFuncionario());
+            _tabelaFuncionario = new TabelaFuncionarioControl();
+
             _repositorioTaxaEServico = new RepositorioTaxaEServico(_contextoDb);
             _servicoTaxaEServico = new ServicoTaxaEServico(_repositorioTaxaEServico, new ValidadorTaxaEServico());
             _tabelaTaxaEServico = new TabelaTaxaEServicoControl();
@@ -70,6 +80,12 @@ namespace LocadoraAutomoveis.WinApp
         private void btnCategoria_Click(object sender, EventArgs e)
         {
             _controladorBase = new ControladorCategoriaAutomoveis(_repositorioCategoria, _servicoCategoria, _tabelaCategoria);
+            ConfigurarTelaPrincipal();
+        }
+
+        private void btnFuncionario_Click(object sender, EventArgs e)
+        {
+            _controladorBase = new ControladorFuncionario(_repositorioFuncionario, _servicoFuncionario, _tabelaFuncionario);
             ConfigurarTelaPrincipal();
         }
 
@@ -149,6 +165,7 @@ namespace LocadoraAutomoveis.WinApp
         private void ConfigurarBotoes()
         {
             coresBotoes.Add(_tabelaCategoria.Controls[0], btnCategoria);
+            coresBotoes.Add(_tabelaFuncionario.Controls[0], btnFuncionario);
             coresBotoes.Add(_tabelaTaxaEServico.Controls[0], btnTaxa);
             coresBotoes.Add(_tabelaParceiro.Controls[0], btnParceiro);
 

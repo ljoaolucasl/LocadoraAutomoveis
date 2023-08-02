@@ -72,7 +72,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
-                CustomError erro = new("Falha ao tentar editar parceiro ", "Parceiro", ex.Message);
+                CustomError erro = new("Falha ao tentar editar parceiro", "Parceiro", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{P}", parceiroParaEditar);
 

@@ -11,61 +11,77 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloFuncionario
     [TestClass]
     public class FuncionarioTeste
     {
-        private RepositorioFuncionario _repositorioFuncionarios;
-
-        private ContextoDados _contexto;
+        private ValidadorFuncionario _validador;
 
         [TestInitialize]
         public void Setup()
         {
-            _contexto = new LocadoraAutomoveisDesignFactory().CreateDbContext(null);
-
-            _repositorioFuncionarios = new RepositorioFuncionario(_contexto);
-
-            _contexto.RemoveRange(_repositorioFuncionarios.Registros);
+            _validador = new ValidadorFuncionario();
         }
 
         [TestMethod]
-        public void Deve_ter_no_minimo_3_caracteres()
+        public void Nao_deve_aceitar_menos_que_3_caracteres()
         {
-            Funcionario funcionario = new("Ca", DateTime.Parse("23/09/2023"), 1200);
+            //arrange
+            Funcionario funcionario = new("Ma", Convert.ToDateTime("04/08/2023"), 1200);
 
-            ValidationResult resultado = new ValidadorFuncionario().Validate(funcionario);
+            //action
+            ValidationResult resultado = _validador.Validate(funcionario);
 
+            //assert
             resultado.IsValid.Should().BeFalse();
         }
 
         [TestMethod]
         public void Nao_deve_aceitar_caracteres_especiais()
         {
-            Funcionario funcionario = new("Caminhonete@", DateTime.Parse("23/09/2023"), 1200);
+            //arrange
+            Funcionario funcionario = new("Felipe@", Convert.ToDateTime("03/08/2023"), 1100);
 
-            ValidationResult resultado = new ValidadorFuncionario().Validate(funcionario);
+            //action
+            ValidationResult resultado = _validador.Validate(funcionario);
 
+            //assert
             resultado.IsValid.Should().BeFalse();
         }
 
         [TestMethod]
-        public void Nao_deve_aceitar_campo_vazio()
+        public void Nao_deve_aceitar_o_campo_nome_vazio()
         {
-            Funcionario funcionario = new("", DateTime.Parse("23/09/2023"), 1900);
+            //arrange
+            Funcionario funcionario = new("", Convert.ToDateTime("04/08/2023"), 1200);
 
-            ValidationResult resultado = new ValidadorFuncionario().Validate(funcionario);
+            //action
+            ValidationResult resultado = _validador.Validate(funcionario);
 
+            //assert
             resultado.IsValid.Should().BeFalse();
         }
 
         [TestMethod]
-        public void Nao_deve_aceitar_funcionario_repetida()
+        public void Nao_deve_aceitar_data_menor_que_a_data_atual()
         {
-            Funcionario funcionario1 = new("Carlos", DateTime.Parse("23/09/2023"), 1100);
-            Funcionario funcionario2 = new("Carlos", DateTime.Parse("21/09/2023"), 1400);
+            //arrange
+            Funcionario funcionario = new("João", Convert.ToDateTime("01/08/2023"), 1200);
 
-            _repositorioFuncionarios.Inserir(funcionario1);
+            //action
+            ValidationResult resultado = _validador.Validate(funcionario);
 
-            bool resultado = new ValidadorFuncionario().ValidarFuncionarioExistente(funcionario2, _repositorioFuncionarios.SelecionarTodos());
+            //assert
+            resultado.IsValid.Should().BeFalse();
+        }
 
-            resultado.Should().BeTrue();
+        [TestMethod]
+        public void Nao_deve_aceitar_o_campo_salario_vazio_ou_igual_a_zero()
+        {
+            //arrange
+            Funcionario funcionario = new("Rafael", Convert.ToDateTime("04/08/2023"), 0);
+
+            //action
+            ValidationResult resultado = _validador.Validate(funcionario);
+
+            //assert
+            resultado.IsValid.Should().BeFalse();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
+using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
@@ -51,56 +52,96 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloFuncionario
             _repositorioFuncionarios.Editar(funcionario2);
 
             //assert
-            var categoriaSelecionada = _repositorioFuncionarios.SelecionarPorID(funcionario1.ID);
+            var funcionarioSelecionado = _repositorioFuncionarios.SelecionarPorID(funcionario1.ID);
             _repositorioFuncionarios.SelecionarTodos().Count.Should().Be(1);
-            categoriaSelecionada.Should().Be(funcionario2);
+            funcionarioSelecionado.Should().Be(funcionario2);
         }
 
-        //[TestMethod]
-        //public void Deve_excluir_uma_disciplina()
-        //{
-        //    var categoria1 = new Disciplina("Matemática") { Id = 1 };
+        [TestMethod]
+        public void Deve_excluir_um_funcionario()
+        {
+            //arrange
+            var funcionario1 = Builder<Funcionario>.CreateNew().Persist();
+            var funcionarioSelecionado = _repositorioFuncionarios.SelecionarPorID(funcionario1.ID);
 
-        //    _repositorioDisciplina.Adicionar(disciplina1);
+            //action
+            _repositorioFuncionarios.Excluir(funcionarioSelecionado);
 
-        //    var disciplinaSelecionada = _repositorioDisciplina.SelecionarPorId(1);
+            //assert
+            _repositorioFuncionarios.SelecionarTodos().Count.Should().Be(0);
+        }
 
-        //    _repositorioDisciplina.Excluir(disciplinaSelecionada);
+        [TestMethod]
+        public void Deve_selecionar_por_ID_um_funcionario()
+        {
+            //arrange
+            var funcionario1 = Builder<Funcionario>.CreateNew().Persist();
 
-        //    Assert.IsTrue(_repositorioDisciplina.ObterListaRegistros().Count == 0);
-        //}
+            //action
+            var funcionarioSelecionado = _repositorioFuncionarios.SelecionarPorID(funcionario1.ID);
 
-        //[TestMethod]
-        //public void Deve_selecionar_por_ID_uma_disciplina()
-        //{
-        //    var disciplina = new Disciplina("Matemática") { Id = 1 };
+            //assert
+            funcionarioSelecionado.Should().Be(funcionario1);
+        }
 
-        //    _repositorioDisciplina.Adicionar(disciplina);
+        [TestMethod]
+        public void Deve_selecionar_todos_os_funcionarios()
+        {
+            //arrange
+            var funcionario1 = Builder<Funcionario>.CreateNew().Persist();
+            var funcionario2 = Builder<Funcionario>.CreateNew().Persist();
+            var funcionario3 = Builder<Funcionario>.CreateNew().Persist();
+            var funcionario4 = Builder<Funcionario>.CreateNew().Persist();
 
-        //    var disciplinaSelecionada = _repositorioDisciplina.SelecionarPorId(1);
+            //action
+            var listaFuncionarios = _repositorioFuncionarios.SelecionarTodos();
 
-        //    Assert.AreEqual(disciplinaSelecionada, disciplina);
-        //}
+            //assert
+            listaFuncionarios[0].Should().Be(funcionario1);
+            listaFuncionarios[3].Should().Be(funcionario4);
+            listaFuncionarios.Count.Should().Be(4);
+        }
 
-        //[TestMethod]
-        //public void Deve_selecionar_todas_as_disciplina()
-        //{
-        //    //arrange
-        //    var disciplina1 = new Disciplina("Matemática") { Id = 1 };
-        //    var disciplina2 = new Disciplina("Português") { Id = 2 };
-        //    var disciplina3 = new Disciplina("Artes") { Id = 3 };
-        //    var disciplina4 = new Disciplina("História") { Id = 4 };
+        [TestMethod]
+        public void Deve_verificar_se_funcionario_existe_validacao()
+        {
+            //arrange
+            var funcionario1 = Builder<Funcionario>.CreateNew().Persist();
+            var funcionario2 = new Funcionario(funcionario1.Nome, Convert.ToDateTime("05/08/2023"), 500);
 
-        //    //action
-        //    _repositorioDisciplina.Adicionar(disciplina1);
-        //    _repositorioDisciplina.Adicionar(disciplina2);
-        //    _repositorioDisciplina.Adicionar(disciplina3);
-        //    _repositorioDisciplina.Adicionar(disciplina4);
+            //action
+            bool resultado = _repositorioFuncionarios.Existe(funcionario2);
 
-        //    var listaDisciplinas = _repositorioDisciplina.ObterListaRegistros();
+            //assert
+            resultado.Should().BeTrue();
+        }
 
-        //    //assert
-        //    Assert.IsTrue(listaDisciplinas.Count == 4);
-        //}
+        [TestMethod]
+        public void Deve_permitir_se_funcionario_com_nome_e_ID_iguais_validacao()
+        {
+            //arrange
+            var funcionario1 = Builder<Funcionario>.CreateNew().Persist();
+            var funcionario2 = new Funcionario(funcionario1.Nome, Convert.ToDateTime("05/08/2023"), 500) { ID = funcionario1.ID };
+
+            //action
+            bool resultado = _repositorioFuncionarios.Existe(funcionario2);
+
+            //assert
+            resultado.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Deve_verificar_se_funcionario_existe_exclusao()
+        {
+            //arrange
+            var funcionario1 = Builder<Funcionario>.CreateNew().Persist();
+            var funcionario2 = _repositorioFuncionarios.SelecionarPorID(funcionario1.ID);
+
+            //action
+            bool resultado = _repositorioFuncionarios.Existe(funcionario2, true);
+
+            //assert
+            resultado.Should().BeTrue();
+        }
     }
 }

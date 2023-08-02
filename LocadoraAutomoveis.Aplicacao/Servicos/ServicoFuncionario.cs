@@ -42,7 +42,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
-                CustomError erro = new CustomError("Falha ao tentar inserir funcionário ", "Funcionario", ex.Message);
+                CustomError erro = new CustomError("Falha ao tentar inserir Funcionário ", "Funcionario", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{F}", funcionarioParaAdicionar);
 
@@ -71,7 +71,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
-                CustomError erro = new CustomError("Falha ao tentar editar funcionário ", "Funcionario", ex.Message);
+                CustomError erro = new CustomError("Falha ao tentar editar Funcionário ", "Funcionario", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{F}", funcionarioParaEditar);
 
@@ -108,7 +108,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
                     erros.Add(new CustomError("Esse Funcionário está relacionado à um ObjetoRelacao." +
                         " Primeiro exclua o ObjetoRelacao relacionado", "Funcionario"));
                 else
-                    erros.Add(new CustomError("Falha ao tentar excluir funcionário", "Funcionario"));
+                    erros.Add(new CustomError("Falha ao tentar excluir Funcionário", "Funcionario"));
 
                 return Result.Fail(erros);
             }

@@ -11,9 +11,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloFuncionario
         {
         }
 
-        public override DataGridView ObterTabela()
-        {
-            return (DataGridView)_tabela.Controls[0];
-        }
+       
     }
 }

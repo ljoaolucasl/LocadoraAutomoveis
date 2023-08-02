@@ -31,6 +31,11 @@ namespace LocadoraAutomoveis.WinApp.ModuloFuncionario
             TelaPrincipalForm.AtualizarStatus($"Visualizando {padroes.Count} Padrões");
         }
 
+        public DataGridView ObterGrid()
+        {
+            return gridFuncionario;
+        }
+
         public Funcionario ObterRegistroSelecionado()
         {
             return (Funcionario)gridFuncionario.SelectedRows[0].Cells[0].Tag;

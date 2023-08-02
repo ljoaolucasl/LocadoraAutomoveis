@@ -1,5 +1,6 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
+using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Extensions;
@@ -18,6 +19,10 @@ namespace LocadoraAutomoveis.WinApp.ModuloFuncionario
         public TelaFuncionarioForm()
         {
             InitializeComponent();
+
+            _resultado = new Result();
+
+            _funcionario = new Funcionario();
         }
 
         public Funcionario? Entidade
@@ -46,16 +51,21 @@ namespace LocadoraAutomoveis.WinApp.ModuloFuncionario
         {
             ResetarErros();
 
-            var salario = Convert.ToInt32(txtSalario.Text);
-            _funcionario = new Funcionario(txtNome.Text, Convert.ToDateTime(dateAdmissao), Convert.ToDecimal(txtSalario.Text));
-
-            //if (_categoria.ID == 0)
-            //    _categoria.ID = int.Parse(txtId.Text);
+            _funcionario = ObterFuncionario();
 
             _resultado = OnGravarRegistro(_funcionario);
 
             if (_resultado.IsFailed)
                 MostrarErros();
+        }
+
+        private Funcionario ObterFuncionario()
+        {
+            _funcionario.Nome = txtNome.Text;
+            _funcionario.Admissao = Convert.ToDateTime(dateAdmissao.Value);
+            _funcionario.Salario = Convert.ToDecimal(txtSalario.Value);
+
+            return _funcionario;
         }
 
         private void MostrarErros()

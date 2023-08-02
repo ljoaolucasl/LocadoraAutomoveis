@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace LocadoraAutomoveis.Dominio.ModuloFuncionario
 {
-    public class ValidadorFuncionario : AbstractValidator<Funcionario>
+    public class ValidadorFuncionario : AbstractValidator<Funcionario>, IValidadorFuncionario
     {
         public ValidadorFuncionario()
         {
@@ -14,11 +14,21 @@ namespace LocadoraAutomoveis.Dominio.ModuloFuncionario
                 .NotEmpty();
 
             RuleFor(f => f.Admissao)
+                .Must(ValidarData).WithMessage("A data não é válida.")
                 .NotEmpty().WithMessage(@"'Admissao' não pode estar vazia.");
 
             RuleFor(f => f.Salario)
                 .NotEmpty().WithMessage(@"'Salario' não pode estar vazio.");
         }
+
+        private bool ValidarData(DateTime date)
+        {
+            if (date == null)
+                return true;
+
+            return date.Date >= DateTime.Today;
+        }
+
 
         public bool ValidarFuncionarioExistente(Funcionario funcionario, List<Funcionario> listaFuncionarios)
         {

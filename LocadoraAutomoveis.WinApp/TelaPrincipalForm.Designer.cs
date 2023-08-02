@@ -30,6 +30,7 @@
         {
             barraBotoes = new ToolStrip();
             btnCategoria = new ToolStripButton();
+            btnFuncionario = new ToolStripButton();
             barraAcoes = new ToolStrip();
             btnAdicionar = new ToolStripButton();
             btnEditar = new ToolStripButton();
@@ -48,7 +49,7 @@
             // 
             barraBotoes.BackColor = Color.FromArgb(0, 165, 100);
             barraBotoes.GripStyle = ToolStripGripStyle.Hidden;
-            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCategoria });
+            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCategoria, btnFuncionario });
             barraBotoes.LayoutStyle = ToolStripLayoutStyle.Flow;
             barraBotoes.Location = new Point(0, 0);
             barraBotoes.Name = "barraBotoes";
@@ -70,10 +71,25 @@
             btnCategoria.Size = new Size(130, 58);
             btnCategoria.Text = "Categoria";
             btnCategoria.TextDirection = ToolStripTextDirection.Horizontal;
-            btnCategoria.ToolTipText = "Categoria";
             btnCategoria.Click += btnCategoria_Click;
             btnCategoria.MouseEnter += btnColor_MouseEnter;
             btnCategoria.MouseLeave += btnColor_MouseLeave;
+            // 
+            // btnFuncionario
+            // 
+            btnFuncionario.BackColor = Color.FromArgb(0, 165, 100);
+            btnFuncionario.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnFuncionario.Font = new Font("Tahoma", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            btnFuncionario.ForeColor = Color.White;
+            btnFuncionario.ImageTransparentColor = Color.Magenta;
+            btnFuncionario.Margin = new Padding(0);
+            btnFuncionario.Name = "btnFuncionario";
+            btnFuncionario.Padding = new Padding(15);
+            btnFuncionario.RightToLeft = RightToLeft.No;
+            btnFuncionario.Size = new Size(146, 58);
+            btnFuncionario.Text = "Funcionário";
+            btnFuncionario.TextDirection = ToolStripTextDirection.Horizontal;
+            btnFuncionario.Click += btnFuncionario_Click;
             // 
             // barraAcoes
             // 
@@ -195,5 +211,6 @@
         private ToolStripSeparator separadorBarra;
         private ToolStripLabel lbTipoCadastro;
         private Panel plPrincipal;
+        private ToolStripButton btnFuncionario;
     }
 }

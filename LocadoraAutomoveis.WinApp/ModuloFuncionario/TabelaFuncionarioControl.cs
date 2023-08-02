@@ -1,4 +1,5 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloFuncionario;
+﻿using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Extensions;
 
@@ -20,10 +21,12 @@ namespace LocadoraAutomoveis.WinApp.ModuloFuncionario
             foreach (Funcionario item in padroes)
             {
                 DataGridViewRow row = new();
-                row.CreateCells(gridFuncionario, item.ID, item.Nome, item.Admissao, item.Salario);
+                row.CreateCells(gridFuncionario, item.ID, item.Nome, item.Admissao.ToString("d"), item.Salario);
                 row.Cells[0].Tag = item;
                 gridFuncionario.Rows.Add(row);
             }
+
+            gridFuncionario.Columns[0].Visible = false;
 
             TelaPrincipalForm.AtualizarStatus($"Visualizando {padroes.Count} Padrões");
         }

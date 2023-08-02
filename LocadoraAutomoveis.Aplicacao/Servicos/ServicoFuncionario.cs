@@ -1,5 +1,6 @@
 ﻿using FluentResults;
 using FluentValidation.Results;
+using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Extensions;
 using LocadoraAutomoveis.Dominio.Compartilhado;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
@@ -11,81 +12,110 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
     public class ServicoFuncionario : IServicoBase<Funcionario>
     {
-        private readonly RepositorioFuncionario _repositorioFuncionarios;
-
-        public ServicoFuncionario(RepositorioFuncionario repositorioFuncionarios)
+        private readonly IRepositorioFuncionario _repositorioFuncionarios;
+        private readonly IValidadorFuncionario _validadorFuncionario;
+        public ServicoFuncionario(IRepositorioFuncionario repositorioFuncionarios, IValidadorFuncionario validadorFuncionario)
         {
             _repositorioFuncionarios = repositorioFuncionarios;
+            _validadorFuncionario = validadorFuncionario;
         }
 
         #region CRUD
-        public Result Adicionar(Funcionario funcionarioParaAdicionar)
+        public Result Inserir(Funcionario funcionarioParaAdicionar)
         {
-            Log.Debug("Tentando adicionar o Funcionário '{NOME}'", funcionarioParaAdicionar.Nome);
-            Log.Debug("Tentando adicionar o Funcionário '{ADMISSAO}'", funcionarioParaAdicionar.Admissao);
-            Log.Debug("Tentando adicionar o Funcionário '{SALARIO}'", funcionarioParaAdicionar.Salario);
+            Log.Debug("Tentando adicionar o Funcionário '{NOME}' ", funcionarioParaAdicionar.Nome);
 
             Result resultado = ValidarRegistro(funcionarioParaAdicionar);
 
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar adicionar o Funcionário '{NOME}'", funcionarioParaAdicionar.Nome);
-                Log.Warning("Falha ao tentar adicionar o Funcionário '{ADMISSAO}'", funcionarioParaAdicionar.Admissao);
-                Log.Warning("Falha ao tentar adicionar o Funcionário '{SALARIO}'", funcionarioParaAdicionar.Salario);
-
                 return resultado;
             }
+            try
+            {
+                _repositorioFuncionarios.Inserir(funcionarioParaAdicionar);
 
-            _repositorioFuncionarios.Adicionar(funcionarioParaAdicionar);
+                Log.Debug("Adicionado o Funcionário '{NOME} #{ID}' com sucesso!", funcionarioParaAdicionar.Nome, funcionarioParaAdicionar.ID);
 
-            Log.Debug("Adicionado o Funcionário '{NOME} {ADMISSAO} {SALARIO} #{ID}' com sucesso!", funcionarioParaAdicionar.Nome, funcionarioParaAdicionar.Admissao, funcionarioParaAdicionar.Salario, funcionarioParaAdicionar.ID);
+                return Result.Ok();
+            }
+            catch (Exception ex)
+            {
+                CustomError erro = new CustomError("Falha ao tentar inserir funcionário ", "Funcionario", ex.Message);
 
-            return Result.Ok();
+                Log.Error(ex, erro.ErrorMessage + "{F}", funcionarioParaAdicionar);
+
+                return Result.Fail(erro);
+            }
         }
 
         public Result Editar(Funcionario funcionarioParaEditar)
         {
-            Log.Debug("Tentando editar o Funcionário '{NOME} {ADMISSAO} {SALARIO} #{ID}'", funcionarioParaEditar.Nome, funcionarioParaEditar.Admissao, funcionarioParaEditar.Salario, funcionarioParaEditar.ID);
+            Log.Debug("Tentando editar o Funcionário '{NOME} #{ID}'", funcionarioParaEditar.Nome, funcionarioParaEditar.ID);
 
             Result resultado = ValidarRegistro(funcionarioParaEditar);
 
             if (resultado.IsFailed)
             {
-                Log.Warning("Falha ao tentar editar o Funcionário '{NOME} {ADMISSAO} {SALARIO} #{ID}'", funcionarioParaEditar.Nome, funcionarioParaEditar.Admissao, funcionarioParaEditar.Salario, funcionarioParaEditar.ID);
+                Log.Warning("Falha ao tentar editar o Funcionário '{NOME} #{ID}'", funcionarioParaEditar.Nome, funcionarioParaEditar.ID);
                 return resultado;
             }
+            try
+            {
+                _repositorioFuncionarios.Editar(funcionarioParaEditar);
 
-            _repositorioFuncionarios.Adicionar(funcionarioParaEditar);
+                Log.Debug("Editado o Funcionário '{NOME} #{ID}' com sucesso!", funcionarioParaEditar.Nome, funcionarioParaEditar.ID);
 
-            Log.Debug("Editado o Funcionário '{NOME} {ADMISSAO} {SALARIO} #{ID}' com sucesso!", funcionarioParaEditar.Nome, funcionarioParaEditar.Admissao, funcionarioParaEditar.Salario, funcionarioParaEditar.ID);
+                return Result.Ok();
+            }
+            catch (Exception ex)
+            {
+                CustomError erro = new CustomError("Falha ao tentar editar funcionário ", "Funcionario", ex.Message);
 
-            return Result.Ok();
+                Log.Error(ex, erro.ErrorMessage + "{F}", funcionarioParaEditar);
+
+                return Result.Fail(erro);
+            }
         }
 
         public Result Excluir(Funcionario funcionarioParaExcluir)
         {
-            Log.Debug("Tentando excluir o Funcionário '{NOME} {ADMISSAO} {SALARIO} #{ID}'", funcionarioParaExcluir.Nome, funcionarioParaExcluir.Admissao, funcionarioParaExcluir.Salario, funcionarioParaExcluir.ID);
+            Log.Debug("Tentando excluir o Funcionário '{NOME} #{ID}'", funcionarioParaExcluir.Nome, funcionarioParaExcluir.ID);
+
+            if (_repositorioFuncionarios.Existe(funcionarioParaExcluir, true) == false)
+            {
+                Log.Warning("Funcionário {ID} não encontrado para excluir", funcionarioParaExcluir.ID);
+
+                return Result.Fail("Funcionário não encontrado");
+            }
 
             try
             {
                 _repositorioFuncionarios.Excluir(funcionarioParaExcluir);
+
+                Log.Debug("Excluído o Funcionário '{NOME} #{ID}' com sucesso!", funcionarioParaExcluir.Nome, funcionarioParaExcluir.ID);
+
+                return Result.Ok();
             }
             catch (SqlException ex)
             {
-                Log.Warning("Falha ao tentar excluir o Funcionário '{NOME} {ADMISSAO} {SALARIO} #{ID}'", funcionarioParaExcluir.Nome, funcionarioParaExcluir.Admissao, funcionarioParaExcluir.Salario, funcionarioParaExcluir.ID, ex);
+                Log.Warning("Falha ao tentar excluir a Funcionário '{NOME} #{ID}'", funcionarioParaExcluir.Nome, funcionarioParaExcluir.ID, ex);
 
-                //if (ex.Message.Contains("FK_TBPADRAO_TBOBJETORELACAO"))
-                //    return Result.Fail(new Error("Esse Padrão está relacionado à um ObjetoRelacao." +
-                //        " Primeiro exclua o ObjetoRelacao relacionado"));
+                List<IError> erros = new();
+
+                if (ex.Message.Contains("FK_TBFuncionario_TBOBJETORELACAO"))
+                    erros.Add(new CustomError("Esse Funcionário está relacionado à um ObjetoRelacao." +
+                        " Primeiro exclua o ObjetoRelacao relacionado", "Funcionario"));
+                else
+                    erros.Add(new CustomError("Falha ao tentar excluir funcionário", "Funcionario"));
+
+                return Result.Fail(erros);
             }
-
-            Log.Debug("Excluído o Funcionário '{NOME} {ADMISSAO} {SALARIO} #{ID}' com sucesso!", funcionarioParaExcluir.Nome, funcionarioParaExcluir.Admissao, funcionarioParaExcluir.Salario, funcionarioParaExcluir.ID);
-
-            return Result.Ok();
         }
         #endregion
 
-        public Funcionario SelecionarRegistroPorID(int categoriaID)
+        public Funcionario? SelecionarRegistroPorID(Guid categoriaID)
         {
             return _repositorioFuncionarios.SelecionarPorID(categoriaID);
         }
@@ -97,9 +127,15 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
         public Result ValidarRegistro(Funcionario funcionarioParaValidar)
         {
-            ValidationResult validacao = new ValidadorFuncionario().Validate(funcionarioParaValidar);
+            List<IError> erros = new();
 
-            List<IError> erros = validacao.ConverterParaListaDeErros();
+            ValidationResult validacao = _validadorFuncionario.Validate(funcionarioParaValidar);
+
+            if (validacao != null)
+                erros = validacao.ConverterParaListaDeErros();
+
+            if (_repositorioFuncionarios.Existe(funcionarioParaValidar))
+                erros.Add(new CustomError("Esse Funcionário já existe", "Nome"));
 
             return Result.Fail(erros);
         }

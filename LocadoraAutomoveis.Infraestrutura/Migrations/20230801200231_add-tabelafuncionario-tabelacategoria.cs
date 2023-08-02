@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LocadoraAutomoveis.Infraestrutura.Migrations
 {
     /// <inheritdoc />
-    public partial class AddTBCategoriaAutomoveis : Migration
+    public partial class addtabelafuncionariotabelacategoria : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,6 +22,20 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                 {
                     table.PrimaryKey("PK_TBCategoriaAutomoveis", x => x.ID);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "TBFuncionario",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Admissao = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Salario = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TBFuncionario", x => x.ID);
+                });
         }
 
         /// <inheritdoc />
@@ -29,6 +43,9 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
         {
             migrationBuilder.DropTable(
                 name: "TBCategoriaAutomoveis");
+
+            migrationBuilder.DropTable(
+                name: "TBFuncionario");
         }
     }
 }

@@ -78,8 +78,8 @@
             // 
             // dateAdmissao
             // 
-            dateAdmissao.CustomFormat = "  /  /";
-            dateAdmissao.Format = DateTimePickerFormat.Custom;
+            dateAdmissao.CustomFormat = "";
+            dateAdmissao.Format = DateTimePickerFormat.Short;
             dateAdmissao.Location = new Point(93, 86);
             dateAdmissao.Name = "dateAdmissao";
             dateAdmissao.Size = new Size(116, 23);
@@ -106,6 +106,7 @@
             btnGravar.TabIndex = 6;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = true;
+            btnGravar.Click += btnAdd_Click;
             // 
             // lbErroNome
             // 
@@ -116,6 +117,7 @@
             lbErroNome.Size = new Size(152, 15);
             lbErroNome.TabIndex = 8;
             lbErroNome.Text = "*Campo Nome em branco*";
+            lbErroNome.Visible = false;
             // 
             // lbErroAdmissao
             // 
@@ -126,6 +128,7 @@
             lbErroAdmissao.Size = new Size(171, 15);
             lbErroAdmissao.TabIndex = 9;
             lbErroAdmissao.Text = "*Campo Admissão em branco*";
+            lbErroAdmissao.Visible = false;
             // 
             // lbErroSalario
             // 
@@ -136,9 +139,11 @@
             lbErroSalario.Size = new Size(154, 15);
             lbErroSalario.TabIndex = 10;
             lbErroSalario.Text = "*Campo Salário em branco*";
+            lbErroSalario.Visible = false;
             // 
             // txtSalario
             // 
+            txtSalario.InterceptArrowKeys = false;
             txtSalario.Location = new Point(93, 141);
             txtSalario.Name = "txtSalario";
             txtSalario.Size = new Size(120, 23);

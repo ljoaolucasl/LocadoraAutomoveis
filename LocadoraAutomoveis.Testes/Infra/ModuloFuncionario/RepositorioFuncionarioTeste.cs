@@ -22,9 +22,9 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloFuncionario
 
             _contexto.RemoveRange(_repositorioFuncionarios.Registros);
 
-            BuilderSetup.SetCreatePersistenceMethod<Funcionario>(_repositorioFuncionarios.Adicionar);
+            BuilderSetup.SetCreatePersistenceMethod<Funcionario>(_repositorioFuncionarios.Inserir);
 
-            BuilderSetup.DisablePropertyNamingFor<Funcionario, int>(x => x.ID);
+            BuilderSetup.DisablePropertyNamingFor<Funcionario, Guid>(x => x.ID);
         }
 
         [TestMethod]

@@ -1,9 +1,11 @@
 using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.WinApp.ModuloFuncionario;
 
 namespace LocadoraAutomoveis.WinApp
 {
@@ -20,6 +22,10 @@ namespace LocadoraAutomoveis.WinApp
         private RepositorioCategoriaAutomoveis _repositorioCategoria;
         private ServicoCategoriaAutomoveis _servicoCategoria;
         private TabelaCategoriaAutomoveisControl _tabelaCategoria;
+
+        private RepositorioFuncionario _repositorioFuncionario;
+        private ServicoFuncionario _servicoFuncionario;
+        private TabelaFuncionarioControl _tabelaFuncionario;
 
         public TelaPrincipalForm()
         {
@@ -44,12 +50,22 @@ namespace LocadoraAutomoveis.WinApp
             _repositorioCategoria = new RepositorioCategoriaAutomoveis(_contextoDb);
             _servicoCategoria = new ServicoCategoriaAutomoveis(_repositorioCategoria, new ValidadorCategoriaAutomoveis());
             _tabelaCategoria = new TabelaCategoriaAutomoveisControl();
+
+            _repositorioFuncionario = new RepositorioFuncionario(_contextoDb);
+            _servicoFuncionario = new ServicoFuncionario(_repositorioFuncionario, new ValidadorFuncionario());
+            _tabelaFuncionario = new TabelaFuncionarioControl();
         }
 
         #region BotoesTabelas
         private void btnCategoria_Click(object sender, EventArgs e)
         {
             _controladorBase = new ControladorCategoriaAutomoveis(_repositorioCategoria, _servicoCategoria, _tabelaCategoria);
+            ConfigurarTelaPrincipal();
+        }
+
+        private void btnFuncionario_Click(object sender, EventArgs e)
+        {
+            _controladorBase = new ControladorFuncionario(_repositorioFuncionario, _servicoFuncionario, _tabelaFuncionario);
             ConfigurarTelaPrincipal();
         }
         #endregion
@@ -117,6 +133,7 @@ namespace LocadoraAutomoveis.WinApp
         private void ConfigurarBotoesDicionario()
         {
             coresBotoes.Add(_tabelaCategoria.Controls[0], btnCategoria);
+            coresBotoes.Add(_tabelaFuncionario.Controls[0], btnFuncionario);
         }
 
         private void btnColor_MouseEnter(object sender, EventArgs e)

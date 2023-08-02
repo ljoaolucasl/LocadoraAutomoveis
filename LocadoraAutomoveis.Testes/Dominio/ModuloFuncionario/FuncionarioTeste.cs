@@ -61,7 +61,7 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloFuncionario
             Funcionario funcionario1 = new("Carlos", DateTime.Parse("23/09/2023"), 1100);
             Funcionario funcionario2 = new("Carlos", DateTime.Parse("21/09/2023"), 1400);
 
-            _repositorioFuncionarios.Adicionar(funcionario1);
+            _repositorioFuncionarios.Inserir(funcionario1);
 
             bool resultado = new ValidadorFuncionario().ValidarFuncionarioExistente(funcionario2, _repositorioFuncionarios.SelecionarTodos());
 

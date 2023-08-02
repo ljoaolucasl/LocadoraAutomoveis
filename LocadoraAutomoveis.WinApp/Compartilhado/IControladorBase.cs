@@ -18,6 +18,6 @@
 
         string ObterTipoCadastro();
 
-        DataGridView ObterTabela();
+        DataGridView ObterGrid();
     }
 }

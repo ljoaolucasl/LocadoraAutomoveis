@@ -10,10 +10,5 @@ namespace LocadoraAutomoveis.WinApp.ModuloTaxaEServico
         public ControladorTaxaEServico(RepositorioTaxaEServico _repositorio, ServicoTaxaEServico _servico, TabelaTaxaEServicoControl _tabela) : base(_repositorio, _servico, _tabela)
         {
         }
-
-        public override DataGridView ObterTabela()
-        {
-            return (DataGridView)_tabela.Controls[0];
-        }
     }
 }

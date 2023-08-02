@@ -21,7 +21,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloTaxaEServico
             foreach (TaxaEServico item in padroes)
             {
                 DataGridViewRow row = new();
-                row.CreateCells(gridTaxaEServico, item.ID, item.Nome, item.Valor, item.Tipo.ToDescriptionString());
+                row.CreateCells(gridTaxaEServico, item.ID, item.Nome, "R$" + item.Valor.ToString("F2"), item.Tipo.ToDescriptionString());
                 row.Cells[0].Tag = item;
                 gridTaxaEServico.Rows.Add(row);
             }
@@ -29,6 +29,11 @@ namespace LocadoraAutomoveis.WinApp.ModuloTaxaEServico
             gridTaxaEServico.Columns[0].Visible = false;
 
             TelaPrincipalForm.AtualizarStatus($"Visualizando {padroes.Count} Padrões");
+        }
+
+        public DataGridView ObterGrid()
+        {
+            return gridTaxaEServico;
         }
 
         public TaxaEServico ObterRegistroSelecionado()

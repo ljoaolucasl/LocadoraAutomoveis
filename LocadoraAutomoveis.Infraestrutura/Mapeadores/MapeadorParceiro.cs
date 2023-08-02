@@ -11,6 +11,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Mapeadores
             builder.ToTable("TBParceiro");
             builder.HasKey(p => p.ID);
             builder.Property(p => p.Nome).HasColumnType("varchar(100)").IsRequired();
+            //builder.HasMany()
         }
     }
 }

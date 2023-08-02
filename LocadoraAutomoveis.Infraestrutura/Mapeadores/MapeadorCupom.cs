@@ -11,7 +11,14 @@ namespace LocadoraAutomoveis.Infraestrutura.Mapeadores
             builder.ToTable("TBCupom");
             builder.HasKey(c => c.ID);
             builder.Property(c => c.Nome).HasColumnType("varchar(100)").IsRequired();
-            builder.Property(c =>)
+            builder.Property(c => c.Valor).IsRequired();
+            builder.Property(c => c.DataValidade).IsRequired();
+
+            builder.HasOne(c => c.Parceiro)
+                .WithMany()
+                .IsRequired()
+                .HasConstraintName("FK_TBCupom_TBParceiro")
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

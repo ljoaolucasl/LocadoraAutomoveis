@@ -1,10 +1,12 @@
 ﻿using LocadoraAutomoveis.Dominio.Compartilhado;
+using LocadoraAutomoveis.Dominio.ModuloCupom;
 
 namespace LocadoraAutomoveis.Dominio.ModuloParceiro
 {
     public class Parceiro : EntidadeBase
     {
         public string Nome { get; set; }
+        public Cupom Cupom { get; set; }
 
         public Parceiro(string nome)
         {

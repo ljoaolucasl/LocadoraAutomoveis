@@ -1,9 +1,11 @@
 using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.WinApp.ModuloTaxaEServico;
 
 namespace LocadoraAutomoveis.WinApp
 {
@@ -20,6 +22,10 @@ namespace LocadoraAutomoveis.WinApp
         private RepositorioCategoriaAutomoveis _repositorioCategoria;
         private ServicoCategoriaAutomoveis _servicoCategoria;
         private TabelaCategoriaAutomoveisControl _tabelaCategoria;
+
+        private RepositorioTaxaEServico _repositorioTaxaEServico;
+        private ServicoTaxaEServico _servicoTaxaEServico;
+        private TabelaTaxaEServicoControl _tabelaTaxaEServico;
 
         public TelaPrincipalForm()
         {
@@ -44,12 +50,22 @@ namespace LocadoraAutomoveis.WinApp
             _repositorioCategoria = new RepositorioCategoriaAutomoveis(_contextoDb);
             _servicoCategoria = new ServicoCategoriaAutomoveis(_repositorioCategoria, new ValidadorCategoriaAutomoveis());
             _tabelaCategoria = new TabelaCategoriaAutomoveisControl();
+
+            _repositorioTaxaEServico = new RepositorioTaxaEServico(_contextoDb);
+            _servicoTaxaEServico = new ServicoTaxaEServico(_repositorioTaxaEServico, new ValidadorTaxaEServico());
+            _tabelaTaxaEServico = new TabelaTaxaEServicoControl();
         }
 
         #region BotoesTabelas
         private void btnCategoria_Click(object sender, EventArgs e)
         {
             _controladorBase = new ControladorCategoriaAutomoveis(_repositorioCategoria, _servicoCategoria, _tabelaCategoria);
+            ConfigurarTelaPrincipal();
+        }
+
+        private void btnTaxa_Click(object sender, EventArgs e)
+        {
+            _controladorBase = new ControladorTaxaEServico(_repositorioTaxaEServico, _servicoTaxaEServico, _tabelaTaxaEServico);
             ConfigurarTelaPrincipal();
         }
         #endregion
@@ -84,7 +100,7 @@ namespace LocadoraAutomoveis.WinApp
 
         private void InicializarTabela()
         {
-            _grid = _controladorBase.ObterTabela();
+            _grid = _controladorBase.ObterGrid();
             _grid.Dock = DockStyle.Fill;
 
             plPrincipal.Controls.Clear();
@@ -117,6 +133,7 @@ namespace LocadoraAutomoveis.WinApp
         private void ConfigurarBotoesDicionario()
         {
             coresBotoes.Add(_tabelaCategoria.Controls[0], btnCategoria);
+            coresBotoes.Add(_tabelaTaxaEServico.Controls[0], btnTaxa);
         }
 
         private void btnColor_MouseEnter(object sender, EventArgs e)
@@ -142,7 +159,7 @@ namespace LocadoraAutomoveis.WinApp
 
         private void plPrincipal_ControlRemoved(object sender, ControlEventArgs e)
         {
-            coresBotoes.TryGetValue(e.Control.Controls[0], out ToolStripButton btn);
+            coresBotoes.TryGetValue(e.Control, out ToolStripButton btn);
 
             btn.BackColor = Color.FromArgb(0, 165, 100);
             btn.ForeColor = Color.White;

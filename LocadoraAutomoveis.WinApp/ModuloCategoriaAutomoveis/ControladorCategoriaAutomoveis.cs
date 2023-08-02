@@ -10,10 +10,5 @@ namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
         public ControladorCategoriaAutomoveis(RepositorioCategoriaAutomoveis _repositorio, ServicoCategoriaAutomoveis _servico, TabelaCategoriaAutomoveisControl _tabela) : base(_repositorio, _servico, _tabela)
         {
         }
-
-        public override DataGridView ObterTabela()
-        {
-            return (DataGridView)_tabela.Controls[0];
-        }
     }
 }

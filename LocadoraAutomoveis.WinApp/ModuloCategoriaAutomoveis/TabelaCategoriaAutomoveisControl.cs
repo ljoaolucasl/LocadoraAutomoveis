@@ -30,6 +30,11 @@ namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
             TelaPrincipalForm.AtualizarStatus($"Visualizando {padroes.Count} Padrões");
         }
 
+        public DataGridView ObterGrid()
+        {
+            return gridCategoriaAutomoveis;
+        }
+
         public CategoriaAutomoveis ObterRegistroSelecionado()
         {
             return (CategoriaAutomoveis)gridCategoriaAutomoveis.SelectedRows[0].Cells[0].Tag;

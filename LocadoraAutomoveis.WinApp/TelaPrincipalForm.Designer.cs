@@ -39,6 +39,7 @@
             stripStatus = new StatusStrip();
             lbStatus = new ToolStripStatusLabel();
             plPrincipal = new Panel();
+            btnTaxa = new ToolStripButton();
             barraBotoes.SuspendLayout();
             barraAcoes.SuspendLayout();
             stripStatus.SuspendLayout();
@@ -48,7 +49,7 @@
             // 
             barraBotoes.BackColor = Color.FromArgb(0, 165, 100);
             barraBotoes.GripStyle = ToolStripGripStyle.Hidden;
-            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCategoria });
+            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCategoria, btnTaxa });
             barraBotoes.LayoutStyle = ToolStripLayoutStyle.Flow;
             barraBotoes.Location = new Point(0, 0);
             barraBotoes.Name = "barraBotoes";
@@ -159,6 +160,23 @@
             plPrincipal.ControlAdded += plPrincipal_ControlAdded;
             plPrincipal.ControlRemoved += plPrincipal_ControlRemoved;
             // 
+            // btnTaxa
+            // 
+            btnTaxa.BackColor = Color.FromArgb(0, 165, 100);
+            btnTaxa.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnTaxa.Font = new Font("Tahoma", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            btnTaxa.ForeColor = Color.White;
+            btnTaxa.ImageTransparentColor = Color.Magenta;
+            btnTaxa.Margin = new Padding(0);
+            btnTaxa.Name = "btnTaxa";
+            btnTaxa.Padding = new Padding(15);
+            btnTaxa.RightToLeft = RightToLeft.No;
+            btnTaxa.Size = new Size(152, 58);
+            btnTaxa.Text = "TaxaServiço";
+            btnTaxa.TextDirection = ToolStripTextDirection.Horizontal;
+            btnTaxa.ToolTipText = "TaxaServiço";
+            btnTaxa.Click += btnTaxa_Click;
+            // 
             // TelaPrincipalForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -195,5 +213,6 @@
         private ToolStripSeparator separadorBarra;
         private ToolStripLabel lbTipoCadastro;
         private Panel plPrincipal;
+        private ToolStripButton btnTaxa;
     }
 }

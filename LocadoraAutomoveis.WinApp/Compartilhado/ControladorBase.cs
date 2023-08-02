@@ -119,6 +119,9 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado
             return $"Cadastro de {nomeEntidade}s";
         }
 
-        public abstract DataGridView ObterTabela();
+        public virtual DataGridView ObterGrid()
+        {
+            return _tabela.ObterGrid();
+        }
     }
 }

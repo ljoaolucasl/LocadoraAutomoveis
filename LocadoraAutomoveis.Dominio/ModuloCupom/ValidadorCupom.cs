@@ -12,6 +12,8 @@ namespace LocadoraAutomoveis.Dominio.ModuloCupom
                 .MinimumLength(3).WithMessage("'Nome' deve ser maior ou igual a 3 caracteres.")
                 .Custom(ValidarCaractereInvalido)
                 .NotEmpty();
+
+
         }
 
         public bool ValidarCupomExistente(Cupom cupom, List<Cupom> listaCupons)

@@ -41,6 +41,7 @@
             stripStatus = new StatusStrip();
             lbStatus = new ToolStripStatusLabel();
             plPrincipal = new Panel();
+            btnFuncionario = new ToolStripButton();
             barraBotoes.SuspendLayout();
             barraAcoes.SuspendLayout();
             stripStatus.SuspendLayout();
@@ -52,7 +53,7 @@
             barraBotoes.Dock = DockStyle.Left;
             barraBotoes.GripMargin = new Padding(0);
             barraBotoes.GripStyle = ToolStripGripStyle.Hidden;
-            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCategoria, btnTaxa, btnParceiro });
+            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCategoria, btnTaxa, btnParceiro, btnFuncionario });
             barraBotoes.LayoutStyle = ToolStripLayoutStyle.VerticalStackWithOverflow;
             barraBotoes.Location = new Point(0, 0);
             barraBotoes.Name = "barraBotoes";
@@ -197,6 +198,23 @@
             plPrincipal.ControlAdded += plPrincipal_ControlAdded;
             plPrincipal.ControlRemoved += plPrincipal_ControlRemoved;
             // 
+            // btnFuncionario
+            // 
+            btnFuncionario.BackColor = Color.Gainsboro;
+            btnFuncionario.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnFuncionario.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnFuncionario.ForeColor = Color.Black;
+            btnFuncionario.ImageTransparentColor = Color.Magenta;
+            btnFuncionario.Margin = new Padding(0);
+            btnFuncionario.Name = "btnFuncionario";
+            btnFuncionario.Padding = new Padding(20, 10, 20, 10);
+            btnFuncionario.RightToLeft = RightToLeft.No;
+            btnFuncionario.Size = new Size(258, 42);
+            btnFuncionario.Text = "Funcionários";
+            btnFuncionario.TextDirection = ToolStripTextDirection.Horizontal;
+            btnFuncionario.ToolTipText = "Funcionários";
+            btnFuncionario.Click += btnFuncionario_Click_1;
+            // 
             // TelaPrincipalForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -236,5 +254,6 @@
         private ToolStripButton btnTaxa;
         private ToolStripButton toolStripButton1;
         private ToolStripButton btnParceiro;
+        private ToolStripButton btnFuncionario;
     }
 }

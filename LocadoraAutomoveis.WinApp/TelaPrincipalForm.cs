@@ -100,6 +100,12 @@ namespace LocadoraAutomoveis.WinApp
             _controladorBase = new ControladorParceiro(_repositorioParceiro, _servicoParceiro, _tabelaParceiro);
             ConfigurarTelaPrincipal();
         }
+
+        private void btnFuncionario_Click_1(object sender, EventArgs e)
+        {
+            _controladorBase = new ControladorFuncionario(_repositorioFuncionario, _servicoFuncionario, _tabelaFuncionario);
+            ConfigurarTelaPrincipal();
+        }
         #endregion
 
         #region CRUD
@@ -177,6 +183,9 @@ namespace LocadoraAutomoveis.WinApp
 
             btnParceiro.MouseEnter += btnColor_MouseEnter;
             btnParceiro.MouseLeave += btnColor_MouseLeave;
+
+            btnFuncionario.MouseEnter += btnColor_MouseEnter;
+            btnFuncionario.MouseLeave += btnColor_MouseLeave;
         }
 
         private void btnColor_MouseEnter(object sender, EventArgs e)

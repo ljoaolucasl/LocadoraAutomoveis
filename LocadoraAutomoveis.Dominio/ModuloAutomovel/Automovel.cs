@@ -1,9 +1,10 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+﻿using LocadoraAutomoveis.Dominio.Compartilhado;
+using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using System.ComponentModel;
 
 namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
 {
-    public class Automovel
+    public class Automovel : EntidadeBase
     {
         public CategoriaAutomoveis Categoria { get; set; }
         public string Placa { get; set; }

@@ -1,6 +1,8 @@
-﻿namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
+﻿using LocadoraAutomoveis.Dominio.Compartilhado;
+
+namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
 {
-    public interface IRepositorioAutomovel
+    public interface IRepositorioAutomovel : IRepositorioBase<Automovel>
     {
     }
 }

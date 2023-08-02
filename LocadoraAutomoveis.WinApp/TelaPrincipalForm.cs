@@ -150,13 +150,16 @@ namespace LocadoraAutomoveis.WinApp
         {
             coresBotoes.Add(_tabelaCategoria.Controls[0], btnCategoria);
             coresBotoes.Add(_tabelaTaxaEServico.Controls[0], btnTaxa);
+            coresBotoes.Add(_tabelaParceiro.Controls[0], btnParceiro);
 
             btnCategoria.MouseEnter += btnColor_MouseEnter;
             btnCategoria.MouseLeave += btnColor_MouseLeave;
 
             btnTaxa.MouseEnter += btnColor_MouseEnter;
             btnTaxa.MouseLeave += btnColor_MouseLeave;
-            coresBotoes.Add(_tabelaParceiro.Controls[0], btnParceiro);
+
+            btnParceiro.MouseEnter += btnColor_MouseEnter;
+            btnParceiro.MouseLeave += btnColor_MouseLeave;
         }
 
         private void btnColor_MouseEnter(object sender, EventArgs e)
@@ -192,6 +195,7 @@ namespace LocadoraAutomoveis.WinApp
             btn.MouseLeave += btnColor_MouseLeave;
             btn.MouseEnter += btnColor_MouseEnter;
         }
+
         #endregion
     }
 }

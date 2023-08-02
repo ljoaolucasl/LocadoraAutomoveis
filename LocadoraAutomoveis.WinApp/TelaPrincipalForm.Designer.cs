@@ -31,6 +31,7 @@
             barraBotoes = new ToolStrip();
             btnCategoria = new ToolStripButton();
             btnTaxa = new ToolStripButton();
+            btnParceiro = new ToolStripButton();
             barraAcoes = new ToolStrip();
             btnAdicionar = new ToolStripButton();
             btnEditar = new ToolStripButton();
@@ -40,7 +41,6 @@
             stripStatus = new StatusStrip();
             lbStatus = new ToolStripStatusLabel();
             plPrincipal = new Panel();
-            btnTaxa = new ToolStripButton();
             barraBotoes.SuspendLayout();
             barraAcoes.SuspendLayout();
             stripStatus.SuspendLayout();
@@ -52,8 +52,8 @@
             barraBotoes.Dock = DockStyle.Left;
             barraBotoes.GripMargin = new Padding(0);
             barraBotoes.GripStyle = ToolStripGripStyle.Hidden;
-            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCategoria, btnTaxa });
-            barraBotoes.LayoutStyle = ToolStripLayoutStyle.Flow;
+            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCategoria, btnTaxa, btnParceiro });
+            barraBotoes.LayoutStyle = ToolStripLayoutStyle.VerticalStackWithOverflow;
             barraBotoes.Location = new Point(0, 0);
             barraBotoes.Name = "barraBotoes";
             barraBotoes.Padding = new Padding(0);
@@ -96,22 +96,22 @@
             btnTaxa.ToolTipText = "Taxa e Serviços";
             btnTaxa.Click += btnTaxa_Click;
             // 
-            // btnTaxa
+            // btnParceiro
             // 
-            btnTaxa.BackColor = Color.FromArgb(0, 165, 100);
-            btnTaxa.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnTaxa.Font = new Font("Tahoma", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            btnTaxa.ForeColor = Color.White;
-            btnTaxa.ImageTransparentColor = Color.Magenta;
-            btnTaxa.Margin = new Padding(0);
-            btnTaxa.Name = "btnTaxa";
-            btnTaxa.Padding = new Padding(15);
-            btnTaxa.RightToLeft = RightToLeft.No;
-            btnTaxa.Size = new Size(152, 58);
-            btnTaxa.Text = "TaxaServiço";
-            btnTaxa.TextDirection = ToolStripTextDirection.Horizontal;
-            btnTaxa.ToolTipText = "TaxaServiço";
-            btnTaxa.Click += btnTaxa_Click;
+            btnParceiro.BackColor = Color.Gainsboro;
+            btnParceiro.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnParceiro.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnParceiro.ForeColor = Color.Black;
+            btnParceiro.ImageTransparentColor = Color.Magenta;
+            btnParceiro.Margin = new Padding(0);
+            btnParceiro.Name = "btnParceiro";
+            btnParceiro.Padding = new Padding(20, 10, 20, 10);
+            btnParceiro.RightToLeft = RightToLeft.No;
+            btnParceiro.Size = new Size(258, 42);
+            btnParceiro.Text = "Parceiros";
+            btnParceiro.TextDirection = ToolStripTextDirection.Horizontal;
+            btnParceiro.ToolTipText = "Parceiros";
+            btnParceiro.Click += btnParceiro_Click;
             // 
             // barraAcoes
             // 
@@ -210,7 +210,7 @@
             Name = "TelaPrincipalForm";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Padrao";
+            Text = "Locadora de Automóveis";
             barraBotoes.ResumeLayout(false);
             barraBotoes.PerformLayout();
             barraAcoes.ResumeLayout(false);
@@ -235,6 +235,7 @@
         private ToolStripLabel lbTipoCadastro;
         private Panel plPrincipal;
         private ToolStripButton btnTaxa;
+        private ToolStripButton toolStripButton1;
         private ToolStripButton btnParceiro;
     }
 }

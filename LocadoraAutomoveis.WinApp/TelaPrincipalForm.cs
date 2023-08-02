@@ -35,7 +35,7 @@ namespace LocadoraAutomoveis.WinApp
 
             ConfigurarInstancias();
 
-            ConfigurarBotoesDicionario();
+            ConfigurarBotoes();
         }
 
         public static void AtualizarStatus(string status)
@@ -130,40 +130,50 @@ namespace LocadoraAutomoveis.WinApp
         #region CoresDinamicasBotoes
         private readonly Dictionary<Control, ToolStripButton> coresBotoes = new();
 
-        private void ConfigurarBotoesDicionario()
+        private void ConfigurarBotoes()
         {
             coresBotoes.Add(_tabelaCategoria.Controls[0], btnCategoria);
             coresBotoes.Add(_tabelaTaxaEServico.Controls[0], btnTaxa);
+
+            btnCategoria.MouseEnter += btnColor_MouseEnter;
+            btnCategoria.MouseLeave += btnColor_MouseLeave;
+
+            btnTaxa.MouseEnter += btnColor_MouseEnter;
+            btnTaxa.MouseLeave += btnColor_MouseLeave;
         }
 
         private void btnColor_MouseEnter(object sender, EventArgs e)
         {
             ToolStripButton btn = (ToolStripButton)sender;
+            btn.BackColor = Color.White;
             btn.ForeColor = Color.Black;
         }
 
         private void btnColor_MouseLeave(object sender, EventArgs e)
         {
             ToolStripButton btn = (ToolStripButton)sender;
-            btn.ForeColor = Color.White;
+            btn.BackColor = Color.Gainsboro;
+            btn.ForeColor = Color.Black;
         }
 
         private void plPrincipal_ControlAdded(object sender, ControlEventArgs e)
         {
             coresBotoes.TryGetValue(e.Control, out ToolStripButton btn);
 
-            btn.BackColor = Color.White;
-            btn.ForeColor = Color.Black;
+            btn.BackColor = Color.DimGray;
+            btn.ForeColor = Color.White;
             btn.MouseLeave -= btnColor_MouseLeave;
+            btn.MouseEnter -= btnColor_MouseEnter;
         }
 
         private void plPrincipal_ControlRemoved(object sender, ControlEventArgs e)
         {
             coresBotoes.TryGetValue(e.Control, out ToolStripButton btn);
 
-            btn.BackColor = Color.FromArgb(0, 165, 100);
-            btn.ForeColor = Color.White;
+            btn.BackColor = Color.Gainsboro;
+            btn.ForeColor = Color.Black;
             btn.MouseLeave += btnColor_MouseLeave;
+            btn.MouseEnter += btnColor_MouseEnter;
         }
         #endregion
     }

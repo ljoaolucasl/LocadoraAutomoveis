@@ -1,4 +1,6 @@
-﻿namespace LocadoraAutomoveis.WinApp.Extensions
+﻿using System.Windows.Forms;
+
+namespace LocadoraAutomoveis.WinApp.Extensions
 {
     public static class GridExtension
     {
@@ -37,6 +39,7 @@
             dataGridViewCellStyle1.SelectionBackColor = Color.LightYellow;
             dataGridViewCellStyle1.SelectionForeColor = Color.Black;
 
+            grid.BorderStyle = BorderStyle.None;
             grid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             grid.BackgroundColor = SystemColors.Control;

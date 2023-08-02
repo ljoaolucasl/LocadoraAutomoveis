@@ -1,11 +1,13 @@
 using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Dominio.ModuloParceiro;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.WinApp.ModuloCupom;
 using LocadoraAutomoveis.WinApp.ModuloParceiro;
 using LocadoraAutomoveis.WinApp.ModuloTaxaEServico;
 
@@ -32,6 +34,10 @@ namespace LocadoraAutomoveis.WinApp
         private RepositorioParceiro _repositorioParceiro;
         private ServicoParceiro _servicoParceiro;
         private TabelaParceiroControl _tabelaParceiro;
+
+        private RepositorioCupom _repositorioCupom;
+        private ServicoCupom _servicoCupom;
+        private TabelaCupomControl _tabelaCupom;
 
         public TelaPrincipalForm()
         {
@@ -64,6 +70,10 @@ namespace LocadoraAutomoveis.WinApp
             _repositorioParceiro = new RepositorioParceiro(_contextoDb);
             _servicoParceiro = new ServicoParceiro(_repositorioParceiro, new ValidadorParceiro());
             _tabelaParceiro = new TabelaParceiroControl();
+
+            _repositorioCupom = new RepositorioCupom(_contextoDb);
+            _servicoCupom = new ServicoCupom(_repositorioCupom, new ValidadorCupom());
+            _tabelaCupom = new TabelaCupomControl();
         }
 
         #region BotoesTabelas
@@ -82,6 +92,12 @@ namespace LocadoraAutomoveis.WinApp
         private void btnParceiro_Click(object sender, EventArgs e)
         {
             _controladorBase = new ControladorParceiro(_repositorioParceiro, _servicoParceiro, _tabelaParceiro);
+            ConfigurarTelaPrincipal();
+        }
+
+        private void btnCupom_Click(object sender, EventArgs e)
+        {
+            _controladorBase = new ControladorCupom(_repositorioCupom, _servicoCupom, _tabelaCupom, _repositorioParceiro);
             ConfigurarTelaPrincipal();
         }
         #endregion
@@ -151,6 +167,7 @@ namespace LocadoraAutomoveis.WinApp
             coresBotoes.Add(_tabelaCategoria.Controls[0], btnCategoria);
             coresBotoes.Add(_tabelaTaxaEServico.Controls[0], btnTaxa);
             coresBotoes.Add(_tabelaParceiro.Controls[0], btnParceiro);
+            coresBotoes.Add(_tabelaCupom.Controls[0], btnCupom);
 
             btnCategoria.MouseEnter += btnColor_MouseEnter;
             btnCategoria.MouseLeave += btnColor_MouseLeave;
@@ -160,6 +177,9 @@ namespace LocadoraAutomoveis.WinApp
 
             btnParceiro.MouseEnter += btnColor_MouseEnter;
             btnParceiro.MouseLeave += btnColor_MouseLeave;
+
+            btnCupom.MouseEnter += btnColor_MouseEnter;
+            btnCupom.MouseLeave += btnColor_MouseLeave;
         }
 
         private void btnColor_MouseEnter(object sender, EventArgs e)

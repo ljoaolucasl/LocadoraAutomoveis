@@ -1,6 +1,9 @@
-﻿namespace LocadoraAutomoveis.Dominio.ModuloCupom
+﻿using LocadoraAutomoveis.Dominio.Compartilhado;
+
+namespace LocadoraAutomoveis.Dominio.ModuloCupom
 {
-    public interface IRepositorioCupom
+    public interface IRepositorioCupom : IRepositorioBase<Cupom>
     {
+
     }
 }

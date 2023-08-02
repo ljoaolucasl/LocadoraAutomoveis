@@ -41,6 +41,7 @@
             stripStatus = new StatusStrip();
             lbStatus = new ToolStripStatusLabel();
             plPrincipal = new Panel();
+            btnCupom = new ToolStripButton();
             barraBotoes.SuspendLayout();
             barraAcoes.SuspendLayout();
             stripStatus.SuspendLayout();
@@ -52,7 +53,7 @@
             barraBotoes.Dock = DockStyle.Left;
             barraBotoes.GripMargin = new Padding(0);
             barraBotoes.GripStyle = ToolStripGripStyle.Hidden;
-            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCategoria, btnTaxa, btnParceiro });
+            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCategoria, btnTaxa, btnParceiro, btnCupom });
             barraBotoes.LayoutStyle = ToolStripLayoutStyle.VerticalStackWithOverflow;
             barraBotoes.Location = new Point(0, 0);
             barraBotoes.Name = "barraBotoes";
@@ -198,6 +199,23 @@
             plPrincipal.ControlAdded += plPrincipal_ControlAdded;
             plPrincipal.ControlRemoved += plPrincipal_ControlRemoved;
             // 
+            // btnCupom
+            // 
+            btnCupom.BackColor = Color.Gainsboro;
+            btnCupom.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnCupom.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCupom.ForeColor = Color.Black;
+            btnCupom.ImageTransparentColor = Color.Magenta;
+            btnCupom.Margin = new Padding(0);
+            btnCupom.Name = "btnCupom";
+            btnCupom.Padding = new Padding(20, 10, 20, 10);
+            btnCupom.RightToLeft = RightToLeft.No;
+            btnCupom.Size = new Size(258, 42);
+            btnCupom.Text = "Cupons";
+            btnCupom.TextDirection = ToolStripTextDirection.Horizontal;
+            btnCupom.ToolTipText = "Cupons";
+            btnCupom.Click += btnCupom_Click;
+            // 
             // TelaPrincipalForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -237,5 +255,6 @@
         private ToolStripButton btnTaxa;
         private ToolStripButton toolStripButton1;
         private ToolStripButton btnParceiro;
+        private ToolStripButton btnCupom;
     }
 }

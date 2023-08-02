@@ -72,7 +72,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
-                CustomError erro = new("Falha ao tentar editar parceiro ", "Parceiro", ex.Message);
+                CustomError erro = new("Falha ao tentar editar parceiro", "Parceiro", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{P}", parceiroParaEditar);
 
@@ -107,7 +107,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 if (ex.Message.Contains("FK_TBParceiro_TBOBJETORELACAO"))
                     erros.Add(new CustomError("Esse Parceiro está relacionado a um ObjetoRelacao." +
-                        " Primeiro exclua o ObjetoRelacao relacionado", "Categoria"));
+                        " Primeiro exclua o ObjetoRelacao relacionado", "Parceiro"));
                 else
                     erros.Add(new CustomError("Falha ao tentar excluir parceiro", "Parceiro"));
 

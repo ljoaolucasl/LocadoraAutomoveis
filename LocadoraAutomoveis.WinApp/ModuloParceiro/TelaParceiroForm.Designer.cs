@@ -83,6 +83,7 @@
             lbErroNome.Size = new Size(92, 15);
             lbErroNome.TabIndex = 6;
             lbErroNome.Text = "*mensagemErro";
+            lbErroNome.Visible = false;
             // 
             // TelaParceiroForm
             // 

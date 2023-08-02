@@ -1,10 +1,12 @@
 using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloParceiro;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.WinApp.ModuloParceiro;
 using LocadoraAutomoveis.WinApp.ModuloTaxaEServico;
 
 namespace LocadoraAutomoveis.WinApp
@@ -26,6 +28,10 @@ namespace LocadoraAutomoveis.WinApp
         private RepositorioTaxaEServico _repositorioTaxaEServico;
         private ServicoTaxaEServico _servicoTaxaEServico;
         private TabelaTaxaEServicoControl _tabelaTaxaEServico;
+
+        private RepositorioParceiro _repositorioParceiro;
+        private ServicoParceiro _servicoParceiro;
+        private TabelaParceiroControl _tabelaParceiro;
 
         public TelaPrincipalForm()
         {
@@ -54,6 +60,10 @@ namespace LocadoraAutomoveis.WinApp
             _repositorioTaxaEServico = new RepositorioTaxaEServico(_contextoDb);
             _servicoTaxaEServico = new ServicoTaxaEServico(_repositorioTaxaEServico, new ValidadorTaxaEServico());
             _tabelaTaxaEServico = new TabelaTaxaEServicoControl();
+
+            _repositorioParceiro = new RepositorioParceiro(_contextoDb);
+            _servicoParceiro = new ServicoParceiro(_repositorioParceiro, new ValidadorParceiro());
+            _tabelaParceiro = new TabelaParceiroControl();
         }
 
         #region BotoesTabelas
@@ -66,6 +76,12 @@ namespace LocadoraAutomoveis.WinApp
         private void btnTaxa_Click(object sender, EventArgs e)
         {
             _controladorBase = new ControladorTaxaEServico(_repositorioTaxaEServico, _servicoTaxaEServico, _tabelaTaxaEServico);
+            ConfigurarTelaPrincipal();
+        }
+
+        private void btnParceiro_Click(object sender, EventArgs e)
+        {
+            _controladorBase = new ControladorParceiro(_repositorioParceiro, _servicoParceiro, _tabelaParceiro);
             ConfigurarTelaPrincipal();
         }
         #endregion
@@ -134,6 +150,7 @@ namespace LocadoraAutomoveis.WinApp
         {
             coresBotoes.Add(_tabelaCategoria.Controls[0], btnCategoria);
             coresBotoes.Add(_tabelaTaxaEServico.Controls[0], btnTaxa);
+            coresBotoes.Add(_tabelaParceiro.Controls[0], btnParceiro);
         }
 
         private void btnColor_MouseEnter(object sender, EventArgs e)

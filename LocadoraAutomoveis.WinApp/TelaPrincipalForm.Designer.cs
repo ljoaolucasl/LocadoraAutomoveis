@@ -30,6 +30,7 @@
         {
             barraBotoes = new ToolStrip();
             btnCategoria = new ToolStripButton();
+            btnTaxa = new ToolStripButton();
             barraAcoes = new ToolStrip();
             btnAdicionar = new ToolStripButton();
             btnEditar = new ToolStripButton();
@@ -39,7 +40,7 @@
             stripStatus = new StatusStrip();
             lbStatus = new ToolStripStatusLabel();
             plPrincipal = new Panel();
-            btnTaxa = new ToolStripButton();
+            btnParceiro = new ToolStripButton();
             barraBotoes.SuspendLayout();
             barraAcoes.SuspendLayout();
             stripStatus.SuspendLayout();
@@ -49,7 +50,7 @@
             // 
             barraBotoes.BackColor = Color.FromArgb(0, 165, 100);
             barraBotoes.GripStyle = ToolStripGripStyle.Hidden;
-            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCategoria, btnTaxa });
+            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCategoria, btnTaxa, btnParceiro });
             barraBotoes.LayoutStyle = ToolStripLayoutStyle.Flow;
             barraBotoes.Location = new Point(0, 0);
             barraBotoes.Name = "barraBotoes";
@@ -75,6 +76,23 @@
             btnCategoria.Click += btnCategoria_Click;
             btnCategoria.MouseEnter += btnColor_MouseEnter;
             btnCategoria.MouseLeave += btnColor_MouseLeave;
+            // 
+            // btnTaxa
+            // 
+            btnTaxa.BackColor = Color.FromArgb(0, 165, 100);
+            btnTaxa.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnTaxa.Font = new Font("Tahoma", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            btnTaxa.ForeColor = Color.White;
+            btnTaxa.ImageTransparentColor = Color.Magenta;
+            btnTaxa.Margin = new Padding(0);
+            btnTaxa.Name = "btnTaxa";
+            btnTaxa.Padding = new Padding(15);
+            btnTaxa.RightToLeft = RightToLeft.No;
+            btnTaxa.Size = new Size(152, 58);
+            btnTaxa.Text = "TaxaServiço";
+            btnTaxa.TextDirection = ToolStripTextDirection.Horizontal;
+            btnTaxa.ToolTipText = "TaxaServiço";
+            btnTaxa.Click += btnTaxa_Click;
             // 
             // barraAcoes
             // 
@@ -160,22 +178,22 @@
             plPrincipal.ControlAdded += plPrincipal_ControlAdded;
             plPrincipal.ControlRemoved += plPrincipal_ControlRemoved;
             // 
-            // btnTaxa
+            // btnParceiro
             // 
-            btnTaxa.BackColor = Color.FromArgb(0, 165, 100);
-            btnTaxa.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnTaxa.Font = new Font("Tahoma", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            btnTaxa.ForeColor = Color.White;
-            btnTaxa.ImageTransparentColor = Color.Magenta;
-            btnTaxa.Margin = new Padding(0);
-            btnTaxa.Name = "btnTaxa";
-            btnTaxa.Padding = new Padding(15);
-            btnTaxa.RightToLeft = RightToLeft.No;
-            btnTaxa.Size = new Size(152, 58);
-            btnTaxa.Text = "TaxaServiço";
-            btnTaxa.TextDirection = ToolStripTextDirection.Horizontal;
-            btnTaxa.ToolTipText = "TaxaServiço";
-            btnTaxa.Click += btnTaxa_Click;
+            btnParceiro.BackColor = Color.FromArgb(0, 165, 100);
+            btnParceiro.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnParceiro.Font = new Font("Tahoma", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            btnParceiro.ForeColor = Color.White;
+            btnParceiro.ImageTransparentColor = Color.Magenta;
+            btnParceiro.Margin = new Padding(0);
+            btnParceiro.Name = "btnParceiro";
+            btnParceiro.Padding = new Padding(15);
+            btnParceiro.RightToLeft = RightToLeft.No;
+            btnParceiro.Size = new Size(116, 58);
+            btnParceiro.Text = "Parceiro";
+            btnParceiro.TextDirection = ToolStripTextDirection.Horizontal;
+            btnParceiro.ToolTipText = "Parceiro";
+            btnParceiro.Click += btnParceiro_Click;
             // 
             // TelaPrincipalForm
             // 
@@ -214,5 +232,6 @@
         private ToolStripLabel lbTipoCadastro;
         private Panel plPrincipal;
         private ToolStripButton btnTaxa;
+        private ToolStripButton btnParceiro;
     }
 }

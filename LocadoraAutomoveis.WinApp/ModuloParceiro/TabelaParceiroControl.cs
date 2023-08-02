@@ -30,6 +30,11 @@ namespace LocadoraAutomoveis.WinApp.ModuloParceiro
             TelaPrincipalForm.AtualizarStatus($"Visualizando {parceiros.Count} Parceiros");
         }
 
+        public DataGridView ObterGrid()
+        {
+            return gridParceiro;
+        }
+
         public Parceiro ObterRegistroSelecionado()
         {
             return (Parceiro)gridParceiro.SelectedRows[0].Cells[0].Tag;

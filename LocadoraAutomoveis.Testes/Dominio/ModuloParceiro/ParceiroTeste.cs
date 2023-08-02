@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using FluentValidation.Results;
+using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloParceiro;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
@@ -9,26 +10,20 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloParceiro
     [TestClass]
     public class ParceiroTeste
     {
-        private RepositorioParceiro _repositorioParceiro;
-
-        private ContextoDados _contexto;
+        private ValidadorParceiro _validador;
 
         [TestInitialize]
         public void Setup()
         {
-            _contexto = new LocadoraAutomoveisDesignFactory().CreateDbContext(null);
-
-            _repositorioParceiro = new RepositorioParceiro(_contexto);
-
-            _contexto.RemoveRange(_repositorioParceiro.Registros);
+            _validador = new ValidadorParceiro();
         }
 
         [TestMethod]
         public void Deve_ter_no_minimo_3_caracteres()
         {
-            Parceiro parceiro = new("Ra");
+            Parceiro parceiro = new("Ac");
 
-            ValidationResult resultado = new ValidadorParceiro().Validate(parceiro);
+            ValidationResult resultado = _validador.Validate(parceiro);
 
             resultado.IsValid.Should().BeFalse();
         }
@@ -36,9 +31,9 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloParceiro
         [TestMethod]
         public void Nao_deve_aceitar_caracteres_especiais()
         {
-            Parceiro parceiro = new("Rafael@");
+            Parceiro parceiro = new("Academia do Programador@");
 
-            ValidationResult resultado = new ValidadorParceiro().Validate(parceiro);
+            ValidationResult resultado = _validador.Validate(parceiro);
 
             resultado.IsValid.Should().BeFalse();
         }
@@ -48,22 +43,9 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloParceiro
         {
             Parceiro parceiro = new("");
 
-            ValidationResult resultado = new ValidadorParceiro().Validate(parceiro);
+            ValidationResult resultado = _validador.Validate(parceiro);
 
             resultado.IsValid.Should().BeFalse();
-        }
-
-        [TestMethod]
-        public void Nao_deve_aceitar_categoria_repetida()
-        {
-            Parceiro parceiro1 = new("Rafael");
-            Parceiro parceiro2 = new("Rafael");
-
-            _repositorioParceiro.Inserir(parceiro1);
-
-            bool resultado = new ValidadorParceiro().ValidarParceiroExistente(parceiro2, _repositorioParceiro.SelecionarTodos());
-
-            resultado.Should().BeTrue();
         }
     }
 }

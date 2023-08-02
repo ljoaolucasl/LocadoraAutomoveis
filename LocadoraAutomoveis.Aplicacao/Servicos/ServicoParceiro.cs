@@ -3,9 +3,7 @@ using FluentValidation.Results;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Extensions;
 using LocadoraAutomoveis.Dominio.Compartilhado;
-using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloParceiro;
-using LocadoraAutomoveis.Infraestrutura.Repositorios;
 using Microsoft.Data.SqlClient;
 using Serilog;
 

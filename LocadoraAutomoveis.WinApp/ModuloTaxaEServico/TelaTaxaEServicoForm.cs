@@ -1,20 +1,20 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
-using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Extensions;
 
-namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
+namespace LocadoraAutomoveis.WinApp.ModuloTaxaEServico
 {
-    public partial class TelaCategoriaAutomoveisForm : Form, ITelaBase<CategoriaAutomoveis>
+    public partial class TelaTaxaEServicoForm : Form, ITelaBase<TaxaEServico>
     {
-        private CategoriaAutomoveis _categoria;
+        private TaxaEServico _taxa;
 
         private Result _resultado;
 
-        public event Func<CategoriaAutomoveis, Result> OnGravarRegistro;
+        public event Func<TaxaEServico, Result> OnGravarRegistro;
 
-        public TelaCategoriaAutomoveisForm()
+        public TelaTaxaEServicoForm()
         {
             InitializeComponent();
 
@@ -22,17 +22,19 @@ namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
 
             _resultado = new Result();
 
-            _categoria = new CategoriaAutomoveis();
+            _taxa = new TaxaEServico();
         }
 
-        public CategoriaAutomoveis? Entidade
+        public TaxaEServico? Entidade
         {
-            get => _categoria;
+            get => _taxa;
 
             set
             {
                 txtNome.Text = value.Nome;
-                _categoria = value;
+                txtValor.Value = value.Valor;
+                rdDiaria.Checked = value.Tipo == Tipo.Diario;
+                _taxa = value;
             }
         }
 
@@ -48,19 +50,21 @@ namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
         {
             ResetarErros();
 
-            _categoria = ObterCategoria();
+            _taxa = ObterCategoria();
 
-            _resultado = OnGravarRegistro(_categoria);
+            _resultado = OnGravarRegistro(_taxa);
 
             if (_resultado.IsFailed)
                 MostrarErros();
         }
 
-        private CategoriaAutomoveis ObterCategoria()
+        private TaxaEServico ObterCategoria()
         {
-            _categoria.Nome = txtNome.Text;
+            _taxa.Nome = txtNome.Text;
+            _taxa.Valor = txtValor.Value;
+            _taxa.Tipo = rdDiaria.Checked ? Tipo.Diario : Tipo.CalculoFixo;
 
-            return _categoria;
+            return _taxa;
         }
 
         private void MostrarErros()
@@ -70,6 +74,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
                 switch (item.PropertyName)
                 {
                     case "Nome": lbErroNome.Text = item.ErrorMessage; lbErroNome.Visible = true; txtNome.Focus(); break;
+                    case "Valor": lbErroValor.Text = item.ErrorMessage; lbErroValor.Visible = true; txtValor.Focus(); break;
                 }
             }
         }
@@ -77,6 +82,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
         private void ResetarErros()
         {
             lbErroNome.Visible = false;
+            lbErroValor.Visible = false;
 
             _resultado.Errors.Clear();
             _resultado.Reasons.Clear();

@@ -20,8 +20,4 @@
     <ProjectReference Include="..\LocadoraAutomoveis.Dominio\LocadoraAutomoveis.Dominio.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

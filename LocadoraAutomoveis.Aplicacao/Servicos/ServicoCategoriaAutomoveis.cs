@@ -114,6 +114,20 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 return Result.Fail(erros);
             }
+            catch (InvalidOperationException ex)
+            {
+                Log.Warning("Falha ao tentar excluir a Categoria '{NOME} #{ID}'", categoriaParaExcluir.Nome, categoriaParaExcluir.ID, ex);
+
+                List<IError> erros = new();
+
+                if (ex.Message.Contains("'CategoriaAutomoveis' and 'Automovel' "))
+                    erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Automóvel." +
+                        " Primeiro exclua o Automóvel relacionado", "CategoriaAutomoveis"));
+                else
+                    erros.Add(new CustomError("Falha ao tentar excluir a Categoria de Automóveis", "CategoriaAutomoveis"));
+
+                return Result.Fail(erros);
+            }
         }
         #endregion
 

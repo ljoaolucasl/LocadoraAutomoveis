@@ -14,6 +14,19 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloCategoriaAutomoveis
         }
 
         [TestMethod]
+        public void Deve_aceitar_categoria_valida()
+        {
+            //arrange
+            CategoriaAutomoveis categoria = new("Esportivo");
+
+            //action
+            ValidationResult resultado = _validador.Validate(categoria);
+
+            //assert
+            resultado.IsValid.Should().BeTrue();
+        }
+
+        [TestMethod]
         public void Nao_deve_aceitar_menos_que_3_caracteres()
         {
             //arrange

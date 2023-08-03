@@ -16,6 +16,11 @@ namespace LocadoraAutomoveis.Dominio.ModuloParceiro
             
         }
 
+        public override string ToString()
+        {
+            return Nome;
+        }
+
         public override bool Equals(object? obj)
         {
             return obj is Parceiro parceiro &&

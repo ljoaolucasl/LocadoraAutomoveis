@@ -9,8 +9,8 @@ namespace LocadoraAutomoveis.Infraestrutura.Mapeadores
         public void Configure(EntityTypeBuilder<Parceiro> builder)
         {
             builder.ToTable("TBParceiro");
-            builder.HasKey(c => c.ID);
-            builder.Property(c => c.Nome).HasColumnType("varchar(100)").IsRequired();
+            builder.HasKey(p => p.ID);
+            builder.Property(p => p.Nome).HasColumnType("varchar(100)").IsRequired();
         }
     }
 }

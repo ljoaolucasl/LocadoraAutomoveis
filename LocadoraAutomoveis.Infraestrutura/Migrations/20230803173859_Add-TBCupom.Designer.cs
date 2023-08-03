@@ -4,6 +4,7 @@ using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraAutomoveis.Infraestrutura.Migrations
 {
     [DbContext(typeof(ContextoDados))]
-    partial class ContextoDadosModelSnapshot : ModelSnapshot
+    [Migration("20230803173859_Add-TBCupom")]
+    partial class AddTBCupom
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,56 +40,6 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                     b.ToTable("TBCategoriaAutomoveis", (string)null);
                 });
 
-            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloCliente.Cliente", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Bairro")
-                        .IsRequired()
-                        .HasColumnType("varchar(120)");
-
-                    b.Property<string>("Cidade")
-                        .IsRequired()
-                        .HasColumnType("varchar(60)");
-
-                    b.Property<string>("Documento")
-                        .IsRequired()
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<int>("Numero")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Rua")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Telefone")
-                        .IsRequired()
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<int>("TipoCliente")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("TBCliente", (string)null);
-                });
-
-            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloFuncionario.Funcionario", b =>
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloCupom.Cupom", b =>
                 {
                     b.Property<Guid>("ID")

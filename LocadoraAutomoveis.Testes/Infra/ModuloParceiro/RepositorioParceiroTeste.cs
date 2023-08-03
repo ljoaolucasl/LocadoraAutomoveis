@@ -10,6 +10,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloParceiro
     public class RepositorioParceiroTeste
     {
         private RepositorioParceiro _repositorioParceiro;
+        private RepositorioCupom _repositorioCupom;
 
         private ContextoDados _contexto;
 
@@ -19,12 +20,12 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloParceiro
             _contexto = new LocadoraAutomoveisDesignFactory().CreateDbContext(null);
 
             _repositorioParceiro = new RepositorioParceiro(_contexto);
+            _repositorioCupom = new RepositorioCupom(_contexto);
 
+            _contexto.RemoveRange(_repositorioCupom.Registros);
             _contexto.RemoveRange(_repositorioParceiro.Registros);
 
             BuilderSetup.SetCreatePersistenceMethod<Parceiro>(_repositorioParceiro.Inserir);
-
-            BuilderSetup.DisablePropertyNamingFor<Parceiro, Guid>(x => x.ID);
         }
 
         [TestMethod]

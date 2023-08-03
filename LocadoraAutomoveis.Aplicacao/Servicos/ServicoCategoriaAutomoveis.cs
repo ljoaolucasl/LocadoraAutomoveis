@@ -5,6 +5,7 @@ using LocadoraAutomoveis.Aplicacao.Extensions;
 using LocadoraAutomoveis.Dominio.Compartilhado;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
@@ -99,13 +100,13 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 return Result.Ok();
             }
-            catch (SqlException ex)
+            catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
                 Log.Warning("Falha ao tentar excluir a Categoria '{NOME} #{ID}'", categoriaParaExcluir.Nome, categoriaParaExcluir.ID, ex);
 
                 List<IError> erros = new();
 
-                if (ex.Message.Contains("FK_TBAutomovel_TBCategoriaAutomoveis"))
+                if (sqlException.Message.Contains("FK_TBAutomovel_TBCategoriaAutomoveis"))
                     erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Automóvel." +
                         " Primeiro exclua o Automóvel relacionado", "CategoriaAutomoveis"));
                 else

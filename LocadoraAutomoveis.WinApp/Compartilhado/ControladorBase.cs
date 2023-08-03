@@ -1,4 +1,5 @@
 ﻿using FluentResults;
+using LocadoraAutomoveis.Aplicacao.Compartilhado;
 
 namespace LocadoraAutomoveis.WinApp.Compartilhado
 {
@@ -99,7 +100,7 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado
 
                 if (resultado.IsFailed)
                 {
-                    MessageBox.Show(resultado.Errors[0].Message,
+                    MessageBox.Show(resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage,
                         "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     return;

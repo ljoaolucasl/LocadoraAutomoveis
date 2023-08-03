@@ -5,7 +5,7 @@ namespace LocadoraAutomoveis.Dominio.Compartilhado
     public interface IServicoBase<T> where T : EntidadeBase
     {
         Result ValidarRegistro(T registroParaValidar);
-        IEnumerable<T> SelecionarTodosOsRegistros();
+        List<T> SelecionarTodosOsRegistros();
         Result Inserir(T registroParaAdicionar);
         Result Editar(T registroParaEditar);
         Result Excluir(T registroParaExcluir);

@@ -4,7 +4,9 @@ using FluentResults.Extensions.FluentAssertions;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.Testes.Compartilhado;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -197,34 +199,27 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
         public void Nao_Deve_excluir_categoria_quando_relacionada_ao_automovel()
         {
             //arrange
+            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBAutomovel_TBCategoriaAutomoveis");
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>(), true)).Returns(true);
-            var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
-            FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
-
-            messageField?.SetValue(exception, "FK_TBCategoriaAutomoveis_TBOBJETORELACAO");
-
-            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<CategoriaAutomoveis>())).Throws(exception);
+            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<CategoriaAutomoveis>())).Throws(dbUpdateException);
 
             //action
             var resultado = _servico.Excluir(Builder<CategoriaAutomoveis>.CreateNew().Build());
 
             //assert
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Essa Categoria está relacionada à um ObjetoRelacao." +
-                " Primeiro exclua o ObjetoRelacao relacionado");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Essa Categoria de Automóveis está relacionada a um Automóvel." +
+                        " Primeiro exclua o Automóvel relacionado");
         }
 
         [TestMethod]
         public void Nao_Deve_excluir_categoria_quando_relacionada_ao_plano_de_cobranca()
         {
             //arrange
+            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBOBJETORELACAO_TBCategoriaAutomoveis");
+
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>(), true)).Returns(true);
-            var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
-            FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
-
-            messageField?.SetValue(exception, "FK_TBCategoriaAutomoveis_TBOBJETORELACAO");
-
-            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<CategoriaAutomoveis>())).Throws(exception);
+            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<CategoriaAutomoveis>())).Throws(dbUpdateException);
 
             //action
             var resultado = _servico.Excluir(Builder<CategoriaAutomoveis>.CreateNew().Build());
@@ -239,13 +234,10 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
         public void Nao_Deve_excluir_categoria_quando_relacionada_ao_aluguel_em_aberto()
         {
             //arrange
+            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBOBJETORELACAO_TBCategoriaAutomoveis");
+
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>(), true)).Returns(true);
-            var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
-            FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
-
-            messageField?.SetValue(exception, "FK_TBCategoriaAutomoveis_TBOBJETORELACAO");
-
-            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<CategoriaAutomoveis>())).Throws(exception);
+            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<CategoriaAutomoveis>())).Throws(dbUpdateException);
 
             //action
             var resultado = _servico.Excluir(Builder<CategoriaAutomoveis>.CreateNew().Build());
@@ -260,20 +252,17 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
         public void Nao_Deve_excluir_categoria_quando_falha_na_exclusao()
         {
             //arrange
+            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("");
+
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>(), true)).Returns(true);
-            var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
-            FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
-
-            messageField?.SetValue(exception, "");
-
-            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<CategoriaAutomoveis>())).Throws(exception);
+            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<CategoriaAutomoveis>())).Throws(dbUpdateException);
 
             //action
             var resultado = _servico.Excluir(Builder<CategoriaAutomoveis>.CreateNew().Build());
 
             //assert
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Falha ao tentar excluir categoria");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Falha ao tentar excluir a Categoria de Automóveis");
         }
         #endregion
     }

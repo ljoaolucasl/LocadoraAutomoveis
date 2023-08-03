@@ -32,6 +32,8 @@
             btnCategoria = new ToolStripButton();
             btnTaxa = new ToolStripButton();
             btnParceiro = new ToolStripButton();
+            btnAutomovel = new ToolStripButton();
+            btnFuncionario = new ToolStripButton();
             barraAcoes = new ToolStrip();
             btnAdicionar = new ToolStripButton();
             btnEditar = new ToolStripButton();
@@ -41,6 +43,8 @@
             stripStatus = new StatusStrip();
             lbStatus = new ToolStripStatusLabel();
             plPrincipal = new Panel();
+            btnFiltrar = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
             btnCupom = new ToolStripButton();
             barraBotoes.SuspendLayout();
             barraAcoes.SuspendLayout();
@@ -53,6 +57,7 @@
             barraBotoes.Dock = DockStyle.Left;
             barraBotoes.GripMargin = new Padding(0);
             barraBotoes.GripStyle = ToolStripGripStyle.Hidden;
+            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCategoria, btnTaxa, btnParceiro, btnAutomovel, btnFuncionario });
             barraBotoes.Items.AddRange(new ToolStripItem[] { btnCategoria, btnTaxa, btnParceiro, btnCupom });
             barraBotoes.LayoutStyle = ToolStripLayoutStyle.VerticalStackWithOverflow;
             barraBotoes.Location = new Point(0, 0);
@@ -77,7 +82,6 @@
             btnCategoria.Size = new Size(258, 42);
             btnCategoria.Text = "Categoria de Automóveis";
             btnCategoria.TextDirection = ToolStripTextDirection.Horizontal;
-            btnCategoria.ToolTipText = "Categoria";
             btnCategoria.Click += btnCategoria_Click;
             // 
             // btnTaxa
@@ -114,12 +118,46 @@
             btnParceiro.ToolTipText = "Parceiros";
             btnParceiro.Click += btnParceiro_Click;
             // 
+            // btnAutomovel
+            // 
+            btnAutomovel.BackColor = Color.Gainsboro;
+            btnAutomovel.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnAutomovel.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnAutomovel.ForeColor = Color.Black;
+            btnAutomovel.ImageTransparentColor = Color.Magenta;
+            btnAutomovel.Margin = new Padding(0);
+            btnAutomovel.Name = "btnAutomovel";
+            btnAutomovel.Padding = new Padding(20, 10, 20, 10);
+            btnAutomovel.RightToLeft = RightToLeft.No;
+            btnAutomovel.Size = new Size(258, 42);
+            btnAutomovel.Text = "Automóveis";
+            btnAutomovel.TextDirection = ToolStripTextDirection.Horizontal;
+            btnAutomovel.ToolTipText = "Automóveis";
+            btnAutomovel.Click += btnAutomovel_Click;
+            // 
+            // btnFuncionario
+            // 
+            btnFuncionario.BackColor = Color.Gainsboro;
+            btnFuncionario.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnFuncionario.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnFuncionario.ForeColor = Color.Black;
+            btnFuncionario.ImageTransparentColor = Color.Magenta;
+            btnFuncionario.Margin = new Padding(0);
+            btnFuncionario.Name = "btnFuncionario";
+            btnFuncionario.Padding = new Padding(20, 10, 20, 10);
+            btnFuncionario.RightToLeft = RightToLeft.No;
+            btnFuncionario.Size = new Size(258, 42);
+            btnFuncionario.Text = "Funcionários";
+            btnFuncionario.TextDirection = ToolStripTextDirection.Horizontal;
+            btnFuncionario.ToolTipText = "Funcionários";
+            btnFuncionario.Click += btnFuncionario_Click_1;
+            // 
             // barraAcoes
             // 
             barraAcoes.AutoSize = false;
             barraAcoes.BackColor = Color.White;
             barraAcoes.GripStyle = ToolStripGripStyle.Hidden;
-            barraAcoes.Items.AddRange(new ToolStripItem[] { btnAdicionar, btnEditar, btnExcluir, separadorBarra, lbTipoCadastro });
+            barraAcoes.Items.AddRange(new ToolStripItem[] { btnAdicionar, btnEditar, btnExcluir, toolStripSeparator1, btnFiltrar, separadorBarra, lbTipoCadastro });
             barraAcoes.Location = new Point(259, 0);
             barraAcoes.Name = "barraAcoes";
             barraAcoes.Size = new Size(754, 53);
@@ -199,6 +237,24 @@
             plPrincipal.ControlAdded += plPrincipal_ControlAdded;
             plPrincipal.ControlRemoved += plPrincipal_ControlRemoved;
             // 
+            // btnFiltrar
+            // 
+            btnFiltrar.BackColor = Color.FromArgb(230, 230, 80);
+            btnFiltrar.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            btnFiltrar.ImageScaling = ToolStripItemImageScaling.None;
+            btnFiltrar.ImageTransparentColor = Color.Magenta;
+            btnFiltrar.Margin = new Padding(10);
+            btnFiltrar.Name = "btnFiltrar";
+            btnFiltrar.Padding = new Padding(5);
+            btnFiltrar.Size = new Size(60, 33);
+            btnFiltrar.Text = "Filtrar";
+            btnFiltrar.Click += btnFiltrar_Click;
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 53);
+            // 
             // btnCupom
             // 
             btnCupom.BackColor = Color.Gainsboro;
@@ -255,6 +311,10 @@
         private ToolStripButton btnTaxa;
         private ToolStripButton toolStripButton1;
         private ToolStripButton btnParceiro;
+        private ToolStripButton btnFuncionario;
+        private ToolStripButton btnAutomovel;
+        private ToolStripButton btnFiltrar;
+        private ToolStripSeparator toolStripSeparator1;
         private ToolStripButton btnCupom;
     }
 }

@@ -121,7 +121,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             return _repositorioTaxaEServico.SelecionarPorID(taxaID);
         }
 
-        public IEnumerable<TaxaEServico> SelecionarTodosOsRegistros()
+        public List<TaxaEServico> SelecionarTodosOsRegistros()
         {
             return _repositorioTaxaEServico.SelecionarTodos();
         }

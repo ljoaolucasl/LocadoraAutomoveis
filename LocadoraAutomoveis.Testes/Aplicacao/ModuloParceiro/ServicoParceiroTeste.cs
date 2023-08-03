@@ -166,41 +166,41 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloParceiro
             resultado.Reasons[0].Message.Should().Be("Parceiro não encontrado");
         }
 
-        //[TestMethod]
-        //public void Nao_Deve_excluir_parceiro_quando_relacionado_ao_cupom()
-        //{
-        //    _repositorioMoq.Setup(x => x.Existe(It.IsAny<Parceiro>(), true)).Returns(true);
-        //    var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
-        //    FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
+        [TestMethod]
+        public void Nao_Deve_excluir_parceiro_quando_relacionado_ao_cupom()
+        {
+            _repositorioMoq.Setup(x => x.Existe(It.IsAny<Parceiro>(), true)).Returns(true);
+            var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
+            FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
 
-        //    messageField?.SetValue(exception, "FK_TBParceiro_TBOBJETORELACAO");
+            messageField?.SetValue(exception, "FK_TBParceiro_TBOBJETORELACAO");
 
-        //    _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Parceiro>())).Throws(exception);
+            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Parceiro>())).Throws(exception);
 
-        //    var resultado = _servico.Excluir(Builder<Parceiro>.CreateNew().Build());
+            var resultado = _servico.Excluir(Builder<Parceiro>.CreateNew().Build());
 
-        //    resultado.Should().BeFailure();
-        //    resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Parceiro está relacionada a um ObjetoRelacao." +
-        //        " Primeiro exclua o ObjetoRelacao relacionado");
-        //}
+            resultado.Should().BeFailure();
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Parceiro está relacionada a um ObjetoRelacao." +
+                " Primeiro exclua o ObjetoRelacao relacionado");
+        }
 
-        //[TestMethod]
-        //public void Nao_Deve_excluir_parceiro_quando_relacionada_ao_aluguel_em_aberto()
-        //{
-        //    _repositorioMoq.Setup(x => x.Existe(It.IsAny<Parceiro>(), true)).Returns(true);
-        //    var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
-        //    FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
+        [TestMethod]
+        public void Nao_Deve_excluir_parceiro_quando_relacionada_ao_aluguel_em_aberto()
+        {
+            _repositorioMoq.Setup(x => x.Existe(It.IsAny<Parceiro>(), true)).Returns(true);
+            var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
+            FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
 
-        //    messageField?.SetValue(exception, "FK_TBParceiro_TBOBJETORELACAO");
+            messageField?.SetValue(exception, "FK_TBParceiro_TBOBJETORELACAO");
 
-        //    _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Parceiro>())).Throws(exception);
+            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Parceiro>())).Throws(exception);
 
-        //    var resultado = _servico.Excluir(Builder<Parceiro>.CreateNew().Build());
+            var resultado = _servico.Excluir(Builder<Parceiro>.CreateNew().Build());
 
-        //    resultado.Should().BeFailure();
-        //    resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Parceiro está relacionada a um ObjetoRelacao." +
-        //        " Primeiro exclua o ObjetoRelacao relacionado");
-        //}
+            resultado.Should().BeFailure();
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Parceiro está relacionada a um ObjetoRelacao." +
+                " Primeiro exclua o ObjetoRelacao relacionado");
+        }
 
         [TestMethod]
         public void Nao_Deve_excluir_parceiro_quando_falha_na_exclusao()

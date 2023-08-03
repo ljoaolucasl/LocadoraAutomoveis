@@ -19,6 +19,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             _repositorioCupom = repositorioCupom;
             _validadorCupom = validadorCupom;
         }
+
         #region CRUD
         public Result Inserir(Cupom cupomParaAdicionar)
         {

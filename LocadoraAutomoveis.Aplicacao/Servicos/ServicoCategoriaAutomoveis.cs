@@ -5,6 +5,7 @@ using LocadoraAutomoveis.Aplicacao.Extensions;
 using LocadoraAutomoveis.Dominio.Compartilhado;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
@@ -43,7 +44,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
-                CustomError erro = new CustomError("Falha ao tentar inserir categoria ", "Categoria", ex.Message);
+                CustomError erro = new("Falha ao tentar inserir categoria ", "Categoria", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{C}", categoriaParaAdicionar);
 
@@ -72,7 +73,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
-                CustomError erro = new CustomError("Falha ao tentar editar categoria ", "Categoria", ex.Message);
+                CustomError erro = new("Falha ao tentar editar categoria ", "Categoria", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{C}", categoriaParaEditar);
 
@@ -99,17 +100,17 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 return Result.Ok();
             }
-            catch (SqlException ex)
+            catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
                 Log.Warning("Falha ao tentar excluir a Categoria '{NOME} #{ID}'", categoriaParaExcluir.Nome, categoriaParaExcluir.ID, ex);
 
                 List<IError> erros = new();
 
-                if (ex.Message.Contains("FK_TBCategoriaAutomoveis_TBOBJETORELACAO"))
-                    erros.Add(new CustomError("Essa Categoria está relacionada à um ObjetoRelacao." +
-                        " Primeiro exclua o ObjetoRelacao relacionado", "Categoria"));
+                if (sqlException.Message.Contains("FK_TBAutomovel_TBCategoriaAutomoveis"))
+                    erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Automóvel." +
+                        " Primeiro exclua o Automóvel relacionado", "CategoriaAutomoveis"));
                 else
-                    erros.Add(new CustomError("Falha ao tentar excluir categoria", "Categoria"));
+                    erros.Add(new CustomError("Falha ao tentar excluir a Categoria de Automóveis", "CategoriaAutomoveis"));
 
                 return Result.Fail(erros);
             }
@@ -121,7 +122,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             return _repositorioCategoriaAutomoveis.SelecionarPorID(categoriaID);
         }
 
-        public IEnumerable<CategoriaAutomoveis> SelecionarTodosOsRegistros()
+        public List<CategoriaAutomoveis> SelecionarTodosOsRegistros()
         {
             return _repositorioCategoriaAutomoveis.SelecionarTodos();
         }

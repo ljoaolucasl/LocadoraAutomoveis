@@ -1,6 +1,6 @@
 ﻿namespace LocadoraAutomoveis.WinApp.Compartilhado
 {
-    public class NoRepository
+    public class NoService
     {
     }
 }

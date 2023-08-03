@@ -34,15 +34,9 @@ namespace LocadoraAutomoveis.Dominio.ModuloCliente
             .NotEmpty().WithMessage("'TipoCliente' não pode ser vazio.")
             .IsInEnum().WithMessage("'TipoCliente' inválido.");
 
-            RuleFor(c => c.CPF)
-            .NotEmpty().WithMessage("'CPF' não pode ser vazio.")
-            .Length(11).WithMessage("'CPF' deve conter exatamente 11 dígitos.")
-            .Matches(@"^\d{3}\.\d{3}\.\d{3}-\d{2}$").WithMessage("'CPF' inválido.");
-
-            RuleFor(c => c.CNPJ)
-            .NotEmpty().WithMessage("'CNPJ' não pode ser vazio.")
-            .Length(14).WithMessage("'CNPJ' deve conter exatamente 14 dígitos.")
-            .Matches(@"^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$").WithMessage("'CNPJ' inválido.");
+            RuleFor(c => c.Documento)
+            .NotEmpty().WithMessage("'Documento' não pode ser vazio.")
+            .Must(doc => ValidarCpfCnpj(doc)).WithMessage("'Documento' inválido.");
 
             RuleFor(c => c.Estado)
                 .NotEmpty().WithMessage("'Estado' não pode ser vazio.")
@@ -86,6 +80,20 @@ namespace LocadoraAutomoveis.Dominio.ModuloCliente
             Regex regexEmail = new Regex(padraoEmail);
 
             return regexEmail.IsMatch(email);
+        }
+
+        private bool ValidarCpfCnpj(string document)
+        {
+            if (Regex.IsMatch(document, @"^\d{3}\.\d{3}\.\d{3}-\d{2}$"))
+            {
+                return true;
+            }
+            else if (Regex.IsMatch(document, @"^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$"))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

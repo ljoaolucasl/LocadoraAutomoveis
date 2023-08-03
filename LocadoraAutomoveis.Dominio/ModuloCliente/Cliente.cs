@@ -9,22 +9,20 @@ namespace LocadoraAutomoveis.Dominio.ModuloCliente
         public string Email { get; set; }
         public string Telefone { get; set; }
         public Tipo TipoCliente { get; set; }
-        public string CPF { get; set; }
-        public string CNPJ { get; set; }
+        public string Documento { get; set; }
         public string Estado { get; set; }
         public string Cidade { get; set; }
         public string Bairro { get; set; }
         public string Rua { get; set; }
         public int Numero { get; set; }
 
-        public Cliente(string nome, string email, string telefone, Tipo tipoCliente, string cPF, string cNPJ, string estado, string cidade, string bairro, string rua, int numero)
+        public Cliente(string nome, string email, string telefone, Tipo tipoCliente, string documento, string estado, string cidade, string bairro, string rua, int numero)
         {
             Nome = nome;
             Email = email;
             Telefone = telefone;
             TipoCliente = tipoCliente;
-            CPF = cPF;
-            CNPJ = cNPJ;
+            Documento = documento;
             Estado = estado;
             Cidade = cidade;
             Bairro = bairro;
@@ -43,8 +41,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloCliente
                    Email == cliente.Email &&
                    Telefone == cliente.Telefone &&
                    TipoCliente == cliente.TipoCliente &&
-                   CPF == cliente.CPF &&
-                   CNPJ == cliente.CNPJ &&
+                   Documento == cliente.Documento &&
                    Estado == cliente.Estado &&
                    Cidade == cliente.Cidade &&
                    Bairro == cliente.Bairro &&

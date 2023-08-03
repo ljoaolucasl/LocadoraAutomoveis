@@ -45,7 +45,7 @@
             label5 = new Label();
             lbErroCNPJ = new Label();
             label6 = new Label();
-            label7 = new Label();
+            lbErroTipo = new Label();
             txtCNPJ = new TextBox();
             txtCidade = new TextBox();
             lbErroCidade = new Label();
@@ -225,16 +225,16 @@
             label6.TabIndex = 24;
             label6.Text = "CNPJ:";
             // 
-            // label7
+            // lbErroTipo
             // 
-            label7.AutoSize = true;
-            label7.ForeColor = Color.FromArgb(192, 0, 0);
-            label7.Location = new Point(124, 160);
-            label7.Name = "label7";
-            label7.Size = new Size(128, 15);
-            label7.TabIndex = 27;
-            label7.Text = "*Selecione um campo*";
-            label7.Visible = false;
+            lbErroTipo.AutoSize = true;
+            lbErroTipo.ForeColor = Color.FromArgb(192, 0, 0);
+            lbErroTipo.Location = new Point(124, 160);
+            lbErroTipo.Name = "lbErroTipo";
+            lbErroTipo.Size = new Size(128, 15);
+            lbErroTipo.TabIndex = 27;
+            lbErroTipo.Text = "*Selecione um campo*";
+            lbErroTipo.Visible = false;
             // 
             // txtCNPJ
             // 
@@ -423,7 +423,7 @@
             Controls.Add(txtEstado);
             Controls.Add(label11);
             Controls.Add(txtCNPJ);
-            Controls.Add(label7);
+            Controls.Add(lbErroTipo);
             Controls.Add(lbErroCNPJ);
             Controls.Add(label6);
             Controls.Add(lbErroCPF);
@@ -467,7 +467,7 @@
         private Label label5;
         private Label lbErroCNPJ;
         private Label label6;
-        private Label label7;
+        private Label lbErroTipo;
         private TextBox txtCNPJ;
         private TextBox txtCidade;
         private Label lbErroCidade;

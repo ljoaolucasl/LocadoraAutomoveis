@@ -34,17 +34,18 @@
             btnParceiro = new ToolStripButton();
             btnAutomovel = new ToolStripButton();
             btnFuncionario = new ToolStripButton();
+            btnCliente = new ToolStripButton();
             barraAcoes = new ToolStrip();
             btnAdicionar = new ToolStripButton();
             btnEditar = new ToolStripButton();
             btnExcluir = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
+            btnFiltrar = new ToolStripButton();
             separadorBarra = new ToolStripSeparator();
             lbTipoCadastro = new ToolStripLabel();
             stripStatus = new StatusStrip();
             lbStatus = new ToolStripStatusLabel();
             plPrincipal = new Panel();
-            btnFiltrar = new ToolStripButton();
-            toolStripSeparator1 = new ToolStripSeparator();
             barraBotoes.SuspendLayout();
             barraAcoes.SuspendLayout();
             stripStatus.SuspendLayout();
@@ -56,7 +57,7 @@
             barraBotoes.Dock = DockStyle.Left;
             barraBotoes.GripMargin = new Padding(0);
             barraBotoes.GripStyle = ToolStripGripStyle.Hidden;
-            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCategoria, btnTaxa, btnParceiro, btnAutomovel, btnFuncionario });
+            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCategoria, btnTaxa, btnParceiro, btnAutomovel, btnFuncionario, btnCliente });
             barraBotoes.LayoutStyle = ToolStripLayoutStyle.VerticalStackWithOverflow;
             barraBotoes.Location = new Point(0, 0);
             barraBotoes.Name = "barraBotoes";
@@ -150,6 +151,23 @@
             btnFuncionario.ToolTipText = "Funcionários";
             btnFuncionario.Click += btnFuncionario_Click_1;
             // 
+            // btnCliente
+            // 
+            btnCliente.BackColor = Color.Gainsboro;
+            btnCliente.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnCliente.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCliente.ForeColor = Color.Black;
+            btnCliente.ImageTransparentColor = Color.Magenta;
+            btnCliente.Margin = new Padding(0);
+            btnCliente.Name = "btnCliente";
+            btnCliente.Padding = new Padding(20, 10, 20, 10);
+            btnCliente.RightToLeft = RightToLeft.No;
+            btnCliente.Size = new Size(258, 42);
+            btnCliente.Text = "Clientes";
+            btnCliente.TextDirection = ToolStripTextDirection.Horizontal;
+            btnCliente.ToolTipText = "Funcionários";
+            btnCliente.Click += btnCliente_Click;
+            // 
             // barraAcoes
             // 
             barraAcoes.AutoSize = false;
@@ -200,6 +218,24 @@
             btnExcluir.Text = "Excluir";
             btnExcluir.Click += btnExcluir_Click;
             // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 53);
+            // 
+            // btnFiltrar
+            // 
+            btnFiltrar.BackColor = Color.FromArgb(230, 230, 80);
+            btnFiltrar.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            btnFiltrar.ImageScaling = ToolStripItemImageScaling.None;
+            btnFiltrar.ImageTransparentColor = Color.Magenta;
+            btnFiltrar.Margin = new Padding(10);
+            btnFiltrar.Name = "btnFiltrar";
+            btnFiltrar.Padding = new Padding(5);
+            btnFiltrar.Size = new Size(60, 33);
+            btnFiltrar.Text = "Filtrar";
+            btnFiltrar.Click += btnFiltrar_Click;
+            // 
             // separadorBarra
             // 
             separadorBarra.Name = "separadorBarra";
@@ -234,24 +270,6 @@
             plPrincipal.TabIndex = 3;
             plPrincipal.ControlAdded += plPrincipal_ControlAdded;
             plPrincipal.ControlRemoved += plPrincipal_ControlRemoved;
-            // 
-            // btnFiltrar
-            // 
-            btnFiltrar.BackColor = Color.FromArgb(230, 230, 80);
-            btnFiltrar.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            btnFiltrar.ImageScaling = ToolStripItemImageScaling.None;
-            btnFiltrar.ImageTransparentColor = Color.Magenta;
-            btnFiltrar.Margin = new Padding(10);
-            btnFiltrar.Name = "btnFiltrar";
-            btnFiltrar.Padding = new Padding(5);
-            btnFiltrar.Size = new Size(60, 33);
-            btnFiltrar.Text = "Filtrar";
-            btnFiltrar.Click += btnFiltrar_Click;
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 53);
             // 
             // TelaPrincipalForm
             // 
@@ -296,5 +314,6 @@
         private ToolStripButton btnAutomovel;
         private ToolStripButton btnFiltrar;
         private ToolStripSeparator toolStripSeparator1;
+        private ToolStripButton btnCliente;
     }
 }

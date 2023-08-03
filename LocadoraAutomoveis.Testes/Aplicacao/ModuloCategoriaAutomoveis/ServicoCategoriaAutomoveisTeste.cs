@@ -5,11 +5,8 @@ using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Testes.Compartilhado;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using System.Reflection;
-using System.Runtime.Serialization;
 
 namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
 {

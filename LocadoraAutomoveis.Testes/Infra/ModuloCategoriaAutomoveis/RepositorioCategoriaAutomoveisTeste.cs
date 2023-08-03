@@ -19,11 +19,11 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
 
             _repositorioCategoriaAutomoveis = new RepositorioCategoriaAutomoveis(_contexto);
 
-            _contexto.RemoveRange(_repositorioCategoriaAutomoveis.Registros);
+            _contexto.RemoveRange(new RepositorioAutomovel(_contexto).SelecionarTodos());
+
+            _contexto.RemoveRange(_repositorioCategoriaAutomoveis.SelecionarTodos());
 
             BuilderSetup.SetCreatePersistenceMethod<CategoriaAutomoveis>(_repositorioCategoriaAutomoveis.Inserir);
-
-            BuilderSetup.DisablePropertyNamingFor<CategoriaAutomoveis, Guid>(x => x.ID);
         }
 
         [TestMethod]

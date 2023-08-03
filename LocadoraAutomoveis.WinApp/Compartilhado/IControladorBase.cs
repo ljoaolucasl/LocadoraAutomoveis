@@ -8,7 +8,7 @@
 
         string ToolTipExcluir { get; }
 
-        void Adicionar();
+        void Inserir();
 
         void Editar();
 
@@ -18,6 +18,6 @@
 
         string ObterTipoCadastro();
 
-        DataGridView ObterTabela();
+        DataGridView ObterGrid();
     }
 }

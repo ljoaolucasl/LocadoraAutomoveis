@@ -13,11 +13,11 @@ namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
             gridCategoriaAutomoveis.ConfigurarTabelaGrid("Número", "Nome");
         }
 
-        public void AtualizarLista(List<CategoriaAutomoveis> padroes)
+        public void AtualizarLista(List<CategoriaAutomoveis> categorias)
         {
             gridCategoriaAutomoveis.Rows.Clear();
 
-            foreach (CategoriaAutomoveis item in padroes)
+            foreach (CategoriaAutomoveis item in categorias)
             {
                 DataGridViewRow row = new();
                 row.CreateCells(gridCategoriaAutomoveis, item.ID, item.Nome);
@@ -25,7 +25,14 @@ namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
                 gridCategoriaAutomoveis.Rows.Add(row);
             }
 
-            TelaPrincipalForm.AtualizarStatus($"Visualizando {padroes.Count} Padrões");
+            gridCategoriaAutomoveis.Columns[0].Visible = false;
+
+            TelaPrincipalForm.AtualizarStatus($"Visualizando {categorias.Count} Categorias");
+        }
+
+        public DataGridView ObterGrid()
+        {
+            return gridCategoriaAutomoveis;
         }
 
         public CategoriaAutomoveis ObterRegistroSelecionado()

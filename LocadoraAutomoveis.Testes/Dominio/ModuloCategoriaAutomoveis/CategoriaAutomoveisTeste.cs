@@ -1,69 +1,68 @@
-﻿using FluentAssertions;
-using FluentValidation.Results;
-using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
-using LocadoraAutomoveis.Infraestrutura.Compartilhado;
-using LocadoraAutomoveis.Infraestrutura.Repositorios;
+﻿using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 
 namespace LocadoraAutomoveis.Testes.Dominio.ModuloCategoriaAutomoveis
 {
     [TestClass]
     public class CategoriaAutomoveisTeste
     {
-        private RepositorioCategoriaAutomoveis _repositorioCategoriaAutomoveis;
-
-        private ContextoDados _contexto;
+        private ValidadorCategoriaAutomoveis _validador;
 
         [TestInitialize]
         public void Setup()
         {
-            _contexto = new LocadoraAutomoveisDesignFactory().CreateDbContext(null);
-
-            _repositorioCategoriaAutomoveis = new RepositorioCategoriaAutomoveis(_contexto);
-
-            _contexto.RemoveRange(_repositorioCategoriaAutomoveis.Registros);
+            _validador = new ValidadorCategoriaAutomoveis();
         }
 
         [TestMethod]
-        public void Deve_ter_no_minimo_3_caracteres()
+        public void Deve_aceitar_categoria_valida()
         {
+            //arrange
+            CategoriaAutomoveis categoria = new("Esportivo");
+
+            //action
+            ValidationResult resultado = _validador.Validate(categoria);
+
+            //assert
+            resultado.IsValid.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Nao_deve_aceitar_menos_que_3_caracteres()
+        {
+            //arrange
             CategoriaAutomoveis categoria = new("Ca");
 
-            ValidationResult resultado = new ValidadorCategoriaAutomoveis().Validate(categoria);
+            //action
+            ValidationResult resultado = _validador.Validate(categoria);
 
+            //assert
             resultado.IsValid.Should().BeFalse();
         }
 
         [TestMethod]
         public void Nao_deve_aceitar_caracteres_especiais()
         {
+            //arrange
             CategoriaAutomoveis categoria = new("Caminhonete@");
 
-            ValidationResult resultado = new ValidadorCategoriaAutomoveis().Validate(categoria);
+            //action
+            ValidationResult resultado = _validador.Validate(categoria);
 
+            //assert
             resultado.IsValid.Should().BeFalse();
         }
 
         [TestMethod]
         public void Nao_deve_aceitar_campo_vazio()
         {
+            //arrange
             CategoriaAutomoveis categoria = new("");
 
-            ValidationResult resultado = new ValidadorCategoriaAutomoveis().Validate(categoria);
+            //action
+            ValidationResult resultado = _validador.Validate(categoria);
 
+            //assert
             resultado.IsValid.Should().BeFalse();
-        }
-
-        [TestMethod]
-        public void Nao_deve_aceitar_categoria_repetida()
-        {
-            CategoriaAutomoveis categoria1 = new("Caminhonete");
-            CategoriaAutomoveis categoria2 = new("Caminhonete");
-
-            _repositorioCategoriaAutomoveis.Adicionar(categoria1);
-
-            bool resultado = new ValidadorCategoriaAutomoveis().ValidarCategoriaExistente(categoria2, _repositorioCategoriaAutomoveis.SelecionarTodos());
-
-            resultado.Should().BeTrue();
         }
     }
 }

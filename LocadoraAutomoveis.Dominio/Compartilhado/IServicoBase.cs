@@ -4,11 +4,11 @@ namespace LocadoraAutomoveis.Dominio.Compartilhado
 {
     public interface IServicoBase<T> where T : EntidadeBase
     {
-        Result ValidarRegistro(T padraoParaValidar);
-        IEnumerable<T> SelecionarTodosOsRegistros();
-        Result Adicionar(T padraoParaAdicionar);
-        Result Editar(T padraoParaEditar);
-        Result Excluir(T padraoParaExcluir);
-        T SelecionarRegistroPorID(int padraoID);
+        Result ValidarRegistro(T registroParaValidar);
+        List<T> SelecionarTodosOsRegistros();
+        Result Inserir(T registroParaAdicionar);
+        Result Editar(T registroParaEditar);
+        Result Excluir(T registroParaExcluir);
+        T SelecionarRegistroPorID(Guid registroID);
     }
 }

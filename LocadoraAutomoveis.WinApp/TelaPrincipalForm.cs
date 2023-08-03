@@ -1,8 +1,19 @@
 using LocadoraAutomoveis.Aplicacao.Servicos;
+using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloCupom;
+using LocadoraAutomoveis.Dominio.ModuloFuncionario;
+using LocadoraAutomoveis.Dominio.ModuloParceiro;
+using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
 using LocadoraAutomoveis.WinApp.Compartilhado;
-using LocadoraAutomoveis.WinApp.ModuloPadrao;
+using LocadoraAutomoveis.WinApp.ModuloAutomovel;
+using LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.WinApp.ModuloFuncionario;
+using LocadoraAutomoveis.WinApp.ModuloCupom;
+using LocadoraAutomoveis.WinApp.ModuloParceiro;
+using LocadoraAutomoveis.WinApp.ModuloTaxaEServico;
 
 namespace LocadoraAutomoveis.WinApp
 {
@@ -16,9 +27,29 @@ namespace LocadoraAutomoveis.WinApp
 
         private DataGridView _grid;
 
-        private RepositorioPadrao _repositorioPadrao;
-        private ServicoPadrao _servicoPadrao;
-        private TabelaPadraoControl _tabelaPadrao;
+        private RepositorioCategoriaAutomoveis _repositorioCategoria;
+        private ServicoCategoriaAutomoveis _servicoCategoria;
+        private TabelaCategoriaAutomoveisControl _tabelaCategoria;
+
+        private RepositorioFuncionario _repositorioFuncionario;
+        private ServicoFuncionario _servicoFuncionario;
+        private TabelaFuncionarioControl _tabelaFuncionario;
+
+        private RepositorioTaxaEServico _repositorioTaxaEServico;
+        private ServicoTaxaEServico _servicoTaxaEServico;
+        private TabelaTaxaEServicoControl _tabelaTaxaEServico;
+
+        private RepositorioParceiro _repositorioParceiro;
+        private ServicoParceiro _servicoParceiro;
+        private TabelaParceiroControl _tabelaParceiro;
+
+        private RepositorioAutomovel _repositorioAutomovel;
+        private ServicoAutomovel _servicoAutomovel;
+        private TabelaAutomovelControl _tabelaAutomovel;
+
+        private RepositorioCupom _repositorioCupom;
+        private ServicoCupom _servicoCupom;
+        private TabelaCupomControl _tabelaCupom;
 
         public TelaPrincipalForm()
         {
@@ -28,7 +59,7 @@ namespace LocadoraAutomoveis.WinApp
 
             ConfigurarInstancias();
 
-            ConfigurarBotoesDicionario();
+            ConfigurarBotoes();
         }
 
         public static void AtualizarStatus(string status)
@@ -40,15 +71,71 @@ namespace LocadoraAutomoveis.WinApp
         {
             _contextoDb = new LocadoraAutomoveisDesignFactory().CreateDbContext(null);
 
-            _repositorioPadrao = new RepositorioPadrao(_contextoDb);
-            _servicoPadrao = new ServicoPadrao(_repositorioPadrao);
-            _tabelaPadrao = new TabelaPadraoControl();
+            _repositorioCategoria = new RepositorioCategoriaAutomoveis(_contextoDb);
+            _servicoCategoria = new ServicoCategoriaAutomoveis(_repositorioCategoria, new ValidadorCategoriaAutomoveis());
+            _tabelaCategoria = new TabelaCategoriaAutomoveisControl();
+
+            _repositorioFuncionario = new RepositorioFuncionario(_contextoDb);
+            _servicoFuncionario = new ServicoFuncionario(_repositorioFuncionario, new ValidadorFuncionario());
+            _tabelaFuncionario = new TabelaFuncionarioControl();
+
+            _repositorioTaxaEServico = new RepositorioTaxaEServico(_contextoDb);
+            _servicoTaxaEServico = new ServicoTaxaEServico(_repositorioTaxaEServico, new ValidadorTaxaEServico());
+            _tabelaTaxaEServico = new TabelaTaxaEServicoControl();
+
+            _repositorioParceiro = new RepositorioParceiro(_contextoDb);
+            _servicoParceiro = new ServicoParceiro(_repositorioParceiro, new ValidadorParceiro());
+            _tabelaParceiro = new TabelaParceiroControl();
+
+            _repositorioAutomovel = new RepositorioAutomovel(_contextoDb);
+            _servicoAutomovel = new ServicoAutomovel(_repositorioAutomovel, new ValidadorAutomovel());
+            _tabelaAutomovel = new TabelaAutomovelControl();
+
+            _repositorioCupom = new RepositorioCupom(_contextoDb);
+            _servicoCupom = new ServicoCupom(_repositorioCupom, new ValidadorCupom());
+            _tabelaCupom = new TabelaCupomControl();
         }
 
         #region BotoesTabelas
-        private void btnPadrao_Click(object sender, EventArgs e)
+        private void btnCategoria_Click(object sender, EventArgs e)
         {
-            _controladorBase = new ControladorPadrao(_repositorioPadrao, _servicoPadrao, _tabelaPadrao);
+            _controladorBase = new ControladorCategoriaAutomoveis(_repositorioCategoria, _servicoCategoria, _tabelaCategoria);
+            ConfigurarTelaPrincipal();
+        }
+
+        private void btnFuncionario_Click(object sender, EventArgs e)
+        {
+            _controladorBase = new ControladorFuncionario(_repositorioFuncionario, _servicoFuncionario, _tabelaFuncionario);
+            ConfigurarTelaPrincipal();
+        }
+
+        private void btnTaxa_Click(object sender, EventArgs e)
+        {
+            _controladorBase = new ControladorTaxaEServico(_repositorioTaxaEServico, _servicoTaxaEServico, _tabelaTaxaEServico);
+            ConfigurarTelaPrincipal();
+        }
+
+        private void btnParceiro_Click(object sender, EventArgs e)
+        {
+            _controladorBase = new ControladorParceiro(_repositorioParceiro, _servicoParceiro, _tabelaParceiro);
+            ConfigurarTelaPrincipal();
+        }
+
+        private void btnAutomovel_Click(object sender, EventArgs e)
+        {
+            _controladorBase = new ControladorAutomovel(_repositorioAutomovel, _servicoAutomovel, _tabelaAutomovel, _servicoCategoria);
+            ConfigurarTelaPrincipal();
+        }
+
+        private void btnFuncionario_Click_1(object sender, EventArgs e)
+        {
+            _controladorBase = new ControladorFuncionario(_repositorioFuncionario, _servicoFuncionario, _tabelaFuncionario);
+            ConfigurarTelaPrincipal();
+        }
+
+        private void btnCupom_Click(object sender, EventArgs e)
+        {
+            _controladorBase = new ControladorCupom(_repositorioCupom, _servicoCupom, _tabelaCupom, _servicoParceiro);
             ConfigurarTelaPrincipal();
         }
         #endregion
@@ -56,7 +143,7 @@ namespace LocadoraAutomoveis.WinApp
         #region CRUD
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            _controladorBase.Adicionar();
+            _controladorBase.Inserir();
             ResetarBotoes();
         }
 
@@ -73,6 +160,12 @@ namespace LocadoraAutomoveis.WinApp
         }
         #endregion
 
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            if (_controladorBase is ControladorAutomovel)
+                (_controladorBase as ControladorAutomovel).Filtrar();
+        }
+
         #region ConfiguracoesIniciais
         private void ConfigurarTelaPrincipal()
         {
@@ -83,7 +176,7 @@ namespace LocadoraAutomoveis.WinApp
 
         private void InicializarTabela()
         {
-            _grid = _controladorBase.ObterTabela();
+            _grid = _controladorBase.ObterGrid();
             _grid.Dock = DockStyle.Fill;
 
             plPrincipal.Controls.Clear();
@@ -113,40 +206,68 @@ namespace LocadoraAutomoveis.WinApp
         #region CoresDinamicasBotoes
         private readonly Dictionary<Control, ToolStripButton> coresBotoes = new();
 
-        private void ConfigurarBotoesDicionario()
+        private void ConfigurarBotoes()
         {
-            coresBotoes.Add(_tabelaPadrao, btnPadrao);
+            coresBotoes.Add(_tabelaCategoria.Controls[0], btnCategoria);
+            coresBotoes.Add(_tabelaFuncionario.Controls[0], btnFuncionario);
+            coresBotoes.Add(_tabelaTaxaEServico.Controls[0], btnTaxa);
+            coresBotoes.Add(_tabelaParceiro.Controls[0], btnParceiro);
+            coresBotoes.Add(_tabelaAutomovel.Controls[0], btnAutomovel);
+            coresBotoes.Add(_tabelaCupom.Controls[0], btnCupom);
+
+            btnCategoria.MouseEnter += btnColor_MouseEnter;
+            btnCategoria.MouseLeave += btnColor_MouseLeave;
+
+            btnTaxa.MouseEnter += btnColor_MouseEnter;
+            btnTaxa.MouseLeave += btnColor_MouseLeave;
+
+            btnParceiro.MouseEnter += btnColor_MouseEnter;
+            btnParceiro.MouseLeave += btnColor_MouseLeave;
+
+            btnFuncionario.MouseEnter += btnColor_MouseEnter;
+            btnFuncionario.MouseLeave += btnColor_MouseLeave;
+
+            btnAutomovel.MouseEnter += btnColor_MouseEnter;
+            btnAutomovel.MouseLeave += btnColor_MouseLeave;
+
+            btnCupom.MouseEnter += btnColor_MouseEnter;
+            btnCupom.MouseLeave += btnColor_MouseLeave;
         }
 
         private void btnColor_MouseEnter(object sender, EventArgs e)
         {
             ToolStripButton btn = (ToolStripButton)sender;
+            btn.BackColor = Color.White;
             btn.ForeColor = Color.Black;
         }
 
         private void btnColor_MouseLeave(object sender, EventArgs e)
         {
             ToolStripButton btn = (ToolStripButton)sender;
-            btn.ForeColor = Color.White;
+            btn.BackColor = Color.Gainsboro;
+            btn.ForeColor = Color.Black;
         }
 
         private void plPrincipal_ControlAdded(object sender, ControlEventArgs e)
         {
             coresBotoes.TryGetValue(e.Control, out ToolStripButton btn);
 
-            btn.BackColor = Color.White;
-            btn.ForeColor = Color.Black;
+            btn.BackColor = Color.DimGray;
+            btn.ForeColor = Color.White;
             btn.MouseLeave -= btnColor_MouseLeave;
+            btn.MouseEnter -= btnColor_MouseEnter;
         }
 
         private void plPrincipal_ControlRemoved(object sender, ControlEventArgs e)
         {
             coresBotoes.TryGetValue(e.Control, out ToolStripButton btn);
 
-            btn.BackColor = Color.FromArgb(0, 165, 100);
-            btn.ForeColor = Color.White;
+            btn.BackColor = Color.Gainsboro;
+            btn.ForeColor = Color.Black;
             btn.MouseLeave += btnColor_MouseLeave;
+            btn.MouseEnter += btnColor_MouseEnter;
         }
+
         #endregion
     }
 }

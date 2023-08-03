@@ -5,15 +5,12 @@ using LocadoraAutomoveis.WinApp.Compartilhado;
 
 namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
 {
-    public class ControladorCategoriaAutomoveis : ControladorBase<CategoriaAutomoveis, RepositorioCategoriaAutomoveis, ServicoCategoriaAutomoveis, TabelaCategoriaAutomoveisControl, TelaCategoriaAutomoveisForm, NoRepository, NoRepository>
+    public class ControladorCategoriaAutomoveis : ControladorBase<CategoriaAutomoveis, RepositorioCategoriaAutomoveis, ServicoCategoriaAutomoveis, TabelaCategoriaAutomoveisControl, TelaCategoriaAutomoveisForm, NoService, NoService>
     {
         public ControladorCategoriaAutomoveis(RepositorioCategoriaAutomoveis _repositorio, ServicoCategoriaAutomoveis _servico, TabelaCategoriaAutomoveisControl _tabela) : base(_repositorio, _servico, _tabela)
         {
         }
 
-        public override DataGridView ObterTabela()
-        {
-            return (DataGridView)_tabela.Controls[0];
-        }
+        protected override string TipoCadastro => "Categorias de Automóveis";
     }
 }

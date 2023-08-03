@@ -1,5 +1,4 @@
 ﻿using FizzWare.NBuilder;
-using FluentAssertions;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
@@ -20,15 +19,15 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
 
             _repositorioCategoriaAutomoveis = new RepositorioCategoriaAutomoveis(_contexto);
 
-            _contexto.RemoveRange(_repositorioCategoriaAutomoveis.Registros);
+            _contexto.RemoveRange(new RepositorioAutomovel(_contexto).SelecionarTodos());
 
-            BuilderSetup.SetCreatePersistenceMethod<CategoriaAutomoveis>(_repositorioCategoriaAutomoveis.Adicionar);
+            _contexto.RemoveRange(_repositorioCategoriaAutomoveis.SelecionarTodos());
 
-            BuilderSetup.DisablePropertyNamingFor<CategoriaAutomoveis, int>(x => x.ID);
+            BuilderSetup.SetCreatePersistenceMethod<CategoriaAutomoveis>(_repositorioCategoriaAutomoveis.Inserir);
         }
 
         [TestMethod]
-        public void Deve_adicionar_uma_disciplina()
+        public void Deve_adicionar_uma_categoria()
         {
             //arrange/action
             var categoria = Builder<CategoriaAutomoveis>.CreateNew().Persist();
@@ -38,7 +37,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
         }
 
         [TestMethod]
-        public void Deve_editar_uma_disciplina()
+        public void Deve_editar_uma_categoria()
         {
             //arrange
             var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
@@ -54,51 +53,91 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
             categoriaSelecionada.Should().Be(categoria2);
         }
 
-        //[TestMethod]
-        //public void Deve_excluir_uma_disciplina()
-        //{
-        //    var categoria1 = new Disciplina("Matemática") { Id = 1 };
+        [TestMethod]
+        public void Deve_excluir_uma_categoria()
+        {
+            //arrange
+            var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
+            var disciplinaSelecionada = _repositorioCategoriaAutomoveis.SelecionarPorID(categoria1.ID);
 
-        //    _repositorioDisciplina.Adicionar(disciplina1);
+            //action
+            _repositorioCategoriaAutomoveis.Excluir(disciplinaSelecionada);
 
-        //    var disciplinaSelecionada = _repositorioDisciplina.SelecionarPorId(1);
+            //assert
+            _repositorioCategoriaAutomoveis.SelecionarTodos().Count.Should().Be(0);
+        }
 
-        //    _repositorioDisciplina.Excluir(disciplinaSelecionada);
+        [TestMethod]
+        public void Deve_selecionar_por_ID_uma_categoria()
+        {
+            //arrange
+            var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
 
-        //    Assert.IsTrue(_repositorioDisciplina.ObterListaRegistros().Count == 0);
-        //}
+            //action
+            var disciplinaSelecionada = _repositorioCategoriaAutomoveis.SelecionarPorID(categoria1.ID);
 
-        //[TestMethod]
-        //public void Deve_selecionar_por_ID_uma_disciplina()
-        //{
-        //    var disciplina = new Disciplina("Matemática") { Id = 1 };
+            //assert
+            disciplinaSelecionada.Should().Be(categoria1);
+        }
 
-        //    _repositorioDisciplina.Adicionar(disciplina);
+        [TestMethod]
+        public void Deve_selecionar_todas_as_categorias()
+        {
+            //arrange
+            var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
+            var categoria2 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
+            var categoria3 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
+            var categoria4 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
 
-        //    var disciplinaSelecionada = _repositorioDisciplina.SelecionarPorId(1);
+            //action
+            var listaCategorias = _repositorioCategoriaAutomoveis.SelecionarTodos();
 
-        //    Assert.AreEqual(disciplinaSelecionada, disciplina);
-        //}
+            //assert
+            listaCategorias[0].Should().Be(categoria1);
+            listaCategorias[3].Should().Be(categoria4);
+            listaCategorias.Count.Should().Be(4);
+        }
 
-        //[TestMethod]
-        //public void Deve_selecionar_todas_as_disciplina()
-        //{
-        //    //arrange
-        //    var disciplina1 = new Disciplina("Matemática") { Id = 1 };
-        //    var disciplina2 = new Disciplina("Português") { Id = 2 };
-        //    var disciplina3 = new Disciplina("Artes") { Id = 3 };
-        //    var disciplina4 = new Disciplina("História") { Id = 4 };
+        [TestMethod]
+        public void Deve_verificar_se_categoria_existe_validacao()
+        {
+            //arrange
+            var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
+            var categoria2 = new CategoriaAutomoveis(categoria1.Nome);
 
-        //    //action
-        //    _repositorioDisciplina.Adicionar(disciplina1);
-        //    _repositorioDisciplina.Adicionar(disciplina2);
-        //    _repositorioDisciplina.Adicionar(disciplina3);
-        //    _repositorioDisciplina.Adicionar(disciplina4);
+            //action
+            bool resultado = _repositorioCategoriaAutomoveis.Existe(categoria2);
 
-        //    var listaDisciplinas = _repositorioDisciplina.ObterListaRegistros();
+            //assert
+            resultado.Should().BeTrue();
+        }
 
-        //    //assert
-        //    Assert.IsTrue(listaDisciplinas.Count == 4);
-        //}
+        [TestMethod]
+        public void Deve_permitir_se_categoria_com_nome_e_ID_iguais_validacao()
+        {
+            //arrange
+            var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
+            var categoria2 = new CategoriaAutomoveis(categoria1.Nome) { ID = categoria1.ID };
+
+            //action
+            bool resultado = _repositorioCategoriaAutomoveis.Existe(categoria2);
+
+            //assert
+            resultado.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Deve_verificar_se_categoria_existe_exclusao()
+        {
+            //arrange
+            var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
+            var categoria2 = _repositorioCategoriaAutomoveis.SelecionarPorID(categoria1.ID);
+
+            //action
+            bool resultado = _repositorioCategoriaAutomoveis.Existe(categoria2, true);
+
+            //assert
+            resultado.Should().BeTrue();
+        }
     }
 }

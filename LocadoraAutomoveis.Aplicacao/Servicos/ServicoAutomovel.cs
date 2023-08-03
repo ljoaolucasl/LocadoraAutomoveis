@@ -2,13 +2,15 @@
 using FluentValidation.Results;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Extensions;
+using LocadoraAutomoveis.Dominio.Compartilhado;
 using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using Microsoft.Data.SqlClient;
 using Serilog;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
-    public class ServicoAutomovel
+    public class ServicoAutomovel : IServicoBase<Automovel>
     {
         private readonly IRepositorioAutomovel _repositorioAutomovel;
         private readonly IValidadorAutomovel _validadorAutomovel;
@@ -120,9 +122,14 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             return _repositorioAutomovel.SelecionarPorID(categoriaID);
         }
 
-        public IEnumerable<Automovel> SelecionarTodosOsRegistros()
+        public List<Automovel> SelecionarTodosOsRegistros()
         {
             return _repositorioAutomovel.SelecionarTodos();
+        }
+
+        public List<Automovel> FiltrarAutomoveisPorCategoria(CategoriaAutomoveis categoria)
+        {
+            return _repositorioAutomovel.SelecionarPorCategoria(categoria);
         }
 
         public Result ValidarRegistro(Automovel categoriaParaValidar)

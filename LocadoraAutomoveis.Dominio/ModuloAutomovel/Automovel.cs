@@ -54,15 +54,15 @@ namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
     public enum TipoCombustível
     {
         [Description("Gasolina")]
-        Gasolina = 1,
+        Gasolina,
 
         [Description("Etanol")]
-        Etanol = 2,
+        Etanol,
 
         [Description("Diesel")]
-        Diesel = 3,
+        Diesel,
 
         [Description("Elétrico")]
-        Eletrico = 4
+        Eletrico
     }
 }

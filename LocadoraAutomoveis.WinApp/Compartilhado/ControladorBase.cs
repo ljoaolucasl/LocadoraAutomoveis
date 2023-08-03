@@ -2,7 +2,7 @@
 
 namespace LocadoraAutomoveis.WinApp.Compartilhado
 {
-    public abstract class ControladorBase<TEntidade, TRepositorio, TServico, TTabela, TTela, TRepositorio2, TRepositorio3> : IControladorBase
+    public abstract class ControladorBase<TEntidade, TRepositorio, TServico, TTabela, TTela, TServico2, TServico3> : IControladorBase
         where TEntidade : EntidadeBase
         where TRepositorio : IRepositorioBase<TEntidade>
         where TServico : IServicoBase<TEntidade>
@@ -11,9 +11,11 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado
     {
         protected TServico _servico;
         protected TRepositorio _repositorio;
-        protected TRepositorio2 _repositorio2;
-        protected TRepositorio3 _repositorio3;
+        protected TServico2 _servico2;
+        protected TServico3 _servico3;
         protected TTabela _tabela;
+
+        protected abstract string TipoCadastro { get; }
 
         protected event Action<TTela, TEntidade> OnComandosAdicionaisAddAndEdit;
 
@@ -31,21 +33,21 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado
             this._tabela = _tabela;
         }
 
-        public ControladorBase(TRepositorio _repositorio, TServico _servico, TTabela _tabela, TRepositorio2 _repositorio2)
+        public ControladorBase(TRepositorio _repositorio, TServico _servico, TTabela _tabela, TServico2 _repositorio2)
         {
             this._repositorio = _repositorio;
             this._servico = _servico;
             this._tabela = _tabela;
-            this._repositorio2 = _repositorio2;
+            this._servico2 = _repositorio2;
         }
 
-        public ControladorBase(TRepositorio _repositorio, TServico _servico, TTabela _tabela, TRepositorio2 _repositorio2, TRepositorio3 _repositorio3)
+        public ControladorBase(TRepositorio _repositorio, TServico _servico, TTabela _tabela, TServico2 _repositorio2, TServico3 _repositorio3)
         {
             this._repositorio = _repositorio;
             this._servico = _servico;
             this._tabela = _tabela;
-            this._repositorio2 = _repositorio2;
-            this._repositorio3 = _repositorio3;
+            this._servico2 = _repositorio2;
+            this._servico3 = _repositorio3;
         }
 
         public virtual string ToolTipAdicionar => $"Adicionar {typeof(TEntidade).Name}";
@@ -116,7 +118,7 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado
         {
             string nomeEntidade = typeof(TEntidade).Name;
 
-            return $"Cadastro de {nomeEntidade}s";
+            return $"Cadastro de {TipoCadastro}";
         }
 
         public virtual DataGridView ObterGrid()

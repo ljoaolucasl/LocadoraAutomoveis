@@ -170,7 +170,7 @@
             Controls.Add(txtNome);
             Controls.Add(lbNome);
             Name = "TelaTaxaEServicoForm";
-            Text = "TelaTaxaEServicoForm";
+            Text = "Cadastro de Taxa e Serviço";
             ((System.ComponentModel.ISupportInitialize)txtValor).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();

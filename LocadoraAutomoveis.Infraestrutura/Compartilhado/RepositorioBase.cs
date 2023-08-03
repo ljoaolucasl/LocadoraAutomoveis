@@ -47,7 +47,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Compartilhado
             return Registros.Where(r => r.ID == id).FirstOrDefault();
         }
 
-        public List<TEntidade> SelecionarTodos()
+        public virtual List<TEntidade> SelecionarTodos()
         {
             return Registros.ToList();
         }

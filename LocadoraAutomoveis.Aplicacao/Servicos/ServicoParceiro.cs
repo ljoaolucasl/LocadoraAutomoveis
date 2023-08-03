@@ -121,7 +121,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             return _repositorioParceiro.SelecionarPorID(parceiroID);
         }
 
-        public IEnumerable<Parceiro> SelecionarTodosOsRegistros()
+        public List<Parceiro> SelecionarTodosOsRegistros()
         {
             return _repositorioParceiro.SelecionarTodos();
         }

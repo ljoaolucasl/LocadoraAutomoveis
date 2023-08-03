@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
 {
-    public class ValidadorAutomovel : AbstractValidator<Automovel>
+    public class ValidadorAutomovel : AbstractValidator<Automovel>, IValidadorAutomovel
     {
         public ValidadorAutomovel()
         {
@@ -13,7 +13,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
             RuleFor(a => a.Placa)
                 .NotEmpty().WithMessage("'Placa' não pode ser vazia.")
                 .Custom(ValidarPlaca)
-                .Length(7).WithMessage("'Placa' deve ter exatamente 7 caracteres.");
+                .Length(8).WithMessage("'Placa' deve ter exatamente 8 caracteres.");
 
             RuleFor(a => a.Marca)
                 .NotEmpty().WithMessage("'Marca' não pode ser vazia.");
@@ -49,7 +49,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
 
             const int max2Mb = 2 * 1024 * 1024;
 
-            if (imagem.Length <= max2Mb)
+            if (imagem.Length > max2Mb)
                 contexto.AddFailure("'Imagem' deve ter no máximo 2 MB.");
         }
 

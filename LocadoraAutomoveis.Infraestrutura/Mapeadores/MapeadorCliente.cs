@@ -14,8 +14,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Mapeadores
             builder.Property(c => c.Email).HasColumnType("varchar(100)").IsRequired();
             builder.Property(c => c.Telefone).HasColumnType("varchar(20)").IsRequired();
             builder.Property(c => c.TipoCliente).IsRequired();
-            builder.Property(c => c.CPF).HasColumnType("varchar(15)").IsRequired();
-            builder.Property(c => c.CNPJ).HasColumnType("varchar(15)").IsRequired();
+            builder.Property(c => c.Documento).HasColumnType("varchar(15)");
             builder.Property(c => c.Estado).HasColumnType("varchar(50)").IsRequired();
             builder.Property(c => c.Cidade).HasColumnType("varchar(60)").IsRequired();
             builder.Property(c => c.Bairro).HasColumnType("varchar(120)").IsRequired();

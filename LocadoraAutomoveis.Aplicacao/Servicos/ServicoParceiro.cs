@@ -5,6 +5,7 @@ using LocadoraAutomoveis.Aplicacao.Extensions;
 using LocadoraAutomoveis.Dominio.Compartilhado;
 using LocadoraAutomoveis.Dominio.ModuloParceiro;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
@@ -99,17 +100,20 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 return Result.Ok();
             }
-            catch (SqlException ex)
+            catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
                 Log.Warning("Falha ao tentar excluir o Parceiro '{NOME} #{ID}'", parceiroParaExcluir.Nome, parceiroParaExcluir.ID, ex);
 
                 List<IError> erros = new();
 
-                if (ex.Message.Contains("FK_TBParceiro_TBOBJETORELACAO"))
-                    erros.Add(new CustomError("Esse Parceiro está relacionado a um ObjetoRelacao." +
-                        " Primeiro exclua o ObjetoRelacao relacionado", "Parceiro"));
+                if (sqlException.Message.Contains("FK_TBParceiro_TBAluguel"))
+                    erros.Add(new CustomError("Esse parceiro está relacionado a um aluguel." +
+                        " Primeiro exclua o aluguel relacionado", "Parceiro"));
+                else if (sqlException.Message.Contains("FK_TBParceiro_TBCupom"))
+                    erros.Add(new CustomError("Esse parceiro está relacionado a um cupom." +
+                        " Primeiro exclua o cupom relacionado", "Parceiro"));
                 else
-                    erros.Add(new CustomError("Falha ao tentar excluir parceiro", "Parceiro"));
+                    erros.Add(new CustomError("Falha ao tentar excluir o Parceiro", "Parceiro"));
 
                 return Result.Fail(erros);
             }

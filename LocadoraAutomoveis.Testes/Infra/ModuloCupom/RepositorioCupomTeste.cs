@@ -24,14 +24,13 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCupom
             _contexto.RemoveRange(_repositorioCupom.Registros);
 
             BuilderSetup.SetCreatePersistenceMethod<Cupom>(_repositorioCupom.Inserir);
-
-            BuilderSetup.DisablePropertyNamingFor<Cupom, Guid>(x => x.ID);
         }
 
         [TestMethod]
         public void Deve_adicionar_um_cupom()
         {
-            var cupom = Builder<Cupom>.CreateNew().Persist();
+            var parceiro = Builder<Parceiro>.CreateNew().Build();
+            var cupom = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
 
             _repositorioCupom.SelecionarPorID(cupom.ID).Should().Be(cupom);
         }
@@ -39,7 +38,8 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCupom
         [TestMethod]
         public void Deve_editar_um_cupom()
         {
-            var cupom1 = Builder<Cupom>.CreateNew().Persist();
+            var parceiro = Builder<Parceiro>.CreateNew().Build();
+            var cupom1 = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
             var cupom2 = _repositorioCupom.SelecionarPorID(cupom1.ID);
             cupom2.Nome = "Cupom";
 
@@ -53,7 +53,8 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCupom
         [TestMethod]
         public void Deve_excluir_um_cupom()
         {
-            var cupom = Builder<Cupom>.CreateNew().Persist();
+            var parceiro = Builder<Parceiro>.CreateNew().Build();
+            var cupom = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
             var cupomSelecionado = _repositorioCupom.SelecionarPorID(cupom.ID);
 
             _repositorioCupom.Excluir(cupomSelecionado);
@@ -64,7 +65,8 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCupom
         [TestMethod]
         public void Deve_selecionar_por_ID_um_cupom()
         {
-            var cupom = Builder<Cupom>.CreateNew().Persist();
+            var parceiro = Builder<Parceiro>.CreateNew().Build();
+            var cupom = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
 
             var cupomSelecionado = _repositorioCupom.SelecionarPorID(cupom.ID);
 
@@ -74,10 +76,12 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCupom
         [TestMethod]
         public void Deve_selecionar_todos_cupons()
         {
-            var cupom1 = Builder<Cupom>.CreateNew().Persist();
-            var cupom2 = Builder<Cupom>.CreateNew().Persist();
-            var cupom3 = Builder<Cupom>.CreateNew().Persist();
-            var cupom4 = Builder<Cupom>.CreateNew().Persist();
+            var parceiro = Builder<Parceiro>.CreateNew().Build();
+
+            var cupom1 = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
+            var cupom2 = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
+            var cupom3 = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
+            var cupom4 = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
 
             var listaCupons = _repositorioCupom.SelecionarTodos();
 
@@ -89,7 +93,8 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCupom
         [TestMethod]
         public void Deve_verificar_se_cupom_existe_validacao()
         {
-            var cupom1 = Builder<Cupom>.CreateNew().Persist();
+            var parceiro = Builder<Parceiro>.CreateNew().Build();
+            var cupom1 = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
             var cupom2 = new Cupom(cupom1.Nome, 12, DateTime.Now, new Parceiro("Teste"));
 
             bool resultado = _repositorioCupom.Existe(cupom2);
@@ -100,7 +105,8 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCupom
         [TestMethod]
         public void Deve_permitir_se_cupom_com_nome_e_ID_iguais_validacao()
         {
-            var cupom1 = Builder<TaxaEServico>.CreateNew().Persist();
+            var parceiro = Builder<Parceiro>.CreateNew().Build();
+            var cupom1 = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
             var cupom2 = new Cupom(cupom1.Nome, 12, DateTime.Now, new Parceiro("Teste")) { ID = cupom1.ID };
 
             bool resultado = _repositorioCupom.Existe(cupom2);
@@ -111,7 +117,8 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCupom
         [TestMethod]
         public void Deve_verificar_se_cupom_existe_exclusao()
         {
-            var cupom1 = Builder<Cupom>.CreateNew().Persist();
+            var parceiro = Builder<Parceiro>.CreateNew().Build();
+            var cupom1 = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
             var cupom2 = _repositorioCupom.SelecionarPorID(cupom1.ID);
 
             bool resultado = _repositorioCupom.Existe(cupom2, true);

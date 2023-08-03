@@ -3,7 +3,6 @@ using FluentResults;
 using FluentResults.Extensions.FluentAssertions;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Servicos;
-using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Testes.Compartilhado;
 using Microsoft.EntityFrameworkCore;
@@ -20,8 +19,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCupom
         private Cupom _cupom;
 
         [TestInitialize]
-
-        private void Setup()
+        public void Setup()
         {
             _repositorioMoq = new Mock<IRepositorioCupom>();
             _validadorMoq = new Mock<IValidadorCupom>();
@@ -65,7 +63,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCupom
             var resultado = _servico.Inserir(_cupom);
 
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Cupom já existe");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse cupom já existe");
             _repositorioMoq.Verify(x => x.Inserir(_cupom), Times.Never());
         }
 
@@ -121,7 +119,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCupom
             var resultado = _servico.Editar(_cupom);
 
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Cupom já existe");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse cupom já existe");
             _repositorioMoq.Verify(x => x.Editar(_cupom), Times.Never());
         }
 
@@ -169,7 +167,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCupom
         [TestMethod]
         public void Nao_Deve_excluir_cupom_quando_relacionado_ao_aluguel_em_aberto()
         {
-            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBOBJETORELACAO_TBCupom");
+            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBAluguel_TBCupom");
 
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<Cupom>(), true)).Returns(true);
             _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Cupom>())).Throws(dbUpdateException);
@@ -177,8 +175,8 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCupom
             var resultado = _servico.Excluir(Builder<Cupom>.CreateNew().Build());
 
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Cupom está relacionado a um ObjetoRelacao." +
-                " Primeiro exclua o ObjetoRelacao relacionado");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Cupom está relacionado a um Aluguel." +
+                " Primeiro exclua o Aluguel relacionado");
         }
 
         [TestMethod]
@@ -192,7 +190,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCupom
             var resultado = _servico.Excluir(Builder<Cupom>.CreateNew().Build());
 
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Falha ao tentar excluir a Cupom");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Falha ao tentar excluir o cupom");
         }
         #endregion
     }

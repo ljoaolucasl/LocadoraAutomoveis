@@ -3,12 +3,10 @@ using FluentResults;
 using FluentResults.Extensions.FluentAssertions;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Servicos;
-using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloParceiro;
-using Microsoft.Data.SqlClient;
+using LocadoraAutomoveis.Testes.Compartilhado;
+using Microsoft.EntityFrameworkCore;
 using Moq;
-using System.Reflection;
-using System.Runtime.Serialization;
 
 namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloParceiro
 {
@@ -169,54 +167,45 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloParceiro
         [TestMethod]
         public void Nao_Deve_excluir_parceiro_quando_relacionado_ao_cupom()
         {
+            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBParceiro_TBCupom");
+
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<Parceiro>(), true)).Returns(true);
-            var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
-            FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
-
-            messageField?.SetValue(exception, "FK_TBParceiro_TBOBJETORELACAO");
-
-            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Parceiro>())).Throws(exception);
+            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Parceiro>())).Throws(dbUpdateException);
 
             var resultado = _servico.Excluir(Builder<Parceiro>.CreateNew().Build());
 
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Parceiro está relacionada a um ObjetoRelacao." +
-                " Primeiro exclua o ObjetoRelacao relacionado");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse parceiro está relacionado a um cupom." +
+                " Primeiro exclua o cupom relacionado");
         }
 
         [TestMethod]
         public void Nao_Deve_excluir_parceiro_quando_relacionada_ao_aluguel_em_aberto()
         {
+            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBOBJETORELACAO_TBParceiro");
+
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<Parceiro>(), true)).Returns(true);
-            var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
-            FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
-
-            messageField?.SetValue(exception, "FK_TBParceiro_TBOBJETORELACAO");
-
-            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Parceiro>())).Throws(exception);
+            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Parceiro>())).Throws(dbUpdateException);
 
             var resultado = _servico.Excluir(Builder<Parceiro>.CreateNew().Build());
 
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Parceiro está relacionada a um ObjetoRelacao." +
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse parceiro está relacionado a um ObjetoRelacao." +
                 " Primeiro exclua o ObjetoRelacao relacionado");
         }
 
         [TestMethod]
         public void Nao_Deve_excluir_parceiro_quando_falha_na_exclusao()
         {
+            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("");
+
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<Parceiro>(), true)).Returns(true);
-            var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
-            FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
-
-            messageField?.SetValue(exception, "");
-
-            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Parceiro>())).Throws(exception);
+            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Parceiro>())).Throws(dbUpdateException);
 
             var resultado = _servico.Excluir(Builder<Parceiro>.CreateNew().Build());
 
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Falha ao tentar excluir parceiro");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Falha ao tentar excluir o Parceiro");
         }
         #endregion
     }

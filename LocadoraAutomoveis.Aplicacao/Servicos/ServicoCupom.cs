@@ -5,6 +5,7 @@ using LocadoraAutomoveis.Aplicacao.Extensions;
 using LocadoraAutomoveis.Dominio.Compartilhado;
 using LocadoraAutomoveis.Dominio.ModuloCupom;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
@@ -99,17 +100,17 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 return Result.Ok();
             }
-            catch (SqlException ex)
+            catch (DbUpdateException ex) when (ex.InnerException is SqlException)
             {
                 Log.Warning("Falha ao tentar excluir o Cupom '{NOME} #{ID}'", cupomParaExcluir.Nome, cupomParaExcluir.ID, ex);
 
                 List<IError> erros = new();
 
-                if (ex.Message.Contains("FK_TBCupom_TBOBJETORELACAO"))
-                    erros.Add(new CustomError("Esse Cupom está relacionado a um ObjetoRelacao." +
-                        " Primeiro exclua o ObjetoRelacao relacionado", "Cupom"));
+                if (ex.Message.Contains("FK_TBCupom_TBAluguel"))
+                    erros.Add(new CustomError("Esse Cupom está relacionado a um aluguel." +
+                        " Primeiro exclua o aluguel relacionado", "Cupom"));
                 else
-                    erros.Add(new CustomError("Falha ao tentar excluir cupom", "Cupom"));
+                    erros.Add(new CustomError("Falha ao tentar excluir o cupom", "Cupom"));
 
                 return Result.Fail(erros);
             }

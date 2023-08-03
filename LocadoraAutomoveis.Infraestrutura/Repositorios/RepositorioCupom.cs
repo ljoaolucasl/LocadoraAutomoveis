@@ -1,6 +1,7 @@
 ﻿using LocadoraAutomoveis.Dominio.Extensions;
 using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
+using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Infraestrutura.Repositorios
 {
@@ -21,6 +22,11 @@ namespace LocadoraAutomoveis.Infraestrutura.Repositorios
                 return Registros.Contains(cupomParaVerificar);
 
             return Registros.ToList().Any(c => string.Equals(c.Nome.RemoverAcento(), cupomParaVerificar.Nome.RemoverAcento(), StringComparison.OrdinalIgnoreCase) && c.ID != cupomParaVerificar.ID);
+        }
+
+        public override List<Cupom> SelecionarTodos()
+        {
+            return Registros.Include(c => c.Parceiro).ToList();
         }
     }
 }

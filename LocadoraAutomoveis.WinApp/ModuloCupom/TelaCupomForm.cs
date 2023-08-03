@@ -1,5 +1,6 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
+using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Dominio.ModuloParceiro;
 using LocadoraAutomoveis.WinApp.Compartilhado;
@@ -40,6 +41,13 @@ namespace LocadoraAutomoveis.WinApp.ModuloCupom
             }
         }
 
+        public void CarregarParceiros(List<Parceiro> parceiros)
+        {
+            cmbParceiro.DataSource = parceiros;
+            cmbParceiro.DisplayMember = "Nome";
+            cmbParceiro.ValueMember = "ID";
+        }
+
         private void btnGravar_Click(object sender, EventArgs e)
         {
             ValidarCampos(sender, e);
@@ -51,6 +59,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCupom
         private void ValidarCampos(object sender, EventArgs e)
         {
             ResetarErros();
+
             _cupom = ObterCupom();
 
             _resultado = OnGravarRegistro(_cupom);
@@ -64,7 +73,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCupom
             _cupom.Nome = txtNome.Text;
             _cupom.Valor = numValor.Value;
             _cupom.DataValidade = dtpData.Value;
-            _cupom.Parceiro = cmbParceiro.SelectedValue as Parceiro;
+            _cupom.Parceiro = cmbParceiro.SelectedItem as Parceiro;
 
             return _cupom;
         }

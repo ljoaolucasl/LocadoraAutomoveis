@@ -20,7 +20,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCupom
             foreach (Cupom item in cupons)
             {
                 DataGridViewRow row = new();
-                row.CreateCells(gridCupom, item.ID, item.Nome);
+                row.CreateCells(gridCupom, item.ID, item.Nome, item.Valor, item.DataValidade.ToString("d"), item.Parceiro, item.QtdUsos > 0 ? item.QtdUsos : 0);
                 row.Cells[0].Tag = item;
                 gridCupom.Rows.Add(row);
             }

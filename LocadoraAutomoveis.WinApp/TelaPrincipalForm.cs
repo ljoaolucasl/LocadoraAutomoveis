@@ -135,7 +135,7 @@ namespace LocadoraAutomoveis.WinApp
 
         private void btnCupom_Click(object sender, EventArgs e)
         {
-            _controladorBase = new ControladorCupom(_repositorioCupom, _servicoCupom, _tabelaCupom, _repositorioParceiro);
+            _controladorBase = new ControladorCupom(_repositorioCupom, _servicoCupom, _tabelaCupom, _servicoParceiro);
             ConfigurarTelaPrincipal();
         }
         #endregion

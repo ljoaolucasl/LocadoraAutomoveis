@@ -120,7 +120,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             return _repositorioCupom.SelecionarPorID(cupomID);
         }
 
-        public IEnumerable<Cupom> SelecionarTodosOsRegistros()
+        public List<Cupom> SelecionarTodosOsRegistros()
         {
             return _repositorioCupom.SelecionarTodos();
         }

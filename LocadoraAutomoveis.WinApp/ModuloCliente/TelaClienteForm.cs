@@ -1,8 +1,10 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
+using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Extensions;
+using System.Windows.Forms;
 
 namespace LocadoraAutomoveis.WinApp.ModuloCliente
 {
@@ -23,6 +25,9 @@ namespace LocadoraAutomoveis.WinApp.ModuloCliente
             _resultado = new Result();
 
             _cliente = new Cliente();
+
+            txtNumero.Controls[0].Visible = false;
+            txtCNPJ.Enabled = false;
         }
 
         public Cliente? Entidade
@@ -34,7 +39,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloCliente
                 txtNome.Text = value.Nome;
                 txtEmail.Text = value.Email;
                 txtTelefone.Text = value.Telefone;
-                rdbPessoaFisica.Checked = value.TipoCliente == Tipo.CPF;
                 rdbPessoaJuridica.Checked = value.TipoCliente == Tipo.CNPJ;
                 txtCPF.Text = value.Documento;
                 txtCNPJ.Text = value.Documento;
@@ -59,7 +63,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCliente
         {
             ResetarErros();
 
-            _cliente = ObterCategoria();
+            _cliente = ObterCliente();
 
             _resultado = OnGravarRegistro(_cliente);
 
@@ -67,19 +71,18 @@ namespace LocadoraAutomoveis.WinApp.ModuloCliente
                 MostrarErros();
         }
 
-        private Cliente ObterCategoria()
+        private Cliente ObterCliente()
         {
             _cliente.Nome = txtNome.Text;
             _cliente.Email = txtEmail.Text;
             _cliente.Telefone = txtTelefone.Text;
             _cliente.TipoCliente = rdbPessoaFisica.Checked ? Tipo.CPF : Tipo.CNPJ;
-            _cliente.Documento = txtCPF.Text;
-            _cliente.Documento = txtCNPJ.Text;
+            _cliente.Documento = rdbPessoaFisica.Checked ? txtCPF.Text : txtCNPJ.Text;
             _cliente.Estado = txtEstado.Text;
             _cliente.Cidade = txtCidade.Text;
             _cliente.Bairro = txtBairro.Text;
             _cliente.Rua = txtRua.Text;
-            _cliente.Numero = Convert.ToInt32(txtNumero.Text);
+            _cliente.Numero = (int)txtNumero.Value;
 
             return _cliente;
         }
@@ -93,7 +96,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloCliente
                     case "Nome": lbErroNome.Text = item.ErrorMessage; lbErroNome.Visible = true; txtNome.Focus(); break;
                     case "Email": lbErroEmail.Text = item.ErrorMessage; lbErroEmail.Visible = true; txtEmail.Focus(); break;
                     case "Telefone": lbErroTelefone.Text = item.ErrorMessage; lbErroTelefone.Visible = true; txtTelefone.Focus(); break;
-                    case "Tipo": lbErroTipo.Text = item.ErrorMessage; lbErroTipo.Visible = true; rdbPessoaFisica.Focus(); rdbPessoaJuridica.Focus(); break;
                     case "CPF": lbErroCPF.Text = item.ErrorMessage; lbErroCPF.Visible = true; txtCPF.Focus(); break;
                     case "CNPJ": lbErroCNPJ.Text = item.ErrorMessage; lbErroCNPJ.Visible = true; txtCNPJ.Focus(); break;
                     case "Estado": lbErroEstado.Text = item.ErrorMessage; lbErroEstado.Visible = true; txtEstado.Focus(); break;
@@ -110,7 +112,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloCliente
             lbErroNome.Visible = false;
             lbErroEmail.Visible = false;
             lbErroTelefone.Visible = false;
-            lbErroTipo.Visible = false;
             lbErroCPF.Visible = false;
             lbErroCNPJ.Visible = false;
             lbErroEstado.Visible = false;
@@ -121,6 +122,26 @@ namespace LocadoraAutomoveis.WinApp.ModuloCliente
 
             _resultado.Errors.Clear();
             _resultado.Reasons.Clear();
+        }
+
+        private void rdbPessoaFisica_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdbPessoaFisica.Checked)
+            {
+                txtCPF.Enabled = true;
+                txtCNPJ.Enabled = false;
+                txtCNPJ.Text = "";
+            }
+        }
+
+        private void rdbPessoaJuridica_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdbPessoaJuridica.Checked)
+            {
+                txtCNPJ.Enabled = true;
+                txtCPF.Enabled = false;
+                txtCPF.Text = "";
+            }
         }
     }
 }

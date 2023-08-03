@@ -13,30 +13,26 @@ namespace LocadoraAutomoveis.Dominio.ModuloCliente
                 .NotEmpty();
 
             RuleFor(c => c.Email)
-            .MinimumLength(3).WithMessage("'Email' deve ser maior ou igual a 3 caracteres.")
-            .Custom(ValidarCaractereInvalido)
             .NotEmpty()
             .Must(ValidarFormatoEmail).WithMessage("'Email' inválido.");
 
             RuleFor(c => c.Telefone)
-                .MinimumLength(8).WithMessage(@"'Telefone' deve conter 8 caracteres.")
-                .MaximumLength(9).WithMessage(@"'Telefone' não pode ser maior que 9 caracteres.")
-                .Custom(ValidarCaractereInvalido)
-                .NotEmpty();
-
-            RuleFor(c => c.Telefone)
             .NotEmpty().WithMessage("'Telefone' não pode ser vazio.")
-            .MinimumLength(10).WithMessage("'Telefone' deve ter pelo menos 10 dígitos.")
-            .MaximumLength(11).WithMessage("'Telefone' deve ter no máximo 11 dígitos.")
-            .Matches(@"^\d{2}\d{4,5}\d{4}$").WithMessage("'Telefone' deve estar no formato (00) 00000-0000 ou (00) 0000-0000.");
+            .Must(ValidarTelefone).WithMessage("'Telefone' inválido!");
 
             RuleFor(c => c.TipoCliente)
             .NotEmpty().WithMessage("'TipoCliente' não pode ser vazio.")
             .IsInEnum().WithMessage("'TipoCliente' inválido.");
 
             RuleFor(c => c.Documento)
-            .NotEmpty().WithMessage("'Documento' não pode ser vazio.")
-            .Must(doc => ValidarCpfCnpj(doc)).WithMessage("'Documento' inválido.");
+            .NotEmpty().WithMessage("'CPF' não pode ser vazio.")
+            .Custom(ValidarCPF)
+            .When(c => c.TipoCliente == Tipo.CPF);
+
+            RuleFor(c => c.Documento)
+            .NotEmpty().WithMessage("'CNPJ' não pode ser vazio.")
+            .Custom(ValidarCNPJ)
+            .When(c => c.TipoCliente == Tipo.CNPJ);
 
             RuleFor(c => c.Estado)
                 .NotEmpty().WithMessage("'Estado' não pode ser vazio.")
@@ -82,18 +78,27 @@ namespace LocadoraAutomoveis.Dominio.ModuloCliente
             return regexEmail.IsMatch(email);
         }
 
-        private bool ValidarCpfCnpj(string document)
+        private void ValidarCPF(string document, ValidationContext<Cliente> contexto)
         {
-            if (Regex.IsMatch(document, @"^\d{3}\.\d{3}\.\d{3}-\d{2}$"))
-            {
-                return true;
-            }
-            else if (Regex.IsMatch(document, @"^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$"))
-            {
-                return true;
-            }
+            if (Regex.IsMatch(document, @"^\d{3}.\d{3}.\d{3}-\d{2}$"))
+                return;
 
-            return false;
+            else
+                contexto.AddFailure("CPF" ,"CPF inválido.");
+        }
+
+        private void ValidarCNPJ(string document, ValidationContext<Cliente> contexto)
+        {
+            if (Regex.IsMatch(document, @"^\d{2}.\d{3}.\d{3}/\d{4}-\d{2}$"))
+                return;
+
+            else
+                contexto.AddFailure("CNPJ", "CNPJ inválido!");
+        }
+
+        private bool ValidarTelefone(string telefone)
+        {
+            return Regex.IsMatch(telefone, @"^\(\d{2}\) \d{4,5}-\d{4}$");
         }
     }
 }

@@ -35,18 +35,14 @@
             txtEmail = new TextBox();
             label2 = new Label();
             lbErroTelefone = new Label();
-            txtTelefone = new TextBox();
             label4 = new Label();
             label1 = new Label();
             rdbPessoaFisica = new RadioButton();
             rdbPessoaJuridica = new RadioButton();
             lbErroCPF = new Label();
-            txtCPF = new TextBox();
             label5 = new Label();
             lbErroCNPJ = new Label();
             label6 = new Label();
-            lbErroTipo = new Label();
-            txtCNPJ = new TextBox();
             txtCidade = new TextBox();
             lbErroCidade = new Label();
             label9 = new Label();
@@ -60,10 +56,14 @@
             txtBairro = new TextBox();
             label12 = new Label();
             lbErroNumero = new Label();
-            txtNumero = new TextBox();
             label10 = new Label();
             btnCancelar = new Button();
             btnGravar = new Button();
+            txtNumero = new NumericUpDown();
+            txtCPF = new MaskedTextBox();
+            txtCNPJ = new MaskedTextBox();
+            txtTelefone = new MaskedTextBox();
+            ((System.ComponentModel.ISupportInitialize)txtNumero).BeginInit();
             SuspendLayout();
             // 
             // lbErroNome
@@ -131,13 +131,6 @@
             lbErroTelefone.Text = "*Campo Telefone em branco*";
             lbErroTelefone.Visible = false;
             // 
-            // txtTelefone
-            // 
-            txtTelefone.Location = new Point(76, 127);
-            txtTelefone.Name = "txtTelefone";
-            txtTelefone.Size = new Size(121, 23);
-            txtTelefone.TabIndex = 16;
-            // 
             // label4
             // 
             label4.AutoSize = true;
@@ -150,7 +143,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(16, 180);
+            label1.Location = new Point(16, 173);
             label1.Name = "label1";
             label1.Size = new Size(89, 15);
             label1.TabIndex = 18;
@@ -159,24 +152,26 @@
             // rdbPessoaFisica
             // 
             rdbPessoaFisica.AutoSize = true;
-            rdbPessoaFisica.Location = new Point(124, 178);
+            rdbPessoaFisica.Checked = true;
+            rdbPessoaFisica.Location = new Point(124, 171);
             rdbPessoaFisica.Name = "rdbPessoaFisica";
             rdbPessoaFisica.Size = new Size(93, 19);
             rdbPessoaFisica.TabIndex = 19;
             rdbPessoaFisica.TabStop = true;
             rdbPessoaFisica.Text = "Pessoa Física";
             rdbPessoaFisica.UseVisualStyleBackColor = true;
+            rdbPessoaFisica.CheckedChanged += rdbPessoaFisica_CheckedChanged;
             // 
             // rdbPessoaJuridica
             // 
             rdbPessoaJuridica.AutoSize = true;
-            rdbPessoaJuridica.Location = new Point(262, 178);
+            rdbPessoaJuridica.Location = new Point(262, 171);
             rdbPessoaJuridica.Name = "rdbPessoaJuridica";
             rdbPessoaJuridica.Size = new Size(104, 19);
             rdbPessoaJuridica.TabIndex = 20;
-            rdbPessoaJuridica.TabStop = true;
             rdbPessoaJuridica.Text = "Pessoa Jurídica";
             rdbPessoaJuridica.UseVisualStyleBackColor = true;
+            rdbPessoaJuridica.CheckedChanged += rdbPessoaJuridica_CheckedChanged;
             // 
             // lbErroCPF
             // 
@@ -188,13 +183,6 @@
             lbErroCPF.TabIndex = 23;
             lbErroCPF.Text = "*Campo CPF em branco*";
             lbErroCPF.Visible = false;
-            // 
-            // txtCPF
-            // 
-            txtCPF.Location = new Point(66, 224);
-            txtCPF.Name = "txtCPF";
-            txtCPF.Size = new Size(107, 23);
-            txtCPF.TabIndex = 22;
             // 
             // label5
             // 
@@ -224,24 +212,6 @@
             label6.Size = new Size(37, 15);
             label6.TabIndex = 24;
             label6.Text = "CNPJ:";
-            // 
-            // lbErroTipo
-            // 
-            lbErroTipo.AutoSize = true;
-            lbErroTipo.ForeColor = Color.FromArgb(192, 0, 0);
-            lbErroTipo.Location = new Point(124, 160);
-            lbErroTipo.Name = "lbErroTipo";
-            lbErroTipo.Size = new Size(128, 15);
-            lbErroTipo.TabIndex = 27;
-            lbErroTipo.Text = "*Selecione um campo*";
-            lbErroTipo.Visible = false;
-            // 
-            // txtCNPJ
-            // 
-            txtCNPJ.Location = new Point(247, 224);
-            txtCNPJ.Name = "txtCNPJ";
-            txtCNPJ.Size = new Size(130, 23);
-            txtCNPJ.TabIndex = 28;
             // 
             // txtCidade
             // 
@@ -362,13 +332,6 @@
             lbErroNumero.Text = "*Campo Número em branco*";
             lbErroNumero.Visible = false;
             // 
-            // txtNumero
-            // 
-            txtNumero.Location = new Point(66, 446);
-            txtNumero.Name = "txtNumero";
-            txtNumero.Size = new Size(92, 23);
-            txtNumero.TabIndex = 42;
-            // 
             // label10
             // 
             label10.AutoSize = true;
@@ -399,16 +362,52 @@
             btnGravar.TabIndex = 44;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = true;
+            btnGravar.Click += btnAdd_Click;
+            // 
+            // txtNumero
+            // 
+            txtNumero.Location = new Point(67, 449);
+            txtNumero.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            txtNumero.Name = "txtNumero";
+            txtNumero.Size = new Size(120, 23);
+            txtNumero.TabIndex = 46;
+            // 
+            // txtCPF
+            // 
+            txtCPF.Location = new Point(67, 227);
+            txtCPF.Mask = "000,000,000-00";
+            txtCPF.Name = "txtCPF";
+            txtCPF.Size = new Size(85, 23);
+            txtCPF.TabIndex = 47;
+            // 
+            // txtCNPJ
+            // 
+            txtCNPJ.Location = new Point(250, 227);
+            txtCNPJ.Mask = "00,000,000/0000-00";
+            txtCNPJ.Name = "txtCNPJ";
+            txtCNPJ.Size = new Size(116, 23);
+            txtCNPJ.TabIndex = 48;
+            // 
+            // txtTelefone
+            // 
+            txtTelefone.Location = new Point(76, 130);
+            txtTelefone.Mask = "(00) 00000-0000";
+            txtTelefone.Name = "txtTelefone";
+            txtTelefone.Size = new Size(98, 23);
+            txtTelefone.TabIndex = 49;
             // 
             // TelaClienteForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(401, 557);
+            Controls.Add(txtTelefone);
+            Controls.Add(txtCNPJ);
+            Controls.Add(txtCPF);
+            Controls.Add(txtNumero);
             Controls.Add(btnCancelar);
             Controls.Add(btnGravar);
             Controls.Add(lbErroNumero);
-            Controls.Add(txtNumero);
             Controls.Add(label10);
             Controls.Add(lbErroRua);
             Controls.Add(txtRua);
@@ -422,18 +421,14 @@
             Controls.Add(lbErroEstado);
             Controls.Add(txtEstado);
             Controls.Add(label11);
-            Controls.Add(txtCNPJ);
-            Controls.Add(lbErroTipo);
             Controls.Add(lbErroCNPJ);
             Controls.Add(label6);
             Controls.Add(lbErroCPF);
-            Controls.Add(txtCPF);
             Controls.Add(label5);
             Controls.Add(rdbPessoaJuridica);
             Controls.Add(rdbPessoaFisica);
             Controls.Add(label1);
             Controls.Add(lbErroTelefone);
-            Controls.Add(txtTelefone);
             Controls.Add(label4);
             Controls.Add(lbErroEmail);
             Controls.Add(txtEmail);
@@ -444,6 +439,7 @@
             Name = "TelaClienteForm";
             ShowIcon = false;
             Text = "Cadastro de Cliente";
+            ((System.ComponentModel.ISupportInitialize)txtNumero).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -457,18 +453,16 @@
         private TextBox txtEmail;
         private Label label2;
         private Label lbErroTelefone;
-        private TextBox txtTelefone;
         private Label label4;
         private Label label1;
         private RadioButton rdbPessoaFisica;
         private RadioButton rdbPessoaJuridica;
         private Label lbErroCPF;
-        private TextBox txtCPF;
+        private MaskedTextBox txtCPF;
         private Label label5;
         private Label lbErroCNPJ;
         private Label label6;
-        private Label lbErroTipo;
-        private TextBox txtCNPJ;
+        private MaskedTextBox txtCNPJ;
         private TextBox txtCidade;
         private Label lbErroCidade;
         private Label label9;
@@ -482,9 +476,11 @@
         private TextBox txtBairro;
         private Label label12;
         private Label lbErroNumero;
-        private TextBox txtNumero;
         private Label label10;
         private Button btnCancelar;
         private Button btnGravar;
+        private NumericUpDown txtNumero;
+        private MaskedTextBox maskedTextBox1;
+        private MaskedTextBox txtTelefone;
     }
 }

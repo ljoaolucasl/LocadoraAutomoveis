@@ -5,6 +5,7 @@ using LocadoraAutomoveis.Aplicacao.Extensions;
 using LocadoraAutomoveis.Dominio.Compartilhado;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
@@ -99,13 +100,13 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 return Result.Ok();
             }
-            catch (SqlException ex)
+            catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
                 Log.Warning("Falha ao tentar excluir o Cliente '{NOME} #{ID}'", clienteParaExcluir.Nome, clienteParaExcluir.ID, ex);
 
                 List<IError> erros = new();
 
-                if (ex.Message.Contains("FK_TBCliente_TBOBJETORELACAO"))
+                if (sqlException.Message.Contains("FK_TBCliente_TBOBJETORELACAO"))
                     erros.Add(new CustomError("Esse Cliente está relacionado à um ObjetoRelacao." +
                         " Primeiro exclua o ObjetoRelacao relacionado", "Cliente"));
                 else

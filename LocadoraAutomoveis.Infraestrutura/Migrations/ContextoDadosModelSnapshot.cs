@@ -114,7 +114,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                     b.HasIndex("ParceiroID");
 
                     b.ToTable("TBCupom", (string)null);
-                });
+                }));
 
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloParceiro.Parceiro", b =>
                 {

@@ -1,10 +1,4 @@
-﻿using FluentAssertions;
-using FluentValidation;
-using FluentValidation.Results;
-using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
-using LocadoraAutomoveis.Dominio.ModuloFuncionario;
-using LocadoraAutomoveis.Infraestrutura.Compartilhado;
-using LocadoraAutomoveis.Infraestrutura.Repositorios;
+﻿using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 
 namespace LocadoraAutomoveis.Testes.Dominio.ModuloFuncionario
 {

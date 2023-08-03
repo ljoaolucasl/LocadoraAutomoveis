@@ -14,6 +14,19 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloTaxaEServico
         }
 
         [TestMethod]
+        public void Deve_aceitar_taxa_valida()
+        {
+            //arrange
+            TaxaEServico taxa = new("Cadeirinha", 100, Tipo.CalculoFixo);
+
+            //action
+            ValidationResult resultado = _validador.Validate(taxa);
+
+            //assert
+            resultado.IsValid.Should().BeTrue();
+        }
+
+        [TestMethod]
         public void Nao_deve_aceitar_menos_que_3_caracteres()
         {
             //arrange

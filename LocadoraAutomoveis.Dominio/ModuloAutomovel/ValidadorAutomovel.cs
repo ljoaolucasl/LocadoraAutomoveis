@@ -39,7 +39,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
                 .GreaterThanOrEqualTo(DateTime.Now.Year - 30).WithMessage("'Ano' inválido.");
 
             RuleFor(a => a.Quilometragem)
-                .GreaterThanOrEqualTo(0).WithMessage("'Quilometragem' não pode ser zero.");
+                .GreaterThanOrEqualTo(0).WithMessage("'Quilometragem' não pode ser menor que zero.");
         }
 
         private void ValidarTamanho(byte[] imagem, ValidationContext<Automovel> contexto)
@@ -49,7 +49,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
 
             const int max2Mb = 2 * 1024 * 1024;
 
-            if (imagem.Length > max2Mb)
+            if (imagem.Length >= max2Mb)
                 contexto.AddFailure("'Imagem' deve ter no máximo 2 MB.");
         }
 

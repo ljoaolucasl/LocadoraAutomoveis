@@ -7,7 +7,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloCondutores
     public class Condutores : EntidadeBase
     {
         public Cliente cliente {  get; set; }
-        public TipoCondutor TipoCondutor { get; set; }
+        public bool TipoCondutor { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
         public string Telefone { get; set; }
@@ -15,7 +15,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloCondutores
         public string CNH { get; set; }
         public DateTime Validade { get; set; }
 
-        public Condutores(Cliente cliente, TipoCondutor tipoCondutor, string nome, string email, string telefone, string cPF, string cNH, DateTime validade)
+        public Condutores(Cliente cliente, bool tipoCondutor, string nome, string email, string telefone, string cPF, string cNH, DateTime validade)
         {
             this.cliente = cliente;
             TipoCondutor = tipoCondutor;
@@ -43,14 +43,5 @@ namespace LocadoraAutomoveis.Dominio.ModuloCondutores
                    CNH == condutores.CNH &&
                    Validade == condutores.Validade;
         }
-    }
-
-    public enum TipoCondutor
-    {
-        [Description("Condutor")]
-        Condutor = 1,
-
-        [Description("NaoCondutor")]
-        NaoCondutor = 2
     }
 }

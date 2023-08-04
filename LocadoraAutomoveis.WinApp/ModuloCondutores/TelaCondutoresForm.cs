@@ -44,7 +44,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
             set
             {
                 cmbCliente.Text = value.cliente.ToString();
-                chkClienteCondutor.Checked = value.TipoCondutor == TipoCondutor.Condutor;
+                chkClienteCondutor.Checked = value.TipoCondutor == true;
                 txtNome.Text = value.Nome;
                 txtEmail.Text = value.Email;
                 txtTelefone.Text = value.Telefone;
@@ -78,7 +78,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
         private Condutores ObterCondutores()
         {
             _condutores.cliente.Nome = cmbCliente.Text;
-            _condutores.TipoCondutor = chkClienteCondutor.Checked ? TipoCondutor.Condutor : TipoCondutor.NaoCondutor;
+            _condutores.TipoCondutor = chkClienteCondutor.Checked ? true : false;
             _condutores.Nome = txtNome.Text;
             _condutores.Email = txtEmail.Text;
             _condutores.Telefone = txtTelefone.Text;

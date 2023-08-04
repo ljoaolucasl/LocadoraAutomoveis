@@ -16,7 +16,7 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAutomovel
             _validador = new ValidadorAutomovel();
 
             _categoria = new CategoriaAutomoveis("Esportivo");
-            _automovel = new Automovel(_categoria, "REW-4512", "Honda", "Azul", "Super", new byte[12], TipoCombustível.Eletrico, 20, 2022, 245);
+            _automovel = new Automovel(_categoria, "REW-4512", "Honda", "Azul", "Super", new byte[12], TipoCombustível.Gasolina, 20, 2022, 245);
         }
 
         [TestMethod]

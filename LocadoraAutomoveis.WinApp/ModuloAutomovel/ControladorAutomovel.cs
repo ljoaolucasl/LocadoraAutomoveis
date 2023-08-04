@@ -24,9 +24,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomovel
             TelaPrincipalForm.AtualizarStatus($"Filtrando Automóveis");
 
             if (tela.ShowDialog() == DialogResult.OK)
-            {
                 CarregarAutomoveisComFiltro(tela.CategoriaSelecionada);
-            }
         }
 
         private void CarregarAutomoveisComFiltro(CategoriaAutomoveis? categoriaSelecionada)

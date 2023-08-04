@@ -59,9 +59,6 @@ namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
         Etanol,
 
         [Description("Diesel")]
-        Diesel,
-
-        [Description("Elétrico")]
-        Eletrico
+        Diesel
     }
 }

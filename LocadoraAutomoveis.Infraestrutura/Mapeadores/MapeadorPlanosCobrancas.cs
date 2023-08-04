@@ -1,5 +1,4 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloCupom;
-using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
+﻿using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,7 +13,13 @@ namespace LocadoraAutomoveis.Infraestrutura.Mapeadores
             builder.Property(p => p.ValorDia).IsRequired();
             builder.Property(p => p.ValorKmRodado).IsRequired();
             builder.Property(p => p.KmLivre).IsRequired();
-            builder.Property
+            builder.Property(p => p.Plano).IsRequired();
+
+            builder.HasOne(p => p.CategoriaAutomoveis)
+                .WithMany()
+                .IsRequired()
+                .HasConstraintName("FK_TBPlanoCobranca_TBCategoriaAutomoveis")
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

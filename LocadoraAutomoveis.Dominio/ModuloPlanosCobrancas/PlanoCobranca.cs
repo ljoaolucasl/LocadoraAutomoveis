@@ -1,4 +1,5 @@
 ﻿using LocadoraAutomoveis.Dominio.Compartilhado;
+using LocadoraAutomoveis.Dominio.Extensions;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 
 namespace LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas
@@ -27,18 +28,18 @@ namespace LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas
 
         public override string ToString()
         {
-            return Nome;
+            return Plano.ToDescriptionString();
         }
 
         public override bool Equals(object? obj)
         {
             return obj is PlanoCobranca cobranca &&
-                   ID == cobranca.ID &&
-                   Nome == cobranca.Nome &&
+                   ID.Equals(cobranca.ID) &&
                    ValorDia == cobranca.ValorDia &&
                    ValorKmRodado == cobranca.ValorKmRodado &&
                    KmLivre == cobranca.KmLivre &&
-                   Plano == cobranca.Plano;
+                   Plano == cobranca.Plano &&
+                   EqualityComparer<CategoriaAutomoveis>.Default.Equals(CategoriaAutomoveis, cobranca.CategoriaAutomoveis);
         }
     }
 }

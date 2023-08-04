@@ -4,15 +4,16 @@ using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.Dominio.ModuloParceiro;
+using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
-using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.ModuloAutomovel;
 using LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis;
-using LocadoraAutomoveis.WinApp.ModuloFuncionario;
 using LocadoraAutomoveis.WinApp.ModuloCupom;
+using LocadoraAutomoveis.WinApp.ModuloFuncionario;
 using LocadoraAutomoveis.WinApp.ModuloParceiro;
+using LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.WinApp.ModuloTaxaEServico;
 
 namespace LocadoraAutomoveis.WinApp
@@ -50,6 +51,10 @@ namespace LocadoraAutomoveis.WinApp
         private RepositorioCupom _repositorioCupom;
         private ServicoCupom _servicoCupom;
         private TabelaCupomControl _tabelaCupom;
+
+        private RepositorioPlanosCobrancas _repositorioPlanosCobrancas;
+        private ServicoPlanosCobrancas _servicoPlanosCobrancas;
+        private TabelaPlanosCobrancasControl _tabelaPlanosCobrancas;
 
         public TelaPrincipalForm()
         {
@@ -94,6 +99,10 @@ namespace LocadoraAutomoveis.WinApp
             _repositorioCupom = new RepositorioCupom(_contextoDb);
             _servicoCupom = new ServicoCupom(_repositorioCupom, new ValidadorCupom());
             _tabelaCupom = new TabelaCupomControl();
+
+            _repositorioPlanosCobrancas = new RepositorioPlanosCobrancas(_contextoDb);
+            _servicoPlanosCobrancas = new ServicoPlanosCobrancas(_repositorioPlanosCobrancas, new ValidadorPlanosCobrancas());
+            _tabelaPlanosCobrancas = new TabelaPlanosCobrancasControl();
         }
 
         #region BotoesTabelas
@@ -136,6 +145,12 @@ namespace LocadoraAutomoveis.WinApp
         private void btnCupom_Click(object sender, EventArgs e)
         {
             _controladorBase = new ControladorCupom(_repositorioCupom, _servicoCupom, _tabelaCupom, _servicoParceiro);
+            ConfigurarTelaPrincipal();
+        }
+
+        private void btnPlanosCobrancas_Click(object sender, EventArgs e)
+        {
+            _controladorBase = new ControladorPlanosCobrancas(_repositorioPlanosCobrancas, _servicoPlanosCobrancas, _tabelaPlanosCobrancas, _servicoCategoria);
             ConfigurarTelaPrincipal();
         }
         #endregion
@@ -214,6 +229,7 @@ namespace LocadoraAutomoveis.WinApp
             coresBotoes.Add(_tabelaParceiro.Controls[0], btnParceiro);
             coresBotoes.Add(_tabelaAutomovel.Controls[0], btnAutomovel);
             coresBotoes.Add(_tabelaCupom.Controls[0], btnCupom);
+            coresBotoes.Add(_tabelaPlanosCobrancas.Controls[0], btnPlanosCobrancas);
 
             btnCategoria.MouseEnter += btnColor_MouseEnter;
             btnCategoria.MouseLeave += btnColor_MouseLeave;
@@ -232,6 +248,9 @@ namespace LocadoraAutomoveis.WinApp
 
             btnCupom.MouseEnter += btnColor_MouseEnter;
             btnCupom.MouseLeave += btnColor_MouseLeave;
+
+            btnPlanosCobrancas.MouseEnter += btnColor_MouseEnter;
+            btnPlanosCobrancas.MouseLeave += btnColor_MouseLeave;
         }
 
         private void btnColor_MouseEnter(object sender, EventArgs e)

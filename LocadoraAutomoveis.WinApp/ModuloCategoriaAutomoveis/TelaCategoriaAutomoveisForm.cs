@@ -1,7 +1,6 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
-using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
@@ -36,7 +35,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
             }
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void btnGravar_Click(object sender, EventArgs e)
         {
             ValidarCampos(sender, e);
 

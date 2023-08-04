@@ -1,5 +1,4 @@
-﻿using LocadoraAutomoveis.Dominio.Compartilhado;
-using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+﻿using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using System.ComponentModel;
 
 namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis

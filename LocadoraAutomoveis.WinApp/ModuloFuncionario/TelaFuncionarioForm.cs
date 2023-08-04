@@ -1,10 +1,6 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
-using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
-using LocadoraAutomoveis.WinApp.Compartilhado;
-using LocadoraAutomoveis.WinApp.Extensions;
-using System.Windows.Forms;
 
 namespace LocadoraAutomoveis.WinApp.ModuloFuncionario
 {

@@ -1,5 +1,4 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloCupom;
-using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloCupom

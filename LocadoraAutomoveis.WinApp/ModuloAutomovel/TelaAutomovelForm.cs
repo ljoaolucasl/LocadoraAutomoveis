@@ -1,12 +1,8 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
-using LocadoraAutomoveis.Dominio.Extensions;
 using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
-using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Extensions;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.ObjectiveC;
 
 namespace LocadoraAutomoveis.WinApp.ModuloAutomovel
 {

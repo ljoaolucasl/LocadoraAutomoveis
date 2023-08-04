@@ -1,11 +1,4 @@
-﻿using FluentResults;
-using FluentValidation.Results;
-using LocadoraAutomoveis.Aplicacao.Compartilhado;
-using LocadoraAutomoveis.Aplicacao.Extensions;
-using LocadoraAutomoveis.Dominio.Compartilhado;
-using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
-using Microsoft.Data.SqlClient;
-using Serilog;
+﻿using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {

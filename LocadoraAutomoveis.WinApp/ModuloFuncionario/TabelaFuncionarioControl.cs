@@ -1,6 +1,4 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
-using LocadoraAutomoveis.Dominio.ModuloFuncionario;
-using LocadoraAutomoveis.WinApp.Compartilhado;
+﻿using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloFuncionario

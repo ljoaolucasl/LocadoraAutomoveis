@@ -153,10 +153,12 @@
             // 
             // numValor
             // 
+            numValor.DecimalPlaces = 2;
             numValor.Location = new Point(117, 93);
             numValor.Name = "numValor";
             numValor.Size = new Size(141, 23);
             numValor.TabIndex = 2;
+            numValor.ThousandsSeparator = true;
             // 
             // label7
             // 

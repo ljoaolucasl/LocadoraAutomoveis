@@ -1,9 +1,6 @@
 ﻿using LocadoraAutomoveis.Aplicacao.Servicos;
-using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
-using LocadoraAutomoveis.WinApp.Compartilhado;
-using LocadoraAutomoveis.WinApp.ModuloAutomovel;
 
 namespace LocadoraAutomoveis.WinApp.ModuloCupom
 {

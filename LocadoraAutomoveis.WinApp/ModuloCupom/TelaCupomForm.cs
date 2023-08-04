@@ -1,9 +1,7 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
-using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Dominio.ModuloParceiro;
-using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloCupom
@@ -25,6 +23,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloCupom
             _resultado = new Result();
 
             _cupom = new Cupom();
+
+            numValor.Controls[0].Visible = false;
         }
 
         public Cupom? Entidade

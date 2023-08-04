@@ -1,5 +1,4 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloCupom;
-using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloCupom
@@ -24,6 +23,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCupom
                 row.Cells[0].Tag = item;
                 gridCupom.Rows.Add(row);
             }
+
             gridCupom.Columns[0].Visible = false;
 
             TelaPrincipalForm.AtualizarStatus($"Visualizando {cupons.Count} Cupons");

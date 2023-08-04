@@ -1,5 +1,4 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
-using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
+﻿using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
@@ -13,11 +12,11 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
             gridPlanosCobrancas.ConfigurarTabelaGrid("Número, Nome, Valor/Dia, Valor/Km Rodado, Km livre, Tipo do Plano");
         }
 
-        public void AtualizarLista(List<PlanoCobranca> padroes)
+        public void AtualizarLista(List<PlanoCobranca> planosCobrancas)
         {
             gridPlanosCobrancas.Rows.Clear();
 
-            foreach (PlanoCobranca item in padroes)
+            foreach (PlanoCobranca item in planosCobrancas)
             {
                 DataGridViewRow row = new();
                 row.CreateCells(gridPlanosCobrancas, item.ID, item.Nome);
@@ -25,12 +24,19 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
                 gridPlanosCobrancas.Rows.Add(row);
             }
 
-            TelaPrincipalForm.AtualizarStatus($"Visualizando {padroes.Count} Padrões");
+            gridPlanosCobrancas.Columns[0].Visible = false;
+
+            TelaPrincipalForm.AtualizarStatus($"Visualizando {planosCobrancas.Count} Planos de Cobrança");
+        }
+
+        public DataGridView ObterGrid()
+        {
+            return gridPlanosCobrancas;
         }
 
         public PlanoCobranca ObterRegistroSelecionado()
         {
-            throw new NotImplementedException();
+            return (PlanoCobranca)gridPlanosCobrancas.SelectedRows[0].Cells[0].Tag;
         }
     }
 }

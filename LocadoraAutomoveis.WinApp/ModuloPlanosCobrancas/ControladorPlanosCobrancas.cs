@@ -5,16 +5,20 @@ using LocadoraAutomoveis.Infraestrutura.Repositorios;
 namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
 {
     public class ControladorPlanosCobrancas : ControladorBase<PlanoCobranca, RepositorioPlanosCobrancas,
-        ServicoPlanosCobrancas, TabelaPlanosCobrancasControl, TelaPlanosCobrancasForm, NoRepository, NoRepository>
+        ServicoPlanosCobrancas, TabelaPlanosCobrancasControl, TelaPlanosCobrancasForm, ServicoCategoriaAutomoveis, NoService>
     {
-        public ControladorPlanosCobrancas()
+        public ControladorPlanosCobrancas(RepositorioPlanosCobrancas repositorioPlanosCobrancas, ServicoPlanosCobrancas servicoPlanosCobrancas, TabelaPlanosCobrancasControl tabelaPlanosCobrancas, ServicoCategoriaAutomoveis servicoCategoriaAutomoveis) : base(repositorioPlanosCobrancas, servicoPlanosCobrancas, tabelaPlanosCobrancas, servicoCategoriaAutomoveis)
         {
-            
+            OnComandosAdicionaisAddAndEdit += ObterDependencias;
         }
 
-        public override DataGridView ObterTabela()
+        private void ObterDependencias(TelaPlanosCobrancasForm tela, PlanoCobranca planoCobranca)
         {
-            return (DataGridView)_tabela.Controls[0];
+            var categorias = _servico2.SelecionarTodosOsRegistros();
+
+            tela.CarregarCategorias(categorias);
         }
+
+        protected override string TipoCadastro => "Planos de Cobranças";
     }
 }

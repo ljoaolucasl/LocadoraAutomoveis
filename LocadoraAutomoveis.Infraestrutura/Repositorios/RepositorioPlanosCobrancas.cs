@@ -8,5 +8,10 @@ namespace LocadoraAutomoveis.Infraestrutura.Repositorios
         public RepositorioPlanosCobrancas(ContextoDados contextoDb) : base(contextoDb)
         {
         }
+
+        public override bool Existe(PlanoCobranca objetoParaVerificar, bool exclusao = false)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

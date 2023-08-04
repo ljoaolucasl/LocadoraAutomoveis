@@ -1,27 +1,33 @@
 ﻿using LocadoraAutomoveis.Dominio.Compartilhado;
+using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 
 namespace LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas
 {
     public class PlanoCobranca : EntidadeBase
     {
-        public string Nome { get; set; }
         public decimal ValorDia { get; set; }
         public decimal ValorKmRodado { get; set; }
         public int KmLivre { get; set; }
         public TipoPlano Plano { get; set; }
+        public CategoriaAutomoveis CategoriaAutomoveis { get; set; }
 
-        public PlanoCobranca(string nome, decimal valorDia, decimal valorKmRodado, int kmLivre, TipoPlano plano)
+        public PlanoCobranca(decimal valorDia, decimal valorKmRodado, int kmLivre, TipoPlano plano, CategoriaAutomoveis categoriaAutomoveis)
         {
-            Nome = nome;
             ValorDia = valorDia;
             ValorKmRodado = valorKmRodado;
             KmLivre = kmLivre;
             Plano = plano;
+            CategoriaAutomoveis = categoriaAutomoveis;
         }
 
         public PlanoCobranca()
         {
             
+        }
+
+        public override string ToString()
+        {
+            return Nome;
         }
 
         public override bool Equals(object? obj)

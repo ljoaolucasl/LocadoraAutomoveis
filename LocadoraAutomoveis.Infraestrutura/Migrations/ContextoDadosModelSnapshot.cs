@@ -134,7 +134,6 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                     b.ToTable("TBCliente", (string)null);
                 });
 
-            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloFuncionario.Funcionario", b =>
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloCupom.Cupom", b =>
                 {
                     b.Property<Guid>("ID")
@@ -162,7 +161,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                     b.HasIndex("ParceiroID");
 
                     b.ToTable("TBCupom", (string)null);
-                }));
+                });
 
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloFuncionario.Funcionario", b =>
                 {

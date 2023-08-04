@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraAutomoveis.Infraestrutura.Migrations
 {
     [DbContext(typeof(ContextoDados))]
-    [Migration("20230803171657_add-TBCliente")]
-    partial class addTBCliente
+    [Migration("20230804200016_Add-TBCliente")]
+    partial class AddTBCliente
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -137,6 +137,35 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                     b.ToTable("TBCliente", (string)null);
                 });
 
+            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloCupom.Cupom", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DataValidade")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<Guid>("ParceiroID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("QtdUsos")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ParceiroID");
+
+                    b.ToTable("TBCupom", (string)null);
+                });
+
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloFuncionario.Funcionario", b =>
                 {
                     b.Property<Guid>("ID")
@@ -204,6 +233,18 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                         .HasConstraintName("FK_TBAutomovel_TBCategoriaAutomoveis");
 
                     b.Navigation("Categoria");
+                });
+
+            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloCupom.Cupom", b =>
+                {
+                    b.HasOne("LocadoraAutomoveis.Dominio.ModuloParceiro.Parceiro", "Parceiro")
+                        .WithMany()
+                        .HasForeignKey("ParceiroID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_TBCupom_TBParceiro");
+
+                    b.Navigation("Parceiro");
                 });
 #pragma warning restore 612, 618
         }

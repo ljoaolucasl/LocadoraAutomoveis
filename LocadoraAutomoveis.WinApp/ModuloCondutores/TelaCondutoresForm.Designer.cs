@@ -45,13 +45,13 @@
             label5 = new Label();
             lbErroCNH = new Label();
             label6 = new Label();
-            txtCNH = new TextBox();
             lbErroValidade = new Label();
             dateValidade = new DateTimePicker();
             lbValidade = new Label();
             btnCancelar = new Button();
             btnGravar = new Button();
             lbErroCliente = new Label();
+            txtCNH = new MaskedTextBox();
             SuspendLayout();
             // 
             // txtTelefone
@@ -143,6 +143,7 @@
             cmbCliente.Name = "cmbCliente";
             cmbCliente.Size = new Size(299, 23);
             cmbCliente.TabIndex = 59;
+            cmbCliente.SelectedIndexChanged += cmbCliente_SelectedIndexChanged;
             // 
             // label1
             // 
@@ -212,13 +213,6 @@
             label6.TabIndex = 65;
             label6.Text = "CNH:";
             // 
-            // txtCNH
-            // 
-            txtCNH.Location = new Point(65, 257);
-            txtCNH.Name = "txtCNH";
-            txtCNH.Size = new Size(98, 23);
-            txtCNH.TabIndex = 67;
-            // 
             // lbErroValidade
             // 
             lbErroValidade.AutoSize = true;
@@ -269,6 +263,7 @@
             btnGravar.TabIndex = 71;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = true;
+            btnGravar.Click += btnAdd_Click;
             // 
             // lbErroCliente
             // 
@@ -281,18 +276,26 @@
             lbErroCliente.Text = "*Campo Cliente em branco*";
             lbErroCliente.Visible = false;
             // 
+            // txtCNH
+            // 
+            txtCNH.Location = new Point(65, 257);
+            txtCNH.Mask = "00000000000";
+            txtCNH.Name = "txtCNH";
+            txtCNH.Size = new Size(65, 23);
+            txtCNH.TabIndex = 74;
+            // 
             // TelaCondutoresForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(391, 421);
+            Controls.Add(txtCNH);
             Controls.Add(lbErroCliente);
             Controls.Add(btnCancelar);
             Controls.Add(btnGravar);
             Controls.Add(lbErroValidade);
             Controls.Add(dateValidade);
             Controls.Add(lbValidade);
-            Controls.Add(txtCNH);
             Controls.Add(lbErroCNH);
             Controls.Add(label6);
             Controls.Add(txtCPF);
@@ -335,12 +338,12 @@
         private Label label5;
         private Label lbErroCNH;
         private Label label6;
-        private TextBox txtCNH;
         private Label lbErroValidade;
         private DateTimePicker dateValidade;
         private Label lbValidade;
         private Button btnCancelar;
         private Button btnGravar;
         private Label lbErroCliente;
+        private MaskedTextBox txtCNH;
     }
 }

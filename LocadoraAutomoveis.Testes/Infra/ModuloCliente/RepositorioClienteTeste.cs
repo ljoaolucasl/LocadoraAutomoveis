@@ -10,6 +10,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCliente
     public class RepositorioClienteTeste
     {
         private RepositorioCliente _repositorioCliente;
+        private RepositorioCondutores _repositorioCondutor;
 
         private ContextoDados _contexto;
 
@@ -19,12 +20,12 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCliente
             _contexto = new LocadoraAutomoveisDesignFactory().CreateDbContext(null);
 
             _repositorioCliente = new RepositorioCliente(_contexto);
+            _repositorioCondutor = new RepositorioCondutores(_contexto);
 
             _contexto.RemoveRange(_repositorioCliente.Registros);
+            _contexto.RemoveRange(_repositorioCondutor.Registros);
 
             BuilderSetup.SetCreatePersistenceMethod<Cliente>(_repositorioCliente.Inserir);
-
-            BuilderSetup.DisablePropertyNamingFor<Cliente, Guid>(x => x.ID);
         }
 
         [TestMethod]

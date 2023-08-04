@@ -17,6 +17,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCondutores
     public class RepositorioCondutoresTeste
     {
         private RepositorioCondutores _repositorioCondutores;
+        private RepositorioCliente _repositorioClientes;
 
         private ContextoDados _contexto;
 
@@ -26,26 +27,24 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCondutores
             _contexto = new LocadoraAutomoveisDesignFactory().CreateDbContext(null);
 
             _repositorioCondutores = new RepositorioCondutores(_contexto);
+            _repositorioClientes = new RepositorioCliente(_contexto);
 
             _contexto.RemoveRange(_repositorioCondutores.Registros);
+            _contexto.RemoveRange(_repositorioClientes.Registros);
 
             BuilderSetup.SetCreatePersistenceMethod<Condutores>(_repositorioCondutores.Inserir);
-
-            BuilderSetup.DisablePropertyNamingFor<Condutores, Guid>(x => x.ID);
+            BuilderSetup.SetCreatePersistenceMethod<Cliente>(_repositorioClientes.Inserir);
         }
 
         [TestMethod]
         public void Deve_adicionar_um_condutor()
         {
-            var cliente = Builder<Condutores>.CreateNew().Persist();
-
-            _repositorioCondutores.SelecionarPorID(cliente.ID).Should().Be(cliente);
-
-            var cliente1 = Builder<Cliente>.CreateNew().Build();
-            var condutor = Builder<Condutores>.CreateNew().With(c => c.Cliente = cliente1).Persist();
+            var cliente = Builder<Cliente>.CreateNew().Build();
+            var condutor = Builder<Condutores>.CreateNew().With(c => c.Cliente = cliente).Persist();
 
             _repositorioCondutores.SelecionarPorID(condutor.ID).Should().Be(condutor);
         }
+
         [TestMethod]
         public void Deve_editar_um_condutor()
         {

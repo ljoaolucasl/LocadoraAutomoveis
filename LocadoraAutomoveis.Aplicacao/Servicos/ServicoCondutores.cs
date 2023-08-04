@@ -44,7 +44,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
-                CustomError erro = new("Falha ao tentar inserir Condutor ", "Condutor", ex.Message);
+                CustomError erro = new("Falha ao tentar inserir o Condutor ", "Condutor", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{C}", condutorParaAdicionar);
 
@@ -73,7 +73,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
-                CustomError erro = new("Falha ao tentar editar Condutor ", "Condutor", ex.Message);
+                CustomError erro = new("Falha ao tentar editar o Condutor ", "Condutor", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{C}", condutorParaEditar);
 
@@ -110,7 +110,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
                     erros.Add(new CustomError("Esse Condutor está relacionado à um ObjetoRelacao." +
                         " Primeiro exclua o ObjetoRelacao relacionado", "Condutor"));
                 else
-                    erros.Add(new CustomError("Falha ao tentar excluir Condutor", "Condutor"));
+                    erros.Add(new CustomError("Falha ao tentar excluir o Condutor", "Condutor"));
 
                 return Result.Fail(erros);
             }

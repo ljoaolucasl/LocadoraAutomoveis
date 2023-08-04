@@ -21,7 +21,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
             foreach (Condutores item in condutores)
             {
                 DataGridViewRow row = new();
-                row.CreateCells(gridCondutores, item.ID, item.Nome, item.Cliente.Nome, item.CPF, item.CNH, item.Validade);
+                row.CreateCells(gridCondutores, item.ID, item.Nome, item.Cliente.Nome, item.CPF, item.CNH, item.Validade.ToString("d"));
                 row.Cells[0].Tag = item;
                 gridCondutores.Rows.Add(row);
             }

@@ -121,10 +121,10 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
 
         private void chkClienteCondutor_CheckedChanged(object sender, EventArgs e)
         {
+            Cliente cliente = cmbCliente.SelectedItem as Cliente;
+
             if (chkClienteCondutor.Checked)
             {
-                Cliente cliente = cmbCliente.SelectedItem as Cliente;
-
                 txtNome.Text = cliente.Nome;
                 txtEmail.Text = cliente.Email;
                 txtTelefone.Text = cliente.Telefone;
@@ -147,6 +147,31 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
                 txtEmail.Text = "";
                 txtTelefone.Text = "";
                 txtCPF.Text = "";
+            }
+        }
+
+        public void HabilitarCampos(bool ehHabilitado)
+        {
+            chkClienteCondutor.Checked = !ehHabilitado;
+            chkClienteCondutor.Enabled = !ehHabilitado;
+
+            txtNome.Enabled = ehHabilitado;
+            txtEmail.Enabled = ehHabilitado;
+            txtTelefone.Enabled = ehHabilitado;
+            txtCPF.Enabled = ehHabilitado;
+        }
+
+        private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Cliente cliente = cmbCliente.SelectedItem as Cliente;
+
+            if (cliente.TipoCliente == TipoDocumento.CPF)
+            {
+                HabilitarCampos(false);
+            }
+            else
+            {
+                HabilitarCampos(true);
             }
         }
     }

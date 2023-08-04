@@ -1,6 +1,7 @@
 ﻿using LocadoraAutomoveis.Dominio.Extensions;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
+using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Infraestrutura.Repositorios
 {
@@ -19,7 +20,12 @@ namespace LocadoraAutomoveis.Infraestrutura.Repositorios
             if (exclusao)
                 return Registros.Contains(condutorParaVerificar);
 
-            return Registros.ToList().Any(c => string.Equals(c.Nome.RemoverAcento(), condutorParaVerificar.Nome.RemoverAcento(), StringComparison.OrdinalIgnoreCase) && c.ID != condutorParaVerificar.ID);
+            return Registros.ToList().Any(c => string.Equals(c.Nome.RemoverAcento(), condutorParaVerificar.Nome.RemoverAcento(), StringComparison.OrdinalIgnoreCase) && c.ID != condutorParaVerificar.ID && c.Cliente.Nome == condutorParaVerificar.Cliente.Nome);
+        }
+
+        public override List<Condutores> SelecionarTodos()
+        {
+            return Registros.Include(c => c.Cliente).ToList();
         }
     }
 }

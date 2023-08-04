@@ -1,7 +1,6 @@
 ﻿using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
-using LocadoraAutomoveis.WinApp.Compartilhado;
 
 namespace LocadoraAutomoveis.WinApp.ModuloFuncionario
 {

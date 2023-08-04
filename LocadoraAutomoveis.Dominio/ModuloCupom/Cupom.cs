@@ -1,5 +1,4 @@
-﻿using LocadoraAutomoveis.Dominio.Compartilhado;
-using LocadoraAutomoveis.Dominio.ModuloParceiro;
+﻿using LocadoraAutomoveis.Dominio.ModuloParceiro;
 
 namespace LocadoraAutomoveis.Dominio.ModuloCupom
 {

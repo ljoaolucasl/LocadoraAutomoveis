@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using LocadoraAutomoveis.Dominio.Extensions;
 using System.Text.RegularExpressions;
 
 namespace LocadoraAutomoveis.Dominio.ModuloFuncionario

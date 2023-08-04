@@ -1,5 +1,4 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloParceiro;
-using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloParceiro

@@ -61,7 +61,7 @@
             btnCancelar.Location = new Point(302, 227);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(85, 37);
-            btnCancelar.TabIndex = 8;
+            btnCancelar.TabIndex = 6;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             // 
@@ -72,7 +72,7 @@
             btnGravar.Location = new Point(211, 227);
             btnGravar.Name = "btnGravar";
             btnGravar.Size = new Size(85, 37);
-            btnGravar.TabIndex = 7;
+            btnGravar.TabIndex = 5;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = true;
             btnGravar.Click += btnAdd_Click;
@@ -83,7 +83,7 @@
             txtNome.MaxLength = 100;
             txtNome.Name = "txtNome";
             txtNome.Size = new Size(248, 23);
-            txtNome.TabIndex = 6;
+            txtNome.TabIndex = 1;
             // 
             // lbNome
             // 
@@ -116,10 +116,16 @@
             // 
             // txtValor
             // 
+            txtValor.DecimalPlaces = 2;
+            txtValor.ImeMode = ImeMode.NoControl;
             txtValor.Location = new Point(77, 103);
+            txtValor.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
             txtValor.Name = "txtValor";
             txtValor.Size = new Size(120, 23);
-            txtValor.TabIndex = 13;
+            txtValor.TabIndex = 2;
+            txtValor.ThousandsSeparator = true;
+            txtValor.Click += txtValor_Click;
+            txtValor.Enter += txtValor_Enter;
             // 
             // groupBox1
             // 
@@ -138,7 +144,7 @@
             rdDiaria.Location = new Point(121, 25);
             rdDiaria.Name = "rdDiaria";
             rdDiaria.Size = new Size(109, 19);
-            rdDiaria.TabIndex = 1;
+            rdDiaria.TabIndex = 4;
             rdDiaria.TabStop = true;
             rdDiaria.Text = "Cobrança Diária";
             rdDiaria.UseVisualStyleBackColor = true;
@@ -150,7 +156,7 @@
             rdFixo.Location = new Point(14, 25);
             rdFixo.Name = "rdFixo";
             rdFixo.Size = new Size(80, 19);
-            rdFixo.TabIndex = 0;
+            rdFixo.TabIndex = 3;
             rdFixo.TabStop = true;
             rdFixo.Text = "Preço Fixo";
             rdFixo.UseVisualStyleBackColor = true;

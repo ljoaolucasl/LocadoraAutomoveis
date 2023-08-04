@@ -1,12 +1,5 @@
-﻿using FluentResults;
-using FluentValidation.Results;
-using LocadoraAutomoveis.Aplicacao.Compartilhado;
-using LocadoraAutomoveis.Aplicacao.Extensions;
-using LocadoraAutomoveis.Dominio.Compartilhado;
-using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
-using Microsoft.Data.SqlClient;
+﻿using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
@@ -24,13 +17,13 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
         #region CRUD
         public Result Inserir(CategoriaAutomoveis categoriaParaAdicionar)
         {
-            Log.Debug("Tentando adicionar a Categoria '{NOME}'", categoriaParaAdicionar.Nome);
+            Log.Debug("Tentando inserir a Categoria '{NOME}'", categoriaParaAdicionar.Nome);
 
             Result resultado = ValidarRegistro(categoriaParaAdicionar);
 
             if (resultado.IsFailed)
             {
-                Log.Warning("Falha ao tentar adicionar a Categoria '{NOME}'", categoriaParaAdicionar.Nome);
+                Log.Warning("Falha ao tentar inserir a Categoria '{NOME}'", categoriaParaAdicionar.Nome);
                 return resultado;
             }
 
@@ -38,13 +31,13 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioCategoriaAutomoveis.Inserir(categoriaParaAdicionar);
 
-                Log.Debug("Adicionado a Categoria '{NOME} #{ID}' com sucesso!", categoriaParaAdicionar.Nome, categoriaParaAdicionar.ID);
+                Log.Debug("Inserido a Categoria '{NOME} #{ID}' com sucesso!", categoriaParaAdicionar.Nome, categoriaParaAdicionar.ID);
 
                 return Result.Ok();
             }
             catch (Exception ex)
             {
-                CustomError erro = new("Falha ao tentar inserir categoria ", "Categoria", ex.Message);
+                CustomError erro = new("Falha ao tentar inserir a Categoria ", "Categoria", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{C}", categoriaParaAdicionar);
 
@@ -73,7 +66,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
-                CustomError erro = new("Falha ao tentar editar categoria ", "Categoria", ex.Message);
+                CustomError erro = new("Falha ao tentar editar a Categoria ", "Categoria", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{C}", categoriaParaEditar);
 
@@ -131,7 +124,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
         }
         #endregion
 
-        public CategoriaAutomoveis SelecionarRegistroPorID(Guid categoriaID)
+        public CategoriaAutomoveis? SelecionarRegistroPorID(Guid categoriaID)
         {
             return _repositorioCategoriaAutomoveis.SelecionarPorID(categoriaID);
         }

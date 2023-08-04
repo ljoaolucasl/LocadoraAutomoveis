@@ -20,7 +20,7 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAutomovel
         }
 
         [TestMethod]
-        public void Deve_aceitar_Categoria_valida()
+        public void Deve_aceitar_Automovel_valido()
         {
             //action
             ValidationResult resultado = _validador.Validate(_automovel);

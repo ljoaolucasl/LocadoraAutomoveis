@@ -190,7 +190,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloTaxaEServico
             //assert
             resultado.Should().BeFailure();
             _repositorioMoq.Verify(x => x.Excluir(_taxa), Times.Never());
-            resultado.Reasons[0].Message.Should().Be("Taxa e Serviço não encontrada");
+            resultado.Reasons[0].Message.Should().Be("Taxa e Serviço não encontrado");
         }
 
         [TestMethod]
@@ -231,7 +231,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloTaxaEServico
 
             //assert
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Falha ao tentar excluir Taxa e Serviço");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Falha ao tentar excluir a Taxa e Serviço");
         }
         #endregion
     }

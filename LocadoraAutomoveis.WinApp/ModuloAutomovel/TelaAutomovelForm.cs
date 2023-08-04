@@ -1,12 +1,8 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
-using LocadoraAutomoveis.Dominio.Extensions;
 using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
-using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Extensions;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.ObjectiveC;
 
 namespace LocadoraAutomoveis.WinApp.ModuloAutomovel
 {
@@ -23,6 +19,10 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomovel
             InitializeComponent();
 
             this.ConfigurarDialog();
+
+            txtAno.Controls[0].Visible = false;
+            txtLitros.Controls[0].Visible = false;
+            txtQuilometragem.Controls[0].Visible = false;
 
             _resultado = new Result();
 
@@ -91,7 +91,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomovel
         private Automovel ObterCategoria()
         {
             _automovel.Imagem = pbImagem.Image.ToByte();
-            _automovel.Categoria = cbCategoria?.SelectedItem as CategoriaAutomoveis;
+            _automovel.Categoria = cbCategoria.SelectedItem as CategoriaAutomoveis;
             _automovel.Modelo = txtModelo.Text;
             _automovel.Ano = (int)txtAno.Value;
             _automovel.Marca = txtMarca.Text;
@@ -139,6 +139,17 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomovel
 
             _resultado.Errors.Clear();
             _resultado.Reasons.Clear();
+        }
+
+        private void selecaoAutomaticaNumericUpDown_Enter(object sender, EventArgs e)
+        {
+            ((TextBox)((NumericUpDown)sender).Controls[1]).SelectAll();
+        }
+
+        private void selecaoAutomaticaNumericUpDown_Click(object sender, EventArgs e)
+        {
+            if (((NumericUpDown)sender).Controls[1].Text == "0")
+                ((TextBox)((NumericUpDown)sender).Controls[1]).SelectAll();
         }
     }
 }

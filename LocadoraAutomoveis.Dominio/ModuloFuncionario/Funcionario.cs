@@ -1,6 +1,4 @@
-﻿using LocadoraAutomoveis.Dominio.Compartilhado;
-
-namespace LocadoraAutomoveis.Dominio.ModuloFuncionario
+﻿namespace LocadoraAutomoveis.Dominio.ModuloFuncionario
 {
     public class Funcionario : EntidadeBase
     {

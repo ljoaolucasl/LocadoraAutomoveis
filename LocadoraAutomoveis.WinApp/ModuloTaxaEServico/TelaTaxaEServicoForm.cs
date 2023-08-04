@@ -1,7 +1,6 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
-using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloTaxaEServico
@@ -19,6 +18,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloTaxaEServico
             InitializeComponent();
 
             this.ConfigurarDialog();
+
+            txtValor.Controls[0].Visible = false;
 
             _resultado = new Result();
 
@@ -50,7 +51,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloTaxaEServico
         {
             ResetarErros();
 
-            _taxa = ObterCategoria();
+            _taxa = ObterTaxaEServico();
 
             _resultado = OnGravarRegistro(_taxa);
 
@@ -58,7 +59,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloTaxaEServico
                 MostrarErros();
         }
 
-        private TaxaEServico ObterCategoria()
+        private TaxaEServico ObterTaxaEServico()
         {
             _taxa.Nome = txtNome.Text;
             _taxa.Valor = txtValor.Value;
@@ -86,6 +87,17 @@ namespace LocadoraAutomoveis.WinApp.ModuloTaxaEServico
 
             _resultado.Errors.Clear();
             _resultado.Reasons.Clear();
+        }
+
+        private void txtValor_Enter(object sender, EventArgs e)
+        {
+            ((TextBox)txtValor.Controls[1]).SelectAll();
+        }
+
+        private void txtValor_Click(object sender, EventArgs e)
+        {
+            if (txtValor.Controls[1].Text == "0,00")
+                ((TextBox)txtValor.Controls[1]).SelectAll();
         }
     }
 }

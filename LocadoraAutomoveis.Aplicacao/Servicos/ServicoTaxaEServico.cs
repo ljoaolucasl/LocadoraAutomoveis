@@ -1,11 +1,4 @@
-﻿using FluentResults;
-using FluentValidation.Results;
-using LocadoraAutomoveis.Aplicacao.Compartilhado;
-using LocadoraAutomoveis.Aplicacao.Extensions;
-using LocadoraAutomoveis.Dominio.Compartilhado;
-using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
-using Microsoft.Data.SqlClient;
-using Serilog;
+﻿using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
@@ -23,13 +16,13 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
         #region CRUD
         public Result Inserir(TaxaEServico taxaParaAdicionar)
         {
-            Log.Debug("Tentando adicionar a Taxa e Serviço '{NOME}'", taxaParaAdicionar.Nome);
+            Log.Debug("Tentando inserir a Taxa e Serviço '{NOME}'", taxaParaAdicionar.Nome);
 
             Result resultado = ValidarRegistro(taxaParaAdicionar);
 
             if (resultado.IsFailed)
             {
-                Log.Warning("Falha ao tentar adicionar a Taxa e Serviço '{NOME}'", taxaParaAdicionar.Nome);
+                Log.Warning("Falha ao tentar inserir a Taxa e Serviço '{NOME}'", taxaParaAdicionar.Nome);
                 return resultado;
             }
 
@@ -37,7 +30,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioTaxaEServico.Inserir(taxaParaAdicionar);
 
-                Log.Debug("Adicionado a Taxa e Serviço '{NOME} #{ID}' com sucesso!", taxaParaAdicionar.Nome, taxaParaAdicionar.ID);
+                Log.Debug("Inserido a Taxa e Serviço '{NOME} #{ID}' com sucesso!", taxaParaAdicionar.Nome, taxaParaAdicionar.ID);
 
                 return Result.Ok();
             }
@@ -86,9 +79,9 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
             if (_repositorioTaxaEServico.Existe(taxaParaExcluir, true) == false)
             {
-                Log.Warning("Taxa e Serviço {ID} não encontrada para excluir", taxaParaExcluir.ID);
+                Log.Warning("Taxa e Serviço {ID} não encontrado para excluir", taxaParaExcluir.ID);
 
-                return Result.Fail("Taxa e Serviço não encontrada");
+                return Result.Fail("Taxa e Serviço não encontrado");
             }
 
             try
@@ -109,7 +102,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
                     erros.Add(new CustomError("Essa Taxa e Serviço está relacionada à um ObjetoRelacao." +
                         " Primeiro exclua o ObjetoRelacao relacionado", "Taxa"));
                 else
-                    erros.Add(new CustomError("Falha ao tentar excluir Taxa e Serviço", "Taxa"));
+                    erros.Add(new CustomError("Falha ao tentar excluir a Taxa e Serviço", "Taxa"));
 
                 return Result.Fail(erros);
             }

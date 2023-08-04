@@ -1,6 +1,7 @@
 using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.Dominio.ModuloParceiro;
@@ -10,8 +11,10 @@ using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
 using LocadoraAutomoveis.WinApp.ModuloAutomovel;
 using LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.WinApp.ModuloCliente;
 using LocadoraAutomoveis.WinApp.ModuloCupom;
 using LocadoraAutomoveis.WinApp.ModuloFuncionario;
+using LocadoraAutomoveis.WinApp.ModuloCupom;
 using LocadoraAutomoveis.WinApp.ModuloParceiro;
 using LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.WinApp.ModuloTaxaEServico;
@@ -47,6 +50,10 @@ namespace LocadoraAutomoveis.WinApp
         private RepositorioAutomovel _repositorioAutomovel;
         private ServicoAutomovel _servicoAutomovel;
         private TabelaAutomovelControl _tabelaAutomovel;
+
+        private RepositorioCliente _repositorioCliente;
+        private ServicoCliente _servicoCliente;
+        private TabelaClienteControl _tabelaCliente;
 
         private RepositorioCupom _repositorioCupom;
         private ServicoCupom _servicoCupom;
@@ -96,6 +103,10 @@ namespace LocadoraAutomoveis.WinApp
             _servicoAutomovel = new ServicoAutomovel(_repositorioAutomovel, new ValidadorAutomovel());
             _tabelaAutomovel = new TabelaAutomovelControl();
 
+            _repositorioCliente = new RepositorioCliente(_contextoDb);
+            _servicoCliente = new ServicoCliente(_repositorioCliente, new ValidadorCliente());
+            _tabelaCliente = new TabelaClienteControl();
+
             _repositorioCupom = new RepositorioCupom(_contextoDb);
             _servicoCupom = new ServicoCupom(_repositorioCupom, new ValidadorCupom());
             _tabelaCupom = new TabelaCupomControl();
@@ -139,6 +150,12 @@ namespace LocadoraAutomoveis.WinApp
         private void btnFuncionario_Click_1(object sender, EventArgs e)
         {
             _controladorBase = new ControladorFuncionario(_repositorioFuncionario, _servicoFuncionario, _tabelaFuncionario);
+            ConfigurarTelaPrincipal();
+        }
+
+        private void btnCliente_Click(object sender, EventArgs e)
+        {
+            _controladorBase = new ControladorCliente(_repositorioCliente, _servicoCliente, _tabelaCliente);
             ConfigurarTelaPrincipal();
         }
 
@@ -228,6 +245,7 @@ namespace LocadoraAutomoveis.WinApp
             coresBotoes.Add(_tabelaTaxaEServico.Controls[0], btnTaxa);
             coresBotoes.Add(_tabelaParceiro.Controls[0], btnParceiro);
             coresBotoes.Add(_tabelaAutomovel.Controls[0], btnAutomovel);
+            coresBotoes.Add(_tabelaCliente.Controls[0], btnCliente);
             coresBotoes.Add(_tabelaCupom.Controls[0], btnCupom);
             coresBotoes.Add(_tabelaPlanosCobrancas.Controls[0], btnPlanosCobrancas);
 
@@ -245,6 +263,9 @@ namespace LocadoraAutomoveis.WinApp
 
             btnAutomovel.MouseEnter += btnColor_MouseEnter;
             btnAutomovel.MouseLeave += btnColor_MouseLeave;
+
+            btnCliente.MouseEnter += btnColor_MouseEnter;
+            btnCliente.MouseLeave += btnColor_MouseLeave;
 
             btnCupom.MouseEnter += btnColor_MouseEnter;
             btnCupom.MouseLeave += btnColor_MouseLeave;

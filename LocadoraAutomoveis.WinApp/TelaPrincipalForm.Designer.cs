@@ -34,6 +34,7 @@
             btnParceiro = new ToolStripButton();
             btnAutomovel = new ToolStripButton();
             btnFuncionario = new ToolStripButton();
+            btnCliente = new ToolStripButton();
             btnCupom = new ToolStripButton();
             barraAcoes = new ToolStrip();
             btnAdicionar = new ToolStripButton();
@@ -58,7 +59,7 @@
             barraBotoes.Dock = DockStyle.Left;
             barraBotoes.GripMargin = new Padding(0);
             barraBotoes.GripStyle = ToolStripGripStyle.Hidden;
-            barraBotoes.Items.AddRange(new ToolStripItem[] { btnAutomovel, btnFuncionario, btnCategoria, btnTaxa, btnParceiro, btnCupom, btnPlanosCobrancas });
+            barraBotoes.Items.AddRange(new ToolStripItem[] { btnAutomovel, btnFuncionario, btnCategoria, btnTaxa, btnParceiro, btnCupom, btnPlanosCobrancas, btnCliente });
             barraBotoes.LayoutStyle = ToolStripLayoutStyle.VerticalStackWithOverflow;
             barraBotoes.Location = new Point(0, 0);
             barraBotoes.Name = "barraBotoes";
@@ -151,6 +152,23 @@
             btnFuncionario.TextDirection = ToolStripTextDirection.Horizontal;
             btnFuncionario.ToolTipText = "Funcionários";
             btnFuncionario.Click += btnFuncionario_Click_1;
+            // 
+            // btnCliente
+            // 
+            btnCliente.BackColor = Color.Gainsboro;
+            btnCliente.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnCliente.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCliente.ForeColor = Color.Black;
+            btnCliente.ImageTransparentColor = Color.Magenta;
+            btnCliente.Margin = new Padding(0);
+            btnCliente.Name = "btnCliente";
+            btnCliente.Padding = new Padding(20, 10, 20, 10);
+            btnCliente.RightToLeft = RightToLeft.No;
+            btnCliente.Size = new Size(258, 42);
+            btnCliente.Text = "Clientes";
+            btnCliente.TextDirection = ToolStripTextDirection.Horizontal;
+            btnCliente.ToolTipText = "Funcionários";
+            btnCliente.Click += btnCliente_Click;
             // 
             // btnCupom
             // 
@@ -332,6 +350,7 @@
         private ToolStripButton btnAutomovel;
         private ToolStripButton btnFiltrar;
         private ToolStripSeparator toolStripSeparator1;
+        private ToolStripButton btnCliente;
         private ToolStripButton btnCupom;
         private ToolStripButton btnPlanosCobrancas;
     }

@@ -3,7 +3,6 @@ using LocadoraAutomoveis.Dominio.Extensions;
 using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
-using LocadoraAutomoveis.WinApp.Compartilhado;
 
 namespace LocadoraAutomoveis.WinApp.ModuloAutomovel
 {
@@ -25,9 +24,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomovel
             TelaPrincipalForm.AtualizarStatus($"Filtrando Automóveis");
 
             if (tela.ShowDialog() == DialogResult.OK)
-            {
                 CarregarAutomoveisComFiltro(tela.CategoriaSelecionada);
-            }
         }
 
         private void CarregarAutomoveisComFiltro(CategoriaAutomoveis? categoriaSelecionada)

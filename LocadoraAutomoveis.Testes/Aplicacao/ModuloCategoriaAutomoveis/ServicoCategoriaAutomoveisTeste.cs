@@ -90,7 +90,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
 
             //assert 
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Falha ao tentar inserir categoria ");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Falha ao tentar inserir a Categoria ");
         }
         #endregion
 
@@ -157,7 +157,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
 
             //assert 
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Falha ao tentar editar categoria ");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Falha ao tentar editar a Categoria ");
         }
         #endregion
 
@@ -214,7 +214,6 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
         {
             //arrange
             DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBOBJETORELACAO_TBCategoriaAutomoveis");
-
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>(), true)).Returns(true);
             _repositorioMoq.Setup(x => x.Excluir(It.IsAny<CategoriaAutomoveis>())).Throws(dbUpdateException);
 

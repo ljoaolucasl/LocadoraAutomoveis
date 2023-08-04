@@ -60,10 +60,10 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAutomovel
             //arrange
             var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Build();
             var automovel1 = Builder<Automovel>.CreateNew().With(c => c.Categoria = categoria1).With(c => c.Imagem = new byte[12]).Persist();
-            var disciplinaSelecionada = _repositorioAutomovel.SelecionarPorID(automovel1.ID);
+            var automovelSelecionada = _repositorioAutomovel.SelecionarPorID(automovel1.ID);
 
             //action
-            _repositorioAutomovel.Excluir(disciplinaSelecionada);
+            _repositorioAutomovel.Excluir(automovelSelecionada);
 
             //assert
             _repositorioAutomovel.SelecionarTodos().Should().HaveCount(0);
@@ -77,10 +77,10 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAutomovel
             var automovel1 = Builder<Automovel>.CreateNew().With(c => c.Categoria = categoria1).With(c => c.Imagem = new byte[12]).Persist();
 
             //action
-            var disciplinaSelecionada = _repositorioAutomovel.SelecionarPorID(automovel1.ID);
+            var automovelSelecionada = _repositorioAutomovel.SelecionarPorID(automovel1.ID);
 
             //assert
-            disciplinaSelecionada.Should().Be(automovel1);
+            automovelSelecionada.Should().Be(automovel1);
         }
 
         [TestMethod]

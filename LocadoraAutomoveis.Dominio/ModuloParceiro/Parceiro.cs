@@ -1,6 +1,4 @@
-﻿using LocadoraAutomoveis.Dominio.Compartilhado;
-
-namespace LocadoraAutomoveis.Dominio.ModuloParceiro
+﻿namespace LocadoraAutomoveis.Dominio.ModuloParceiro
 {
     public class Parceiro : EntidadeBase
     {

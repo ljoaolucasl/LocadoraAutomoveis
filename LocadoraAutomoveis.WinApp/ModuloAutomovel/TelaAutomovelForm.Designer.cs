@@ -57,11 +57,11 @@
             lbErroImagem = new Label();
             buscarDialog = new OpenFileDialog();
             lbErroPlaca = new Label();
-            txtPlaca = new TextBox();
             label9 = new Label();
             lbErroAno = new Label();
             label10 = new Label();
             txtAno = new NumericUpDown();
+            txtPlaca = new MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)pbImagem).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtLitros).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtQuilometragem).BeginInit();
@@ -186,7 +186,7 @@
             txtCor.Location = new Point(361, 265);
             txtCor.MaxLength = 100;
             txtCor.Name = "txtCor";
-            txtCor.Size = new Size(139, 23);
+            txtCor.Size = new Size(120, 23);
             txtCor.TabIndex = 6;
             // 
             // cbCategoria
@@ -231,16 +231,22 @@
             // txtLitros
             // 
             txtLitros.Location = new Point(171, 397);
+            txtLitros.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
             txtLitros.Name = "txtLitros";
             txtLitros.Size = new Size(120, 23);
             txtLitros.TabIndex = 9;
+            txtLitros.Click += selecaoAutomaticaNumericUpDown_Click;
+            txtLitros.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // txtQuilometragem
             // 
             txtQuilometragem.Location = new Point(171, 441);
+            txtQuilometragem.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
             txtQuilometragem.Name = "txtQuilometragem";
             txtQuilometragem.Size = new Size(120, 23);
             txtQuilometragem.TabIndex = 10;
+            txtQuilometragem.Click += selecaoAutomaticaNumericUpDown_Click;
+            txtQuilometragem.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // label7
             // 
@@ -344,14 +350,6 @@
             lbErroPlaca.Text = "*mensagemErro";
             lbErroPlaca.Visible = false;
             // 
-            // txtPlaca
-            // 
-            txtPlaca.Location = new Point(171, 309);
-            txtPlaca.MaxLength = 100;
-            txtPlaca.Name = "txtPlaca";
-            txtPlaca.Size = new Size(139, 23);
-            txtPlaca.TabIndex = 7;
-            // 
             // label9
             // 
             label9.AutoSize = true;
@@ -388,17 +386,27 @@
             txtAno.Name = "txtAno";
             txtAno.Size = new Size(120, 23);
             txtAno.TabIndex = 4;
+            txtAno.Click += selecaoAutomaticaNumericUpDown_Click;
+            txtAno.Enter += selecaoAutomaticaNumericUpDown_Enter;
+            // 
+            // txtPlaca
+            // 
+            txtPlaca.Location = new Point(173, 309);
+            txtPlaca.Mask = "LLL-0A00";
+            txtPlaca.Name = "txtPlaca";
+            txtPlaca.Size = new Size(118, 23);
+            txtPlaca.TabIndex = 42;
             // 
             // TelaAutomovelForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(515, 540);
+            Controls.Add(txtPlaca);
             Controls.Add(txtAno);
             Controls.Add(lbErroAno);
             Controls.Add(label10);
             Controls.Add(lbErroPlaca);
-            Controls.Add(txtPlaca);
             Controls.Add(label9);
             Controls.Add(lbErroImagem);
             Controls.Add(lbErroModelo);
@@ -466,7 +474,7 @@
         private Label lbErroImagem;
         private OpenFileDialog buscarDialog;
         private Label lbErroPlaca;
-        private TextBox txtPlaca;
+        private MaskedTextBox txtPlaca;
         private Label label9;
         private Label lbErroAno;
         private Label label10;

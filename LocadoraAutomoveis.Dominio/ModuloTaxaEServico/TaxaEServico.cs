@@ -1,5 +1,4 @@
-﻿using LocadoraAutomoveis.Dominio.Compartilhado;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace LocadoraAutomoveis.Dominio.ModuloTaxaEServico
 {

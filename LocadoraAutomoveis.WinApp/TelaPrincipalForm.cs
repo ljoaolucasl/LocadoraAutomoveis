@@ -8,12 +8,11 @@ using LocadoraAutomoveis.Dominio.ModuloParceiro;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
-using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.ModuloAutomovel;
 using LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.WinApp.ModuloCliente;
-using LocadoraAutomoveis.WinApp.ModuloFuncionario;
 using LocadoraAutomoveis.WinApp.ModuloCupom;
+using LocadoraAutomoveis.WinApp.ModuloFuncionario;
 using LocadoraAutomoveis.WinApp.ModuloParceiro;
 using LocadoraAutomoveis.WinApp.ModuloTaxaEServico;
 
@@ -289,6 +288,5 @@ namespace LocadoraAutomoveis.WinApp
         }
 
         #endregion
-
     }
 }

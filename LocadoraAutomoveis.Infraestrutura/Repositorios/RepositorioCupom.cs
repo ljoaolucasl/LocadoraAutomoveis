@@ -1,6 +1,4 @@
-﻿using LocadoraAutomoveis.Dominio.Extensions;
-using LocadoraAutomoveis.Dominio.ModuloCupom;
-using LocadoraAutomoveis.Infraestrutura.Compartilhado;
+﻿using LocadoraAutomoveis.Dominio.ModuloCupom;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Infraestrutura.Repositorios

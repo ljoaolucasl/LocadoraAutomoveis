@@ -1,6 +1,5 @@
 ﻿using LocadoraAutomoveis.Dominio.Extensions;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
-using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloTaxaEServico
@@ -14,11 +13,11 @@ namespace LocadoraAutomoveis.WinApp.ModuloTaxaEServico
             gridTaxaEServico.ConfigurarTabelaGrid("Número", "Nome", "Valor", "Tipo");
         }
 
-        public void AtualizarLista(List<TaxaEServico> padroes)
+        public void AtualizarLista(List<TaxaEServico> taxas)
         {
             gridTaxaEServico.Rows.Clear();
 
-            foreach (TaxaEServico item in padroes)
+            foreach (TaxaEServico item in taxas)
             {
                 DataGridViewRow row = new();
                 row.CreateCells(gridTaxaEServico, item.ID, item.Nome, "R$" + item.Valor.ToString("F2"), item.Tipo.ToDescriptionString());
@@ -28,7 +27,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloTaxaEServico
 
             gridTaxaEServico.Columns[0].Visible = false;
 
-            TelaPrincipalForm.AtualizarStatus($"Visualizando {padroes.Count} Padrões");
+            TelaPrincipalForm.AtualizarStatus($"Visualizando {taxas.Count} Taxas e Serviços");
         }
 
         public DataGridView ObterGrid()

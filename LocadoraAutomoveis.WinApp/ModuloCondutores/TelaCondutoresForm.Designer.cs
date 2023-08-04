@@ -158,10 +158,11 @@
             chkClienteCondutor.AutoSize = true;
             chkClienteCondutor.Location = new Point(74, 65);
             chkClienteCondutor.Name = "chkClienteCondutor";
-            chkClienteCondutor.Size = new Size(122, 19);
+            chkClienteCondutor.Size = new Size(126, 19);
             chkClienteCondutor.TabIndex = 61;
-            chkClienteCondutor.Text = "Cliente é Conduto";
+            chkClienteCondutor.Text = "Cliente é Condutor";
             chkClienteCondutor.UseVisualStyleBackColor = true;
+            chkClienteCondutor.CheckedChanged += chkClienteCondutor_CheckedChanged;
             // 
             // txtCPF
             // 

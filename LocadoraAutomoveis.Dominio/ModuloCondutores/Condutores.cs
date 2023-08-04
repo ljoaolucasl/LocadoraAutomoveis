@@ -6,7 +6,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloCondutores
 {
     public class Condutores : EntidadeBase
     {
-        public Cliente cliente {  get; set; }
+        public Cliente Cliente {  get; set; }
         public bool TipoCondutor { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
@@ -17,7 +17,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloCondutores
 
         public Condutores(Cliente cliente, bool tipoCondutor, string nome, string email, string telefone, string cPF, string cNH, DateTime validade)
         {
-            this.cliente = cliente;
+            this.Cliente = cliente;
             TipoCondutor = tipoCondutor;
             Nome = nome;
             Email = email;
@@ -34,7 +34,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloCondutores
         public override bool Equals(object? obj)
         {
             return obj is Condutores condutores &&
-                   EqualityComparer<Cliente>.Default.Equals(cliente, condutores.cliente) &&
+                   EqualityComparer<Cliente>.Default.Equals(Cliente, condutores.Cliente) &&
                    TipoCondutor == condutores.TipoCondutor &&
                    Nome == condutores.Nome &&
                    Email == condutores.Email &&

@@ -43,7 +43,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCliente
             cliente2.Nome = "Marcos";
             cliente2.Email = "mateuszancheta@gmail.com";
             cliente2.Telefone = "(49) 92323-4423";
-            cliente2.TipoCliente = Tipo.CPF;
+            cliente2.TipoCliente = TipoDocumento.CPF;
             cliente2.Documento = "234.423.563-45";
             cliente2.Estado = "Santa Catarina";
             cliente2.Cidade = "Lages";

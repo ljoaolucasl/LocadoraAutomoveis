@@ -1,6 +1,7 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Dominio.Extensions;
+using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Extensions;
@@ -28,14 +29,12 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
             _condutores = new Condutores();
         }
 
-        //public void CarregarClientes(List<Cliente> categorias, List<string> combustiveis)
-        //{
-        //    cbCategoria.DataSource = categorias;
-        //    cbCategoria.DisplayMember = "Nome";
-        //    cbCategoria.ValueMember = "ID";
-
-        //    cbCombustivel.DataSource = combustiveis;
-        //}
+        public void CarregarClientes(List<Cliente> listClientes)
+        {
+            cmbCliente.DataSource = listClientes;
+            cmbCliente.DisplayMember = "Nome";
+            cmbCliente.ValueMember = "ID";
+        }
 
         public Condutores? Entidade
         {
@@ -43,7 +42,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
 
             set
             {
-                cmbCliente.Text = value.cliente.ToString();
+                cmbCliente.Text = value.Cliente.ToString();
                 chkClienteCondutor.Checked = value.TipoCondutor == true;
                 txtNome.Text = value.Nome;
                 txtEmail.Text = value.Email;
@@ -77,7 +76,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
 
         private Condutores ObterCondutores()
         {
-            _condutores.cliente.Nome = cmbCliente.Text;
+            _condutores.Cliente = cmbCliente.SelectedItem as Cliente;
             _condutores.TipoCondutor = chkClienteCondutor.Checked ? true : false;
             _condutores.Nome = txtNome.Text;
             _condutores.Email = txtEmail.Text;
@@ -118,6 +117,37 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
 
             _resultado.Errors.Clear();
             _resultado.Reasons.Clear();
+        }
+
+        private void chkClienteCondutor_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkClienteCondutor.Checked)
+            {
+                Cliente cliente = cmbCliente.SelectedItem as Cliente;
+
+                txtNome.Text = cliente.Nome;
+                txtEmail.Text = cliente.Email;
+                txtTelefone.Text = cliente.Telefone;
+                txtCPF.Text = cliente.Documento;
+
+                txtNome.Enabled = false;
+                txtEmail.Enabled = false;
+                txtTelefone.Enabled = false;
+                txtCPF.Enabled = false;
+
+            }
+            else
+            {
+                txtNome.Enabled = true;
+                txtEmail.Enabled = true;
+                txtTelefone.Enabled = true;
+                txtCPF.Enabled = true;
+
+                txtNome.Text = "";
+                txtEmail.Text = "";
+                txtTelefone.Text = "";
+                txtCPF.Text = "";
+            }
         }
     }
 }

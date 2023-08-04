@@ -7,12 +7,8 @@ namespace LocadoraAutomoveis.Dominio.ModuloCondutores
     {
         public ValidadorCondutores()
         {
-            RuleFor(c => c.cliente)
+            RuleFor(c => c.Cliente)
                 .NotNull().WithMessage("'Cliente' é obrigatório.");
-
-            //RuleFor(c => c.TipoCondutor)
-            //.NotEmpty().WithMessage("'TipoCondutor' não pode ser vazio.")
-            //.IsInEnum().WithMessage("'TipoCliente' inválido.");
 
             RuleFor(c => c.Nome)
                 .MinimumLength(3).WithMessage(@"'Nome' deve ser maior ou igual a 3 caracteres.")

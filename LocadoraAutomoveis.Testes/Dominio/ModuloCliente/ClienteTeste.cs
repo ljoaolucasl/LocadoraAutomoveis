@@ -18,7 +18,7 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloCliente
         public void Setup()
         {
             _validador = new ValidadorCliente();
-            cliente = new("Mateus", "mateuszancheta@gmail.com", "(49) 92323-4423", Tipo.CPF,
+            cliente = new("Mateus", "mateuszancheta@gmail.com", "(49) 92323-4423", TipoDocumento.CPF,
                 "234.423.563-45", "Santa Catarina", "Lages", "São Cristovão", "Rio de Janeiro", 12);
         }
 

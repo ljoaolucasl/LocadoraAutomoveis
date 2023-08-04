@@ -1,5 +1,4 @@
-﻿using LocadoraAutomoveis.Dominio.Extensions;
-using LocadoraAutomoveis.Dominio.ModuloParceiro;
+﻿using LocadoraAutomoveis.Dominio.ModuloParceiro;
 
 namespace LocadoraAutomoveis.Infraestrutura.Repositorios
 {

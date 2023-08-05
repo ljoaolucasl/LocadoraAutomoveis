@@ -10,7 +10,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
         {
             InitializeComponent();
 
-            gridPlanosCobrancas.ConfigurarTabelaGrid("Número, Nome, Valor/Dia, Valor/Km Rodado, Km livre, Tipo do Plano");
+            gridPlanosCobrancas.ConfigurarTabelaGrid("ID", "Valor/Dia", "Valor/Km Rodado", "Km livre", "Tipo do Plano");
         }
 
         public void AtualizarLista(List<PlanoCobranca> planosCobrancas)

@@ -51,6 +51,11 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
             cmbCategoria.ValueMember = "ID";
         }
 
+        public void CarregarPlanos(List<string> planos)
+        {
+            cmbTipoPlano.DataSource = planos;
+        }
+
         private void btnGravar_Click(object sender, EventArgs e)
         {
             ValidarCampos(sender, e);
@@ -74,7 +79,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
         private PlanoCobranca ObterPlanoCobranca()
         {
             _planoCobranca.CategoriaAutomoveis = cmbCategoria.SelectedItem as CategoriaAutomoveis;
-            _planoCobranca.Plano = (TipoPlano)cmbTipoPlano.SelectedIndex;
+            _planoCobranca.Plano = Utils.GetEnumValueFromDescription<TipoPlano>(cmbTipoPlano.SelectedItem as string);
             _planoCobranca.ValorDia = numPrecoDiaria.Value;
             _planoCobranca.ValorKmRodado = numPrecoKm.Value;
             _planoCobranca.KmLivre = (int)numKmDisponivel.Value;
@@ -108,6 +113,35 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
 
             _resultado.Errors.Clear();
             _resultado.Reasons.Clear();
+        }
+
+        private void selecaoAutomaticaNumericUpDown_Enter(object sender, EventArgs e)
+        {
+            ((TextBox)((NumericUpDown)sender).Controls[1]).SelectAll();
+        }
+
+        private void selecaoAutomaticaNumericUpDown_Click(object sender, EventArgs e)
+        {
+            if (((NumericUpDown)sender).Controls[1].Text == "0,00" || ((NumericUpDown)sender).Controls[1].Text == "0")
+                ((TextBox)((NumericUpDown)sender).Controls[1]).SelectAll();
+        }
+
+        private void cmbTipoPlano_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AtualizarControles(Utils.GetEnumValueFromDescription<TipoPlano>((string)cmbTipoPlano.SelectedItem));
+        }
+
+        private void AtualizarControles(TipoPlano tipoPlano)
+        {
+            numPrecoDiaria.Enabled = true;
+            numPrecoKm.Enabled = tipoPlano != TipoPlano.Livre;
+            numKmDisponivel.Enabled = tipoPlano == TipoPlano.Controlador;
+            lbPrecoKm.Text = tipoPlano == TipoPlano.Controlador ? "Preço/Km (Extrapolado):" : "Preço por Km:";
+            lbPrecoKm.Location = tipoPlano == TipoPlano.Controlador ? new Point(8, 135) : new Point(63, 135);
+
+            numPrecoDiaria.Value = 0;
+            numPrecoKm.Value = 0;
+            numKmDisponivel.Value = 0;
         }
     }
 }

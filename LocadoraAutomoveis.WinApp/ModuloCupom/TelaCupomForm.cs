@@ -102,5 +102,16 @@ namespace LocadoraAutomoveis.WinApp.ModuloCupom
             _resultado.Errors.Clear();
             _resultado.Reasons.Clear();
         }
+
+        private void selecaoAutomaticaNumericUpDown_Enter(object sender, EventArgs e)
+        {
+            ((TextBox)((NumericUpDown)sender).Controls[1]).SelectAll();
+        }
+
+        private void selecaoAutomaticaNumericUpDown_Click(object sender, EventArgs e)
+        {
+            if (((NumericUpDown)sender).Controls[1].Text == "0,00")
+                ((TextBox)((NumericUpDown)sender).Controls[1]).SelectAll();
+        }
     }
 }

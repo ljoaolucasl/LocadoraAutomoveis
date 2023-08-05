@@ -40,7 +40,7 @@
             gridPlanosCobrancas.Name = "gridPlanosCobrancas";
             gridPlanosCobrancas.RowTemplate.Height = 25;
             gridPlanosCobrancas.Size = new Size(150, 150);
-            gridPlanosCobrancas.TabIndex = 1;
+            gridPlanosCobrancas.TabIndex = 0;
             // 
             // TabelaPlanosCobrancasControl
             // 

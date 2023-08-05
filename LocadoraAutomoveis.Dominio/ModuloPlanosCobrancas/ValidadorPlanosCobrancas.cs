@@ -6,19 +6,21 @@ namespace LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas
     {
         public ValidadorPlanosCobrancas()
         {
-            RuleFor(a => a.ValorDia)
-            .GreaterThan(0).WithMessage("'ValorDia' deve ser maior que zero.");
+            RuleFor(p => p.ValorDia)
+                .GreaterThan(0).WithMessage("'ValorDia' deve ser maior que zero.");
 
-            RuleFor(a => a.ValorKmRodado)
-                .GreaterThanOrEqualTo(0).WithMessage("'ValorKmRodado' deve ser maior ou igual a zero.");
+            RuleFor(p => p.ValorKmRodado)
+                .Must((plano, valorKmRodado) => plano.Plano == TipoPlano.Livre ? valorKmRodado >= 0 : valorKmRodado > 0)
+                .WithMessage("'ValorKmRodado' deve ser maior que zero.");
 
-            RuleFor(a => a.KmLivre)
-                .GreaterThan(0).WithMessage("'KmLivre' deve ser maior que zero.");
+            RuleFor(p => p.KmLivre)
+            .Must((plano, kmLivre) => (plano.Plano == TipoPlano.Diario || plano.Plano == TipoPlano.Livre) ? kmLivre >= 0 : kmLivre > 0)
+            .WithMessage("'KmLivre' deve ser maior que zero.");
 
-            RuleFor(a => a.Plano)
-                .NotNull().WithMessage("'Plano' não pode ser nulo.");
+            RuleFor(p => p.Plano)
+                .IsInEnum().WithMessage("'Plano' inválido.");
 
-            RuleFor(a => a.CategoriaAutomoveis)
+            RuleFor(p => p.CategoriaAutomoveis)
                 .NotNull().WithMessage("'CategoriaAutomoveis' não pode ser nula.");
         }
     }

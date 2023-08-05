@@ -1,5 +1,4 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
-using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Infraestrutura.Repositorios

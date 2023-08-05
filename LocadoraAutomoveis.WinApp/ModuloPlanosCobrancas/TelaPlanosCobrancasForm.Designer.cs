@@ -40,7 +40,7 @@
             lbErroTipoPlano = new Label();
             cmbTipoPlano = new ComboBox();
             label5 = new Label();
-            label4 = new Label();
+            lbPrecoKm = new Label();
             label3 = new Label();
             label2 = new Label();
             btnCancelar = new Button();
@@ -63,6 +63,7 @@
             // 
             // cmbCategoria
             // 
+            cmbCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCategoria.FormattingEnabled = true;
             cmbCategoria.Location = new Point(177, 36);
             cmbCategoria.Name = "cmbCategoria";
@@ -80,7 +81,7 @@
             groupBox1.Controls.Add(lbErroTipoPlano);
             groupBox1.Controls.Add(cmbTipoPlano);
             groupBox1.Controls.Add(label5);
-            groupBox1.Controls.Add(label4);
+            groupBox1.Controls.Add(lbPrecoKm);
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(label2);
             groupBox1.Location = new Point(35, 81);
@@ -92,27 +93,38 @@
             // 
             // numKmDisponivel
             // 
-            numKmDisponivel.DecimalPlaces = 2;
             numKmDisponivel.Location = new Point(151, 177);
+            numKmDisponivel.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
             numKmDisponivel.Name = "numKmDisponivel";
             numKmDisponivel.Size = new Size(206, 23);
             numKmDisponivel.TabIndex = 13;
+            numKmDisponivel.ThousandsSeparator = true;
+            numKmDisponivel.Click += selecaoAutomaticaNumericUpDown_Click;
+            numKmDisponivel.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // numPrecoKm
             // 
             numPrecoKm.DecimalPlaces = 2;
             numPrecoKm.Location = new Point(151, 133);
+            numPrecoKm.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
             numPrecoKm.Name = "numPrecoKm";
             numPrecoKm.Size = new Size(206, 23);
             numPrecoKm.TabIndex = 12;
+            numPrecoKm.ThousandsSeparator = true;
+            numPrecoKm.Click += selecaoAutomaticaNumericUpDown_Click;
+            numPrecoKm.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // numPrecoDiaria
             // 
             numPrecoDiaria.DecimalPlaces = 2;
             numPrecoDiaria.Location = new Point(151, 89);
+            numPrecoDiaria.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
             numPrecoDiaria.Name = "numPrecoDiaria";
             numPrecoDiaria.Size = new Size(206, 23);
             numPrecoDiaria.TabIndex = 11;
+            numPrecoDiaria.ThousandsSeparator = true;
+            numPrecoDiaria.Click += selecaoAutomaticaNumericUpDown_Click;
+            numPrecoDiaria.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // lbErroKmDisponivel
             // 
@@ -123,6 +135,7 @@
             lbErroKmDisponivel.Size = new Size(92, 15);
             lbErroKmDisponivel.TabIndex = 10;
             lbErroKmDisponivel.Text = "*mensagemErro";
+            lbErroKmDisponivel.Visible = false;
             // 
             // lbErroPrecoKm
             // 
@@ -133,6 +146,7 @@
             lbErroPrecoKm.Size = new Size(92, 15);
             lbErroPrecoKm.TabIndex = 9;
             lbErroPrecoKm.Text = "*mensagemErro";
+            lbErroPrecoKm.Visible = false;
             // 
             // lbErroPrecoDiaria
             // 
@@ -143,6 +157,7 @@
             lbErroPrecoDiaria.Size = new Size(92, 15);
             lbErroPrecoDiaria.TabIndex = 8;
             lbErroPrecoDiaria.Text = "*mensagemErro";
+            lbErroPrecoDiaria.Visible = false;
             // 
             // lbErroTipoPlano
             // 
@@ -153,14 +168,17 @@
             lbErroTipoPlano.Size = new Size(92, 15);
             lbErroTipoPlano.TabIndex = 7;
             lbErroTipoPlano.Text = "*mensagemErro";
+            lbErroTipoPlano.Visible = false;
             // 
             // cmbTipoPlano
             // 
+            cmbTipoPlano.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbTipoPlano.FormattingEnabled = true;
             cmbTipoPlano.Location = new Point(152, 45);
             cmbTipoPlano.Name = "cmbTipoPlano";
             cmbTipoPlano.Size = new Size(205, 23);
             cmbTipoPlano.TabIndex = 3;
+            cmbTipoPlano.SelectedIndexChanged += cmbTipoPlano_SelectedIndexChanged;
             // 
             // label5
             // 
@@ -171,14 +189,14 @@
             label5.TabIndex = 4;
             label5.Text = "Km Disponíveis:";
             // 
-            // label4
+            // lbPrecoKm
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(63, 135);
-            label4.Name = "label4";
-            label4.Size = new Size(82, 15);
-            label4.TabIndex = 3;
-            label4.Text = "Preço por Km:";
+            lbPrecoKm.AutoSize = true;
+            lbPrecoKm.Location = new Point(63, 135);
+            lbPrecoKm.Name = "lbPrecoKm";
+            lbPrecoKm.Size = new Size(82, 15);
+            lbPrecoKm.TabIndex = 3;
+            lbPrecoKm.Text = "Preço por Km:";
             // 
             // label3
             // 
@@ -230,6 +248,7 @@
             lbErroCategoria.Size = new Size(92, 15);
             lbErroCategoria.TabIndex = 6;
             lbErroCategoria.Text = "*mensagemErro";
+            lbErroCategoria.Visible = false;
             // 
             // TelaPlanosCobrancasForm
             // 
@@ -260,7 +279,7 @@
         private GroupBox groupBox1;
         private ComboBox cmbTipoPlano;
         private Label label5;
-        private Label label4;
+        private Label lbPrecoKm;
         private Label label3;
         private Label label2;
         private Button btnCancelar;

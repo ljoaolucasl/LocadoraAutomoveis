@@ -134,6 +134,7 @@
             // 
             // cmbParceiro
             // 
+            cmbParceiro.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbParceiro.FormattingEnabled = true;
             cmbParceiro.Location = new Point(117, 185);
             cmbParceiro.Name = "cmbParceiro";
@@ -155,10 +156,13 @@
             // 
             numValor.DecimalPlaces = 2;
             numValor.Location = new Point(117, 93);
+            numValor.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
             numValor.Name = "numValor";
             numValor.Size = new Size(141, 23);
             numValor.TabIndex = 2;
             numValor.ThousandsSeparator = true;
+            numValor.Click += selecaoAutomaticaNumericUpDown_Click;
+            numValor.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // label7
             // 

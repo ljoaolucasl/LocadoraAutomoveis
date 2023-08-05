@@ -25,13 +25,13 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
         #region CRUD
         public Result Inserir(PlanoCobranca planoCobrancaParaAdicionar)
         {
-            Log.Debug("Tentando adicionar o Plano de Cobrança '{NOME}'", planoCobrancaParaAdicionar.Plano.ToDescriptionString());
+            Log.Debug("Tentando adicionar o Plano de Cobrança '{NOME}'", planoCobrancaParaAdicionar.Plano);
 
             Result resultado = ValidarRegistro(planoCobrancaParaAdicionar);
 
             if (resultado.IsFailed)
             {
-                Log.Warning("Falha ao tentar adicionar o Plano de Cobrança '{NOME}'", planoCobrancaParaAdicionar.Plano.ToDescriptionString());
+                Log.Warning("Falha ao tentar adicionar o Plano de Cobrança '{NOME}'", planoCobrancaParaAdicionar.Plano);
                 return resultado;
             }
 
@@ -39,7 +39,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioPlanoCobranca.Inserir(planoCobrancaParaAdicionar);
 
-                Log.Debug("Adicionado o Plano de Cobrança '{NOME} #{ID}' com sucesso!", planoCobrancaParaAdicionar.Plano.ToDescriptionString(), planoCobrancaParaAdicionar.ID);
+                Log.Debug("Adicionado o Plano de Cobrança '{NOME} #{ID}' com sucesso!", planoCobrancaParaAdicionar.Plano, planoCobrancaParaAdicionar.ID);
 
                 return Result.Ok();
             }
@@ -84,7 +84,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
         public Result Excluir(PlanoCobranca planoCobrancaParaExcluir)
         {
-            Log.Debug("Tentando excluir o Plano de Cobrança '{NOME} #{ID}'", planoCobrancaParaExcluir.Plano.ToDescriptionString(), planoCobrancaParaExcluir.ID);
+            Log.Debug("Tentando excluir o Plano de Cobrança '{NOME} #{ID}'", planoCobrancaParaExcluir.Plano, planoCobrancaParaExcluir.ID);
 
             if (!_repositorioPlanoCobranca.Existe(planoCobrancaParaExcluir, true))
             {
@@ -97,13 +97,13 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioPlanoCobranca.Excluir(planoCobrancaParaExcluir);
 
-                Log.Debug("Excluído o Plano de Cobrança '{NOME} #{ID}' com sucesso!", planoCobrancaParaExcluir.Plano.ToDescriptionString(), planoCobrancaParaExcluir.ID);
+                Log.Debug("Excluído o Plano de Cobrança '{NOME} #{ID}' com sucesso!", planoCobrancaParaExcluir.Plano, planoCobrancaParaExcluir.ID);
 
                 return Result.Ok();
             }
             catch (DbUpdateException ex) when (ex.InnerException is SqlException)
             {
-                Log.Warning("Falha ao tentar excluir o Plano de Cobrança '{NOME} #{ID}'", planoCobrancaParaExcluir.Plano.ToDescriptionString(), planoCobrancaParaExcluir.ID, ex);
+                Log.Warning("Falha ao tentar excluir o Plano de Cobrança '{NOME} #{ID}'", planoCobrancaParaExcluir.Plano, planoCobrancaParaExcluir.ID, ex);
 
                 List<IError> erros = new();
 

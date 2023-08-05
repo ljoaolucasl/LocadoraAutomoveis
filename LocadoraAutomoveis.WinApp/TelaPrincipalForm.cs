@@ -10,11 +10,17 @@ using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
 using LocadoraAutomoveis.WinApp.ModuloAutomovel;
 using LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.WinApp.ModuloCupom;
 using LocadoraAutomoveis.WinApp.ModuloCliente;
+using LocadoraAutomoveis.WinApp.ModuloCupom;
+using LocadoraAutomoveis.WinApp.ModuloFuncionario;
+>>>>>>>>> Temporary merge branch 2
 using LocadoraAutomoveis.WinApp.ModuloCupom;
 using LocadoraAutomoveis.WinApp.ModuloFuncionario;
 using LocadoraAutomoveis.WinApp.ModuloParceiro;
 using LocadoraAutomoveis.WinApp.ModuloTaxaEServico;
+using LocadoraAutomoveis.WinApp.ModuloCondutores;
+using LocadoraAutomoveis.Dominio.ModuloCondutores;
 
 namespace LocadoraAutomoveis.WinApp
 {
@@ -55,6 +61,10 @@ namespace LocadoraAutomoveis.WinApp
         private RepositorioCupom _repositorioCupom;
         private ServicoCupom _servicoCupom;
         private TabelaCupomControl _tabelaCupom;
+
+        private RepositorioCondutores _repositorioCondutores;
+        private ServicoCondutores _servicoCondutores;
+        private TabelaCondutoresControl _tabelaCondutores;
 
         public TelaPrincipalForm()
         {
@@ -103,6 +113,10 @@ namespace LocadoraAutomoveis.WinApp
             _repositorioCupom = new RepositorioCupom(_contextoDb);
             _servicoCupom = new ServicoCupom(_repositorioCupom, new ValidadorCupom());
             _tabelaCupom = new TabelaCupomControl();
+
+            _repositorioCondutores = new RepositorioCondutores(_contextoDb);
+            _servicoCondutores = new ServicoCondutores(_repositorioCondutores, new ValidadorCondutores());
+            _tabelaCondutores = new TabelaCondutoresControl();
         }
 
         #region BotoesTabelas
@@ -150,7 +164,13 @@ namespace LocadoraAutomoveis.WinApp
 
         private void btnCupom_Click(object sender, EventArgs e)
         {
-            _controladorBase = new ControladorCupom(_repositorioCupom, _servicoCupom, _tabelaCupom, _servicoParceiro);
+
+        private void btnCondutores_Click(object sender, EventArgs e)
+        {
+            _controladorBase = new ControladorCondutores(_repositorioCondutores, _servicoCondutores, _tabelaCondutores, _servicoCliente);
+            ConfigurarTelaPrincipal();
+        }
+            _controladorBase = new ControladorCondutores(_repositorioCondutores, _servicoCondutores, _tabelaCondutores, _servicoCliente);
             ConfigurarTelaPrincipal();
         }
         #endregion
@@ -230,6 +250,7 @@ namespace LocadoraAutomoveis.WinApp
             coresBotoes.Add(_tabelaAutomovel.Controls[0], btnAutomovel);
             coresBotoes.Add(_tabelaCliente.Controls[0], btnCliente);
             coresBotoes.Add(_tabelaCupom.Controls[0], btnCupom);
+            coresBotoes.Add(_tabelaCondutores.Controls[0], btnCondutores);
 
             btnCategoria.MouseEnter += btnColor_MouseEnter;
             btnCategoria.MouseLeave += btnColor_MouseLeave;
@@ -251,6 +272,9 @@ namespace LocadoraAutomoveis.WinApp
 
             btnCupom.MouseEnter += btnColor_MouseEnter;
             btnCupom.MouseLeave += btnColor_MouseLeave;
+
+            btnCondutores.MouseEnter += btnColor_MouseEnter;
+            btnCondutores.MouseLeave += btnColor_MouseLeave;
         }
 
         private void btnColor_MouseEnter(object sender, EventArgs e)

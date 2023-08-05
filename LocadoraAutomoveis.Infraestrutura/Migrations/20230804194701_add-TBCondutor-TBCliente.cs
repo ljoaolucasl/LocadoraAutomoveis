@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LocadoraAutomoveis.Infraestrutura.Migrations
 {
     /// <inheritdoc />
-    public partial class addTBCliente : Migration
+    public partial class addTBCondutorTBCliente : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,11 +31,43 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                 {
                     table.PrimaryKey("PK_TBCliente", x => x.ID);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "TBCondutor",
+                columns: table => new
+                {
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClienteID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TipoCondutor = table.Column<bool>(type: "bit", nullable: false),
+                    Nome = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Email = table.Column<string>(type: "varchar(100)", nullable: false),
+                    Telefone = table.Column<string>(type: "varchar(20)", nullable: false),
+                    CPF = table.Column<string>(type: "varchar(20)", nullable: false),
+                    CNH = table.Column<string>(type: "varchar(30)", nullable: false),
+                    Validade = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TBCondutor", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_TBCondutor_TBCliente",
+                        column: x => x.ClienteID,
+                        principalTable: "TBCliente",
+                        principalColumn: "ID");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TBCondutor_ClienteID",
+                table: "TBCondutor",
+                column: "ClienteID");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "TBCondutor");
+
             migrationBuilder.DropTable(
                 name: "TBCliente");
         }

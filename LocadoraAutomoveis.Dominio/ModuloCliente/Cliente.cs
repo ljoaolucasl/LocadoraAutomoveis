@@ -8,7 +8,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloCliente
         public string Nome { get; set; }
         public string Email { get; set; }
         public string Telefone { get; set; }
-        public Tipo TipoCliente { get; set; }
+        public TipoDocumento TipoCliente { get; set; }
         public string Documento { get; set; }
         public string Estado { get; set; }
         public string Cidade { get; set; }
@@ -16,7 +16,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloCliente
         public string Rua { get; set; }
         public int Numero { get; set; }
 
-        public Cliente(string nome, string email, string telefone, Tipo tipoCliente, string documento, string estado, string cidade, string bairro, string rua, int numero)
+        public Cliente(string nome, string email, string telefone, TipoDocumento tipoCliente, string documento, string estado, string cidade, string bairro, string rua, int numero)
         {
             Nome = nome;
             Email = email;
@@ -50,7 +50,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloCliente
         }
     }
 
-    public enum Tipo
+    public enum TipoDocumento
     {
         [Description("CPF")]
         CPF = 1,

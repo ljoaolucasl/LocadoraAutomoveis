@@ -134,7 +134,48 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                     b.ToTable("TBCliente", (string)null);
                 });
 
-            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloFuncionario.Funcionario", b =>
+            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloCondutores.Condutores", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CNH")
+                        .IsRequired()
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<string>("CPF")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<Guid>("ClienteID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Telefone")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<bool>("TipoCondutor")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("Validade")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ClienteID");
+
+                    b.ToTable("TBCondutor", (string)null);
+                });
+
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloCupom.Cupom", b =>
                 {
                     b.Property<Guid>("ID")
@@ -162,7 +203,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                     b.HasIndex("ParceiroID");
 
                     b.ToTable("TBCupom", (string)null);
-                }));
+                });
 
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloFuncionario.Funcionario", b =>
                 {
@@ -231,6 +272,18 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                         .HasConstraintName("FK_TBAutomovel_TBCategoriaAutomoveis");
 
                     b.Navigation("Categoria");
+                });
+
+            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloCondutores.Condutores", b =>
+                {
+                    b.HasOne("LocadoraAutomoveis.Dominio.ModuloCliente.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_TBCondutor_TBCliente");
+
+                    b.Navigation("Cliente");
                 });
 
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloCupom.Cupom", b =>

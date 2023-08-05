@@ -13,10 +13,6 @@ using LocadoraAutomoveis.WinApp.ModuloAutomovel;
 using LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.WinApp.ModuloCupom;
 using LocadoraAutomoveis.WinApp.ModuloCliente;
-using LocadoraAutomoveis.WinApp.ModuloCupom;
-using LocadoraAutomoveis.WinApp.ModuloFuncionario;
->>>>>>>>> Temporary merge branch 2
-using LocadoraAutomoveis.WinApp.ModuloCupom;
 using LocadoraAutomoveis.WinApp.ModuloFuncionario;
 using LocadoraAutomoveis.WinApp.ModuloParceiro;
 using LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas;
@@ -174,12 +170,12 @@ namespace LocadoraAutomoveis.WinApp
 
         private void btnCupom_Click(object sender, EventArgs e)
         {
-
-        private void btnCondutores_Click(object sender, EventArgs e)
-        {
-            _controladorBase = new ControladorCondutores(_repositorioCondutores, _servicoCondutores, _tabelaCondutores, _servicoCliente);
+            _controladorBase = new ControladorCupom(_repositorioCupom, _servicoCupom, _tabelaCupom, _servicoParceiro);
             ConfigurarTelaPrincipal();
         }
+
+        private void btnCondutores_Click_1(object sender, EventArgs e)
+        {
             _controladorBase = new ControladorCondutores(_repositorioCondutores, _servicoCondutores, _tabelaCondutores, _servicoCliente);
             ConfigurarTelaPrincipal();
         }
@@ -332,5 +328,6 @@ namespace LocadoraAutomoveis.WinApp
         }
 
         #endregion
+
     }
 }

@@ -32,16 +32,22 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
             _validadorMoq = new Mock<IValidadorAluguel>();
             _servico = new ServicoAluguel(_repositorioMoq.Object, _validadorMoq.Object);
 
-            var funcionario1 = Builder<Funcionario>.CreateNew().Build();
-            var cliente1 = Builder<Cliente>.CreateNew().Build();
-            var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Build();
-            var plano1 = Builder<PlanoCobranca>.CreateNew().Build();
-            var condutor1 = Builder<Condutores>.CreateNew().Build();
-            var Aluguel1 = Builder<Aluguel>.CreateNew().Build();
-            var cupom1 = Builder<Cupom>.CreateNew().Build();
-            var taxas1 = Builder<List<TaxaEServico>>.CreateNew().Build();
+            Funcionario funcionario = new();
+            Cliente cliente = new();
+            CategoriaAutomoveis categoria = new();
+            PlanoCobranca plano = new();
+            Condutores condutor = new();
+            Automovel automovel = new();
+            Cupom cupom = new();
+            List<TaxaEServico> listTaxa = new();
+            DateTime dataLocacao = DateTime.Now;
+            DateTime dataPrevista = dataLocacao.AddDays(1);
+            DateTime dataDevolucao = dataLocacao.AddDays(2);
+            decimal quilometrosRodados = 100;
+            NivelTanque nivelTanque = NivelTanque.MeioTanque;
+            decimal valorTotal = 1000;
 
-            _aluguel = new(funcionario1, cliente1, categoria1, plano1, condutor1, Aluguel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), 1000, false);
+            _aluguel = new Aluguel(funcionario, cliente, categoria, plano, condutor, automovel, cupom, listTaxa, dataLocacao, dataPrevista, dataDevolucao, quilometrosRodados, nivelTanque, valorTotal, true);
         }
 
         #region Testes Inserir

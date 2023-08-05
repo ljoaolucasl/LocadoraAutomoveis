@@ -1,4 +1,5 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloAluguel;
+﻿using FluentResults;
+using LocadoraAutomoveis.Dominio.ModuloAluguel;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Infraestrutura.Repositorios
@@ -25,6 +26,11 @@ namespace LocadoraAutomoveis.Infraestrutura.Repositorios
         {
             return Registros.Include(a => a.Automovel).Include(a => a.CategoriaAutomoveis).Include(a => a.Cliente).Include(a => a.Condutor)
                 .Include(a => a.Cupom).Include(a => a.ListaTaxasEServicos).Include(a => a.Funcionario).Include(a => a.PlanoCobranca).ToList();
+        }
+
+        public Result ValidarCupom(Aluguel aluguelParaValidar)
+        {
+            throw new NotImplementedException();
         }
     }
 }

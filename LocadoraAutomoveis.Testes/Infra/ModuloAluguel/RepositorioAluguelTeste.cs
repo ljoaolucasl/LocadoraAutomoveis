@@ -31,16 +31,22 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
 
             BuilderSetup.SetCreatePersistenceMethod<Aluguel>(_repositorioAluguel.Inserir);
 
-            var funcionario1 = Builder<Funcionario>.CreateNew().Build();
-            var cliente1 = Builder<Cliente>.CreateNew().Build();
-            var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Build();
-            var plano1 = Builder<PlanoCobranca>.CreateNew().Build();
-            var condutor1 = Builder<Condutores>.CreateNew().Build();
-            var automovel1 = Builder<Automovel>.CreateNew().Build();
-            var cupom1 = Builder<Cupom>.CreateNew().Build();
-            var taxas1 = Builder<List<TaxaEServico>>.CreateNew().Build();
+            Funcionario funcionario = new();
+            Cliente cliente = new();
+            CategoriaAutomoveis categoria = new();
+            PlanoCobranca plano = new();
+            Condutores condutor = new();
+            Automovel automovel = new();
+            Cupom cupom = new();
+            List<TaxaEServico> listTaxa = new();
+            DateTime dataLocacao = DateTime.Now;
+            DateTime dataPrevista = dataLocacao.AddDays(1);
+            DateTime dataDevolucao = dataLocacao.AddDays(2);
+            decimal quilometrosRodados = 100;
+            NivelTanque nivelTanque = NivelTanque.MeioTanque;
+            decimal valorTotal = 1000;
 
-            _aluguel = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), 1000, false);
+            _aluguel = new Aluguel(funcionario, cliente, categoria, plano, condutor, automovel, cupom, listTaxa, dataLocacao, dataPrevista, dataDevolucao, quilometrosRodados, nivelTanque, valorTotal, true);
         }
 
         [TestMethod]
@@ -109,11 +115,17 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
             var automovel1 = Builder<Automovel>.CreateNew().Build();
             var cupom1 = Builder<Cupom>.CreateNew().Build();
             var taxas1 = Builder<List<TaxaEServico>>.CreateNew().Build();
+            DateTime dataLocacao = DateTime.Now;
+            DateTime dataPrevista = dataLocacao.AddDays(1);
+            DateTime dataDevolucao = dataLocacao.AddDays(2);
+            decimal quilometrosRodados = 100;
+            NivelTanque nivelTanque = NivelTanque.MeioTanque;
+            decimal valorTotal = 1000;
 
-            Aluguel aluguel1 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), 1000, false);
-            Aluguel aluguel2 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), 1000, false);
-            Aluguel aluguel3 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), 1000, false);
-            Aluguel aluguel4 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), 1000, false);
+            Aluguel aluguel1 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, dataLocacao, dataPrevista, dataDevolucao, quilometrosRodados, nivelTanque, valorTotal, false);
+            Aluguel aluguel2 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), new DateTime(2023, 8, 6), quilometrosRodados, nivelTanque, valorTotal, false);
+            Aluguel aluguel3 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), new DateTime(2023, 8, 6), quilometrosRodados, nivelTanque, valorTotal, false);
+            Aluguel aluguel4 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), new DateTime(2023, 8, 6), quilometrosRodados, nivelTanque, valorTotal, false);
 
             _repositorioAluguel.Inserir(aluguel1);
             _repositorioAluguel.Inserir(aluguel2);
@@ -135,7 +147,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
             //arrange
             _repositorioAluguel.Inserir(_aluguel);
             var aluguel2 = new Aluguel(_aluguel.Funcionario, _aluguel.Cliente, _aluguel.CategoriaAutomoveis, _aluguel.PlanoCobranca, _aluguel.Condutor, _aluguel.Automovel,
-                _aluguel.Cupom, _aluguel.ListaTaxasEServicos, _aluguel.DataLocacao, _aluguel.DataPrevistaRetorno, _aluguel.ValorTotal, _aluguel.Concluido);
+                _aluguel.Cupom, _aluguel.ListaTaxasEServicos, _aluguel.DataLocacao, _aluguel.DataPrevistaRetorno, _aluguel.DataDevolucao, _aluguel.QuilometrosRodados, _aluguel.CombustivelRestante _aluguel.ValorTotal, _aluguel.Concluido);
 
             //action
             bool resultado = _repositorioAluguel.Existe(aluguel2);

@@ -29,9 +29,12 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAluguel
             List<TaxaEServico> listTaxa = new();
             DateTime dataLocacao = DateTime.Now;
             DateTime dataPrevista = dataLocacao.AddDays(1);
+            DateTime dataDevolucao = dataLocacao.AddDays(2);
+            decimal quilometrosRodados = 100;
+            NivelTanque nivelTanque = NivelTanque.MeioTanque;
             decimal valorTotal = 1000;
 
-            _aluguel = new Aluguel(funcionario, cliente, categoria, plano, condutor, automovel, cupom, listTaxa, dataLocacao, dataPrevista, valorTotal);
+            _aluguel = new Aluguel(funcionario, cliente, categoria, plano, condutor, automovel, cupom, listTaxa, dataLocacao, dataPrevista, dataDevolucao, quilometrosRodados, nivelTanque, valorTotal, true);
         }
 
         [TestMethod]
@@ -179,6 +182,45 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAluguel
         {
             //arrange
             _aluguel.DataPrevistaRetorno = _aluguel.DataLocacao.AddDays(-1);
+
+            //action
+            ValidationResult resultado = _validador.Validate(_aluguel);
+
+            //assert
+            resultado.IsValid.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Nao_deve_aceitar_dataDevolucao_maior_que_dataLocacao()
+        {
+            //arrange
+            _aluguel.DataDevolucao = _aluguel.DataLocacao.AddDays(-1);
+
+            //action
+            ValidationResult resultado = _validador.Validate(_aluguel);
+
+            //assert
+            resultado.IsValid.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Nao_deve_aceitar_quilometragem_menor_que_zero()
+        {
+            //arrange
+            _aluguel.QuilometrosRodados = -1;
+
+            //action
+            ValidationResult resultado = _validador.Validate(_aluguel);
+
+            //assert
+            resultado.IsValid.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Nao_deve_aceitar_CombustivelRestante_invalido()
+        {
+            //arrange
+            _aluguel.CombustivelRestante = (NivelTanque)10;
 
             //action
             ValidationResult resultado = _validador.Validate(_aluguel);

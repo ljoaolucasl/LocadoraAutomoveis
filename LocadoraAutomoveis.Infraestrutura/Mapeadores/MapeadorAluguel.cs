@@ -15,6 +15,9 @@ namespace LocadoraAutomoveis.Infraestrutura.Mapeadores
             builder.Property(a => a.DataPrevistaRetorno).IsRequired();
             builder.Property(a => a.ValorTotal).IsRequired();
             builder.Property(a => a.Concluido).IsRequired();
+            builder.Property(a => a.DataDevolucao);
+            builder.Property(a => a.QuilometrosRodados);
+            builder.Property(a => a.CombustivelRestante);
 
             builder.HasOne(a => a.Funcionario)
                 .WithMany()
@@ -54,7 +57,6 @@ namespace LocadoraAutomoveis.Infraestrutura.Mapeadores
 
             builder.HasOne(a => a.Cupom)
                 .WithMany()
-                .IsRequired()
                 .HasConstraintName("FK_TBAluguel_TBCupom")
                 .OnDelete(DeleteBehavior.NoAction);
 

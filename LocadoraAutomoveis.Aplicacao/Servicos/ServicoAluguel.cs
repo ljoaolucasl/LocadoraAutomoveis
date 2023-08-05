@@ -21,6 +21,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
             Result resultado = ValidarRegistro(aluguelParaAdicionar);
 
+            resultado = _repositorioAluguel.ValidarCupom(aluguelParaAdicionar);
+
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar inserir o Aluguel '{CLIENTE}'", aluguelParaAdicionar.Cliente.Nome);
@@ -50,6 +52,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             Log.Debug("Tentando editar o Aluguel '{CLIENTE} #{ID}'", aluguelParaEditar.Cliente.Nome, aluguelParaEditar.ID);
 
             Result resultado = ValidarRegistro(aluguelParaEditar);
+
+            resultado = _repositorioAluguel.ValidarCupom(aluguelParaEditar);
 
             if (resultado.IsFailed)
             {

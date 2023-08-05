@@ -12,8 +12,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraAutomoveis.Infraestrutura.Migrations
 {
     [DbContext(typeof(ContextoDados))]
+<<<<<<<< HEAD:LocadoraAutomoveis.Infraestrutura/Migrations/20230804194701_add-TBCondutor-TBCliente.Designer.cs
     [Migration("20230804194701_add-TBCondutor-TBCliente")]
     partial class addTBCondutorTBCliente
+========
+    [Migration("20230804200016_Add-TBCliente")]
+    partial class AddTBCliente
+>>>>>>>> 1b20a84826b1df6b62bd9796606702f63e7be758:LocadoraAutomoveis.Infraestrutura/Migrations/20230804200016_Add-TBCliente.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -137,6 +142,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                     b.ToTable("TBCliente", (string)null);
                 });
 
+<<<<<<<< HEAD:LocadoraAutomoveis.Infraestrutura/Migrations/20230804194701_add-TBCondutor-TBCliente.Designer.cs
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloCondutores.Condutores", b =>
                 {
                     b.Property<Guid>("ID")
@@ -179,6 +185,8 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                     b.ToTable("TBCondutor", (string)null);
                 });
 
+========
+>>>>>>>> 1b20a84826b1df6b62bd9796606702f63e7be758:LocadoraAutomoveis.Infraestrutura/Migrations/20230804200016_Add-TBCliente.Designer.cs
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloCupom.Cupom", b =>
                 {
                     b.Property<Guid>("ID")
@@ -277,6 +285,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                     b.Navigation("Categoria");
                 });
 
+<<<<<<<< HEAD:LocadoraAutomoveis.Infraestrutura/Migrations/20230804194701_add-TBCondutor-TBCliente.Designer.cs
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloCondutores.Condutores", b =>
                 {
                     b.HasOne("LocadoraAutomoveis.Dominio.ModuloCliente.Cliente", "Cliente")
@@ -289,6 +298,8 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                     b.Navigation("Cliente");
                 });
 
+========
+>>>>>>>> 1b20a84826b1df6b62bd9796606702f63e7be758:LocadoraAutomoveis.Infraestrutura/Migrations/20230804200016_Add-TBCliente.Designer.cs
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloCupom.Cupom", b =>
                 {
                     b.HasOne("LocadoraAutomoveis.Dominio.ModuloParceiro.Parceiro", "Parceiro")

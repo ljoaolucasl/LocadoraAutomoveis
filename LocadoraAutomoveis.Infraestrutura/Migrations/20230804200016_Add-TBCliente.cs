@@ -6,7 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LocadoraAutomoveis.Infraestrutura.Migrations
 {
     /// <inheritdoc />
+<<<<<<<< HEAD:LocadoraAutomoveis.Infraestrutura/Migrations/20230804194701_add-TBCondutor-TBCliente.cs
     public partial class addTBCondutorTBCliente : Migration
+========
+    public partial class AddTBCliente : Migration
+>>>>>>>> 1b20a84826b1df6b62bd9796606702f63e7be758:LocadoraAutomoveis.Infraestrutura/Migrations/20230804200016_Add-TBCliente.cs
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

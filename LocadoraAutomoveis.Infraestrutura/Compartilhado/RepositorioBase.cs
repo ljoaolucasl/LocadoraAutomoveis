@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using LocadoraAutomoveis.Dominio.Compartilhado;
-using Microsoft.Win32;
-using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+﻿using LocadoraAutomoveis.Dominio.Compartilhado;
+using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Infraestrutura.Compartilhado
 {

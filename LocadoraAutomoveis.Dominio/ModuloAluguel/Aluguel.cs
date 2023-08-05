@@ -7,7 +7,7 @@ using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 
 namespace LocadoraAutomoveis.Dominio.ModuloAluguel
 {
-    public class Aluguel
+    public class Aluguel : EntidadeBase
     {
         public Funcionario Funcionario { get; set; }
         public Cliente Cliente { get; set; }

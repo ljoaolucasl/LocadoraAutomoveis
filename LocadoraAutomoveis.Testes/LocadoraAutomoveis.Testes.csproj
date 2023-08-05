@@ -39,7 +39,6 @@
   <ItemGroup>
     <Folder Include="Aplicacao\ModuloAluguel\" />
     <Folder Include="Aplicacao\ModuloAutomovel\" />
-    <Folder Include="Infra\ModuloAluguel\" />
   </ItemGroup>
 
 </Project>

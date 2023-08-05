@@ -11,7 +11,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCliente
         {
             InitializeComponent();
 
-            gridCliente.ConfigurarTabelaGrid("Id", "Nome", "Telefone", "Email", "Tipo", "Documento");
+            gridCliente.ConfigurarTabelaGrid("Id", "Nome", "Telefone", "Email", "Tipo Cliente", "Documento");
         }
 
         public void AtualizarLista(List<Cliente> padroes)
@@ -21,7 +21,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCliente
             foreach (Cliente item in padroes)
             {
                 DataGridViewRow row = new();
-                row.CreateCells(gridCliente, item.ID, item.Nome, item.Email, item.Telefone,
+                row.CreateCells(gridCliente, item.ID, item.Nome, item.Telefone, item.Email,
                                item.TipoCliente.ToDescriptionString(), item.Documento);
                 row.Cells[0].Tag = item;
                 gridCliente.Rows.Add(row);

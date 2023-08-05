@@ -40,7 +40,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
             var cupom1 = Builder<Cupom>.CreateNew().Build();
             var taxas1 = Builder<List<TaxaEServico>>.CreateNew().Build();
 
-            _aluguel = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), 1000);
+            _aluguel = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), 1000, false);
         }
 
         [TestMethod]
@@ -110,10 +110,10 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
             var cupom1 = Builder<Cupom>.CreateNew().Build();
             var taxas1 = Builder<List<TaxaEServico>>.CreateNew().Build();
 
-            Aluguel aluguel1 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), 1000);
-            Aluguel aluguel2 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), 1000);
-            Aluguel aluguel3 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), 1000);
-            Aluguel aluguel4 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), 1000);
+            Aluguel aluguel1 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), 1000, false);
+            Aluguel aluguel2 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), 1000, false);
+            Aluguel aluguel3 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), 1000, false);
+            Aluguel aluguel4 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), 1000, false);
 
             _repositorioAluguel.Inserir(aluguel1);
             _repositorioAluguel.Inserir(aluguel2);
@@ -135,7 +135,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
             //arrange
             _repositorioAluguel.Inserir(_aluguel);
             var aluguel2 = new Aluguel(_aluguel.Funcionario, _aluguel.Cliente, _aluguel.CategoriaAutomoveis, _aluguel.PlanoCobranca, _aluguel.Condutor, _aluguel.Automovel,
-                _aluguel.Cupom, _aluguel.ListaTaxasEServicos, _aluguel.DataLocacao, _aluguel.DataPrevistaRetorno, _aluguel.ValorTotal);
+                _aluguel.Cupom, _aluguel.ListaTaxasEServicos, _aluguel.DataLocacao, _aluguel.DataPrevistaRetorno, _aluguel.ValorTotal, _aluguel.Concluido);
 
             //action
             bool resultado = _repositorioAluguel.Existe(aluguel2);

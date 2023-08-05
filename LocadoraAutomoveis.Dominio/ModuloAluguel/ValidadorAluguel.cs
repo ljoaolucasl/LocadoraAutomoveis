@@ -36,5 +36,10 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
             RuleFor(a => a.ValorTotal)
                 .GreaterThanOrEqualTo(0).WithMessage("'Valor Total' não pode ser menor que zero.");
         }
+
+        public bool ValidarSeAluguelConcluido(Aluguel aluguelParaValidar)
+        {
+            return aluguelParaValidar.Concluido;
+        }
     }
 }

@@ -199,5 +199,18 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAluguel
             //assert
             resultado.IsValid.Should().BeFalse();
         }
+
+        [TestMethod]
+        public void Nao_deve_retornar_true_se_Aluguel_em_aberto()
+        {
+            //arrange
+            _aluguel.Concluido = false;
+
+            //action
+            bool resultado = _validador.ValidarSeAluguelConcluido(_aluguel);
+
+            //assert
+            resultado.Should().BeFalse();
+        }
     }
 }

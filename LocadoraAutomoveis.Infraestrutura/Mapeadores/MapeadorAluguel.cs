@@ -14,6 +14,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Mapeadores
             builder.Property(a => a.DataLocacao).IsRequired();
             builder.Property(a => a.DataPrevistaRetorno).IsRequired();
             builder.Property(a => a.ValorTotal).IsRequired();
+            builder.Property(a => a.Concluido).IsRequired();
 
             builder.HasOne(a => a.Funcionario)
                 .WithMany()

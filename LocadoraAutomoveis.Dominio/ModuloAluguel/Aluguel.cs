@@ -20,9 +20,11 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
         public DateTime DataLocacao { get; set; }
         public DateTime DataPrevistaRetorno { get; set; }
         public decimal ValorTotal { get; set; }
+        public bool Concluido { get; set; }
 
-        public Aluguel(Funcionario funcionario, Cliente cliente, CategoriaAutomoveis categoriaAutomoveis, PlanoCobranca planoCobranca, Condutores condutor,
-            Automovel automovel, Cupom cupom, List<TaxaEServico> listaTaxasEServicos, DateTime dataLocacao, DateTime dataPrevistaRetorno, decimal valorTotal)
+        public Aluguel(Funcionario funcionario, Cliente cliente, CategoriaAutomoveis categoriaAutomoveis, PlanoCobranca planoCobranca,
+            Condutores condutor, Automovel automovel, Cupom cupom, List<TaxaEServico> listaTaxasEServicos, DateTime dataLocacao,
+            DateTime dataPrevistaRetorno, decimal valorTotal, bool concluido)
         {
             Funcionario = funcionario;
             Cliente = cliente;
@@ -35,6 +37,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
             DataLocacao = dataLocacao;
             DataPrevistaRetorno = dataPrevistaRetorno;
             ValorTotal = valorTotal;
+            Concluido = concluido;
         }
 
         public Aluguel()

@@ -2,7 +2,7 @@
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
-    public class ServicoTaxaEServico : IServicoBase<TaxaEServico>
+    public class ServicoTaxaEServico : IServicoTaxaEServico
     {
         private readonly IRepositorioTaxaEServico _repositorioTaxaEServico;
         private readonly IValidadorTaxaEServico _validadorTaxaEServico;

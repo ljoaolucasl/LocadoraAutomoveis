@@ -1,10 +1,10 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
+﻿using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
-    public class ServicoAutomovel : IServicoBase<Automovel>
+    public class ServicoAutomovel : IServicoAutomovel
     {
         private readonly IRepositorioAutomovel _repositorioAutomovel;
         private readonly IValidadorAutomovel _validadorAutomovel;
@@ -111,9 +111,9 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
         }
         #endregion
 
-        public Automovel SelecionarRegistroPorID(Guid categoriaID)
+        public Automovel SelecionarRegistroPorID(Guid automovelID)
         {
-            return _repositorioAutomovel.SelecionarPorID(categoriaID);
+            return _repositorioAutomovel.SelecionarPorID(automovelID);
         }
 
         public List<Automovel> SelecionarTodosOsRegistros()
@@ -126,16 +126,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             return _repositorioAutomovel.SelecionarPorCategoria(categoria);
         }
 
-        public Result ValidarRegistro(Automovel categoriaParaValidar)
+        public Result ValidarRegistro(Automovel automovelParaValidar)
         {
             List<IError> erros = new();
 
-            ValidationResult validacao = _validadorAutomovel.Validate(categoriaParaValidar);
+            ValidationResult validacao = _validadorAutomovel.Validate(automovelParaValidar);
 
             if (validacao != null)
                 erros = validacao.ConverterParaListaDeErros();
 
-            if (_repositorioAutomovel.Existe(categoriaParaValidar))
+            if (_repositorioAutomovel.Existe(automovelParaValidar))
                 erros.Add(new CustomError("Esse Automóvel já existe", "Placa"));
 
             return Result.Fail(erros);

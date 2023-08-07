@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
-    public class ServicoCupom : IServicoBase<Cupom>
+    public class ServicoCupom : IServicoCupom
     {
         private readonly IRepositorioCupom _repositorioCupom;
         private readonly IValidadorCupom _validadorCupom;

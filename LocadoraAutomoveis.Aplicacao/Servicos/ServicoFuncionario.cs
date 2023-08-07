@@ -2,7 +2,7 @@
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
-    public class ServicoFuncionario : IServicoBase<Funcionario>
+    public class ServicoFuncionario : IServicoFuncionario
     {
         private readonly IRepositorioFuncionario _repositorioFuncionarios;
         private readonly IValidadorFuncionario _validadorFuncionario;

@@ -1,6 +1,6 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
-using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.WinApp.Extensions;
 
@@ -58,7 +58,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomovel
             }
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void btnGravar_Click(object sender, EventArgs e)
         {
             ValidarCampos(sender, e);
 
@@ -80,7 +80,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomovel
         {
             ResetarErros();
 
-            _automovel = ObterCategoria();
+            _automovel = ObterAutomovel();
 
             _resultado = OnGravarRegistro(_automovel);
 
@@ -88,7 +88,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomovel
                 MostrarErros();
         }
 
-        private Automovel ObterCategoria()
+        private Automovel ObterAutomovel()
         {
             _automovel.Imagem = pbImagem.Image.ToByte();
             _automovel.Categoria = cbCategoria.SelectedItem as CategoriaAutomoveis;
@@ -100,6 +100,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomovel
             _automovel.TipoCombustivel = (TipoCombustível)cbCombustivel.SelectedIndex;
             _automovel.CapacidadeCombustivel = txtLitros.Value;
             _automovel.Quilometragem = txtQuilometragem.Value;
+            _automovel.Alugado = false;
 
             return _automovel;
         }

@@ -1,4 +1,4 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
+﻿using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 
 namespace LocadoraAutomoveis.Testes.Dominio.ModuloAutomovel
@@ -16,11 +16,11 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAutomovel
             _validador = new ValidadorAutomovel();
 
             _categoria = new CategoriaAutomoveis("Esportivo");
-            _automovel = new Automovel(_categoria, "REW-4512", "Honda", "Azul", "Super", new byte[12], TipoCombustível.Gasolina, 20, 2022, 245);
+            _automovel = new Automovel(_categoria, "REW-4512", "Honda", "Azul", "Super", new byte[12], TipoCombustível.Gasolina, 20, 2022, 245, false);
         }
 
         [TestMethod]
-        public void Deve_aceitar_Categoria_valida()
+        public void Deve_aceitar_Automovel_valido()
         {
             //action
             ValidationResult resultado = _validador.Validate(_automovel);

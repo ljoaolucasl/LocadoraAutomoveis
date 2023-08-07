@@ -11,7 +11,7 @@ using Serilog;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
-    public class ServicoPlanosCobrancas : IServicoBase<PlanoCobranca>
+    public class ServicoPlanosCobrancas : IServicoPlanoCobranca
     {
         private readonly IRepositorioPlanoCobranca _repositorioPlanoCobranca;
         private readonly IValidadorPlanoCobranca _validadorPlanoCobranca;

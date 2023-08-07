@@ -3,7 +3,7 @@ using FluentResults;
 using FluentResults.Extensions.FluentAssertions;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Servicos;
-using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Testes.Compartilhado;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +19,6 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAutomovel
         private ServicoAutomovel _servico;
 
         private Automovel _automovel;
-        private CategoriaAutomoveis _categoria;
 
         [TestInitialize]
         public void Setup()
@@ -28,8 +27,8 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAutomovel
             _validadorMoq = new Mock<IValidadorAutomovel>();
             _servico = new ServicoAutomovel(_repositorioMoq.Object, _validadorMoq.Object);
 
-            _categoria = new CategoriaAutomoveis("Esportivo");
-            _automovel = new Automovel(_categoria, "REW-4512", "Honda","Azul", "Super", new byte[12], TipoCombustível.Gasolina, 20, 2022, 245);
+            CategoriaAutomoveis categoria = new CategoriaAutomoveis("Esportivo");
+            _automovel = new Automovel(categoria, "REW-4512", "Honda","Azul", "Super", new byte[12], TipoCombustível.Gasolina, 20, 2022, 245, false);
         }
 
         #region Testes Inserir

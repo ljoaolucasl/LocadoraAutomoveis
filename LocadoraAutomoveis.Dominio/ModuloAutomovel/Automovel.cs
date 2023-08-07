@@ -1,7 +1,7 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using System.ComponentModel;
 
-namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
+namespace LocadoraAutomoveis.Dominio.ModuloAutomovel
 {
     public class Automovel : EntidadeBase
     {
@@ -15,9 +15,10 @@ namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
         public decimal CapacidadeCombustivel { get; set; }
         public int Ano { get; set; }
         public decimal Quilometragem { get; set; }
+        public bool Alugado { get; set; }
 
         public Automovel(CategoriaAutomoveis categoria, string placa, string marca, string cor, string modelo, byte[] imagem,
-            TipoCombustível tipoCombustivel, decimal capacidadeCombustivel, int ano, decimal quilometragem)
+            TipoCombustível tipoCombustivel, decimal capacidadeCombustivel, int ano, decimal quilometragem, bool alugado)
         {
             Categoria = categoria;
             Placa = placa;
@@ -29,6 +30,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
             CapacidadeCombustivel = capacidadeCombustivel;
             Ano = ano;
             Quilometragem = quilometragem;
+            Alugado = alugado;
         }
 
         public Automovel()
@@ -37,16 +39,19 @@ namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
 
         public override bool Equals(object? obj)
         {
-            return obj is Automovel automoveis &&
-                   EqualityComparer<CategoriaAutomoveis>.Default.Equals(Categoria, automoveis.Categoria) &&
-                   Placa == automoveis.Placa &&
-                   Marca == automoveis.Marca &&
-                   Cor == automoveis.Cor &&
-                   Modelo == automoveis.Modelo &&
-                   TipoCombustivel == automoveis.TipoCombustivel &&
-                   CapacidadeCombustivel == automoveis.CapacidadeCombustivel &&
-                   Ano == automoveis.Ano &&
-                   Quilometragem == automoveis.Quilometragem;
+            return obj is Automovel automovel &&
+                   ID.Equals(automovel.ID) &&
+                   EqualityComparer<CategoriaAutomoveis>.Default.Equals(Categoria, automovel.Categoria) &&
+                   Placa == automovel.Placa &&
+                   Marca == automovel.Marca &&
+                   Cor == automovel.Cor &&
+                   Modelo == automovel.Modelo &&
+                   EqualityComparer<byte[]>.Default.Equals(Imagem, automovel.Imagem) &&
+                   TipoCombustivel == automovel.TipoCombustivel &&
+                   CapacidadeCombustivel == automovel.CapacidadeCombustivel &&
+                   Ano == automovel.Ano &&
+                   Quilometragem == automovel.Quilometragem &&
+                   Alugado == automovel.Alugado;
         }
     }
 

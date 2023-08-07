@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
-    public class ServicoParceiro : IServicoBase<Parceiro>
+    public class ServicoParceiro : IServicoParceiro
     {
         private readonly IRepositorioParceiro _repositorioParceiro;
         private readonly IValidadorParceiro _validadorParceiro;

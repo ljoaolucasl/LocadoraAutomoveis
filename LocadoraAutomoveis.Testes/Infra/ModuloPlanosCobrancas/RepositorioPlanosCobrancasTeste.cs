@@ -43,7 +43,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloPlanosCobrancas
             var categoria = Builder<CategoriaAutomoveis>.CreateNew().Build();
             var planoCobranca1 = Builder<PlanoCobranca>.CreateNew().With(c => c.CategoriaAutomoveis = categoria).Persist();
             var planoCobranca2 = _repositorioPlanosCobrancas.SelecionarPorID(planoCobranca1.ID);
-            planoCobranca2.ValorDia = 1;
+            planoCobranca2.PlanoDiario_ValorDiario = 1;
 
             _repositorioPlanosCobrancas.Editar(planoCobranca2);
 

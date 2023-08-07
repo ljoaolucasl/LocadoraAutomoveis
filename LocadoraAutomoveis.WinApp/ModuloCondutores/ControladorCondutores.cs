@@ -1,5 +1,5 @@
 ﻿using LocadoraAutomoveis.Aplicacao.Servicos;
-using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
 using LocadoraAutomoveis.WinApp.Compartilhado;

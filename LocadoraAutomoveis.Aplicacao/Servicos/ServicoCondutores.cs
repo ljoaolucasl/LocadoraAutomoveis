@@ -10,7 +10,7 @@ using Serilog;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
-    public class ServicoCondutores : IServicoBase<Condutor>
+    public class ServicoCondutores : IServicoCondutor
     {
         private readonly IRepositorioCondutores _repositorioCondutor;
         private readonly IValidadorCondutores _validadorCondutor;

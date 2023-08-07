@@ -1,10 +1,10 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
+﻿using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
-    public class ServicoAutomovel : IServicoBase<Automovel>
+    public class ServicoAutomovel : IServicoAutomovel
     {
         private readonly IRepositorioAutomovel _repositorioAutomovel;
         private readonly IValidadorAutomovel _validadorAutomovel;

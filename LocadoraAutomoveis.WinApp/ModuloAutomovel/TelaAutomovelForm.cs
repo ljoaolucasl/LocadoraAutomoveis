@@ -1,6 +1,6 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
-using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.WinApp.Extensions;
 

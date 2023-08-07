@@ -1,6 +1,6 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 
-namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
+namespace LocadoraAutomoveis.Dominio.ModuloAutomovel
 {
     public interface IRepositorioAutomovel : IRepositorioBase<Automovel>
     {

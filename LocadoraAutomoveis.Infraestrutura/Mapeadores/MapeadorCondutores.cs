@@ -1,4 +1,4 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
+﻿using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

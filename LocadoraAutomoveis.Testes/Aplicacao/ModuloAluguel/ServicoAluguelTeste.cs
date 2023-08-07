@@ -4,7 +4,7 @@ using FluentResults.Extensions.FluentAssertions;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloAluguel;
-using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
@@ -23,6 +23,14 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
     {
         private Mock<IRepositorioAluguel> _repositorioMoq;
         private Mock<IValidadorAluguel> _validadorMoq;
+        private Mock<IServicoFuncionario> servicoFuncionario;
+        private Mock<IServicoCliente> servicoCliente;
+        private Mock<IServicoCategoriaAutomoveis> servicoCategoriaAutomoveis;
+        private Mock<IServicoPlanoCobranca> servicoPlanosCobrancas;
+        private Mock<IServicoCondutor> servicoCondutores;
+        private Mock<IServicoAutomovel> servicoAutomovel;
+        private Mock<IServicoCupom> servicoCupom;
+        private Mock<IServicoTaxaEServico> servicoTaxaEServico;
         private ServicoAluguel _servico;
 
         private Aluguel _aluguel;
@@ -32,7 +40,9 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
         {
             _repositorioMoq = new Mock<IRepositorioAluguel>();
             _validadorMoq = new Mock<IValidadorAluguel>();
-            _servico = new ServicoAluguel(_repositorioMoq.Object, _validadorMoq.Object);
+            _servico = new ServicoAluguel(_repositorioMoq.Object, _validadorMoq.Object, servicoFuncionario.Object,
+                servicoCliente.Object, servicoCategoriaAutomoveis.Object, servicoPlanosCobrancas.Object,
+                servicoCondutores.Object, servicoAutomovel.Object, servicoCupom.Object, servicoTaxaEServico.Object);
 
             Funcionario funcionario = new();
             Cliente cliente = new();

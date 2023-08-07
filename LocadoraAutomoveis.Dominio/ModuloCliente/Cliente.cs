@@ -37,6 +37,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloCliente
         public override bool Equals(object? obj)
         {
             return obj is Cliente cliente &&
+                   ID.Equals(cliente.ID) &&
                    Nome == cliente.Nome &&
                    Email == cliente.Email &&
                    Telefone == cliente.Telefone &&

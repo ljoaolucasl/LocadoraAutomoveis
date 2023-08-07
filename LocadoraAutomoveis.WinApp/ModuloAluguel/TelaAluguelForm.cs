@@ -1,6 +1,7 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Dominio.ModuloAluguel;
+using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
@@ -115,7 +116,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             _aluguel.Automovel = cmbAutomovel.SelectedItem as Automovel;
             _aluguel.DataLocacao = Convert.ToDateTime(dateLocacao.Value);
             _aluguel.DataDevolucao = Convert.ToDateTime(dateDevolucao.Value);
-            _aluguel.QuilometrosRodados = Convert.ToDecimal(txtKmAutomovel.Value);
+            _aluguel.Automovel.Quilometragem = Convert.ToDecimal(txtKmAutomovel.Value);
             _aluguel.Cupom.Valor = Convert.ToDecimal(txtCupom);
             _aluguel.ListaTaxasEServicos = listTaxas.SelectedItem as List<TaxaEServico>;
             _aluguel.ValorTotal = Convert.ToDecimal(lbValorTotal);

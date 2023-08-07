@@ -1,4 +1,5 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloAutomovel;
+﻿using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
@@ -58,6 +59,26 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
         {
             return obj is Aluguel aluguel &&
                    ID.Equals(aluguel.ID) &&
+                   EqualityComparer<Funcionario>.Default.Equals(Funcionario, aluguel.Funcionario) &&
+                   EqualityComparer<Cliente>.Default.Equals(Cliente, aluguel.Cliente) &&
+                   EqualityComparer<CategoriaAutomoveis>.Default.Equals(CategoriaAutomoveis, aluguel.CategoriaAutomoveis) &&
+                   EqualityComparer<PlanoCobranca>.Default.Equals(PlanoCobranca, aluguel.PlanoCobranca) &&
+                   EqualityComparer<Condutor>.Default.Equals(Condutor, aluguel.Condutor) &&
+                   EqualityComparer<Automovel>.Default.Equals(Automovel, aluguel.Automovel) &&
+                   EqualityComparer<Cupom?>.Default.Equals(Cupom, aluguel.Cupom) &&
+                   EqualityComparer<List<TaxaEServico>>.Default.Equals(ListaTaxasEServicos, aluguel.ListaTaxasEServicos) &&
+                   DataLocacao == aluguel.DataLocacao &&
+                   DataPrevistaRetorno == aluguel.DataPrevistaRetorno &&
+                   DataDevolucao == aluguel.DataDevolucao &&
+                   QuilometrosRodados == aluguel.QuilometrosRodados &&
+                   CombustivelRestante == aluguel.CombustivelRestante &&
+                   ValorTotal == aluguel.ValorTotal &&
+                   Concluido == aluguel.Concluido;
+        }
+
+        public bool Igual(object? obj)
+        {
+            return obj is Aluguel aluguel &&
                    EqualityComparer<Funcionario>.Default.Equals(Funcionario, aluguel.Funcionario) &&
                    EqualityComparer<Cliente>.Default.Equals(Cliente, aluguel.Cliente) &&
                    EqualityComparer<CategoriaAutomoveis>.Default.Equals(CategoriaAutomoveis, aluguel.CategoriaAutomoveis) &&

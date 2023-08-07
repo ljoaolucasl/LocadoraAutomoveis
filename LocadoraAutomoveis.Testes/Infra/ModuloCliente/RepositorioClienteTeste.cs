@@ -22,6 +22,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCliente
             _repositorioCliente = new RepositorioCliente(_contexto);
             _repositorioCondutor = new RepositorioCondutores(_contexto);
 
+            _contexto.RemoveRange(new RepositorioAluguel(_contexto).SelecionarTodos());
             _contexto.RemoveRange(_repositorioCliente.Registros);
             _contexto.RemoveRange(_repositorioCondutor.Registros);
 

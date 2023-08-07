@@ -22,7 +22,7 @@
         public override bool Equals(object? obj)
         {
             return obj is Parceiro parceiro &&
-                   ID == parceiro.ID &&
+                   ID.Equals(parceiro.ID) &&
                    Nome == parceiro.Nome;
         }
     }

@@ -19,7 +19,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Repositorios
             if (exclusao)
                 return Registros.Contains(aluguelParaVerificar);
 
-            return Registros.ToList().Any(a => a.Equals(aluguelParaVerificar) && a.ID != aluguelParaVerificar.ID);
+            return Registros.ToList().Any(a => a.Igual(aluguelParaVerificar) && a.ID != aluguelParaVerificar.ID);
         }
 
         public override List<Aluguel> SelecionarTodos()

@@ -33,15 +33,29 @@ namespace LocadoraAutomoveis.Dominio.ModuloCondutores
 
         public override bool Equals(object? obj)
         {
-            return obj is Condutor condutores &&
-                   EqualityComparer<Cliente>.Default.Equals(Cliente, condutores.Cliente) &&
-                   TipoCondutor == condutores.TipoCondutor &&
-                   Nome == condutores.Nome &&
-                   Email == condutores.Email &&
-                   Telefone == condutores.Telefone &&
-                   CPF == condutores.CPF &&
-                   CNH == condutores.CNH &&
-                   Validade == condutores.Validade;
+            return obj is Condutor condutor &&
+                   ID.Equals(condutor.ID) &&
+                   EqualityComparer<Cliente>.Default.Equals(Cliente, condutor.Cliente) &&
+                   TipoCondutor == condutor.TipoCondutor &&
+                   Nome == condutor.Nome &&
+                   Email == condutor.Email &&
+                   Telefone == condutor.Telefone &&
+                   CPF == condutor.CPF &&
+                   CNH == condutor.CNH &&
+                   Validade == condutor.Validade;
+        }
+
+        public bool Igual(object? obj)
+        {
+            return obj is Condutor condutor &&
+                   EqualityComparer<Cliente>.Default.Equals(Cliente, condutor.Cliente) &&
+                   TipoCondutor == condutor.TipoCondutor &&
+                   Nome == condutor.Nome &&
+                   Email == condutor.Email &&
+                   Telefone == condutor.Telefone &&
+                   CPF == condutor.CPF &&
+                   CNH == condutor.CNH &&
+                   Validade == condutor.Validade;
         }
     }
 }

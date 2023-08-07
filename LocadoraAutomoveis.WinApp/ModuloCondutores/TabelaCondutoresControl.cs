@@ -5,7 +5,7 @@ using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloCondutores
 {
-    public partial class TabelaCondutoresControl : UserControl, ITabelaBase<Condutores>
+    public partial class TabelaCondutoresControl : UserControl, ITabelaBase<Condutor>
     {
         public TabelaCondutoresControl()
         {
@@ -14,11 +14,11 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
             gridCondutores.ConfigurarTabelaGrid("Número", "Nome Condutor", "Nome Cliente", "CPF", "CNH", "Validade");
         }
 
-        public void AtualizarLista(List<Condutores> condutores)
+        public void AtualizarLista(List<Condutor> condutores)
         {
             gridCondutores.Rows.Clear();
 
-            foreach (Condutores item in condutores)
+            foreach (Condutor item in condutores)
             {
                 DataGridViewRow row = new();
                 row.CreateCells(gridCondutores, item.ID, item.Nome, item.Cliente.Nome, item.CPF, item.CNH, item.Validade.ToString("d"));
@@ -28,7 +28,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
 
             gridCondutores.Columns[0].Visible = false;
 
-            TelaPrincipalForm.AtualizarStatus($"Visualizando {condutores.Count} Categorias");
+            TelaPrincipalForm.AtualizarStatus($"Visualizando {condutores.Count} Condutores");
         }
 
         public DataGridView ObterGrid()
@@ -36,9 +36,9 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
             return gridCondutores;
         }
 
-        public Condutores ObterRegistroSelecionado()
+        public Condutor ObterRegistroSelecionado()
         {
-            return (Condutores)gridCondutores.SelectedRows[0].Cells[0].Tag;
+            return (Condutor)gridCondutores.SelectedRows[0].Cells[0].Tag;
         }
     }
 }

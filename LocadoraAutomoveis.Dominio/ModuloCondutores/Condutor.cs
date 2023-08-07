@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace LocadoraAutomoveis.Dominio.ModuloCondutores
 {
-    public class Condutores : EntidadeBase
+    public class Condutor : EntidadeBase
     {
         public Cliente Cliente {  get; set; }
         public bool TipoCondutor { get; set; }
@@ -15,7 +15,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloCondutores
         public string CNH { get; set; }
         public DateTime Validade { get; set; }
 
-        public Condutores(Cliente cliente, bool tipoCondutor, string nome, string email, string telefone, string cPF, string cNH, DateTime validade)
+        public Condutor(Cliente cliente, bool tipoCondutor, string nome, string email, string telefone, string cPF, string cNH, DateTime validade)
         {
             this.Cliente = cliente;
             TipoCondutor = tipoCondutor;
@@ -27,13 +27,13 @@ namespace LocadoraAutomoveis.Dominio.ModuloCondutores
             Validade = validade;
         }
 
-        public Condutores()
+        public Condutor()
         {
         }
 
         public override bool Equals(object? obj)
         {
-            return obj is Condutores condutores &&
+            return obj is Condutor condutores &&
                    EqualityComparer<Cliente>.Default.Equals(Cliente, condutores.Cliente) &&
                    TipoCondutor == condutores.TipoCondutor &&
                    Nome == condutores.Nome &&

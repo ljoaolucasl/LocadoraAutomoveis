@@ -10,13 +10,13 @@ using System.Runtime.InteropServices.ObjectiveC;
 
 namespace LocadoraAutomoveis.WinApp.ModuloCondutores
 {
-    public partial class TelaCondutoresForm : Form, ITelaBase<Condutores>
+    public partial class TelaCondutoresForm : Form, ITelaBase<Condutor>
     {
-        private Condutores _condutores;
+        private Condutor _condutores;
 
         private Result _resultado;
 
-        public event Func<Condutores, Result> OnGravarRegistro;
+        public event Func<Condutor, Result> OnGravarRegistro;
 
         public TelaCondutoresForm()
         {
@@ -26,7 +26,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
 
             _resultado = new Result();
 
-            _condutores = new Condutores();
+            _condutores = new Condutor();
         }
 
         public void CarregarClientes(List<Cliente> listClientes)
@@ -36,7 +36,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
             cmbCliente.ValueMember = "ID";
         }
 
-        public Condutores? Entidade
+        public Condutor? Entidade
         {
             get => _condutores;
 
@@ -74,7 +74,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
                 MostrarErros();
         }
 
-        private Condutores ObterCondutores()
+        private Condutor ObterCondutores()
         {
             _condutores.Cliente = cmbCliente.SelectedItem as Cliente;
             _condutores.TipoCondutor = chkClienteCondutor.Checked ? true : false;

@@ -18,7 +18,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
         private Mock<IValidadorCondutores> _validadorMoq;
         private ServicoCondutores _servico;
 
-        private Condutores _condutor;
+        private Condutor _condutor;
         private Cliente _cliente1;
 
         [TestInitialize]
@@ -31,7 +31,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
             _cliente1 = new Cliente("Rafael", "rafael@gmail.com", "(49) 92332-4324", TipoDocumento.CPF,
                 "234.323.563-45", "Santa Catarina", "Lages", "São Cristovão", "Rio de Janeiro", 12);
 
-            _condutor = new Condutores(_cliente1, true, "João", "joao@gmail.com", "(49) 95532-4374", "254.663.565-45",
+            _condutor = new Condutor(_cliente1, true, "João", "joao@gmail.com", "(49) 95532-4374", "254.663.565-45",
                 "3134567677782", DateTime.Now);
         }
 
@@ -39,7 +39,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
         [TestMethod]
         public void Deve_inserir_condutor_quando_valida()
         {
-            var condutor = Builder<Condutores>.CreateNew().Build();
+            var condutor = Builder<Condutor>.CreateNew().Build();
 
             var resultado = _servico.Inserir(condutor);
 
@@ -50,7 +50,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
         [TestMethod]
         public void Nao_Deve_inserir_condutor_quando_invalido()
         {
-            _validadorMoq.Setup(x => x.Validate(It.IsAny<Condutores>())).Returns(() =>
+            _validadorMoq.Setup(x => x.Validate(It.IsAny<Condutor>())).Returns(() =>
             {
                 var resultado = new ValidationResult();
                 resultado.Errors.Add(new ValidationFailure("erro", "erro"));
@@ -66,7 +66,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
         [TestMethod]
         public void Nao_Deve_inserir_condutor_quando_ja_existe()
         {
-            _repositorioMoq.Setup(x => x.Existe(It.IsAny<Condutores>(), false)).Returns(true);
+            _repositorioMoq.Setup(x => x.Existe(It.IsAny<Condutor>(), false)).Returns(true);
 
             var resultado = _servico.Inserir(_condutor);
 
@@ -78,7 +78,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
         [TestMethod]
         public void Deve_tratar_erro_quando_falha_ao_tentar_inserir_condutor()
         {
-            _repositorioMoq.Setup(x => x.Inserir(It.IsAny<Condutores>()))
+            _repositorioMoq.Setup(x => x.Inserir(It.IsAny<Condutor>()))
                 .Throws(() =>
                 {
                     return new Exception();
@@ -95,7 +95,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
         [TestMethod]
         public void Deve_editar_condutor_quando_valida()
         {
-            var condutor = Builder<Condutores>.CreateNew().Build();
+            var condutor = Builder<Condutor>.CreateNew().Build();
 
             var resultado = _servico.Editar(condutor);
 
@@ -106,7 +106,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
         [TestMethod]
         public void Nao_Deve_editar_condutor_quando_invalida()
         {
-            _validadorMoq.Setup(x => x.Validate(It.IsAny<Condutores>())).Returns(() =>
+            _validadorMoq.Setup(x => x.Validate(It.IsAny<Condutor>())).Returns(() =>
             {
                 var resultado = new ValidationResult();
                 resultado.Errors.Add(new ValidationFailure("erro", "erro"));
@@ -122,7 +122,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
         [TestMethod]
         public void Nao_Deve_editar_condutor_quando_ja_existe()
         {
-            _repositorioMoq.Setup(x => x.Existe(It.IsAny<Condutores>(), false)).Returns(true);
+            _repositorioMoq.Setup(x => x.Existe(It.IsAny<Condutor>(), false)).Returns(true);
 
             var resultado = _servico.Editar(_condutor);
 
@@ -134,7 +134,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
         [TestMethod]
         public void Deve_tratar_erro_quando_falha_ao_tentar_editar_condutor()
         {
-            _repositorioMoq.Setup(x => x.Editar(It.IsAny<Condutores>()))
+            _repositorioMoq.Setup(x => x.Editar(It.IsAny<Condutor>()))
                 .Throws(() =>
                 {
                     return new Exception();
@@ -151,8 +151,8 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
         [TestMethod]
         public void Deve_excluir_condutor_quando_valida()
         {
-            var condutor = Builder<Condutores>.CreateNew().Build();
-            _repositorioMoq.Setup(x => x.Existe(It.IsAny<Condutores>(), true)).Returns(true);
+            var condutor = Builder<Condutor>.CreateNew().Build();
+            _repositorioMoq.Setup(x => x.Existe(It.IsAny<Condutor>(), true)).Returns(true);
 
             var resultado = _servico.Excluir(condutor);
 
@@ -163,9 +163,9 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
         [TestMethod]
         public void Nao_Deve_excluir_condutor_quando_nao_existente()
         {
-            _repositorioMoq.Setup(x => x.Existe(It.IsAny<Condutores>(), false)).Returns(false);
+            _repositorioMoq.Setup(x => x.Existe(It.IsAny<Condutor>(), false)).Returns(false);
 
-            var resultado = _servico.Excluir(Builder<Condutores>.CreateNew().Build());
+            var resultado = _servico.Excluir(Builder<Condutor>.CreateNew().Build());
 
             resultado.Should().BeFailure();
             _repositorioMoq.Verify(x => x.Excluir(_condutor), Times.Never());
@@ -177,10 +177,10 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
         {
             DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBOBJETORELACAO_TBCondutor");
 
-            _repositorioMoq.Setup(x => x.Existe(It.IsAny<Condutores>(), true)).Returns(true);
-            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Condutores>())).Throws(dbUpdateException);
+            _repositorioMoq.Setup(x => x.Existe(It.IsAny<Condutor>(), true)).Returns(true);
+            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Condutor>())).Throws(dbUpdateException);
 
-            var resultado = _servico.Excluir(Builder<Condutores>.CreateNew().Build());
+            var resultado = _servico.Excluir(Builder<Condutor>.CreateNew().Build());
 
             resultado.Should().BeFailure();
             resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Condutor está relacionada à um ObjetoRelacao." +
@@ -192,10 +192,10 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
         {
             DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("");
 
-            _repositorioMoq.Setup(x => x.Existe(It.IsAny<Condutores>(), true)).Returns(true);
-            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Condutores>())).Throws(dbUpdateException);
+            _repositorioMoq.Setup(x => x.Existe(It.IsAny<Condutor>(), true)).Returns(true);
+            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Condutor>())).Throws(dbUpdateException);
 
-            var resultado = _servico.Excluir(Builder<Condutores>.CreateNew().Build());
+            var resultado = _servico.Excluir(Builder<Condutor>.CreateNew().Build());
 
             resultado.Should().BeFailure();
             resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Falha ao tentar excluir o Condutor");

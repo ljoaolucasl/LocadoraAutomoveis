@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace LocadoraAutomoveis.Dominio.ModuloCondutores
 {
-    public class ValidadorCondutores : AbstractValidator<Condutores>, IValidadorCondutores
+    public class ValidadorCondutores : AbstractValidator<Condutor>, IValidadorCondutores
     {
         public ValidadorCondutores()
         {
@@ -37,7 +37,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloCondutores
                 .NotEmpty().WithMessage(@"'Validade' não pode estar vazia.");
         }
 
-        private void ValidarCaractereInvalido(string nome, ValidationContext<Condutores> contexto)
+        private void ValidarCaractereInvalido(string nome, ValidationContext<Condutor> contexto)
         {
             if (string.IsNullOrWhiteSpace(nome))
                 return;
@@ -46,7 +46,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloCondutores
                 contexto.AddFailure("Caractere Inválido");
         }
 
-        public bool ValidarCondutorExistente(Condutores cliente, List<Condutores> listaClientes)
+        public bool ValidarCondutorExistente(Condutor cliente, List<Condutor> listaClientes)
         {
             return listaClientes.Any(f => f.ID != cliente.ID);
         }
@@ -65,7 +65,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloCondutores
             return Regex.IsMatch(telefone, @"^\(\d{2}\) \d{4,5}-\d{4}$");
         }
 
-        private void ValidarCPF(string document, ValidationContext<Condutores> contexto)
+        private void ValidarCPF(string document, ValidationContext<Condutor> contexto)
         {
             if (Regex.IsMatch(document, @"^\d{3}.\d{3}.\d{3}-\d{2}$"))
                 return;
@@ -74,7 +74,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloCondutores
                 contexto.AddFailure("CPF", "CPF inválido.");
         }
 
-        private void ValidarCNH(string numeroCNH, ValidationContext<Condutores> contexto)
+        private void ValidarCNH(string numeroCNH, ValidationContext<Condutor> contexto)
         {
             if (Regex.IsMatch(numeroCNH, @"^[0-9A-Za-z]{11}$"))
                 return;

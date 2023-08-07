@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Infraestrutura.Repositorios
 {
-    public class RepositorioCondutores : RepositorioBase<Condutores>, IRepositorioCondutores
+    public class RepositorioCondutores : RepositorioBase<Condutor>, IRepositorioCondutores
     {
         public RepositorioCondutores(ContextoDados contextoDb) : base(contextoDb)
         {
@@ -15,15 +15,15 @@ namespace LocadoraAutomoveis.Infraestrutura.Repositorios
         {
         }
 
-        public override bool Existe(Condutores condutorParaVerificar, bool exclusao = false)
+        public override bool Existe(Condutor condutorParaVerificar, bool exclusao = false)
         {
             if (exclusao)
                 return Registros.Contains(condutorParaVerificar);
 
-            return Registros.ToList().Any(c => string.Equals(c.Nome.RemoverAcento(), condutorParaVerificar.Nome.RemoverAcento(), StringComparison.OrdinalIgnoreCase) && c.ID != condutorParaVerificar.ID && c.Cliente.Nome == condutorParaVerificar.Cliente.Nome);
+            return Registros.ToList().Any(c => c.Equals(condutorParaVerificar) && c.ID != condutorParaVerificar.ID);
         }
 
-        public override List<Condutores> SelecionarTodos()
+        public override List<Condutor> SelecionarTodos()
         {
             return Registros.Include(c => c.Cliente).ToList();
         }

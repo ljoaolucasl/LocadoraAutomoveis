@@ -2,7 +2,7 @@
 
 namespace LocadoraAutomoveis.Dominio.ModuloCondutores
 {
-    public interface IValidadorCondutores : IValidador<Condutores>
+    public interface IValidadorCondutores : IValidador<Condutor>
     {
     }
 }

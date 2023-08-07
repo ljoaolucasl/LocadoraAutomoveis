@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LocadoraAutomoveis.Testes.Dominio
+namespace LocadoraAutomoveis.Testes.Dominio.ModuloCondutores
 {
     [TestClass]
     public class CondutoresTeste
@@ -18,9 +18,9 @@ namespace LocadoraAutomoveis.Testes.Dominio
         private ValidadorCondutores _validador;
         private Cliente _cliente1;
         private Cliente _cliente2;
-        private List<Condutores> _lista;
-        private Condutores _condutor1;
-        private Condutores _condutor2;
+        private List<Condutor> _lista;
+        private Condutor _condutor1;
+        private Condutor _condutor2;
 
         [TestInitialize]
         public void Setup()
@@ -30,13 +30,13 @@ namespace LocadoraAutomoveis.Testes.Dominio
             _cliente1 = new Cliente("Mateus", "mateuszancheta@gmail.com", "(49) 92323-4423", TipoDocumento.CPF,
                 "234.423.563-45", "Santa Catarina", "Lages", "São Cristovão", "Rio de Janeiro", 12);
 
-            _condutor1 = new Condutores(_cliente1, true, "João", "joao@gmail.com", "(49) 95532-4374", "254.663.565-45",
+            _condutor1 = new Condutor(_cliente1, true, "João", "joao@gmail.com", "(49) 95532-4374", "254.663.565-45",
                 "31345676777", DateTime.Now);
 
             _cliente2 = new Cliente("Mateus", "mateuszancheta@gmail.com", "(49) 92323-4423", TipoDocumento.CNPJ,
                 "234.423.563-45", "Santa Catarina", "Lages", "São Cristovão", "Rio de Janeiro", 12);
 
-            _condutor2 = new Condutores(_cliente2, true, "João", "joao@gmail.com", "(49) 95532-4374", "43.434.134/1341-34",
+            _condutor2 = new Condutor(_cliente2, true, "João", "joao@gmail.com", "(49) 95532-4374", "43.434.134/1341-34",
                 "31345676777", DateTime.Now);
         }
 
@@ -216,22 +216,6 @@ namespace LocadoraAutomoveis.Testes.Dominio
             ValidationResult resultado = _validador.Validate(_condutor2);
 
             resultado.IsValid.Should().BeFalse();
-        }
-
-        [TestMethod]
-        public void Nao_deve_aceitar_condutor_com_o_mesmo_cliente()
-        {
-            _condutor1.Nome = "João";
-            _condutor2.Nome = "João";
-
-            _condutor1.Cliente.Nome = "Rafael";
-            _condutor2.Cliente.Nome = "Rafael";
-
-            ValidationResult resultado1 = _validador.Validate(_condutor1);
-            ValidationResult resultado2 = _validador.Validate(_condutor2);
-
-            resultado1.IsValid.Should().BeTrue();
-            resultado2.IsValid.Should().BeFalse();
         }
     }
 }

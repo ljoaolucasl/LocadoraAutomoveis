@@ -26,7 +26,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloFuncionario
 
             gridFuncionario.Columns[0].Visible = false;
 
-            TelaPrincipalForm.AtualizarStatus($"Visualizando {padroes.Count} Padrões");
+            TelaPrincipalForm.AtualizarStatus($"Visualizando {padroes.Count} Funcionário(s)");
         }
 
         public DataGridView ObterGrid()

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LocadoraAutomoveis.Infraestrutura.Mapeadores
 {
-    public class MapeadorCondutores : IEntityTypeConfiguration<Condutores>
+    public class MapeadorCondutores : IEntityTypeConfiguration<Condutor>
     {
-        public void Configure(EntityTypeBuilder<Condutores> builder)
+        public void Configure(EntityTypeBuilder<Condutor> builder)
         {
             builder.ToTable("TBCondutor");
             builder.HasKey(c => c.ID);

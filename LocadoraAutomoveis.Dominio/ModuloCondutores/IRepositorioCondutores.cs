@@ -2,7 +2,7 @@
 
 namespace LocadoraAutomoveis.Dominio.ModuloCondutores
 {
-    public interface IRepositorioCondutores : IRepositorioBase<Condutores>
+    public interface IRepositorioCondutores : IRepositorioBase<Condutor>
     {
     }
 }

@@ -29,7 +29,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCliente
 
             gridCliente.Columns[0].Visible = false;
 
-            TelaPrincipalForm.AtualizarStatus($"Visualizando {padroes.Count} Padrões");
+            TelaPrincipalForm.AtualizarStatus($"Visualizando {padroes.Count} Cliente(s)");
         }
 
         public DataGridView ObterGrid()

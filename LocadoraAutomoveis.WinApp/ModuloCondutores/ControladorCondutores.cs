@@ -7,7 +7,7 @@ using LocadoraAutomoveis.WinApp.ModuloAutomovel;
 
 namespace LocadoraAutomoveis.WinApp.ModuloCondutores
 {
-    public class ControladorCondutores : ControladorBase<Condutores, RepositorioCondutores, ServicoCondutores, TabelaCondutoresControl, TelaCondutoresForm, ServicoCliente, NoService>
+    public class ControladorCondutores : ControladorBase<Condutor, RepositorioCondutores, ServicoCondutores, TabelaCondutoresControl, TelaCondutoresForm, ServicoCliente, NoService>
     {
         public ControladorCondutores(RepositorioCondutores _repositorio, ServicoCondutores _servico, TabelaCondutoresControl _tabela, ServicoCliente _repositorio2) : base(_repositorio, _servico, _tabela, _repositorio2)
         {
@@ -16,7 +16,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
 
         protected override string TipoCadastro => "Funcionários";
 
-        private void ObterDependencias(TelaCondutoresForm tela, Condutores condutor)
+        private void ObterDependencias(TelaCondutoresForm tela, Condutor condutor)
         {
             var clientes = _servico2.SelecionarTodosOsRegistros();
 

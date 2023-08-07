@@ -10,7 +10,7 @@ using Serilog;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
-    public class ServicoCondutores : IServicoBase<Condutores>
+    public class ServicoCondutores : IServicoBase<Condutor>
     {
         private readonly IRepositorioCondutores _repositorioCondutor;
         private readonly IValidadorCondutores _validadorCondutor;
@@ -22,7 +22,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
         }
 
         #region CRUD
-        public Result Inserir(Condutores condutorParaAdicionar)
+        public Result Inserir(Condutor condutorParaAdicionar)
         {
             Log.Debug("Tentando adicionar o Condutor '{NOME}'", condutorParaAdicionar.Nome);
 
@@ -52,7 +52,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
         }
 
-        public Result Editar(Condutores condutorParaEditar)
+        public Result Editar(Condutor condutorParaEditar)
         {
             Log.Debug("Tentando editar o Condutor '{NOME} #{ID}'", condutorParaEditar.Nome, condutorParaEditar.ID);
 
@@ -81,7 +81,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
         }
 
-        public Result Excluir(Condutores condutorParaExcluir)
+        public Result Excluir(Condutor condutorParaExcluir)
         {
             Log.Debug("Tentando excluir o Condutor '{NOME} #{ID}'", condutorParaExcluir.Nome, condutorParaExcluir.ID);
 
@@ -117,17 +117,17 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
         }
         #endregion
 
-        public Condutores SelecionarRegistroPorID(Guid taxaID)
+        public Condutor SelecionarRegistroPorID(Guid taxaID)
         {
             return _repositorioCondutor.SelecionarPorID(taxaID);
         }
 
-        public List<Condutores> SelecionarTodosOsRegistros()
+        public List<Condutor> SelecionarTodosOsRegistros()
         {
             return _repositorioCondutor.SelecionarTodos();
         }
 
-        public Result ValidarRegistro(Condutores condutorParaValidar)
+        public Result ValidarRegistro(Condutor condutorParaValidar)
         {
             List<IError> erros = new();
 

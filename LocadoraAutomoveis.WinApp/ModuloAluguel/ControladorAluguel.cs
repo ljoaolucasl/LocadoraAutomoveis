@@ -15,7 +15,14 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
         private void ObterDependencias(TelaAluguelForm tela, Aluguel aluguel)
         {
-            
+            _servico.servicoFuncionario.SelecionarTodosOsRegistros();
+            _servico.servicoCliente.SelecionarTodosOsRegistros();
+            _servico.servicoCategoriaAutomoveis.SelecionarTodosOsRegistros();
+            _servico.servicoPlanosCobrancas.SelecionarTodosOsRegistros();
+            _servico.servicoCondutores.SelecionarTodosOsRegistros();
+            _servico.servicoAutomovel.SelecionarTodosOsRegistros();
+            _servico.servicoCupom.SelecionarTodosOsRegistros();
+            _servico.servicoTaxaEServico.SelecionarTodosOsRegistros();
         }
     }
 }

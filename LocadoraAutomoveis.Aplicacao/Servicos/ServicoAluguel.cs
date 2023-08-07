@@ -7,11 +7,27 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
     {
         private readonly IRepositorioAluguel _repositorioAluguel;
         private readonly IValidadorAluguel _validadorAluguel;
+        public readonly ServicoFuncionario servicoFuncionario;
+        public readonly ServicoCliente servicoCliente;
+        public readonly ServicoCategoriaAutomoveis servicoCategoriaAutomoveis;
+        public readonly ServicoPlanosCobrancas servicoPlanosCobrancas;
+        public readonly ServicoCondutores servicoCondutores;
+        public readonly ServicoAutomovel servicoAutomovel;
+        public readonly ServicoCupom servicoCupom;
+        public readonly ServicoTaxaEServico servicoTaxaEServico;
 
-        public ServicoAluguel(IRepositorioAluguel repositorioAluguel, IValidadorAluguel validadorAluguel)
+        public ServicoAluguel(IRepositorioAluguel repositorioAluguel, IValidadorAluguel validadorAluguel, ServicoFuncionario servicoFuncionario, ServicoCliente servicoCliente, ServicoCategoriaAutomoveis servicoCategoriaAutomoveis, ServicoPlanosCobrancas servicoPlanosCobrancas, ServicoCondutores servicoCondutores, ServicoAutomovel servicoAutomovel, ServicoCupom servicoCupom, ServicoTaxaEServico servicoTaxaEServico)
         {
             _repositorioAluguel = repositorioAluguel;
             _validadorAluguel = validadorAluguel;
+            servicoFuncionario = servicoFuncionario;
+            servicoCliente = servicoCliente;
+            servicoCategoriaAutomoveis = servicoCategoriaAutomoveis;
+            servicoPlanosCobrancas = servicoPlanosCobrancas;
+            servicoCondutores = servicoCondutores;
+            servicoAutomovel = servicoAutomovel;
+            servicoCupom = servicoCupom;
+            servicoTaxaEServico = servicoTaxaEServico;
         }
 
         #region CRUD

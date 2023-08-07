@@ -1,22 +1,25 @@
-﻿using LocadoraAutomoveis.Dominio.Extensions;
-using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+﻿using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 
 namespace LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas
 {
     public class PlanoCobranca : EntidadeBase
     {
-        public decimal ValorDia { get; set; }
-        public decimal ValorKmRodado { get; set; }
-        public int KmLivre { get; set; }
-        public TipoPlano Plano { get; set; }
+        public decimal PlanoDiario_ValorDiario { get; set; }
+        public decimal PlanoDiario_ValorKm { get; set; }
+        public decimal PlanoLivre_ValorDiario { get; set; }
+        public decimal PlanoControlador_ValorDiario { get; set; }
+        public decimal PlanoControlador_ValorKm { get; set; }
+        public int PlanoControlador_LimiteKm { get; set; }
         public CategoriaAutomoveis CategoriaAutomoveis { get; set; }
 
-        public PlanoCobranca(decimal valorDia, decimal valorKmRodado, int kmLivre, TipoPlano plano, CategoriaAutomoveis categoriaAutomoveis)
+        public PlanoCobranca(decimal planoDiario_ValorDiario, decimal planoDiario_ValorKm, decimal planoLivre_ValorDiario, decimal planoControlador_ValorDiario, decimal planoControlador_ValorKm, int planoControlador_LimiteKm, CategoriaAutomoveis categoriaAutomoveis)
         {
-            ValorDia = valorDia;
-            ValorKmRodado = valorKmRodado;
-            KmLivre = kmLivre;
-            Plano = plano;
+            PlanoDiario_ValorDiario = planoDiario_ValorDiario;
+            PlanoDiario_ValorKm = planoDiario_ValorKm;
+            PlanoLivre_ValorDiario = planoLivre_ValorDiario;
+            PlanoControlador_ValorDiario = planoControlador_ValorDiario;
+            PlanoControlador_ValorKm = planoControlador_ValorKm;
+            PlanoControlador_LimiteKm = planoControlador_LimiteKm;
             CategoriaAutomoveis = categoriaAutomoveis;
         }
 
@@ -25,19 +28,16 @@ namespace LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas
             
         }
 
-        public override string ToString()
-        {
-            return Plano.ToDescriptionString();
-        }
-
         public override bool Equals(object? obj)
         {
             return obj is PlanoCobranca cobranca &&
                    ID.Equals(cobranca.ID) &&
-                   ValorDia == cobranca.ValorDia &&
-                   ValorKmRodado == cobranca.ValorKmRodado &&
-                   KmLivre == cobranca.KmLivre &&
-                   Plano == cobranca.Plano &&
+                   PlanoDiario_ValorDiario == cobranca.PlanoDiario_ValorDiario &&
+                   PlanoDiario_ValorKm == cobranca.PlanoDiario_ValorKm &&
+                   PlanoLivre_ValorDiario == cobranca.PlanoLivre_ValorDiario &&
+                   PlanoControlador_ValorDiario == cobranca.PlanoControlador_ValorDiario &&
+                   PlanoControlador_ValorKm == cobranca.PlanoControlador_ValorKm &&
+                   PlanoControlador_LimiteKm == cobranca.PlanoControlador_LimiteKm &&
                    EqualityComparer<CategoriaAutomoveis>.Default.Equals(CategoriaAutomoveis, cobranca.CategoriaAutomoveis);
         }
     }

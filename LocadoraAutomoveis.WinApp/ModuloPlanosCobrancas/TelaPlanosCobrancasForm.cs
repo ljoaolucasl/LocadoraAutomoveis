@@ -1,6 +1,5 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
-using LocadoraAutomoveis.Dominio.Extensions;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.WinApp.Extensions;
@@ -24,9 +23,12 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
 
             _planoCobranca = new PlanoCobranca();
 
-            numPrecoDiaria.Controls[0].Visible = false;
-            numPrecoKm.Controls[0].Visible = false;
-            numKmDisponivel.Controls[0].Visible = false;
+            numPrecoDiaria1.Controls[0].Visible = false;
+            numPrecoKm1.Controls[0].Visible = false;
+            numPrecoDiaria2.Controls[0].Visible = false;
+            numPrecoKm2.Controls[0].Visible = false;
+            numKmDisponivel2.Controls[0].Visible = false;
+            numPrecoDiaria3.Controls[0].Visible = false;
         }
 
         public PlanoCobranca? Entidade
@@ -36,10 +38,12 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
             set
             {
                 cmbCategoria.Text = value.CategoriaAutomoveis.Nome;
-                cmbTipoPlano.Text = value.Plano.ToDescriptionString();
-                numPrecoDiaria.Value = value.ValorDia;
-                numPrecoKm.Value = value.ValorDia;
-                numKmDisponivel.Value = value.ValorDia;
+                numPrecoDiaria1.Value = value.PlanoDiario_ValorDiario;
+                numPrecoKm1.Value = value.PlanoDiario_ValorKm;
+                numPrecoDiaria2.Value = value.PlanoControlador_ValorDiario;
+                numPrecoKm2.Value = value.PlanoControlador_ValorKm;
+                numKmDisponivel2.Value = value.PlanoControlador_LimiteKm;
+                numPrecoDiaria3.Value = value.PlanoLivre_ValorDiario;
                 _planoCobranca = value;
             }
         }
@@ -49,11 +53,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
             cmbCategoria.DataSource = categorias;
             cmbCategoria.DisplayMember = "Nome";
             cmbCategoria.ValueMember = "ID";
-        }
-
-        public void CarregarPlanos(List<string> planos)
-        {
-            cmbTipoPlano.DataSource = planos;
         }
 
         private void btnGravar_Click(object sender, EventArgs e)
@@ -79,10 +78,12 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
         private PlanoCobranca ObterPlanoCobranca()
         {
             _planoCobranca.CategoriaAutomoveis = cmbCategoria.SelectedItem as CategoriaAutomoveis;
-            _planoCobranca.Plano = Utils.GetEnumValueFromDescription<TipoPlano>(cmbTipoPlano.SelectedItem as string);
-            _planoCobranca.ValorDia = numPrecoDiaria.Value;
-            _planoCobranca.ValorKmRodado = numPrecoKm.Value;
-            _planoCobranca.KmLivre = (int)numKmDisponivel.Value;
+            _planoCobranca.PlanoDiario_ValorDiario = numPrecoDiaria1.Value;
+            _planoCobranca.PlanoDiario_ValorKm = numPrecoKm1.Value;
+            _planoCobranca.PlanoControlador_ValorDiario = numPrecoDiaria2.Value;
+            _planoCobranca.PlanoControlador_ValorKm = numPrecoKm2.Value;
+            _planoCobranca.PlanoControlador_LimiteKm = (int)numKmDisponivel2.Value;
+            _planoCobranca.PlanoLivre_ValorDiario = numPrecoDiaria3.Value;
 
             return _planoCobranca;
         }
@@ -94,10 +95,12 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
                 switch (item.PropertyName)
                 {
                     case "CategoriaAutomoveis": lbErroCategoria.Text = item.ErrorMessage; lbErroCategoria.Visible = true; break;
-                    case "ValorDia": lbErroPrecoDiaria.Text = item.ErrorMessage; lbErroPrecoDiaria.Visible = true; break;
-                    case "ValorKmRodado": lbErroPrecoKm.Text = item.ErrorMessage; lbErroPrecoKm.Visible = true; break;
-                    case "KmLivre": lbErroKmDisponivel.Text = item.ErrorMessage; lbErroKmDisponivel.Visible = true; break;
-                    case "Plano": lbErroTipoPlano.Text = item.ErrorMessage; lbErroTipoPlano.Visible = true; break;
+                    case "PlanoDiario_ValorDiario": lbErroPrecoDiaria1.Text = item.ErrorMessage; lbErroPrecoDiaria1.Visible = true; break;
+                    case "PlanoDiario_ValorKm": lbErroPrecoKm1.Text = item.ErrorMessage; lbErroPrecoKm1.Visible = true; break;
+                    case "PlanoControlador_ValorDiario": lbErroPrecoDiaria2.Text = item.ErrorMessage; lbErroPrecoDiaria2.Visible = true; break;
+                    case "PlanoControlador_ValorKm": lbErroPrecoKm2.Text = item.ErrorMessage; lbErroPrecoKm2.Visible = true; break;
+                    case "PlanoControlador_LimiteKm": lbErroKmDisponivel2.Text = item.ErrorMessage; lbErroKmDisponivel2.Visible = true; break;
+                    case "PlanoLivre_ValorDiario": lbErroPrecoDiaria3.Text = item.ErrorMessage; lbErroPrecoDiaria3.Visible = true; break;
                 }
             }
         }
@@ -105,11 +108,12 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
         private void ResetarErros()
         {
             lbErroCategoria.Visible = false;
-            lbErroPrecoDiaria.Visible = false;
-            lbErroPrecoKm.Visible = false;
-            lbErroKmDisponivel.Visible = false;
-            lbErroKmDisponivel.Visible = false;
-            lbErroTipoPlano.Visible = false;
+            lbErroPrecoDiaria1.Visible = false;
+            lbErroPrecoKm1.Visible = false;
+            lbErroPrecoDiaria2.Visible = false;
+            lbErroPrecoKm2.Visible = false;
+            lbErroKmDisponivel2.Visible = false;
+            lbErroPrecoDiaria3.Visible = false;
 
             _resultado.Errors.Clear();
             _resultado.Reasons.Clear();
@@ -124,24 +128,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
         {
             if (((NumericUpDown)sender).Controls[1].Text == "0,00" || ((NumericUpDown)sender).Controls[1].Text == "0")
                 ((TextBox)((NumericUpDown)sender).Controls[1]).SelectAll();
-        }
-
-        private void cmbTipoPlano_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            AtualizarControles(Utils.GetEnumValueFromDescription<TipoPlano>((string)cmbTipoPlano.SelectedItem));
-        }
-
-        private void AtualizarControles(TipoPlano tipoPlano)
-        {
-            numPrecoDiaria.Enabled = true;
-            numPrecoKm.Enabled = tipoPlano != TipoPlano.Livre;
-            numKmDisponivel.Enabled = tipoPlano == TipoPlano.Controlador;
-            lbPrecoKm.Text = tipoPlano == TipoPlano.Controlador ? "Preço/Km (Extrapolado):" : "Preço por Km:";
-            lbPrecoKm.Location = tipoPlano == TipoPlano.Controlador ? new Point(8, 135) : new Point(63, 135);
-
-            numPrecoDiaria.Value = 0;
-            numPrecoKm.Value = 0;
-            numKmDisponivel.Value = 0;
         }
     }
 }

@@ -17,11 +17,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
         {
             var categorias = _servico2.SelecionarTodosOsRegistros();
 
-            var planos = Enum.GetValues(typeof(TipoPlano)).Cast<TipoPlano>().ToList()
-                .ConvertAll(x => x.ToDescriptionString());
-
             tela.CarregarCategorias(categorias);
-            tela.CarregarPlanos(planos);
         }
 
         protected override string TipoCadastro => "Planos de Cobranças";

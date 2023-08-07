@@ -32,11 +32,12 @@ namespace LocadoraAutomoveis.Dominio.ModuloCupom
         public override bool Equals(object? obj)
         {
             return obj is Cupom cupom &&
-                   ID == cupom.ID &&
+                   ID.Equals(cupom.ID) &&
                    Nome == cupom.Nome &&
                    Valor == cupom.Valor &&
                    DataValidade == cupom.DataValidade &&
-                   Parceiro == cupom.Parceiro;
+                   EqualityComparer<Parceiro>.Default.Equals(Parceiro, cupom.Parceiro) &&
+                   QtdUsos == cupom.QtdUsos;
         }
     }
 }

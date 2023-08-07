@@ -1,5 +1,4 @@
-﻿using LocadoraAutomoveis.Dominio.Extensions;
-using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
+﻿using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
@@ -10,7 +9,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
         {
             InitializeComponent();
 
-            gridPlanosCobrancas.ConfigurarTabelaGrid("ID", "Valor/Dia", "Valor/Km Rodado", "Km livre", "Tipo do Plano");
+            gridPlanosCobrancas.ConfigurarTabelaGrid("ID", "Categoria de Automóvel");
         }
 
         public void AtualizarLista(List<PlanoCobranca> planosCobrancas)
@@ -20,7 +19,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
             foreach (PlanoCobranca item in planosCobrancas)
             {
                 DataGridViewRow row = new();
-                row.CreateCells(gridPlanosCobrancas, item.ID, item.ValorDia, item.ValorKmRodado, item.KmLivre, item.Plano.ToDescriptionString());
+                row.CreateCells(gridPlanosCobrancas, item.ID, item.CategoriaAutomoveis.Nome);
                 row.Cells[0].Tag = item;
                 gridPlanosCobrancas.Rows.Add(row);
             }

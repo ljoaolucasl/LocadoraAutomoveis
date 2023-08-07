@@ -6,19 +6,23 @@ namespace LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas
     {
         public ValidadorPlanosCobrancas()
         {
-            RuleFor(p => p.ValorDia)
-                .GreaterThan(0).WithMessage("'ValorDia' deve ser maior que zero.");
+            RuleFor(p => p.PlanoDiario_ValorDiario)
+                .GreaterThan(0).WithMessage("'Valor diário' deve ser maior que zero.");
 
-            RuleFor(p => p.ValorKmRodado)
-                .Must((plano, valorKmRodado) => plano.Plano == TipoPlano.Livre ? valorKmRodado >= 0 : valorKmRodado > 0)
-                .WithMessage("'ValorKmRodado' deve ser maior que zero.");
+            RuleFor(p => p.PlanoDiario_ValorKm)
+                .GreaterThan(0).WithMessage("'Valor por Km' deve ser maior que zero.");
 
-            RuleFor(p => p.KmLivre)
-            .Must((plano, kmLivre) => (plano.Plano == TipoPlano.Diario || plano.Plano == TipoPlano.Livre) ? kmLivre >= 0 : kmLivre > 0)
-            .WithMessage("'KmLivre' deve ser maior que zero.");
+            RuleFor(p => p.PlanoLivre_ValorDiario)
+                .GreaterThan(0).WithMessage("'Valor diário' deve ser maior que zero.");
 
-            RuleFor(p => p.Plano)
-                .IsInEnum().WithMessage("'Plano' inválido.");
+            RuleFor(p => p.PlanoControlador_ValorDiario)
+                .GreaterThan(0).WithMessage("'Valor diário' deve ser maior que zero.");
+
+            RuleFor(p => p.PlanoControlador_ValorKm)
+                .GreaterThan(0).WithMessage("'Valor por Km' deve ser maior que zero.");
+
+            RuleFor(p => p.PlanoControlador_LimiteKm)
+                .GreaterThan(0).WithMessage("'Km disponiveis' deve ser maior que zero.");
 
             RuleFor(p => p.CategoriaAutomoveis)
                 .NotNull().WithMessage("'CategoriaAutomoveis' não pode ser nula.");

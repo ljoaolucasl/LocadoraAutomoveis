@@ -10,10 +10,12 @@ namespace LocadoraAutomoveis.Infraestrutura.Mapeadores
         {
             builder.ToTable("TBPlanoCobranca");
             builder.HasKey(p => p.ID);
-            builder.Property(p => p.ValorDia).IsRequired();
-            builder.Property(p => p.ValorKmRodado).IsRequired();
-            builder.Property(p => p.KmLivre).IsRequired();
-            builder.Property(p => p.Plano).IsRequired();
+            builder.Property(p => p.PlanoDiario_ValorDiario).IsRequired();
+            builder.Property(p => p.PlanoDiario_ValorKm).IsRequired();
+            builder.Property(p => p.PlanoLivre_ValorDiario).IsRequired();
+            builder.Property(p => p.PlanoControlador_ValorDiario).IsRequired();
+            builder.Property(p => p.PlanoControlador_ValorKm).IsRequired();
+            builder.Property(p => p.PlanoControlador_LimiteKm).IsRequired();
 
             builder.HasOne(p => p.CategoriaAutomoveis)
                 .WithMany()

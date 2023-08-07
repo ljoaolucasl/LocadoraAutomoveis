@@ -6,6 +6,7 @@ using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
 using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
+using LocadoraAutomoveis.Dominio.ModuloParceiro;
 using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
@@ -33,14 +34,15 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
 
             BuilderSetup.SetCreatePersistenceMethod<Aluguel>(_repositorioAluguel.Inserir);
 
-            Funcionario funcionario = new();
-            Cliente cliente = new();
-            CategoriaAutomoveis categoria = new();
-            PlanoCobranca plano = new();
-            Condutor condutor = new();
-            Automovel automovel = new();
-            Cupom cupom = new();
-            List<TaxaEServico> listTaxa = new();
+            Funcionario funcionario = Builder<Funcionario>.CreateNew().Build();
+            Cliente cliente = Builder<Cliente>.CreateNew().Build();
+            CategoriaAutomoveis categoria = Builder<CategoriaAutomoveis>.CreateNew().Build();
+            PlanoCobranca plano = Builder<PlanoCobranca>.CreateNew().With(c => c.CategoriaAutomoveis = categoria).Build();
+            Condutor condutor = Builder<Condutor>.CreateNew().With(c => c.Cliente = cliente).Build();
+            Automovel automovel = Builder<Automovel>.CreateNew().With(a => a.Categoria = categoria).With(c => c.Imagem = new byte[12]).Build();
+            Parceiro parceiro = Builder<Parceiro>.CreateNew().Build();
+            Cupom cupom = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Build();
+            List<TaxaEServico> listTaxa = Builder<TaxaEServico>.CreateListOfSize(5).Build().ToList();
             DateTime dataLocacao = DateTime.Now;
             DateTime dataPrevista = dataLocacao.AddDays(1);
             DateTime dataDevolucao = dataLocacao.AddDays(2);
@@ -181,6 +183,16 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
 
             //action
             bool resultado = _repositorioAluguel.Existe(aluguel2, true);
+
+            //assert
+            resultado.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void Deve_verificar_se_Cupom_do_Aluguel_existe()
+        {
+            //action
+            bool resultado = _repositorioAluguel.CupomExiste(_aluguel, new List<Cupom> { _aluguel.Cupom });
 
             //assert
             resultado.Should().BeTrue();

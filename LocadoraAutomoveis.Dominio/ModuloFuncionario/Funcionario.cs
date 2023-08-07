@@ -20,6 +20,7 @@
         public override bool Equals(object? obj)
         {
             return obj is Funcionario funcionario &&
+                   ID.Equals(funcionario.ID) &&
                    Nome == funcionario.Nome &&
                    Admissao == funcionario.Admissao &&
                    Salario == funcionario.Salario;

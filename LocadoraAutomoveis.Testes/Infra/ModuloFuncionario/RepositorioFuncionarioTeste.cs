@@ -20,6 +20,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloFuncionario
 
             _repositorioFuncionarios = new RepositorioFuncionario(_contexto);
 
+            _contexto.RemoveRange(new RepositorioAluguel(_contexto).SelecionarTodos());
             _contexto.RemoveRange(_repositorioFuncionarios.Registros);
 
             BuilderSetup.SetCreatePersistenceMethod<Funcionario>(_repositorioFuncionarios.Inserir);

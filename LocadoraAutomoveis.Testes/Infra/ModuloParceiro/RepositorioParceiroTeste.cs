@@ -22,6 +22,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloParceiro
             _repositorioParceiro = new RepositorioParceiro(_contexto);
             _repositorioCupom = new RepositorioCupom(_contexto);
 
+            _contexto.RemoveRange(new RepositorioAluguel(_contexto).SelecionarTodos());
             _contexto.RemoveRange(_repositorioCupom.Registros);
             _contexto.RemoveRange(_repositorioParceiro.Registros);
 

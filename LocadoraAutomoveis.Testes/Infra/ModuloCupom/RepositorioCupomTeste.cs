@@ -21,6 +21,8 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCupom
 
             _repositorioCupom = new RepositorioCupom(_contexto);
 
+            _contexto.RemoveRange(new RepositorioAluguel(_contexto).SelecionarTodos());
+            _contexto.RemoveRange(new RepositorioParceiro(_contexto).SelecionarTodos());
             _contexto.RemoveRange(_repositorioCupom.Registros);
 
             BuilderSetup.SetCreatePersistenceMethod<Cupom>(_repositorioCupom.Inserir);

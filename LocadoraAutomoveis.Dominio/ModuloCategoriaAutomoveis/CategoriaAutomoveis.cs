@@ -15,9 +15,9 @@
 
         public override bool Equals(object? obj)
         {
-            return obj is CategoriaAutomoveis categoria &&
-                   ID == categoria.ID &&
-                   Nome == categoria.Nome;
+            return obj is CategoriaAutomoveis automoveis &&
+                   ID.Equals(automoveis.ID) &&
+                   Nome == automoveis.Nome;
         }
     }
 }

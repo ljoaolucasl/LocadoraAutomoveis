@@ -19,8 +19,8 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
 
             _repositorioCategoriaAutomoveis = new RepositorioCategoriaAutomoveis(_contexto);
 
+            _contexto.RemoveRange(new RepositorioAluguel(_contexto).SelecionarTodos());
             _contexto.RemoveRange(new RepositorioAutomovel(_contexto).SelecionarTodos());
-
             _contexto.RemoveRange(_repositorioCategoriaAutomoveis.SelecionarTodos());
 
             BuilderSetup.SetCreatePersistenceMethod<CategoriaAutomoveis>(_repositorioCategoriaAutomoveis.Inserir);

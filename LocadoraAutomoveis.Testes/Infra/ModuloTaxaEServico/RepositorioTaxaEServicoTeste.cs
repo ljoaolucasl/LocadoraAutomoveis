@@ -19,6 +19,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloTaxaEServico
 
             _repositorioTaxaEServico = new RepositorioTaxaEServico(_contexto);
 
+            _contexto.RemoveRange(new RepositorioAluguel(_contexto).SelecionarTodos());
             _contexto.RemoveRange(_repositorioTaxaEServico.SelecionarTodos());
 
             BuilderSetup.SetCreatePersistenceMethod<TaxaEServico>(_repositorioTaxaEServico.Inserir);

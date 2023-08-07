@@ -20,6 +20,9 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloPlanosCobrancas
 
             _repositorioPlanosCobrancas = new RepositorioPlanosCobrancas(_contexto);
 
+            _contexto.RemoveRange(new RepositorioAluguel(_contexto).SelecionarTodos());
+            _contexto.RemoveRange(new RepositorioAutomovel(_contexto).SelecionarTodos());
+            _contexto.RemoveRange(new RepositorioCategoriaAutomoveis(_contexto).SelecionarTodos());
             _contexto.RemoveRange(_repositorioPlanosCobrancas.SelecionarTodos());
 
             BuilderSetup.SetCreatePersistenceMethod<PlanoCobranca>(_repositorioPlanosCobrancas.Inserir);

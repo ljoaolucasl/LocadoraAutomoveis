@@ -31,6 +31,14 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
             _repositorioAluguel = new RepositorioAluguel(_contexto);
 
             _contexto.RemoveRange(_repositorioAluguel.SelecionarTodos());
+            _contexto.RemoveRange(new RepositorioAutomovel(_contexto).SelecionarTodos());
+            _contexto.RemoveRange(new RepositorioCliente(_contexto).SelecionarTodos());
+            _contexto.RemoveRange(new RepositorioFuncionario(_contexto).SelecionarTodos());
+            _contexto.RemoveRange(new RepositorioParceiro(_contexto).SelecionarTodos());
+            _contexto.RemoveRange(new RepositorioTaxaEServico(_contexto).SelecionarTodos());
+            _contexto.RemoveRange(new RepositorioPlanosCobrancas(_contexto).SelecionarTodos());
+            _contexto.RemoveRange(new RepositorioCategoriaAutomoveis(_contexto).SelecionarTodos());
+            _contexto.RemoveRange(new RepositorioCupom(_contexto).SelecionarTodos());
 
             BuilderSetup.SetCreatePersistenceMethod<Aluguel>(_repositorioAluguel.Inserir);
 
@@ -108,17 +116,18 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
         }
 
         [TestMethod]
-        public void Deve_selecionar_todos_os_automoveis()
+        public void Deve_selecionar_todos_os_alugueis()
         {
             //arrange
-            var funcionario1 = Builder<Funcionario>.CreateNew().Build();
-            var cliente1 = Builder<Cliente>.CreateNew().Build();
-            var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Build();
-            var plano1 = Builder<PlanoCobranca>.CreateNew().Build();
-            var condutor1 = Builder<Condutor>.CreateNew().Build();
-            var automovel1 = Builder<Automovel>.CreateNew().Build();
-            var cupom1 = Builder<Cupom>.CreateNew().Build();
-            var taxas1 = Builder<List<TaxaEServico>>.CreateNew().Build();
+            Funcionario funcionario1 = Builder<Funcionario>.CreateNew().Build();
+            Cliente cliente1 = Builder<Cliente>.CreateNew().Build();
+            CategoriaAutomoveis categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Build();
+            PlanoCobranca plano1 = Builder<PlanoCobranca>.CreateNew().With(c => c.CategoriaAutomoveis = categoria1).Build();
+            Condutor condutor1 = Builder<Condutor>.CreateNew().With(c => c.Cliente = cliente1).Build();
+            Automovel automovel1 = Builder<Automovel>.CreateNew().With(a => a.Categoria = categoria1).With(c => c.Imagem = new byte[12]).Build();
+            Parceiro parceiro1 = Builder<Parceiro>.CreateNew().Build();
+            Cupom cupom1 = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro1).Build();
+            List<TaxaEServico> taxas1 = Builder<TaxaEServico>.CreateListOfSize(5).Build().ToList();
             DateTime dataLocacao = DateTime.Now;
             DateTime dataPrevista = dataLocacao.AddDays(1);
             DateTime dataDevolucao = dataLocacao.AddDays(2);
@@ -151,8 +160,13 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
             //arrange
             _repositorioAluguel.Inserir(_aluguel);
             var aluguel2 = new Aluguel(_aluguel.Funcionario, _aluguel.Cliente, _aluguel.CategoriaAutomoveis, _aluguel.PlanoCobranca, _aluguel.Condutor, _aluguel.Automovel,
-                _aluguel.Cupom, _aluguel.ListaTaxasEServicos, _aluguel.DataLocacao, _aluguel.DataPrevistaRetorno, _aluguel.DataDevolucao, _aluguel.QuilometrosRodados, _aluguel.CombustivelRestante, _aluguel.ValorTotal, _aluguel.Concluido);
+                _aluguel.Cupom, _aluguel.ListaTaxasEServicos, _aluguel.DataLocacao, _aluguel.DataPrevistaRetorno, _aluguel.DataDevolucao, _aluguel.QuilometrosRodados,
+                _aluguel.CombustivelRestante, _aluguel.ValorTotal, _aluguel.Concluido);
 
+            Aluguel teste1 = new();
+
+            var teste = _repositorioAluguel.SelecionarPorID(_aluguel.ID);
+            teste.ID = teste1.ID;
             //action
             bool resultado = _repositorioAluguel.Existe(aluguel2);
 

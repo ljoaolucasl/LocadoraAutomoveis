@@ -53,6 +53,22 @@ namespace LocadoraAutomoveis.Dominio.ModuloAutomovel
                    Quilometragem == automovel.Quilometragem &&
                    Alugado == automovel.Alugado;
         }
+
+        public bool Igual(object? obj)
+        {
+            return obj is Automovel automovel &&
+                   EqualityComparer<CategoriaAutomoveis>.Default.Equals(Categoria, automovel.Categoria) &&
+                   Placa == automovel.Placa &&
+                   Marca == automovel.Marca &&
+                   Cor == automovel.Cor &&
+                   Modelo == automovel.Modelo &&
+                   EqualityComparer<byte[]>.Default.Equals(Imagem, automovel.Imagem) &&
+                   TipoCombustivel == automovel.TipoCombustivel &&
+                   CapacidadeCombustivel == automovel.CapacidadeCombustivel &&
+                   Ano == automovel.Ano &&
+                   Quilometragem == automovel.Quilometragem &&
+                   Alugado == automovel.Alugado;
+        }
     }
 
     public enum TipoCombustível

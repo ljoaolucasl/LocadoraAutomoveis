@@ -4,7 +4,6 @@ using FluentResults.Extensions.FluentAssertions;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloAluguel;
-using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;

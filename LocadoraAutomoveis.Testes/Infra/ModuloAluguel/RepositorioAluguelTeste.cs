@@ -32,13 +32,14 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
 
             _contexto.RemoveRange(_repositorioAluguel.SelecionarTodos());
             _contexto.RemoveRange(new RepositorioAutomovel(_contexto).SelecionarTodos());
+            _contexto.RemoveRange(new RepositorioCondutores(_contexto).SelecionarTodos());
             _contexto.RemoveRange(new RepositorioCliente(_contexto).SelecionarTodos());
             _contexto.RemoveRange(new RepositorioFuncionario(_contexto).SelecionarTodos());
+            _contexto.RemoveRange(new RepositorioCupom(_contexto).SelecionarTodos());
             _contexto.RemoveRange(new RepositorioParceiro(_contexto).SelecionarTodos());
             _contexto.RemoveRange(new RepositorioTaxaEServico(_contexto).SelecionarTodos());
             _contexto.RemoveRange(new RepositorioPlanosCobrancas(_contexto).SelecionarTodos());
             _contexto.RemoveRange(new RepositorioCategoriaAutomoveis(_contexto).SelecionarTodos());
-            _contexto.RemoveRange(new RepositorioCupom(_contexto).SelecionarTodos());
 
             BuilderSetup.SetCreatePersistenceMethod<Aluguel>(_repositorioAluguel.Inserir);
 

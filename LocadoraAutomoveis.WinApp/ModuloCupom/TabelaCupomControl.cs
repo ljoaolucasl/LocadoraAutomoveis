@@ -23,6 +23,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCupom
                 row.Cells[0].Tag = item;
                 gridCupom.Rows.Add(row);
             }
+
             gridCupom.Columns[0].Visible = false;
 
             TelaPrincipalForm.AtualizarStatus($"Visualizando {cupons.Count} Cupons");

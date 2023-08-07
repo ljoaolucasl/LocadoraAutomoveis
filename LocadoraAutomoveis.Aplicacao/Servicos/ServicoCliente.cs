@@ -114,6 +114,20 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 return Result.Fail(erros);
             }
+            catch (InvalidOperationException ex)
+            {
+                Log.Warning("Falha ao tentar excluir o Cliente '{NOME} #{ID}'", clienteParaExcluir.Nome, clienteParaExcluir.ID, ex);
+
+                List<IError> erros = new();
+
+                if (ex.Message.Contains("'Cliente' and 'Condutor' "))
+                    erros.Add(new CustomError("Esse Cliente de Condutor está relacionado a um Condutor." +
+                        " Primeiro exclua o Condutor relacionado", "Cliente"));
+                else
+                    erros.Add(new CustomError("Falha ao tentar excluir a Cliente de Condutor", "Cliente"));
+
+                return Result.Fail(erros);
+            }
         }
         #endregion
 

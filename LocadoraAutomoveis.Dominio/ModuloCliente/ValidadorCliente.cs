@@ -27,12 +27,12 @@ namespace LocadoraAutomoveis.Dominio.ModuloCliente
             RuleFor(c => c.Documento)
             .NotEmpty().WithMessage("'CPF' não pode ser vazio.")
             .Custom(ValidarCPF)
-            .When(c => c.TipoCliente == Tipo.CPF);
+            .When(c => c.TipoCliente == TipoDocumento.CPF);
 
             RuleFor(c => c.Documento)
             .NotEmpty().WithMessage("'CNPJ' não pode ser vazio.")
             .Custom(ValidarCNPJ)
-            .When(c => c.TipoCliente == Tipo.CNPJ);
+            .When(c => c.TipoCliente == TipoDocumento.CNPJ);
 
             RuleFor(c => c.Estado)
                 .NotEmpty().WithMessage("'Estado' não pode ser vazio.")

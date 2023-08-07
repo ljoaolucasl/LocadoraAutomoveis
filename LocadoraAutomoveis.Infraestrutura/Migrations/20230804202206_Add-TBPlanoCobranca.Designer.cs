@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraAutomoveis.Infraestrutura.Migrations
 {
     [DbContext(typeof(ContextoDados))]
-    [Migration("20230804200016_Add-TBCliente")]
-    partial class AddTBCliente
+    [Migration("20230804202206_Add-TBPlanoCobranca")]
+    partial class AddTBPlanoCobranca
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -202,6 +202,34 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                     b.ToTable("TBParceiro", (string)null);
                 });
 
+            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas.PlanoCobranca", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CategoriaAutomoveisID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("KmLivre")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Plano")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ValorDia")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ValorKmRodado")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CategoriaAutomoveisID");
+
+                    b.ToTable("TBPlanoCobranca", (string)null);
+                });
+
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloTaxaEServico.TaxaEServico", b =>
                 {
                     b.Property<Guid>("ID")
@@ -245,6 +273,18 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                         .HasConstraintName("FK_TBCupom_TBParceiro");
 
                     b.Navigation("Parceiro");
+                });
+
+            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas.PlanoCobranca", b =>
+                {
+                    b.HasOne("LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis.CategoriaAutomoveis", "CategoriaAutomoveis")
+                        .WithMany()
+                        .HasForeignKey("CategoriaAutomoveisID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_TBPlanoCobranca_TBCategoriaAutomoveis");
+
+                    b.Navigation("CategoriaAutomoveis");
                 });
 #pragma warning restore 612, 618
         }

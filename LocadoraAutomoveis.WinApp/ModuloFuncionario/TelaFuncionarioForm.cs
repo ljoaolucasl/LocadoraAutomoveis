@@ -19,6 +19,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloFuncionario
             _resultado = new Result();
 
             _funcionario = new Funcionario();
+
+            txtSalario.Controls[0].Visible = false;
         }
 
         public Funcionario? Entidade

@@ -4,7 +4,9 @@ using LocadoraAutomoveis.Dominio.ModuloAluguel;
 using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
+using LocadoraAutomoveis.Dominio.ModuloCondutores;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
+using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloAluguel

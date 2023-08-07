@@ -2,8 +2,10 @@
 using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
+using LocadoraAutomoveis.Dominio.ModuloCondutores;
 using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
+using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 
 namespace LocadoraAutomoveis.Testes.Dominio.ModuloAluguel
@@ -23,7 +25,7 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAluguel
             Cliente cliente = new();
             CategoriaAutomoveis categoria = new();
             PlanoCobranca plano = new();
-            Condutores condutor = new();
+            Condutor condutor = new();
             Automovel automovel = new();
             Cupom cupom = new();
             List<TaxaEServico> listTaxa = new();

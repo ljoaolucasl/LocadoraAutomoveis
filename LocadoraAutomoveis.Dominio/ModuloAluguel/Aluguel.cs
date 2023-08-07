@@ -1,8 +1,10 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
+using LocadoraAutomoveis.Dominio.ModuloCondutores;
 using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
+using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using System.ComponentModel;
 
@@ -14,7 +16,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
         public Cliente Cliente { get; set; }
         public CategoriaAutomoveis CategoriaAutomoveis { get; set; }
         public PlanoCobranca PlanoCobranca { get; set; }
-        public Condutores Condutor { get; set; }
+        public Condutor Condutor { get; set; }
         public Automovel Automovel { get; set; }
         public Cupom? Cupom { get; set; }
         public List<TaxaEServico> ListaTaxasEServicos { get; set; }
@@ -27,7 +29,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
         public bool Concluido { get; set; }
 
         public Aluguel(Funcionario funcionario, Cliente cliente, CategoriaAutomoveis categoriaAutomoveis, PlanoCobranca planoCobranca,
-            Condutores condutor, Automovel automovel, Cupom? cupom, List<TaxaEServico> listaTaxasEServicos, DateTime dataLocacao,
+            Condutor condutor, Automovel automovel, Cupom? cupom, List<TaxaEServico> listaTaxasEServicos, DateTime dataLocacao,
             DateTime dataPrevistaRetorno, DateTime? dataDevolucao, decimal? quilometrosRodados, NivelTanque? combustivelRestante,
             decimal valorTotal, bool concluido)
         {
@@ -60,7 +62,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
                    EqualityComparer<Cliente>.Default.Equals(Cliente, aluguel.Cliente) &&
                    EqualityComparer<CategoriaAutomoveis>.Default.Equals(CategoriaAutomoveis, aluguel.CategoriaAutomoveis) &&
                    EqualityComparer<PlanoCobranca>.Default.Equals(PlanoCobranca, aluguel.PlanoCobranca) &&
-                   EqualityComparer<Condutores>.Default.Equals(Condutor, aluguel.Condutor) &&
+                   EqualityComparer<Condutor>.Default.Equals(Condutor, aluguel.Condutor) &&
                    EqualityComparer<Automovel>.Default.Equals(Automovel, aluguel.Automovel) &&
                    EqualityComparer<Cupom?>.Default.Equals(Cupom, aluguel.Cupom) &&
                    EqualityComparer<List<TaxaEServico>>.Default.Equals(ListaTaxasEServicos, aluguel.ListaTaxasEServicos) &&

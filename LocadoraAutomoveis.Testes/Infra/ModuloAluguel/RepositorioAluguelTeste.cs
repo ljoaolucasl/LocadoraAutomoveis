@@ -3,8 +3,10 @@ using LocadoraAutomoveis.Dominio.ModuloAluguel;
 using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
+using LocadoraAutomoveis.Dominio.ModuloCondutores;
 using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
+using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
@@ -35,7 +37,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
             Cliente cliente = new();
             CategoriaAutomoveis categoria = new();
             PlanoCobranca plano = new();
-            Condutores condutor = new();
+            Condutor condutor = new();
             Automovel automovel = new();
             Cupom cupom = new();
             List<TaxaEServico> listTaxa = new();
@@ -111,7 +113,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
             var cliente1 = Builder<Cliente>.CreateNew().Build();
             var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Build();
             var plano1 = Builder<PlanoCobranca>.CreateNew().Build();
-            var condutor1 = Builder<Condutores>.CreateNew().Build();
+            var condutor1 = Builder<Condutor>.CreateNew().Build();
             var automovel1 = Builder<Automovel>.CreateNew().Build();
             var cupom1 = Builder<Cupom>.CreateNew().Build();
             var taxas1 = Builder<List<TaxaEServico>>.CreateNew().Build();
@@ -147,7 +149,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
             //arrange
             _repositorioAluguel.Inserir(_aluguel);
             var aluguel2 = new Aluguel(_aluguel.Funcionario, _aluguel.Cliente, _aluguel.CategoriaAutomoveis, _aluguel.PlanoCobranca, _aluguel.Condutor, _aluguel.Automovel,
-                _aluguel.Cupom, _aluguel.ListaTaxasEServicos, _aluguel.DataLocacao, _aluguel.DataPrevistaRetorno, _aluguel.DataDevolucao, _aluguel.QuilometrosRodados, _aluguel.CombustivelRestante _aluguel.ValorTotal, _aluguel.Concluido);
+                _aluguel.Cupom, _aluguel.ListaTaxasEServicos, _aluguel.DataLocacao, _aluguel.DataPrevistaRetorno, _aluguel.DataDevolucao, _aluguel.QuilometrosRodados, _aluguel.CombustivelRestante, _aluguel.ValorTotal, _aluguel.Concluido);
 
             //action
             bool resultado = _repositorioAluguel.Existe(aluguel2);

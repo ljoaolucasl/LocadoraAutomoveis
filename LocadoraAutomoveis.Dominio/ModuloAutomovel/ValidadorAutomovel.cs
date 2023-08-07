@@ -42,6 +42,11 @@ namespace LocadoraAutomoveis.Dominio.ModuloAutomovel
                 .GreaterThanOrEqualTo(0).WithMessage("'Quilometragem' não pode ser menor que zero.");
         }
 
+        public bool VerificarSeAlugado(Automovel automovelParaValidar)
+        {
+            return !automovelParaValidar.Alugado;
+        }
+
         private void ValidarTamanho(byte[] imagem, ValidationContext<Automovel> contexto)
         {
             if (imagem == null || imagem.Length == 0)

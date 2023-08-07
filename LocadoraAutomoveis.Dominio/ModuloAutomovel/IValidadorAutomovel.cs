@@ -2,5 +2,6 @@
 {
     public interface IValidadorAutomovel : IValidador<Automovel>
     {
+        bool VerificarSeAlugado(Automovel automovelParaValidar);
     }
 }

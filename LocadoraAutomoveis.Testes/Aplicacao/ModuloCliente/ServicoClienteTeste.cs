@@ -174,21 +174,18 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCliente
         }
 
         [TestMethod]
-        public void Nao_Deve_excluir_cliente_quando_relacionado_ao_aluguel_em_aberto()
+        public void Nao_Deve_excluir_cliente_quando_relacionado_ao_aluguel()
         {
+            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBAluguel_TBCliente");
+
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<Cliente>(), true)).Returns(true);
-            var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
-            FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
-
-            messageField?.SetValue(exception, "FK_TBCliente_TBOBJETORELACAO");
-
-            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Cliente>())).Throws(exception);
+            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Cliente>())).Throws(dbUpdateException);
 
             var resultado = _servico.Excluir(Builder<Cliente>.CreateNew().Build());
 
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Cliente está relacionado à um ObjetoRelacao." +
-                " Primeiro exclua o ObjetoRelacao relacionado");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Cliente está relacionado a um Aluguel." +
+                " Primeiro exclua o Aluguel relacionado");
         }
 
         [TestMethod]

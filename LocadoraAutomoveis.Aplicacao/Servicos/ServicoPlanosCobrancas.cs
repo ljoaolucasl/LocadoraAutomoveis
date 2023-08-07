@@ -101,15 +101,15 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 return Result.Ok();
             }
-            catch (DbUpdateException ex) when (ex.InnerException is SqlException)
+            catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
                 Log.Warning("Falha ao tentar excluir o Plano de Cobrança'{NOME} #{ID}'", planoCobrancaParaExcluir, planoCobrancaParaExcluir.ID, ex);
 
                 List<IError> erros = new();
 
-                if (ex.Message.Contains("FK_TBPlanosCobrancas_TBAluguel"))
-                    erros.Add(new CustomError("Esse plano de cobrança está relacionado a um aluguel." +
-                        " Primeiro exclua o aluguel relacionado", "Plano de Cobrança"));
+                if (sqlException.Message.Contains("FK_TBAluguel_TBPlanoCobranca"))
+                    erros.Add(new CustomError("Esse Plano de Cobrança está relacionado a um Aluguel." +
+                " Primeiro exclua o Aluguel relacionado", "Plano de Cobrança"));
                 else
                     erros.Add(new CustomError("Falha ao tentar excluir o plano de cobrança", "Plano de Cobrança"));
 

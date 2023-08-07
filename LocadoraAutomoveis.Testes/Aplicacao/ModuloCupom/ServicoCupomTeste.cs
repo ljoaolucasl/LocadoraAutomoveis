@@ -165,7 +165,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCupom
         }
 
         [TestMethod]
-        public void Nao_Deve_excluir_cupom_quando_relacionado_ao_aluguel_em_aberto()
+        public void Nao_Deve_excluir_cupom_quando_relacionado_ao_aluguel()
         {
             DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBAluguel_TBCupom");
 

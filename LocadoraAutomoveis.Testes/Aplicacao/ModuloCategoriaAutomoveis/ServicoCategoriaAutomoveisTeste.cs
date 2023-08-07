@@ -213,7 +213,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
         public void Nao_Deve_excluir_categoria_quando_relacionada_ao_plano_de_cobranca()
         {
             //arrange
-            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBOBJETORELACAO_TBCategoriaAutomoveis");
+            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBPlanoCobranca_TBCategoriaAutomoveis");
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>(), true)).Returns(true);
             _repositorioMoq.Setup(x => x.Excluir(It.IsAny<CategoriaAutomoveis>())).Throws(dbUpdateException);
 
@@ -222,15 +222,15 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
 
             //assert
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Essa Categoria está relacionada à um ObjetoRelacao." +
-                " Primeiro exclua o ObjetoRelacao relacionado");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Essa Categoria de Automóveis está relacionada a um Plano de Cobrança." +
+                        " Primeiro exclua o Plano de Cobrança relacionado");
         }
 
         [TestMethod]
-        public void Nao_Deve_excluir_categoria_quando_relacionada_ao_aluguel_em_aberto()
+        public void Nao_Deve_excluir_categoria_quando_relacionado_ao_aluguel()
         {
             //arrange
-            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBOBJETORELACAO_TBCategoriaAutomoveis");
+            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBAluguel_TBCategoriaAutomoveis");
 
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<CategoriaAutomoveis>(), true)).Returns(true);
             _repositorioMoq.Setup(x => x.Excluir(It.IsAny<CategoriaAutomoveis>())).Throws(dbUpdateException);
@@ -240,8 +240,8 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
 
             //assert
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Essa Categoria está relacionada à um ObjetoRelacao." +
-                " Primeiro exclua o ObjetoRelacao relacionado");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Essa Categoria de Automóveis está relacionada a um Aluguel." +
+                        " Primeiro exclua o Aluguel relacionado");
         }
 
         [TestMethod]

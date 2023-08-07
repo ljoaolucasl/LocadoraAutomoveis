@@ -170,7 +170,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloPlanosCobrancas
         }
 
         [TestMethod]
-        public void Nao_Deve_excluir_planoCobranca_quando_relacionado_ao_aluguel_em_aberto()
+        public void Nao_Deve_excluir_planoCobranca_quando_relacionado_ao_aluguel()
         {
             DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBAluguel_TBPlanoCobranca");
 
@@ -180,8 +180,8 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloPlanosCobrancas
             var resultado = _servico.Excluir(Builder<PlanoCobranca>.CreateNew().Build());
 
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse plano de cobrança está relacionada a um aluguel." +
-                " Primeiro exclua o aluguel relacionado");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Plano de Cobrança está relacionado a um Aluguel." +
+                " Primeiro exclua o Aluguel relacionado");
         }
 
         [TestMethod]

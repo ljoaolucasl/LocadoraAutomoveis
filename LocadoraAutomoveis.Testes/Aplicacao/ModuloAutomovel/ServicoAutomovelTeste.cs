@@ -163,6 +163,21 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAutomovel
             resultado.Should().BeFailure();
             resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Falha ao tentar editar o Automóvel ");
         }
+
+        [TestMethod]
+        public void Deve_verificar_a_disponibilidade_do_automovel()
+        {
+            //arrange
+            _validadorMoq.Setup(x => x.VerificarSeAlugado(It.IsAny<Automovel>())).Returns(true);
+
+            //action
+            Result resultado = _servico.VerificarDisponibilidade(_automovel);
+
+            //assert 
+            resultado.Should().BeFailure();
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Automóvel está relacionado a um Aluguel em Aberto." +
+                        " Primeiro conclua o Aluguel relacionado");
+        }
         #endregion
 
         #region Testes Excluir
@@ -197,10 +212,10 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAutomovel
         }
 
         [TestMethod]
-        public void Nao_Deve_excluir_automovel_quando_relacionada_ao_aluguel_em_aberto()
+        public void Nao_Deve_excluir_automovel_quando_relacionado_ao_aluguel()
         {
             //arrange
-            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBOBJETORELACAO_TBAutomovel");
+            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBAluguel_TBAutomovel");
 
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<Automovel>(), true)).Returns(true);
             _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Automovel>())).Throws(dbUpdateException);
@@ -210,8 +225,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAutomovel
 
             //assert
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Automóvel está relacionada à um ObjetoRelacao." +
-                " Primeiro exclua o ObjetoRelacao relacionado");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Automóvel está relacionado a um Aluguel. Primeiro exclua o Aluguel relacionado");
         }
 
         [TestMethod]

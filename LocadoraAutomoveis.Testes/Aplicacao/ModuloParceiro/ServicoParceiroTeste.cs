@@ -167,7 +167,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloParceiro
         [TestMethod]
         public void Nao_Deve_excluir_parceiro_quando_relacionado_ao_cupom()
         {
-            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBParceiro_TBCupom");
+            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBCupom_TBParceiro");
 
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<Parceiro>(), true)).Returns(true);
             _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Parceiro>())).Throws(dbUpdateException);
@@ -175,23 +175,8 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloParceiro
             var resultado = _servico.Excluir(Builder<Parceiro>.CreateNew().Build());
 
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse parceiro está relacionado a um cupom." +
-                " Primeiro exclua o cupom relacionado");
-        }
-
-        [TestMethod]
-        public void Nao_Deve_excluir_parceiro_quando_relacionada_ao_aluguel_em_aberto()
-        {
-            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBOBJETORELACAO_TBParceiro");
-
-            _repositorioMoq.Setup(x => x.Existe(It.IsAny<Parceiro>(), true)).Returns(true);
-            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Parceiro>())).Throws(dbUpdateException);
-
-            var resultado = _servico.Excluir(Builder<Parceiro>.CreateNew().Build());
-
-            resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse parceiro está relacionado a um ObjetoRelacao." +
-                " Primeiro exclua o ObjetoRelacao relacionado");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Parceiro está relacionado a um Cupom." +
+                        " Primeiro exclua o Cupom relacionado");
         }
 
         [TestMethod]

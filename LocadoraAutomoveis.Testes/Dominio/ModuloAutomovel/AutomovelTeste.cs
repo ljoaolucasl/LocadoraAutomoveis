@@ -1,4 +1,5 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloAutomovel;
+﻿using FluentResults;
+using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 
 namespace LocadoraAutomoveis.Testes.Dominio.ModuloAutomovel
@@ -213,6 +214,19 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAutomovel
 
             //assert
             resultado.IsValid.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Nao_deve_aceitar_automovel_alugado()
+        {
+            //arrange
+            _automovel.Alugado = true;
+
+            //action
+            bool resultado = _validador.VerificarSeAlugado(_automovel);
+
+            //assert
+            resultado.Should().BeFalse();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloFuncionario;
+using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
@@ -90,15 +91,15 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 return Result.Ok();
             }
-            catch (SqlException ex)
+            catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
-                Log.Warning("Falha ao tentar excluir a Funcionário '{NOME} #{ID}'", funcionarioParaExcluir.Nome, funcionarioParaExcluir.ID, ex);
+                Log.Warning("Falha ao tentar excluir Funcionário '{NOME} #{ID}'", funcionarioParaExcluir.Nome, funcionarioParaExcluir.ID, ex);
 
                 List<IError> erros = new();
 
-                if (ex.Message.Contains("FK_TBFuncionario_TBOBJETORELACAO"))
-                    erros.Add(new CustomError("Esse Funcionário está relacionado à um ObjetoRelacao." +
-                        " Primeiro exclua o ObjetoRelacao relacionado", "Funcionario"));
+                if (sqlException.Message.Contains("FK_TBAluguel_TBFuncionario"))
+                    erros.Add(new CustomError("Esse Funcionário está relacionado a um Aluguel." +
+                        " Primeiro exclua o Aluguel relacionado", "Funcionario"));
                 else
                     erros.Add(new CustomError("Falha ao tentar excluir Funcionário", "Funcionario"));
 

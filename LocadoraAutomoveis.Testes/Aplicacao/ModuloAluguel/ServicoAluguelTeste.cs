@@ -10,6 +10,7 @@ using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
 using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
+using LocadoraAutomoveis.Dominio.ModuloParceiro;
 using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using LocadoraAutomoveis.Testes.Compartilhado;
@@ -23,14 +24,15 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
     {
         private Mock<IRepositorioAluguel> _repositorioMoq;
         private Mock<IValidadorAluguel> _validadorMoq;
-        private Mock<IServicoFuncionario> servicoFuncionario;
-        private Mock<IServicoCliente> servicoCliente;
-        private Mock<IServicoCategoriaAutomoveis> servicoCategoriaAutomoveis;
-        private Mock<IServicoPlanoCobranca> servicoPlanosCobrancas;
-        private Mock<IServicoCondutor> servicoCondutores;
-        private Mock<IServicoAutomovel> servicoAutomovel;
-        private Mock<IServicoCupom> servicoCupom;
-        private Mock<IServicoTaxaEServico> servicoTaxaEServico;
+        private Mock<IServicoFuncionario> servicoFuncionarioMoq;
+        private Mock<IServicoCliente> servicoClienteMoq;
+        private Mock<IServicoCategoriaAutomoveis> servicoCategoriaAutomoveisMoq;
+        private Mock<IServicoPlanoCobranca> servicoPlanosCobrancasMoq;
+        private Mock<IServicoCondutor> servicoCondutoresMoq;
+        private Mock<IServicoAutomovel> servicoAutomovelMoq;
+        private Mock<IServicoCupom> servicoCupomMoq;
+        private Mock<IServicoTaxaEServico> servicoTaxaEServicoMoq;
+
         private ServicoAluguel _servico;
 
         private Aluguel _aluguel;
@@ -40,18 +42,29 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
         {
             _repositorioMoq = new Mock<IRepositorioAluguel>();
             _validadorMoq = new Mock<IValidadorAluguel>();
-            _servico = new ServicoAluguel(_repositorioMoq.Object, _validadorMoq.Object, servicoFuncionario.Object,
-                servicoCliente.Object, servicoCategoriaAutomoveis.Object, servicoPlanosCobrancas.Object,
-                servicoCondutores.Object, servicoAutomovel.Object, servicoCupom.Object, servicoTaxaEServico.Object);
 
-            Funcionario funcionario = new();
-            Cliente cliente = new();
-            CategoriaAutomoveis categoria = new();
-            PlanoCobranca plano = new();
-            Condutor condutor = new();
-            Automovel automovel = new();
-            Cupom cupom = new();
-            List<TaxaEServico> listTaxa = new();
+            servicoFuncionarioMoq = new Mock<IServicoFuncionario>();
+            servicoClienteMoq = new Mock<IServicoCliente>();
+            servicoCategoriaAutomoveisMoq = new Mock<IServicoCategoriaAutomoveis>();
+            servicoPlanosCobrancasMoq = new Mock<IServicoPlanoCobranca>();
+            servicoCondutoresMoq = new Mock<IServicoCondutor>();
+            servicoAutomovelMoq = new Mock<IServicoAutomovel>();
+            servicoCupomMoq = new Mock<IServicoCupom>();
+            servicoTaxaEServicoMoq = new Mock<IServicoTaxaEServico>();
+
+            _servico = new ServicoAluguel(_repositorioMoq.Object, _validadorMoq.Object, servicoFuncionarioMoq.Object,
+                servicoClienteMoq.Object, servicoCategoriaAutomoveisMoq.Object, servicoPlanosCobrancasMoq.Object,
+                servicoCondutoresMoq.Object, servicoAutomovelMoq.Object, servicoCupomMoq.Object, servicoTaxaEServicoMoq.Object);
+
+            Funcionario funcionario = Builder<Funcionario>.CreateNew().Build();
+            Cliente cliente = Builder<Cliente>.CreateNew().Build();
+            CategoriaAutomoveis categoria = Builder<CategoriaAutomoveis>.CreateNew().Build();
+            PlanoCobranca plano = Builder<PlanoCobranca>.CreateNew().With(c => c.CategoriaAutomoveis = categoria).Build();
+            Condutor condutor = Builder<Condutor>.CreateNew().With(c => c.Cliente = cliente).Build();
+            Automovel automovel = Builder<Automovel>.CreateNew().With(a => a.Categoria = categoria).With(c => c.Imagem = new byte[12]).Build();
+            Parceiro parceiro = Builder<Parceiro>.CreateNew().Build();
+            Cupom cupom = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Build();
+            List<TaxaEServico> listTaxa = Builder<TaxaEServico>.CreateListOfSize(5).Build().ToList();
             DateTime dataLocacao = DateTime.Now;
             DateTime dataPrevista = dataLocacao.AddDays(1);
             DateTime dataDevolucao = dataLocacao.AddDays(2);
@@ -59,22 +72,20 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
             NivelTanque nivelTanque = NivelTanque.MeioTanque;
             decimal valorTotal = 1000;
 
-            _aluguel = new Aluguel(funcionario, cliente, categoria, plano, condutor, automovel, cupom, listTaxa, dataLocacao, dataPrevista, dataDevolucao, quilometrosRodados, nivelTanque, valorTotal, true);
+            _aluguel = new Aluguel(funcionario, cliente, categoria, plano, condutor, automovel, cupom,
+                listTaxa, dataLocacao, dataPrevista, dataDevolucao, quilometrosRodados, nivelTanque, valorTotal, true);
         }
 
         #region Testes Inserir
         [TestMethod]
-        public void Deve_inserir_Aluguel_quando_valida()
+        public void Deve_inserir_Aluguel_quando_valido()
         {
-            //arrange
-            var aluguel = Builder<Aluguel>.CreateNew().Build();
-
             //action
-            var resultado = _servico.Inserir(aluguel);
+            var resultado = _servico.Inserir(_aluguel);
 
             //assent
             resultado.Should().BeSuccess();
-            _repositorioMoq.Verify(x => x.Inserir(aluguel), Times.Once());
+            _repositorioMoq.Verify(x => x.Inserir(_aluguel), Times.Once());
         }
 
         [TestMethod]
@@ -133,15 +144,12 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
         [TestMethod]
         public void Deve_editar_Aluguel_quando_valido()
         {
-            //arrange
-            var Aluguel = Builder<Aluguel>.CreateNew().Build();
-
             //action
-            var resultado = _servico.Editar(Aluguel);
+            var resultado = _servico.Editar(_aluguel);
 
             //assent
             resultado.Should().BeSuccess();
-            _repositorioMoq.Verify(x => x.Editar(Aluguel), Times.Once());
+            _repositorioMoq.Verify(x => x.Editar(_aluguel), Times.Once());
         }
 
         [TestMethod]
@@ -201,16 +209,15 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
         public void Deve_excluir_Aluguel_quando_valido()
         {
             //arrange
-            var Aluguel = Builder<Aluguel>.CreateNew().Build();
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<Aluguel>(), true)).Returns(true);
             _validadorMoq.Setup(x => x.ValidarSeAluguelConcluido(It.IsAny<Aluguel>())).Returns(true);
 
             //action
-            var resultado = _servico.Excluir(Aluguel);
+            var resultado = _servico.Excluir(_aluguel);
 
             //assert
             resultado.Should().BeSuccess();
-            _repositorioMoq.Verify(x => x.Excluir(Aluguel), Times.Once());
+            _repositorioMoq.Verify(x => x.Excluir(_aluguel), Times.Once());
         }
 
         [TestMethod]
@@ -218,9 +225,10 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
         {
             //arrange
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<Aluguel>(), false)).Returns(false);
+            _validadorMoq.Setup(x => x.ValidarSeAluguelConcluido(It.IsAny<Aluguel>())).Returns(true);
 
             //action
-            var resultado = _servico.Excluir(Builder<Aluguel>.CreateNew().Build());
+            var resultado = _servico.Excluir(Builder<Aluguel>.CreateNew().With(a => a.Cliente = Builder<Cliente>.CreateNew().Build()).Build());
 
             //assert
             resultado.Should().BeFailure();
@@ -236,7 +244,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
             _validadorMoq.Setup(x => x.ValidarSeAluguelConcluido(It.IsAny<Aluguel>())).Returns(false);
 
             //action
-            var resultado = _servico.Excluir(Builder<Aluguel>.CreateNew().Build());
+            var resultado = _servico.Excluir(Builder<Aluguel>.CreateNew().With(a => a.Cliente = Builder<Cliente>.CreateNew().Build()).Build());
 
             //assert
             resultado.Should().BeFailure();
@@ -250,10 +258,11 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
             DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("");
 
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<Aluguel>(), true)).Returns(true);
+            _validadorMoq.Setup(x => x.ValidarSeAluguelConcluido(It.IsAny<Aluguel>())).Returns(true);
             _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Aluguel>())).Throws(dbUpdateException);
 
             //action
-            var resultado = _servico.Excluir(Builder<Aluguel>.CreateNew().Build());
+            var resultado = _servico.Excluir(Builder<Aluguel>.CreateNew().With(a => a.Cliente = Builder<Cliente>.CreateNew().Build()).Build());
 
             //assert
             resultado.Should().BeFailure();

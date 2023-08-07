@@ -173,9 +173,9 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
         }
 
         [TestMethod]
-        public void Nao_Deve_excluir_condutor_quando_relacionado_ao_aluguel_em_aberto()
+        public void Nao_Deve_excluir_condutor_quando_relacionado_ao_aluguel()
         {
-            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBOBJETORELACAO_TBCondutor");
+            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBAluguel_TBCondutor");
 
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<Condutor>(), true)).Returns(true);
             _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Condutor>())).Throws(dbUpdateException);
@@ -183,8 +183,8 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
             var resultado = _servico.Excluir(Builder<Condutor>.CreateNew().Build());
 
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Condutor está relacionada à um ObjetoRelacao." +
-                " Primeiro exclua o ObjetoRelacao relacionado");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Condutor está relacionado a um Aluguel." +
+                " Primeiro exclua o Aluguel relacionado");
         }
 
         [TestMethod]

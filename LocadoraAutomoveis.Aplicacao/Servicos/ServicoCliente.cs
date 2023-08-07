@@ -106,9 +106,9 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 List<IError> erros = new();
 
-                if (sqlException.Message.Contains("FK_TBCliente_TBOBJETORELACAO"))
-                    erros.Add(new CustomError("Esse Cliente está relacionado à um ObjetoRelacao." +
-                        " Primeiro exclua o ObjetoRelacao relacionado", "Cliente"));
+                if (sqlException.Message.Contains("FK_TBAluguel_TBCliente"))
+                    erros.Add(new CustomError("Esse Cliente está relacionado a um Aluguel." +
+                " Primeiro exclua o Aluguel relacionado", "Cliente"));
                 else
                     erros.Add(new CustomError("Falha ao tentar excluir Cliente", "Cliente"));
 

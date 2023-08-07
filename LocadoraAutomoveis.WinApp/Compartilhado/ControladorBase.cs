@@ -20,7 +20,7 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado
 
         protected event Action<TTela, TEntidade> OnComandosAdicionaisAddAndEdit;
 
-        protected event Predicate<TEntidade> OnValidarRelacaoExistente;
+        protected event Func<TEntidade, Result> OnVerificar;
 
         public ControladorBase()
         {
@@ -79,12 +79,24 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado
 
             tela.Entidade = entidade;
 
-            tela.OnGravarRegistro += _servico.Editar;
+            Result? resultado = OnVerificar?.Invoke(entidade);
 
-            TelaPrincipalForm.AtualizarStatus($"Editando {typeof(TEntidade).Name}");
+            if (resultado != null && resultado.IsFailed)
+            {
+                MessageBox.Show(resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage,
+                    "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-            if (tela.ShowDialog() == DialogResult.OK)
-                CarregarRegistros();
+                return;
+            }
+            else
+            {
+                tela.OnGravarRegistro += _servico.Editar;
+
+                TelaPrincipalForm.AtualizarStatus($"Editando {typeof(TEntidade).Name}");
+
+                if (tela.ShowDialog() == DialogResult.OK)
+                    CarregarRegistros();
+            }
         }
 
         public virtual void Excluir()

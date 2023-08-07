@@ -28,9 +28,9 @@ namespace LocadoraAutomoveis.Infraestrutura.Repositorios
                 .Include(a => a.Cupom).Include(a => a.ListaTaxasEServicos).Include(a => a.Funcionario).Include(a => a.PlanoCobranca).ToList();
         }
 
-        public bool CupomExiste(Aluguel aluguelParaValidar, List<Cupom> cupons)
+        public bool CupomNaoExiste(Aluguel aluguelParaValidar, List<Cupom> cupons)
         {
-            return cupons.Contains(aluguelParaValidar.Cupom);
+            return !cupons.Contains(aluguelParaValidar.Cupom);
         }
     }
 }

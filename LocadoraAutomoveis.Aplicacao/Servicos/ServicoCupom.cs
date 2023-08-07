@@ -93,15 +93,15 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 return Result.Ok();
             }
-            catch (DbUpdateException ex) when (ex.InnerException is SqlException)
+            catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
                 Log.Warning("Falha ao tentar excluir o Cupom '{NOME} #{ID}'", cupomParaExcluir.Nome, cupomParaExcluir.ID, ex);
 
                 List<IError> erros = new();
 
-                if (ex.Message.Contains("FK_TBCupom_TBAluguel"))
-                    erros.Add(new CustomError("Esse Cupom está relacionado a um aluguel." +
-                        " Primeiro exclua o aluguel relacionado", "Cupom"));
+                if (sqlException.Message.Contains("FK_TBAluguel_TBCupom"))
+                    erros.Add(new CustomError("Esse Cupom está relacionado a um Aluguel." +
+                " Primeiro exclua o Aluguel relacionado", "Cupom"));
                 else
                     erros.Add(new CustomError("Falha ao tentar excluir o cupom", "Cupom"));
 

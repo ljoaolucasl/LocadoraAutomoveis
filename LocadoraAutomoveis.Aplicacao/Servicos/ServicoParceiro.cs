@@ -99,12 +99,9 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 List<IError> erros = new();
 
-                if (sqlException.Message.Contains("FK_TBParceiro_TBAluguel"))
-                    erros.Add(new CustomError("Esse parceiro está relacionado a um aluguel." +
-                        " Primeiro exclua o aluguel relacionado", "Parceiro"));
-                else if (sqlException.Message.Contains("FK_TBParceiro_TBCupom"))
-                    erros.Add(new CustomError("Esse parceiro está relacionado a um cupom." +
-                        " Primeiro exclua o cupom relacionado", "Parceiro"));
+                if (sqlException.Message.Contains("FK_TBCupom_TBParceiro"))
+                    erros.Add(new CustomError("Esse Parceiro está relacionado a um Cupom." +
+                        " Primeiro exclua o Cupom relacionado", "Parceiro"));
                 else
                     erros.Add(new CustomError("Falha ao tentar excluir o Parceiro", "Parceiro"));
 

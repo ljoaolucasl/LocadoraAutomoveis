@@ -99,9 +99,17 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 List<IError> erros = new();
 
-                if (sqlException.Message.Contains("FK_TBAutomovel_TBCategoriaAutomoveis"))
+                if (sqlException.Message.Contains("FK_TBAluguel_TBCategoriaAutomoveis"))
+                    erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Aluguel." +
+                        " Primeiro exclua o Aluguel relacionado", "CategoriaAutomoveis"));
+
+                else if (sqlException.Message.Contains("FK_TBAutomovel_TBCategoriaAutomoveis"))
                     erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Automóvel." +
                         " Primeiro exclua o Automóvel relacionado", "CategoriaAutomoveis"));
+
+                else if (sqlException.Message.Contains("FK_TBPlanoCobranca_TBCategoriaAutomoveis"))
+                    erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Plano de Cobrança." +
+                        " Primeiro exclua o Plano de Cobrança relacionado", "CategoriaAutomoveis"));
                 else
                     erros.Add(new CustomError("Falha ao tentar excluir a Categoria de Automóveis", "CategoriaAutomoveis"));
 

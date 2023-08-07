@@ -1,4 +1,5 @@
-﻿using LocadoraAutomoveis.Aplicacao.Servicos;
+﻿using FluentResults;
+using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.Extensions;
 using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
@@ -11,9 +12,14 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomovel
         public ControladorAutomovel(RepositorioAutomovel _repositorio, ServicoAutomovel _servico, TabelaAutomovelControl _tabela, ServicoCategoriaAutomoveis _repositorio2) : base(_repositorio, _servico, _tabela, _repositorio2)
         {
             OnComandosAdicionaisAddAndEdit += ObterDependencias;
+            OnVerificar += ObterDisponibilidade;
         }
-
         protected override string TipoCadastro => "Automóveis";
+
+        public Result ObterDisponibilidade(Automovel automovel)
+        {
+            return _servico.VerificarDisponibilidade(automovel);
+        }
 
         public void Filtrar()
         {

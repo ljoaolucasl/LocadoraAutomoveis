@@ -15,6 +15,8 @@ using Microsoft.Data.SqlClient;
 using Moq;
 using System.Reflection;
 using System.Runtime.Serialization;
+using LocadoraAutomoveis.Testes.Compartilhado;
+using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloFuncionario
 {
@@ -173,33 +175,27 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloFuncionario
         }
 
         [TestMethod]
-        public void Nao_Deve_excluir_funcionario_quando_relacionado_ao_aluguel_em_aberto()
+        public void Nao_Deve_excluir_funcionario_quando_relacionado_ao_aluguel()
         {
+            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBAluguel_TBFuncionario");
+
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<Funcionario>(), true)).Returns(true);
-            var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
-            FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
-
-            messageField?.SetValue(exception, "FK_TBFuncionario_TBOBJETORELACAO");
-
-            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Funcionario>())).Throws(exception);
+            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Funcionario>())).Throws(dbUpdateException);
 
             var resultado = _servico.Excluir(Builder<Funcionario>.CreateNew().Build());
 
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Funcionário está relacionado à um ObjetoRelacao." +
-                " Primeiro exclua o ObjetoRelacao relacionado");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Funcionário está relacionado a um Aluguel." +
+                        " Primeiro exclua o Aluguel relacionado");
         }
 
         [TestMethod]
         public void Nao_Deve_excluir_funcionario_quando_falha_na_exclusao()
         {
+            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("");
+
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<Funcionario>(), true)).Returns(true);
-            var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
-            FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
-
-            messageField?.SetValue(exception, "");
-
-            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Funcionario>())).Throws(exception);
+            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<Funcionario>())).Throws(dbUpdateException);
 
             var resultado = _servico.Excluir(Builder<Funcionario>.CreateNew().Build());
 

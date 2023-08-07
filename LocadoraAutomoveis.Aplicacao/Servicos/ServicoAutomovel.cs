@@ -100,11 +100,11 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 List<IError> erros = new();
 
-                if (sqlException.Message.Contains("FK_TBCategoriaAutomoveis_TBOBJETORELACAO"))
-                    erros.Add(new CustomError("Essa Categoria está relacionada à um ObjetoRelacao." +
-                        " Primeiro exclua o ObjetoRelacao relacionado", "Categoria"));
+                if (sqlException.Message.Contains("FK_TBAluguel_TBAutomovel"))
+                    erros.Add(new CustomError("Esse Automóvel está relacionado a um Aluguel." +
+                        " Primeiro exclua o Aluguel relacionado", "Automovel"));
                 else
-                    erros.Add(new CustomError("Falha ao tentar excluir o Automóvel", "Automóvel"));
+                    erros.Add(new CustomError("Falha ao tentar excluir o Automóvel", "Automovel"));
 
                 return Result.Fail(erros);
             }
@@ -124,6 +124,17 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
         public List<Automovel> FiltrarAutomoveisPorCategoria(CategoriaAutomoveis categoria)
         {
             return _repositorioAutomovel.SelecionarPorCategoria(categoria);
+        }
+
+        public Result VerificarDisponibilidade(Automovel automovelParaValidar)
+        {
+            if (_validadorAutomovel.VerificarSeAlugado(automovelParaValidar))
+            {
+                return new CustomError("Esse Automóvel está relacionado a um Aluguel em Aberto." +
+                        " Primeiro conclua o Aluguel relacionado", "Automovel");
+            }
+
+            return Result.Ok();
         }
 
         public Result ValidarRegistro(Automovel automovelParaValidar)

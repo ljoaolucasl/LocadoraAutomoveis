@@ -1,4 +1,5 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
+using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
@@ -92,15 +93,15 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 return Result.Ok();
             }
-            catch (SqlException ex)
+            catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
                 Log.Warning("Falha ao tentar excluir a Taxa e Serviço '{NOME} #{ID}'", taxaParaExcluir.Nome, taxaParaExcluir.ID, ex);
 
                 List<IError> erros = new();
 
-                if (ex.Message.Contains("FK_TBTaxaEServicos_TBOBJETORELACAO"))
-                    erros.Add(new CustomError("Essa Taxa e Serviço está relacionada à um ObjetoRelacao." +
-                        " Primeiro exclua o ObjetoRelacao relacionado", "Taxa"));
+                if (sqlException.Message.Contains("FK_TBAluguel_TBTaxaEServicos"))
+                    erros.Add(new CustomError("Essa Taxa e Serviço está relacionada a um Aluguel." +
+                " Primeiro exclua o Aluguel relacionado", "Taxa"));
                 else
                     erros.Add(new CustomError("Falha ao tentar excluir a Taxa e Serviço", "Taxa"));
 

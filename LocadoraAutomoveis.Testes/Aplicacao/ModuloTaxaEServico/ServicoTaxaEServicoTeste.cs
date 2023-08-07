@@ -4,7 +4,9 @@ using FluentResults.Extensions.FluentAssertions;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
+using LocadoraAutomoveis.Testes.Compartilhado;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -194,37 +196,31 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloTaxaEServico
         }
 
         [TestMethod]
-        public void Nao_Deve_excluir_taxa_e_servico_quando_relacionada_ao_aluguel_em_aberto()
+        public void Nao_Deve_excluir_taxa_e_servico_quando_relacionada_ao_aluguel()
         {
             //arrange
+            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("FK_TBAluguel_TBTaxaEServicos");
+
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<TaxaEServico>(), true)).Returns(true);
-            var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
-            FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
-
-            messageField?.SetValue(exception, "FK_TBTaxaEServicos_TBOBJETORELACAO");
-
-            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<TaxaEServico>())).Throws(exception);
+            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<TaxaEServico>())).Throws(dbUpdateException);
 
             //action
             var resultado = _servico.Excluir(Builder<TaxaEServico>.CreateNew().Build());
 
             //assert
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Essa Taxa e Serviço está relacionada à um ObjetoRelacao." +
-                " Primeiro exclua o ObjetoRelacao relacionado");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Essa Taxa e Serviço está relacionada a um Aluguel." +
+                " Primeiro exclua o Aluguel relacionado");
         }
 
         [TestMethod]
         public void Nao_Deve_excluir_taxa_e_servico_quando_falha_na_exclusao()
         {
             //arrange
+            DbUpdateException dbUpdateException = TesteBase.CriarDbUpdateException("");
+
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<TaxaEServico>(), true)).Returns(true);
-            var exception = (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
-            FieldInfo messageField = typeof(SqlException).GetField("_message", BindingFlags.Instance | BindingFlags.NonPublic)!;
-
-            messageField?.SetValue(exception, "");
-
-            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<TaxaEServico>())).Throws(exception);
+            _repositorioMoq.Setup(x => x.Excluir(It.IsAny<TaxaEServico>())).Throws(dbUpdateException);
 
             //action
             var resultado = _servico.Excluir(Builder<TaxaEServico>.CreateNew().Build());

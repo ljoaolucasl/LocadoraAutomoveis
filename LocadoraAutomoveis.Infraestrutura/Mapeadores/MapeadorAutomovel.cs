@@ -20,6 +20,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Mapeadores
             builder.Property(a => a.CapacidadeCombustivel).IsRequired();
             builder.Property(a => a.Ano).IsRequired();
             builder.Property(a => a.Quilometragem).IsRequired();
+            builder.Property(a => a.Alugado).IsRequired();
 
             builder.HasOne(a => a.Categoria)
                 .WithMany()

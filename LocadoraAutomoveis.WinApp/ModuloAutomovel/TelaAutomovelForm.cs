@@ -100,6 +100,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomovel
             _automovel.TipoCombustivel = (TipoCombustível)cbCombustivel.SelectedIndex;
             _automovel.CapacidadeCombustivel = txtLitros.Value;
             _automovel.Quilometragem = txtQuilometragem.Value;
+            _automovel.Alugado = false;
 
             return _automovel;
         }

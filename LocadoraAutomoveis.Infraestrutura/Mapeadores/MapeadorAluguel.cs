@@ -1,7 +1,6 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using LocadoraAutomoveis.Dominio.ModuloAluguel;
 using Microsoft.EntityFrameworkCore;
-using LocadoraAutomoveis.Dominio.ModuloAluguel;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LocadoraAutomoveis.Infraestrutura.Mapeadores
 {
@@ -9,7 +8,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Mapeadores
     {
         public void Configure(EntityTypeBuilder<Aluguel> builder)
         {
-            builder.ToTable("TBAutomovel");
+            builder.ToTable("TBAluguel");
             builder.HasKey(a => a.ID);
             builder.Property(a => a.DataLocacao).IsRequired();
             builder.Property(a => a.DataPrevistaRetorno).IsRequired();
@@ -34,13 +33,13 @@ namespace LocadoraAutomoveis.Infraestrutura.Mapeadores
             builder.HasOne(a => a.CategoriaAutomoveis)
                 .WithMany()
                 .IsRequired()
-                .HasConstraintName("FK_TBAluguel_TBCliente")
+                .HasConstraintName("FK_TBAluguel_TBCategoriaAutomoveis")
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(a => a.PlanoCobranca)
                 .WithMany()
                 .IsRequired()
-                .HasConstraintName("FK_TBAluguel_TBCategoriaAutomoveis")
+                .HasConstraintName("FK_TBAluguel_TBPlanoCobranca")
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(a => a.Condutor)

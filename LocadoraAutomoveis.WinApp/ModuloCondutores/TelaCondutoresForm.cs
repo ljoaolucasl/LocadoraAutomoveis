@@ -1,12 +1,8 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
-using LocadoraAutomoveis.Dominio.Extensions;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
-using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Extensions;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.ObjectiveC;
 
 namespace LocadoraAutomoveis.WinApp.ModuloCondutores
 {
@@ -165,7 +161,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
         {
             Cliente cliente = cmbCliente.SelectedItem as Cliente;
 
-            if (cliente.TipoCliente == Tipo.CPF)
+            if (cliente.TipoCliente == TipoDocumento.CPF)
             {
                 HabilitarCampos(false);
             }

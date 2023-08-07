@@ -35,9 +35,35 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
         }
 
         public void CarregarDependencias(List<Funcionario> funcionarios, List<Cliente> clientes, List<CategoriaAutomoveis> categorias,
-            List<PlanoCobranca> planos, List<Condutor> condutores, List<Automovel> automoveis, List<Cupom> cupoms, List<TaxaEServico> taxaEServicos)
+            List<PlanoCobranca> planos, List<Condutor> condutores, List<Automovel> automoveis, List<TaxaEServico> taxaEServicos)
         {
+            cmbFuncionario.DataSource = funcionarios;
+            cmbFuncionario.DisplayMember = "Nome";
+            cmbFuncionario.ValueMember = "ID";
 
+            cmbCliente.DataSource = clientes;
+            cmbCliente.DisplayMember = "Nome";
+            cmbCliente.ValueMember = "ID";
+
+            cmbCategoriaAutomoveis.DataSource = categorias;
+            cmbCategoriaAutomoveis.DisplayMember = "Nome";
+            cmbCategoriaAutomoveis.ValueMember = "ID";
+
+            cmbPlanoCobranca.DataSource = planos;
+            cmbPlanoCobranca.DisplayMember = "Nome";
+            cmbPlanoCobranca.ValueMember = "ID";
+
+            cmbCondutor.DataSource = condutores;
+            cmbCondutor.DisplayMember = "Nome";
+            cmbCondutor.ValueMember = "ID";
+
+            cmbAutomovel.DataSource = automoveis;
+            cmbAutomovel.DisplayMember = "Placa";
+            cmbAutomovel.ValueMember = "ID";
+
+            listTaxas.DataSource = taxaEServicos;
+            listTaxas.DisplayMember = "Nome";
+            listTaxas.ValueMember = "ID";
         }
 
         public Aluguel? Entidade
@@ -46,14 +72,15 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
             set
             {
-                cmbFuncionario.Text = value.Funcionario.ToString();
-                cmbCliente.Text = value.Cliente.ToString();
-                cmbGrupoAutomoveis.Text = value.CategoriaAutomoveis.ToString();
-                cmbPlanoCobranca.Text = value.PlanoCobranca.ToString();
-                cmbCondutor.Text = value.Condutor.ToString();
-                cmbAutomovel.Text = value.Automovel.ToString();
-                listTaxas.Text = value.ListaTaxasEServicos.ToString();
-                txtCupom.Text = value.Cupom.ToString();
+                cmbFuncionario.Text = value.Funcionario.Nome;
+                cmbCliente.Text = value.Cliente.Nome;
+                cmbCategoriaAutomoveis.Text = value.CategoriaAutomoveis.Nome;
+                cmbPlanoCobranca.Text = value.PlanoCobranca.CategoriaAutomoveis.Nome;
+                cmbCondutor.Text = value.Condutor.Nome;
+                cmbAutomovel.Text = value.Automovel.Placa;
+                listTaxas.Items.Clear();
+                listTaxas.Items.AddRange(value.ListaTaxasEServicos.ToArray());
+                txtCupom.Text = value.Cupom.Nome;
 
                 _aluguel = value;
             }
@@ -87,6 +114,12 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             _aluguel.PlanoCobranca = cmbPlanoCobranca.SelectedItem as PlanoCobranca;
             _aluguel.Condutor = cmbCondutor.SelectedItem as Condutor;
             _aluguel.Automovel = cmbAutomovel.SelectedItem as Automovel;
+            _aluguel.DataLocacao = Convert.ToDateTime(dateLocacao.Value);
+            _aluguel.DataDevolucao = Convert.ToDateTime(dateDevolucao.Value);
+            _aluguel.QuilometrosRodados = Convert.ToDecimal(txtKmAutomovel.Value);
+            _aluguel.Cupom.Valor = Convert.ToDecimal(txtCupom);
+            _aluguel.ListaTaxasEServicos = listTaxas.SelectedItem as List<TaxaEServico>;
+            _aluguel.ValorTotal = Convert.ToDecimal(lbValorTotal);
 
             return _aluguel;
         }
@@ -97,14 +130,36 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             {
                 switch (item.PropertyName)
                 {
-
+                    case "Funcionario": lbErroFuncionario.Text = item.ErrorMessage; lbErroFuncionario.Visible = true; cmbFuncionario.Focus(); break;
+                    case "Cliente": lbErroCliente.Text = item.ErrorMessage; lbErroCliente.Visible = true; cmbCliente.Focus(); break;
+                    case "CategoriaAutomoveis": lbErroGrupoAutomoveis.Text = item.ErrorMessage; lbErroGrupoAutomoveis.Visible = true; cmbCategoriaAutomoveis.Focus(); break;
+                    case "PlanoCobranca": lbErroPlanoCobranca.Text = item.ErrorMessage; lbErroPlanoCobranca.Visible = true; cmbPlanoCobranca.Focus(); break;
+                    case "Condutor": lbErroCondutor.Text = item.ErrorMessage; lbErroCondutor.Visible = true; cmbCondutor.Focus(); break;
+                    case "Automovel": lbErroAutomovel.Text = item.ErrorMessage; lbErroAutomovel.Visible = true; cmbAutomovel.Focus(); break;
+                    case "DataLocacao": lbErroDataLocacao.Text = item.ErrorMessage; lbErroDataLocacao.Visible = true; dateLocacao.Focus(); break;
+                    case "DataDevolucao": lbErroDataDevolucao.Text = item.ErrorMessage; lbErroDataDevolucao.Visible = true; dateDevolucao.Focus(); break;
+                    case "KmAutomovel": lbErroKmAutomovel.Text = item.ErrorMessage; lbErroKmAutomovel.Visible = true; txtKmAutomovel.Focus(); break;
+                    case "Cupom": lbErroCupom.Text = item.ErrorMessage; lbErroCupom.Visible = true; txtCupom.Focus(); break;
+                    case "Taxas": lbErroTaxas.Text = item.ErrorMessage; lbErroTaxas.Visible = true; listTaxas.Focus(); break;
+                    case "ValorTotal": lbErroValorTotal.Text = item.ErrorMessage; lbErroValorTotal.Visible = true; lbValorTotal.Focus(); break;
                 }
             }
         }
 
         private void ResetarErros()
         {
-
+            lbErroFuncionario.Visible = false;
+            lbErroCliente.Visible = false;
+            lbErroGrupoAutomoveis.Visible = false;
+            lbErroPlanoCobranca.Visible = false;
+            lbErroCondutor.Visible = false;
+            lbErroAutomovel.Visible = false;
+            lbErroDataLocacao.Visible = false;
+            lbErroDataDevolucao.Visible = false;
+            lbErroKmAutomovel.Visible = false;
+            lbErroCupom.Visible = false;
+            lbErroTaxas.Visible = false;
+            lbErroValorTotal.Visible = false;
 
             _resultado.Errors.Clear();
             _resultado.Reasons.Clear();

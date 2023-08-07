@@ -165,7 +165,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
         {
             Cliente cliente = cmbCliente.SelectedItem as Cliente;
 
-            if (cliente.TipoCliente == TipoDocumento.CPF)
+            if (cliente.TipoCliente == Tipo.CPF)
             {
                 HabilitarCampos(false);
             }

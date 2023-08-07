@@ -98,7 +98,7 @@
             btnCancelar.Location = new Point(340, 366);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(85, 37);
-            btnCancelar.TabIndex = 5;
+            btnCancelar.TabIndex = 10;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             // 
@@ -109,7 +109,7 @@
             btnGravar.Location = new Point(249, 366);
             btnGravar.Name = "btnGravar";
             btnGravar.Size = new Size(85, 37);
-            btnGravar.TabIndex = 4;
+            btnGravar.TabIndex = 9;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = true;
             btnGravar.Click += btnGravar_Click;
@@ -134,7 +134,7 @@
             tabPlanosCobrancas.Name = "tabPlanosCobrancas";
             tabPlanosCobrancas.SelectedIndex = 0;
             tabPlanosCobrancas.Size = new Size(388, 257);
-            tabPlanosCobrancas.TabIndex = 9;
+            tabPlanosCobrancas.TabIndex = 2;
             // 
             // tabPlanoCobrancaPage1
             // 
@@ -170,9 +170,11 @@
             numPrecoKm1.Location = new Point(142, 142);
             numPrecoKm1.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
             numPrecoKm1.Name = "numPrecoKm1";
-            numPrecoKm1.Size = new Size(206, 23);
-            numPrecoKm1.TabIndex = 24;
+            numPrecoKm1.Size = new Size(190, 23);
+            numPrecoKm1.TabIndex = 4;
             numPrecoKm1.ThousandsSeparator = true;
+            numPrecoKm1.Click += selecaoAutomaticaNumericUpDown_Click;
+            numPrecoKm1.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // numPrecoDiaria1
             // 
@@ -180,9 +182,11 @@
             numPrecoDiaria1.Location = new Point(142, 98);
             numPrecoDiaria1.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
             numPrecoDiaria1.Name = "numPrecoDiaria1";
-            numPrecoDiaria1.Size = new Size(206, 23);
-            numPrecoDiaria1.TabIndex = 23;
+            numPrecoDiaria1.Size = new Size(190, 23);
+            numPrecoDiaria1.TabIndex = 3;
             numPrecoDiaria1.ThousandsSeparator = true;
+            numPrecoDiaria1.Click += selecaoAutomaticaNumericUpDown_Click;
+            numPrecoDiaria1.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // lbErroPrecoKm1
             // 
@@ -258,7 +262,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.Location = new Point(136, 41);
+            label4.Location = new Point(168, 41);
             label4.Name = "label4";
             label4.Size = new Size(106, 15);
             label4.TabIndex = 37;
@@ -266,38 +270,44 @@
             // 
             // numKmDisponivel2
             // 
-            numKmDisponivel2.Location = new Point(136, 165);
+            numKmDisponivel2.Location = new Point(168, 165);
             numKmDisponivel2.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
             numKmDisponivel2.Name = "numKmDisponivel2";
-            numKmDisponivel2.Size = new Size(206, 23);
-            numKmDisponivel2.TabIndex = 36;
+            numKmDisponivel2.Size = new Size(201, 23);
+            numKmDisponivel2.TabIndex = 7;
             numKmDisponivel2.ThousandsSeparator = true;
+            numKmDisponivel2.Click += selecaoAutomaticaNumericUpDown_Click;
+            numKmDisponivel2.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // numPrecoKm2
             // 
             numPrecoKm2.DecimalPlaces = 2;
-            numPrecoKm2.Location = new Point(136, 121);
+            numPrecoKm2.Location = new Point(168, 121);
             numPrecoKm2.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
             numPrecoKm2.Name = "numPrecoKm2";
-            numPrecoKm2.Size = new Size(206, 23);
-            numPrecoKm2.TabIndex = 35;
+            numPrecoKm2.Size = new Size(201, 23);
+            numPrecoKm2.TabIndex = 6;
             numPrecoKm2.ThousandsSeparator = true;
+            numPrecoKm2.Click += selecaoAutomaticaNumericUpDown_Click;
+            numPrecoKm2.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // numPrecoDiaria2
             // 
             numPrecoDiaria2.DecimalPlaces = 2;
-            numPrecoDiaria2.Location = new Point(136, 77);
+            numPrecoDiaria2.Location = new Point(168, 77);
             numPrecoDiaria2.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
             numPrecoDiaria2.Name = "numPrecoDiaria2";
-            numPrecoDiaria2.Size = new Size(206, 23);
-            numPrecoDiaria2.TabIndex = 34;
+            numPrecoDiaria2.Size = new Size(201, 23);
+            numPrecoDiaria2.TabIndex = 5;
             numPrecoDiaria2.ThousandsSeparator = true;
+            numPrecoDiaria2.Click += selecaoAutomaticaNumericUpDown_Click;
+            numPrecoDiaria2.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // lbErroKmDisponivel2
             // 
             lbErroKmDisponivel2.AutoSize = true;
             lbErroKmDisponivel2.ForeColor = Color.FromArgb(192, 0, 0);
-            lbErroKmDisponivel2.Location = new Point(137, 147);
+            lbErroKmDisponivel2.Location = new Point(168, 147);
             lbErroKmDisponivel2.Name = "lbErroKmDisponivel2";
             lbErroKmDisponivel2.Size = new Size(92, 15);
             lbErroKmDisponivel2.TabIndex = 33;
@@ -308,7 +318,7 @@
             // 
             lbErroPrecoKm2.AutoSize = true;
             lbErroPrecoKm2.ForeColor = Color.FromArgb(192, 0, 0);
-            lbErroPrecoKm2.Location = new Point(137, 103);
+            lbErroPrecoKm2.Location = new Point(168, 103);
             lbErroPrecoKm2.Name = "lbErroPrecoKm2";
             lbErroPrecoKm2.Size = new Size(92, 15);
             lbErroPrecoKm2.TabIndex = 32;
@@ -319,7 +329,7 @@
             // 
             lbErroPrecoDiaria2.AutoSize = true;
             lbErroPrecoDiaria2.ForeColor = Color.FromArgb(192, 0, 0);
-            lbErroPrecoDiaria2.Location = new Point(137, 59);
+            lbErroPrecoDiaria2.Location = new Point(168, 59);
             lbErroPrecoDiaria2.Name = "lbErroPrecoDiaria2";
             lbErroPrecoDiaria2.Size = new Size(92, 15);
             lbErroPrecoDiaria2.TabIndex = 31;
@@ -329,7 +339,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(39, 170);
+            label9.Location = new Point(71, 164);
             label9.Name = "label9";
             label9.Size = new Size(91, 15);
             label9.TabIndex = 30;
@@ -338,16 +348,16 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(48, 127);
+            label10.Location = new Point(6, 123);
             label10.Name = "label10";
-            label10.Size = new Size(82, 15);
+            label10.Size = new Size(156, 15);
             label10.TabIndex = 29;
-            label10.Text = "Preço por Km:";
+            label10.Text = "Preço por Km (Extrapolado):";
             // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(57, 84);
+            label11.Location = new Point(89, 82);
             label11.Name = "label11";
             label11.Size = new Size(73, 15);
             label11.TabIndex = 28;
@@ -356,7 +366,7 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(47, 41);
+            label12.Location = new Point(79, 41);
             label12.Name = "label12";
             label12.Size = new Size(83, 15);
             label12.TabIndex = 27;
@@ -393,9 +403,11 @@
             numPrecoDiaria3.Location = new Point(141, 115);
             numPrecoDiaria3.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
             numPrecoDiaria3.Name = "numPrecoDiaria3";
-            numPrecoDiaria3.Size = new Size(206, 23);
-            numPrecoDiaria3.TabIndex = 45;
+            numPrecoDiaria3.Size = new Size(184, 23);
+            numPrecoDiaria3.TabIndex = 8;
             numPrecoDiaria3.ThousandsSeparator = true;
+            numPrecoDiaria3.Click += selecaoAutomaticaNumericUpDown_Click;
+            numPrecoDiaria3.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // lbErroPrecoDiaria3
             // 

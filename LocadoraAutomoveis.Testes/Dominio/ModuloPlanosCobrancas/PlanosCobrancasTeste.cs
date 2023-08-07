@@ -16,7 +16,7 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloPlanosCobrancas
             _validador = new ValidadorPlanosCobrancas();
 
             _categoria = new CategoriaAutomoveis("Esportivo");
-            _planoCobranca = new(100, 100, 100, TipoPlano.Diario, _categoria);
+            _planoCobranca = new(100, 100, 100, 100, 100, 100, _categoria);
         }
 
         [TestMethod]
@@ -38,9 +38,9 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloPlanosCobrancas
         }
 
         [TestMethod]
-        public void Nao_deve_aceitar_TipoPlano_Invalido()
+        public void Nao_deve_aceitar_Plano_Diario_Valor_Diario_zero()
         {
-            _planoCobranca.Plano = (TipoPlano)100;
+            _planoCobranca.PlanoDiario_ValorDiario = 0;
 
             ValidationResult resultado = _validador.Validate(_planoCobranca);
 
@@ -48,9 +48,9 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloPlanosCobrancas
         }
 
         [TestMethod]
-        public void Nao_deve_aceitar_Valor_Diario_zero()
+        public void Nao_deve_aceitar_Plano_Livre_Valor_Diario_zero()
         {
-            _planoCobranca.ValorDia = 0;
+            _planoCobranca.PlanoLivre_ValorDiario = 0;
 
             ValidationResult resultado = _validador.Validate(_planoCobranca);
 
@@ -58,10 +58,9 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloPlanosCobrancas
         }
 
         [TestMethod]
-        public void Nao_deve_aceitar_Valor_Km_Rodado_zero_Caso_TipoPlano_Diario()
+        public void Nao_deve_aceitar_Plano_Controlador_Valor_Diario_zero()
         {
-            _planoCobranca.ValorKmRodado = 0;
-            _planoCobranca.Plano = TipoPlano.Diario;
+            _planoCobranca.PlanoControlador_ValorDiario = 0;
 
             ValidationResult resultado = _validador.Validate(_planoCobranca);
 
@@ -69,10 +68,9 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloPlanosCobrancas
         }
 
         [TestMethod]
-        public void Nao_deve_aceitar_Valor_Km_Rodado_zero_Caso_TipoPlano_Controlador()
+        public void Nao_deve_aceitar_Plano_Diario_Valor_por_Km_zero()
         {
-            _planoCobranca.ValorKmRodado = 0;
-            _planoCobranca.Plano = TipoPlano.Controlador;
+            _planoCobranca.PlanoDiario_ValorKm = 0;
 
             ValidationResult resultado = _validador.Validate(_planoCobranca);
 
@@ -80,10 +78,19 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloPlanosCobrancas
         }
 
         [TestMethod]
-        public void Nao_deve_aceitar_Km_Disponiveis_zero_Caso_TipoPlano_Controlador()
+        public void Nao_deve_aceitar_Plano_Controlador_Valor_por_Km_zero()
         {
-            _planoCobranca.KmLivre = 0;
-            _planoCobranca.Plano = TipoPlano.Controlador;
+            _planoCobranca.PlanoControlador_ValorKm = 0;
+
+            ValidationResult resultado = _validador.Validate(_planoCobranca);
+
+            resultado.IsValid.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Nao_deve_aceitar_Km_Disponiveis_zero()
+        {
+            _planoCobranca.PlanoControlador_LimiteKm = 0;
 
             ValidationResult resultado = _validador.Validate(_planoCobranca);
 

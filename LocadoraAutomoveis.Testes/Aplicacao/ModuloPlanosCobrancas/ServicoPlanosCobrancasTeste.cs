@@ -29,7 +29,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloPlanosCobrancas
             _servico = new ServicoPlanosCobrancas(_repositorioMoq.Object, _validadorMoq.Object);
 
             _categoria = new CategoriaAutomoveis("Esportivo");
-            _planoCobranca = new(100, 100, 100, TipoPlano.Diario, _categoria);
+            _planoCobranca = new(100, 100, 100, 100, 100, 100, _categoria);
         }
 
         #region Testes Inserir

@@ -116,10 +116,12 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ValorDia = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ValorKmRodado = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    KmLivre = table.Column<int>(type: "int", nullable: false),
-                    Plano = table.Column<int>(type: "int", nullable: false),
+                    PlanoDiario_ValorDiario = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PlanoDiario_ValorKm = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PlanoLivre_ValorDiario = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PlanoControlador_ValorDiario = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PlanoControlador_ValorKm = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PlanoControlador_LimiteKm = table.Column<int>(type: "int", nullable: false),
                     CategoriaAutomoveisID = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>

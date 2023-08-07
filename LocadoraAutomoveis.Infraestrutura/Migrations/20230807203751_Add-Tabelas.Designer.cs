@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraAutomoveis.Infraestrutura.Migrations
 {
     [DbContext(typeof(ContextoDados))]
-    [Migration("20230807184036_Add-Tabelas")]
+    [Migration("20230807203751_Add-Tabelas")]
     partial class AddTabelas
     {
         /// <inheritdoc />
@@ -107,7 +107,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                     b.ToTable("TBAluguel", (string)null);
                 });
 
-            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAutomoveis.Automovel", b =>
+            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAutomovel.Automovel", b =>
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
@@ -338,16 +338,22 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                     b.Property<Guid>("CategoriaAutomoveisID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("KmLivre")
+                    b.Property<int>("PlanoControlador_LimiteKm")
                         .HasColumnType("int");
 
-                    b.Property<int>("Plano")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("ValorDia")
+                    b.Property<decimal>("PlanoControlador_ValorDiario")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("ValorKmRodado")
+                    b.Property<decimal>("PlanoControlador_ValorKm")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PlanoDiario_ValorDiario")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PlanoDiario_ValorKm")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("PlanoLivre_ValorDiario")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("ID");
@@ -395,7 +401,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
 
             modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAluguel.Aluguel", b =>
                 {
-                    b.HasOne("LocadoraAutomoveis.Dominio.ModuloAutomoveis.Automovel", "Automovel")
+                    b.HasOne("LocadoraAutomoveis.Dominio.ModuloAutomovel.Automovel", "Automovel")
                         .WithMany()
                         .HasForeignKey("AutomovelID")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -458,7 +464,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                     b.Navigation("PlanoCobranca");
                 });
 
-            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAutomoveis.Automovel", b =>
+            modelBuilder.Entity("LocadoraAutomoveis.Dominio.ModuloAutomovel.Automovel", b =>
                 {
                     b.HasOne("LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis.CategoriaAutomoveis", "Categoria")
                         .WithMany()

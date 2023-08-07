@@ -1,5 +1,5 @@
 ﻿using FizzWare.NBuilder;
-using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;

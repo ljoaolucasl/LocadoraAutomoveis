@@ -1,7 +1,7 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using System.ComponentModel;
 
-namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
+namespace LocadoraAutomoveis.Dominio.ModuloAutomovel
 {
     public class Automovel : EntidadeBase
     {

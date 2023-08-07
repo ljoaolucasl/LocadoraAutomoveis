@@ -1,6 +1,6 @@
 ﻿namespace LocadoraAutomoveis.Dominio.ModuloAutomovel
 {
-    public interface IValidadorAutomovel : IValidador<Automovel>
+    public interface IServicoAutomovel : IServicoBase<Automovel>
     {
     }
 }

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using System.Text.RegularExpressions;
 
-namespace LocadoraAutomoveis.Dominio.ModuloAutomoveis
+namespace LocadoraAutomoveis.Dominio.ModuloAutomovel
 {
     public class ValidadorAutomovel : AbstractValidator<Automovel>, IValidadorAutomovel
     {

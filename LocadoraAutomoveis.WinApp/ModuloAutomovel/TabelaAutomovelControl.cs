@@ -1,5 +1,5 @@
 ﻿using LocadoraAutomoveis.Dominio.Extensions;
-using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloAutomovel

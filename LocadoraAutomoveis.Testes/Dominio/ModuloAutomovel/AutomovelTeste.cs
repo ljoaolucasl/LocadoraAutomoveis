@@ -1,4 +1,4 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
+﻿using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 
 namespace LocadoraAutomoveis.Testes.Dominio.ModuloAutomovel

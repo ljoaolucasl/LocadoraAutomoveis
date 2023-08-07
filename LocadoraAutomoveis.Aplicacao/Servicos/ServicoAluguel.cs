@@ -1,33 +1,43 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloAluguel;
+using LocadoraAutomoveis.Dominio.ModuloAutomovel;
+using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloCliente;
+using LocadoraAutomoveis.Dominio.ModuloCondutores;
+using LocadoraAutomoveis.Dominio.ModuloCupom;
+using LocadoraAutomoveis.Dominio.ModuloFuncionario;
+using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
+using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
-    public class ServicoAluguel : IServicoBase<Aluguel>
+    public class ServicoAluguel : IServicoAluguel
     {
         private readonly IRepositorioAluguel _repositorioAluguel;
         private readonly IValidadorAluguel _validadorAluguel;
-        public readonly ServicoFuncionario servicoFuncionario;
-        public readonly ServicoCliente servicoCliente;
-        public readonly ServicoCategoriaAutomoveis servicoCategoriaAutomoveis;
-        public readonly ServicoPlanosCobrancas servicoPlanosCobrancas;
-        public readonly ServicoCondutores servicoCondutores;
-        public readonly ServicoAutomovel servicoAutomovel;
-        public readonly ServicoCupom servicoCupom;
-        public readonly ServicoTaxaEServico servicoTaxaEServico;
+        public readonly IServicoFuncionario servicoFuncionario;
+        public readonly IServicoCliente servicoCliente;
+        public readonly IServicoCategoriaAutomoveis servicoCategoriaAutomoveis;
+        public readonly IServicoPlanoCobranca servicoPlanosCobrancas;
+        public readonly IServicoCondutor servicoCondutores;
+        public readonly IServicoAutomovel servicoAutomovel;
+        public readonly IServicoCupom servicoCupom;
+        public readonly IServicoTaxaEServico servicoTaxaEServico;
 
-        public ServicoAluguel(IRepositorioAluguel repositorioAluguel, IValidadorAluguel validadorAluguel, ServicoFuncionario servicoFuncionario, ServicoCliente servicoCliente, ServicoCategoriaAutomoveis servicoCategoriaAutomoveis, ServicoPlanosCobrancas servicoPlanosCobrancas, ServicoCondutores servicoCondutores, ServicoAutomovel servicoAutomovel, ServicoCupom servicoCupom, ServicoTaxaEServico servicoTaxaEServico)
+        public ServicoAluguel(IRepositorioAluguel repositorioAluguel, IValidadorAluguel validadorAluguel, IServicoFuncionario servicoFuncionario,
+            IServicoCliente servicoCliente, IServicoCategoriaAutomoveis servicoCategoriaAutomoveis, IServicoPlanoCobranca servicoPlanosCobrancas,
+            IServicoCondutor servicoCondutores, IServicoAutomovel servicoAutomovel, IServicoCupom servicoCupom, IServicoTaxaEServico servicoTaxaEServico)
         {
             _repositorioAluguel = repositorioAluguel;
             _validadorAluguel = validadorAluguel;
-            servicoFuncionario = servicoFuncionario;
-            servicoCliente = servicoCliente;
-            servicoCategoriaAutomoveis = servicoCategoriaAutomoveis;
-            servicoPlanosCobrancas = servicoPlanosCobrancas;
-            servicoCondutores = servicoCondutores;
-            servicoAutomovel = servicoAutomovel;
-            servicoCupom = servicoCupom;
-            servicoTaxaEServico = servicoTaxaEServico;
+            this.servicoFuncionario = servicoFuncionario;
+            this.servicoCliente = servicoCliente;
+            this.servicoCategoriaAutomoveis = servicoCategoriaAutomoveis;
+            this.servicoPlanosCobrancas = servicoPlanosCobrancas;
+            this.servicoCondutores = servicoCondutores;
+            this.servicoAutomovel = servicoAutomovel;
+            this.servicoCupom = servicoCupom;
+            this.servicoTaxaEServico = servicoTaxaEServico;
         }
 
         #region CRUD
@@ -37,14 +47,11 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
             Result resultado = ValidarRegistro(aluguelParaAdicionar);
 
-            resultado = _repositorioAluguel.ValidarCupom(aluguelParaAdicionar);
-
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar inserir o Aluguel '{CLIENTE}'", aluguelParaAdicionar.Cliente.Nome);
                 return resultado;
             }
-
             try
             {
                 _repositorioAluguel.Inserir(aluguelParaAdicionar);
@@ -68,8 +75,6 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             Log.Debug("Tentando editar o Aluguel '{CLIENTE} #{ID}'", aluguelParaEditar.Cliente.Nome, aluguelParaEditar.ID);
 
             Result resultado = ValidarRegistro(aluguelParaEditar);
-
-            resultado = _repositorioAluguel.ValidarCupom(aluguelParaEditar);
 
             if (resultado.IsFailed)
             {
@@ -104,7 +109,6 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 return Result.Fail("Aluguel não encontrado");
             }
-
             try
             {
                 if (_validadorAluguel.ValidarSeAluguelConcluido(aluguelParaExcluir))
@@ -160,6 +164,9 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
             if (_repositorioAluguel.Existe(aluguelParaValidar))
                 erros.Add(new CustomError("Esse Aluguel já existe", "Aluguel"));
+
+            if (_repositorioAluguel.CupomExiste(aluguelParaValidar, servicoCupom.SelecionarTodosOsRegistros()) == false)
+                erros.Add(new CustomError("Cupom Inválido", "Aluguel"));
 
             return Result.Fail(erros);
         }

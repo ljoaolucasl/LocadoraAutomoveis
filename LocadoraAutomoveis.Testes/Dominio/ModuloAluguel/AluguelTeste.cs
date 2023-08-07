@@ -1,5 +1,5 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloAluguel;
-using LocadoraAutomoveis.Dominio.ModuloAutomoveis;
+using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
@@ -28,7 +28,7 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAluguel
             Condutor condutor = new();
             Automovel automovel = new();
             Cupom cupom = new();
-            List<TaxaEServico> listTaxa = new();
+            List<TaxaEServico> listTaxa = new() { new TaxaEServico() };
             DateTime dataLocacao = DateTime.Now;
             DateTime dataPrevista = dataLocacao.AddDays(1);
             DateTime dataDevolucao = dataLocacao.AddDays(2);

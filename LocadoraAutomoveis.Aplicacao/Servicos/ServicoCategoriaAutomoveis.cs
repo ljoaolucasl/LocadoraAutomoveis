@@ -117,51 +117,41 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
-                _contextoPersistencia.DesfazerAlteracoes();
-
-                Log.Warning("Falha ao tentar excluir a Categoria '{NOME} #{ID}'", categoriaParaExcluir.Nome, categoriaParaExcluir.ID, ex);
-
-                List<IError> erros = new();
-
-                if (sqlException.Message.Contains("FK_TBAluguel_TBCategoriaAutomoveis"))
-                    erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Aluguel." +
-                        " Primeiro exclua o Aluguel relacionado", "CategoriaAutomoveis"));
-
-                else if (sqlException.Message.Contains("FK_TBAutomovel_TBCategoriaAutomoveis"))
-                    erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Automóvel." +
-                        " Primeiro exclua o Automóvel relacionado", "CategoriaAutomoveis"));
-
-                else if (sqlException.Message.Contains("FK_TBPlanoCobranca_TBCategoriaAutomoveis"))
-                    erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Plano de Cobrança." +
-                        " Primeiro exclua o Plano de Cobrança relacionado", "CategoriaAutomoveis"));
-                else
-                    erros.Add(new CustomError("Falha ao tentar excluir a Categoria de Automóveis", "CategoriaAutomoveis"));
+                List<IError> erros = AnalisarErros(categoriaParaExcluir, sqlException);
 
                 return Result.Fail(erros);
             }
             catch (InvalidOperationException ex)
             {
-                _contextoPersistencia.DesfazerAlteracoes();
-
-                Log.Warning("Falha ao tentar excluir a Categoria '{NOME} #{ID}'", categoriaParaExcluir.Nome, categoriaParaExcluir.ID, ex);
-                List<IError> erros = new();
-
-                if (ex.Message.Contains("FK_TBAluguel_TBCategoriaAutomoveis"))
-                    erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Aluguel." +
-                        " Primeiro exclua o Aluguel relacionado", "CategoriaAutomoveis"));
-
-                else if (ex.Message.Contains("FK_TBAutomovel_TBCategoriaAutomoveis"))
-                    erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Automóvel." +
-                        " Primeiro exclua o Automóvel relacionado", "CategoriaAutomoveis"));
-
-                else if (ex.Message.Contains("FK_TBPlanoCobranca_TBCategoriaAutomoveis"))
-                    erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Plano de Cobrança." +
-                        " Primeiro exclua o Plano de Cobrança relacionado", "CategoriaAutomoveis"));
-                else
-                    erros.Add(new CustomError("Falha ao tentar excluir a Categoria de Automóveis", "CategoriaAutomoveis"));
+                List<IError> erros = AnalisarErros(categoriaParaExcluir, ex);
 
                 return Result.Fail(erros);
             }
+        }
+
+        private List<IError> AnalisarErros(CategoriaAutomoveis categoriaParaExcluir, Exception exception)
+        {
+            List<IError> erros = new();
+
+            _contextoPersistencia.DesfazerAlteracoes();
+
+            Log.Warning("Falha ao tentar excluir a Categoria '{NOME} #{ID}'", categoriaParaExcluir.Nome, categoriaParaExcluir.ID, exception);
+
+            if (exception.Message.Contains("FK_TBAluguel_TBCategoriaAutomoveis"))
+                erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Aluguel." +
+                    " Primeiro exclua o Aluguel relacionado", "CategoriaAutomoveis"));
+
+            else if (exception.Message.Contains("FK_TBAutomovel_TBCategoriaAutomoveis"))
+                erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Automóvel." +
+                    " Primeiro exclua o Automóvel relacionado", "CategoriaAutomoveis"));
+
+            else if (exception.Message.Contains("FK_TBPlanoCobranca_TBCategoriaAutomoveis"))
+                erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Plano de Cobrança." +
+                    " Primeiro exclua o Plano de Cobrança relacionado", "CategoriaAutomoveis"));
+            else
+                erros.Add(new CustomError("Falha ao tentar excluir a Categoria de Automóveis", "CategoriaAutomoveis"));
+
+            return erros;
         }
         #endregion
 

@@ -1,5 +1,7 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloCliente;
+﻿using LocadoraAutomoveis.Dominio.ModuloAutomovel;
+using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
@@ -104,7 +106,6 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 return Result.Fail("Cliente não encontrado");
             }
-
             try
             {
                 _repositorioCliente.Excluir(clienteParaExcluir);
@@ -117,36 +118,33 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
-                _contextoPersistencia.DesfazerAlteracoes();
-
-                Log.Warning("Falha ao tentar excluir o Cliente '{NOME} #{ID}'", clienteParaExcluir.Nome, clienteParaExcluir.ID, ex);
-
-                List<IError> erros = new();
-
-                if (sqlException.Message.Contains("FK_TBAluguel_TBCliente"))
-                    erros.Add(new CustomError("Esse Cliente está relacionado a um Aluguel." +
-                " Primeiro exclua o Aluguel relacionado", "Cliente"));
-                else
-                    erros.Add(new CustomError("Falha ao tentar excluir Cliente", "Cliente"));
+                List<IError> erros = AnalisarErros(clienteParaExcluir, sqlException);
 
                 return Result.Fail(erros);
             }
             catch (InvalidOperationException ex)
             {
-                _contextoPersistencia.DesfazerAlteracoes();
-
-                Log.Warning("Falha ao tentar excluir o Cliente '{NOME} #{ID}'", clienteParaExcluir.Nome, clienteParaExcluir.ID, ex);
-
-                List<IError> erros = new();
-
-                if (ex.Message.Contains("'Cliente' and 'Condutor' "))
-                    erros.Add(new CustomError("Esse Cliente de Condutor está relacionado a um Condutor." +
-                        " Primeiro exclua o Condutor relacionado", "Cliente"));
-                else
-                    erros.Add(new CustomError("Falha ao tentar excluir a Cliente de Condutor", "Cliente"));
+                List<IError> erros = AnalisarErros(clienteParaExcluir, ex);
 
                 return Result.Fail(erros);
             }
+        }
+
+        private List<IError> AnalisarErros(Cliente clienteParaExcluir, Exception exception)
+        {
+            List<IError> erros = new();
+
+            _contextoPersistencia.DesfazerAlteracoes();
+
+            Log.Warning("Falha ao tentar excluir o Cliente '{NOME} #{ID}'", clienteParaExcluir.Nome, clienteParaExcluir.ID, exception);
+
+            if (exception.Message.Contains("FK_TBAluguel_TBCliente"))
+                erros.Add(new CustomError("Esse Cliente está relacionado a um Aluguel." +
+            " Primeiro exclua o Aluguel relacionado", "Cliente"));
+            else
+                erros.Add(new CustomError("Falha ao tentar excluir Cliente", "Cliente"));
+
+            return erros;
         }
         #endregion
 

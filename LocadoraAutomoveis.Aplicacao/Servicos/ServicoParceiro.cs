@@ -1,5 +1,7 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloParceiro;
+﻿using LocadoraAutomoveis.Dominio.ModuloFuncionario;
+using LocadoraAutomoveis.Dominio.ModuloParceiro;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
@@ -104,7 +106,6 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 return Result.Fail("Parceiro não encontrado");
             }
-
             try
             {
                 _repositorioParceiro.Excluir(parceiroParaExcluir);
@@ -117,20 +118,33 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
-                _contextoPersistencia.DesfazerAlteracoes();
-
-                Log.Warning("Falha ao tentar excluir o Parceiro '{NOME} #{ID}'", parceiroParaExcluir.Nome, parceiroParaExcluir.ID, ex);
-
-                List<IError> erros = new();
-
-                if (sqlException.Message.Contains("FK_TBCupom_TBParceiro"))
-                    erros.Add(new CustomError("Esse Parceiro está relacionado a um Cupom." +
-                        " Primeiro exclua o Cupom relacionado", "Parceiro"));
-                else
-                    erros.Add(new CustomError("Falha ao tentar excluir o Parceiro", "Parceiro"));
+                List<IError> erros = AnalisarErros(parceiroParaExcluir, sqlException);
 
                 return Result.Fail(erros);
             }
+            catch (InvalidOperationException ex)
+            {
+                List<IError> erros = AnalisarErros(parceiroParaExcluir, ex);
+
+                return Result.Fail(erros);
+            }
+        }
+
+        private List<IError> AnalisarErros(Parceiro parceiroParaExcluir, Exception exception)
+        {
+            List<IError> erros = new();
+
+            _contextoPersistencia.DesfazerAlteracoes();
+
+            Log.Warning("Falha ao tentar excluir o Parceiro '{NOME} #{ID}'", parceiroParaExcluir.Nome, parceiroParaExcluir.ID, exception);
+
+            if (exception.Message.Contains("FK_TBCupom_TBParceiro"))
+                erros.Add(new CustomError("Esse Parceiro está relacionado a um Cupom." +
+                    " Primeiro exclua o Cupom relacionado", "Parceiro"));
+            else
+                erros.Add(new CustomError("Falha ao tentar excluir o Parceiro", "Parceiro"));
+
+            return erros;
         }
         #endregion
 

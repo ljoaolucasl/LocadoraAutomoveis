@@ -1,5 +1,7 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
+﻿using LocadoraAutomoveis.Dominio.ModuloParceiro;
+using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
@@ -104,7 +106,6 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 return Result.Fail("Plano de Cobrança não encontrado");
             }
-
             try
             {
                 _repositorioPlanoCobranca.Excluir(planoCobrancaParaExcluir);
@@ -117,20 +118,33 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
-                _contextoPersistencia.DesfazerAlteracoes();
-
-                Log.Warning("Falha ao tentar excluir o Plano de Cobrança'{NOME} #{ID}'", planoCobrancaParaExcluir, planoCobrancaParaExcluir.ID, ex);
-
-                List<IError> erros = new();
-
-                if (sqlException.Message.Contains("FK_TBAluguel_TBPlanoCobranca"))
-                    erros.Add(new CustomError("Esse Plano de Cobrança está relacionado a um Aluguel." +
-                " Primeiro exclua o Aluguel relacionado", "Plano de Cobrança"));
-                else
-                    erros.Add(new CustomError("Falha ao tentar excluir o plano de cobrança", "Plano de Cobrança"));
+                List<IError> erros = AnalisarErros(planoCobrancaParaExcluir, sqlException);
 
                 return Result.Fail(erros);
             }
+            catch (InvalidOperationException ex)
+            {
+                List<IError> erros = AnalisarErros(planoCobrancaParaExcluir, ex);
+
+                return Result.Fail(erros);
+            }
+        }
+
+        private List<IError> AnalisarErros(PlanoCobranca planoCobrancaParaExcluir, Exception exception)
+        {
+            List<IError> erros = new();
+
+            _contextoPersistencia.DesfazerAlteracoes();
+
+            Log.Warning("Falha ao tentar excluir o Plano de Cobrança'{NOME} #{ID}'", planoCobrancaParaExcluir, planoCobrancaParaExcluir.ID, exception);
+
+            if (exception.Message.Contains("FK_TBAluguel_TBPlanoCobranca"))
+                erros.Add(new CustomError("Esse Plano de Cobrança está relacionado a um Aluguel." +
+            " Primeiro exclua o Aluguel relacionado", "Plano de Cobrança"));
+            else
+                erros.Add(new CustomError("Falha ao tentar excluir o plano de cobrança", "Plano de Cobrança"));
+
+            return erros;
         }
         #endregion
 

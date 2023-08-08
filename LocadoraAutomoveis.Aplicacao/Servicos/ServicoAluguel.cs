@@ -45,8 +45,6 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             this.servicoTaxaEServico = servicoTaxaEServico;
         }
 
-
-
         #region CRUD
         public Result Inserir(Aluguel aluguelParaAdicionar)
         {
@@ -159,16 +157,29 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
-                _contextoPersistencia.DesfazerAlteracoes();
-
-                Log.Warning("Falha ao tentar excluir o Aluguel '{CLIENTE} #{ID}'", aluguelParaExcluir.Cliente.Nome, aluguelParaExcluir.ID, ex);
-
-                List<IError> erros = new();
-
-                erros.Add(new CustomError("Falha ao tentar excluir o Aluguel", "Aluguel"));
+                List<IError> erros = AnalisarErros(aluguelParaExcluir, sqlException);
 
                 return Result.Fail(erros);
             }
+            catch (InvalidOperationException ex)
+            {
+                List<IError> erros = AnalisarErros(aluguelParaExcluir, ex);
+
+                return Result.Fail(erros);
+            }
+        }
+
+        private List<IError> AnalisarErros(Aluguel aluguelParaExcluir, Exception exception)
+        {
+            List<IError> erros = new();
+
+            _contextoPersistencia.DesfazerAlteracoes();
+
+            Log.Warning("Falha ao tentar excluir o Aluguel '{CLIENTE} #{ID}'", aluguelParaExcluir.Cliente.Nome, aluguelParaExcluir.ID, exception);
+
+            erros.Add(new CustomError("Falha ao tentar excluir o Aluguel", "Aluguel"));
+
+            return erros;
         }
         #endregion
 
@@ -202,7 +213,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             return Result.Fail(erros);
         }
 
-        private Cupom? ObterCupomCompleto(Aluguel aluguelParaObterCupom)
+        public Cupom? ObterCupomCompleto(Aluguel aluguelParaObterCupom)
         {
             return servicoCupom.SelecionarTodosOsRegistros().FirstOrDefault(c => c.Nome == aluguelParaObterCupom.Cupom.Nome);
         }

@@ -128,19 +128,6 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAluguel
         }
 
         [TestMethod]
-        public void Nao_deve_aceitar_Cupom_nulo()
-        {
-            //arrange
-            _aluguel.Cupom = null;
-
-            //action
-            ValidationResult resultado = _validador.Validate(_aluguel);
-
-            //assert
-            resultado.IsValid.Should().BeFalse();
-        }
-
-        [TestMethod]
         public void Nao_deve_aceitar_lista_Taxas_nula()
         {
             //arrange

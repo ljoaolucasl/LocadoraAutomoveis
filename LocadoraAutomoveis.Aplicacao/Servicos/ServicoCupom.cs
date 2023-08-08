@@ -1,5 +1,7 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloCupom;
+﻿using LocadoraAutomoveis.Dominio.ModuloCondutores;
+using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
@@ -103,7 +105,6 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 return Result.Fail("Cupom não encontrado");
             }
-
             try
             {
                 _repositorioCupom.Excluir(cupomParaExcluir);
@@ -116,20 +117,33 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
-                _contextoPersistencia.DesfazerAlteracoes();
-
-                Log.Warning("Falha ao tentar excluir o Cupom '{NOME} #{ID}'", cupomParaExcluir.Nome, cupomParaExcluir.ID, ex);
-
-                List<IError> erros = new();
-
-                if (sqlException.Message.Contains("FK_TBAluguel_TBCupom"))
-                    erros.Add(new CustomError("Esse Cupom está relacionado a um Aluguel." +
-                " Primeiro exclua o Aluguel relacionado", "Cupom"));
-                else
-                    erros.Add(new CustomError("Falha ao tentar excluir o cupom", "Cupom"));
+                List<IError> erros = AnalisarErros(cupomParaExcluir, sqlException);
 
                 return Result.Fail(erros);
             }
+            catch (InvalidOperationException ex)
+            {
+                List<IError> erros = AnalisarErros(cupomParaExcluir, ex);
+
+                return Result.Fail(erros);
+            }
+        }
+
+        private List<IError> AnalisarErros(Cupom cupomParaExcluir, Exception exception)
+        {
+            List<IError> erros = new();
+
+            _contextoPersistencia.DesfazerAlteracoes();
+
+            Log.Warning("Falha ao tentar excluir o Cupom '{NOME} #{ID}'", cupomParaExcluir.Nome, cupomParaExcluir.ID, exception);
+
+            if (exception.Message.Contains("FK_TBAluguel_TBCupom"))
+                erros.Add(new CustomError("Esse Cupom está relacionado a um Aluguel." +
+            " Primeiro exclua o Aluguel relacionado", "Cupom"));
+            else
+                erros.Add(new CustomError("Falha ao tentar excluir o cupom", "Cupom"));
+
+            return erros;
         }
         #endregion
 

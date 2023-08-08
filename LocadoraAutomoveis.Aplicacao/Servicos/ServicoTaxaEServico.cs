@@ -117,20 +117,33 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
-                _contextoPersistencia.DesfazerAlteracoes();
-
-                Log.Warning("Falha ao tentar excluir a Taxa e Serviço '{NOME} #{ID}'", taxaParaExcluir.Nome, taxaParaExcluir.ID, ex);
-
-                List<IError> erros = new();
-
-                if (sqlException.Message.Contains("FK_TBAluguel_TBTaxaEServicos"))
-                    erros.Add(new CustomError("Essa Taxa e Serviço está relacionada a um Aluguel." +
-                " Primeiro exclua o Aluguel relacionado", "Taxa"));
-                else
-                    erros.Add(new CustomError("Falha ao tentar excluir a Taxa e Serviço", "Taxa"));
+                List<IError> erros = AnalisarErros(taxaParaExcluir, sqlException);
 
                 return Result.Fail(erros);
             }
+            catch (InvalidOperationException ex)
+            {
+                List<IError> erros = AnalisarErros(taxaParaExcluir, ex);
+
+                return Result.Fail(erros);
+            }
+        }
+
+        private List<IError> AnalisarErros(TaxaEServico taxaParaExcluir, Exception exception)
+        {
+            List<IError> erros = new();
+
+            _contextoPersistencia.DesfazerAlteracoes();
+
+            Log.Warning("Falha ao tentar excluir a Taxa e Serviço '{NOME} #{ID}'", taxaParaExcluir.Nome, taxaParaExcluir.ID, exception);
+
+            if (exception.Message.Contains("FK_TBAluguel_TBTaxaEServicos"))
+                erros.Add(new CustomError("Essa Taxa e Serviço está relacionada a um Aluguel." +
+            " Primeiro exclua o Aluguel relacionado", "Taxa"));
+            else
+                erros.Add(new CustomError("Falha ao tentar excluir a Taxa e Serviço", "Taxa"));
+
+            return erros;
         }
         #endregion
 

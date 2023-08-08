@@ -1,6 +1,8 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloAutomovel;
+﻿using LocadoraAutomoveis.Dominio.ModuloAluguel;
+using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
@@ -118,20 +120,33 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
-                _contextoPersistencia.DesfazerAlteracoes();
-
-                Log.Warning("Falha ao tentar excluir o Automóvel '{PLACA} #{ID}'", automovelParaExcluir.Placa, automovelParaExcluir.ID, ex);
-
-                List<IError> erros = new();
-
-                if (sqlException.Message.Contains("FK_TBAluguel_TBAutomovel"))
-                    erros.Add(new CustomError("Esse Automóvel está relacionado a um Aluguel." +
-                        " Primeiro exclua o Aluguel relacionado", "Automovel"));
-                else
-                    erros.Add(new CustomError("Falha ao tentar excluir o Automóvel", "Automovel"));
+                List<IError> erros = AnalisarErros(automovelParaExcluir, sqlException);
 
                 return Result.Fail(erros);
             }
+            catch (InvalidOperationException ex)
+            {
+                List<IError> erros = AnalisarErros(automovelParaExcluir, ex);
+
+                return Result.Fail(erros);
+            }
+        }
+
+        private List<IError> AnalisarErros(Automovel automovelParaExcluir, Exception exception)
+        {
+            List<IError> erros = new();
+
+            _contextoPersistencia.DesfazerAlteracoes();
+
+            Log.Warning("Falha ao tentar excluir o Automóvel '{PLACA} #{ID}'", automovelParaExcluir.Placa, automovelParaExcluir.ID, exception);
+
+            if (exception.Message.Contains("FK_TBAluguel_TBAutomovel"))
+                erros.Add(new CustomError("Esse Automóvel está relacionado a um Aluguel." +
+                    " Primeiro exclua o Aluguel relacionado", "Automovel"));
+            else
+                erros.Add(new CustomError("Falha ao tentar excluir o Automóvel", "Automovel"));
+
+            return erros;
         }
         #endregion
 

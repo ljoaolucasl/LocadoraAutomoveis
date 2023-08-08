@@ -481,7 +481,6 @@
         private TabPage tabPlanoCobrancaPage3;
         private Label lbTipoPlano;
         private NumericUpDown numPrecoKm1;
-        private NumericUpDown numPrecoDiaria1;
         private Label lbErroPrecoKm1;
         private Label lbErroPrecoDiaria1;
         private Label lbPrecoKm;
@@ -503,5 +502,6 @@
         private Label lbErroPrecoDiaria3;
         private Label label19;
         private Label label20;
+        private NumericUpDown numPrecoDiaria1;
     }
 }

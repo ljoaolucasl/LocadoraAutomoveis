@@ -22,13 +22,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
             _resultado = new Result();
 
             _planoCobranca = new PlanoCobranca();
-
-            numPrecoDiaria1.Controls[0].Visible = false;
-            numPrecoKm1.Controls[0].Visible = false;
-            numPrecoDiaria2.Controls[0].Visible = false;
-            numPrecoKm2.Controls[0].Visible = false;
-            numKmDisponivel2.Controls[0].Visible = false;
-            numPrecoDiaria3.Controls[0].Visible = false;
         }
 
         public PlanoCobranca? Entidade
@@ -121,13 +114,13 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
 
         private void selecaoAutomaticaNumericUpDown_Enter(object sender, EventArgs e)
         {
-            ((TextBox)((NumericUpDown)sender).Controls[1]).SelectAll();
+            ((TextBox)((NumericUpDown)sender).Controls[0]).SelectAll();
         }
 
         private void selecaoAutomaticaNumericUpDown_Click(object sender, EventArgs e)
         {
-            if (((NumericUpDown)sender).Controls[1].Text == "0,00" || ((NumericUpDown)sender).Controls[1].Text == "0")
-                ((TextBox)((NumericUpDown)sender).Controls[1]).SelectAll();
+            if (((NumericUpDown)sender).Controls[0].Text == "0,00" || ((NumericUpDown)sender).Controls[0].Text == "0")
+                ((TextBox)((NumericUpDown)sender).Controls[0]).SelectAll();
         }
     }
 }

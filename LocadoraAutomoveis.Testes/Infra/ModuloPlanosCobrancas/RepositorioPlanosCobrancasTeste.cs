@@ -33,6 +33,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloPlanosCobrancas
         {
             var categoria = Builder<CategoriaAutomoveis>.CreateNew().Build();
             var planoCobranca = Builder<PlanoCobranca>.CreateNew().With(c => c.CategoriaAutomoveis = categoria).Persist();
+            _contexto.SaveChanges();
 
             _repositorioPlanosCobrancas.SelecionarPorID(planoCobranca.ID).Should().Be(planoCobranca);
         }
@@ -42,10 +43,12 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloPlanosCobrancas
         {
             var categoria = Builder<CategoriaAutomoveis>.CreateNew().Build();
             var planoCobranca1 = Builder<PlanoCobranca>.CreateNew().With(c => c.CategoriaAutomoveis = categoria).Persist();
+            _contexto.SaveChanges();
             var planoCobranca2 = _repositorioPlanosCobrancas.SelecionarPorID(planoCobranca1.ID);
             planoCobranca2.PlanoDiario_ValorDiario = 1;
 
             _repositorioPlanosCobrancas.Editar(planoCobranca2);
+            _contexto.SaveChanges();
 
             var planoCobrancaSelecionado = _repositorioPlanosCobrancas.SelecionarPorID(planoCobranca1.ID);
             _repositorioPlanosCobrancas.SelecionarTodos().Should().HaveCount(1);
@@ -57,9 +60,11 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloPlanosCobrancas
         {
             var categoria = Builder<CategoriaAutomoveis>.CreateNew().Build();
             var planoCobranca = Builder<PlanoCobranca>.CreateNew().With(c => c.CategoriaAutomoveis = categoria).Persist();
+            _contexto.SaveChanges();
             var planoCobrancaSelecionado = _repositorioPlanosCobrancas.SelecionarPorID(planoCobranca.ID);
 
             _repositorioPlanosCobrancas.Excluir(planoCobrancaSelecionado);
+            _contexto.SaveChanges();
 
             _repositorioPlanosCobrancas.SelecionarTodos().Should().HaveCount(0);
         }
@@ -69,6 +74,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloPlanosCobrancas
         {
             var categoria = Builder<CategoriaAutomoveis>.CreateNew().Build();
             var planoCobranca = Builder<PlanoCobranca>.CreateNew().With(c => c.CategoriaAutomoveis = categoria).Persist();
+            _contexto.SaveChanges();
 
             var planoCobrancaSelecionado = _repositorioPlanosCobrancas.SelecionarPorID(planoCobranca.ID);
 
@@ -80,9 +86,13 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloPlanosCobrancas
         {
             var categoria = Builder<CategoriaAutomoveis>.CreateNew().Build();
             var planoCobranca1 = Builder<PlanoCobranca>.CreateNew().With(c => c.CategoriaAutomoveis = categoria).Persist();
+            _contexto.SaveChanges();
             var planoCobranca2 = Builder<PlanoCobranca>.CreateNew().With(c => c.CategoriaAutomoveis = categoria).Persist();
+            _contexto.SaveChanges();
             var planoCobranca3 = Builder<PlanoCobranca>.CreateNew().With(c => c.CategoriaAutomoveis = categoria).Persist();
+            _contexto.SaveChanges();
             var planoCobranca4 = Builder<PlanoCobranca>.CreateNew().With(c => c.CategoriaAutomoveis = categoria).Persist();
+            _contexto.SaveChanges();
 
             var listaPlanosCobrancas = _repositorioPlanosCobrancas.SelecionarTodos();
 

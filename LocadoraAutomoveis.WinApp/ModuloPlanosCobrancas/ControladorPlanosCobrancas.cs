@@ -1,14 +1,12 @@
-﻿using LocadoraAutomoveis.Aplicacao.Servicos;
-using LocadoraAutomoveis.Dominio.Extensions;
+﻿using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
-using LocadoraAutomoveis.Infraestrutura.Repositorios;
 
 namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
 {
-    public class ControladorPlanosCobrancas : ControladorBase<PlanoCobranca, RepositorioPlanosCobrancas,
-        ServicoPlanosCobrancas, TabelaPlanosCobrancasControl, TelaPlanosCobrancasForm, ServicoCategoriaAutomoveis, NoService>
+    public class ControladorPlanosCobrancas : ControladorBase<PlanoCobranca, IRepositorioPlanoCobranca,
+        IServicoPlanoCobranca, TabelaPlanosCobrancasControl, TelaPlanosCobrancasForm, IServicoCategoriaAutomoveis, NoService>
     {
-        public ControladorPlanosCobrancas(RepositorioPlanosCobrancas repositorioPlanosCobrancas, ServicoPlanosCobrancas servicoPlanosCobrancas, TabelaPlanosCobrancasControl tabelaPlanosCobrancas, ServicoCategoriaAutomoveis servicoCategoriaAutomoveis) : base(repositorioPlanosCobrancas, servicoPlanosCobrancas, tabelaPlanosCobrancas, servicoCategoriaAutomoveis)
+        public ControladorPlanosCobrancas(IRepositorioPlanoCobranca repositorioPlanosCobrancas, IServicoPlanoCobranca servicoPlanosCobrancas, TabelaPlanosCobrancasControl tabelaPlanosCobrancas, IServicoCategoriaAutomoveis servicoCategoriaAutomoveis) : base(repositorioPlanosCobrancas, servicoPlanosCobrancas, tabelaPlanosCobrancas, servicoCategoriaAutomoveis)
         {
             OnComandosAdicionaisAddAndEdit += ObterDependencias;
         }

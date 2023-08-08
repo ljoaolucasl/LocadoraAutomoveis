@@ -33,6 +33,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloParceiro
         public void Deve_adicionar_um_parceiro()
         {
             var parceiro = Builder<Parceiro>.CreateNew().Persist();
+            _contexto.SaveChanges();
 
             _repositorioParceiro.SelecionarPorID(parceiro.ID).Should().Be(parceiro);
         }
@@ -41,10 +42,12 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloParceiro
         public void Deve_editar_um_parceiro()
         {
             var parceiro1 = Builder<Parceiro>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var parceiro2 = _repositorioParceiro.SelecionarPorID(parceiro1.ID);
             parceiro2.Nome = "Academia do Programador";
 
             _repositorioParceiro.Editar(parceiro2);
+            _contexto.SaveChanges();
 
             var parceiroSelecionado = _repositorioParceiro.SelecionarPorID(parceiro1.ID);
             _repositorioParceiro.SelecionarTodos().Count.Should().Be(1);
@@ -55,9 +58,11 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloParceiro
         public void Deve_excluir_um_parceiro()
         {
             var parceiro1 = Builder<Parceiro>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var parceiroSelecionado = _repositorioParceiro.SelecionarPorID(parceiro1.ID);
 
             _repositorioParceiro.Excluir(parceiroSelecionado);
+            _contexto.SaveChanges();
 
             _repositorioParceiro.SelecionarTodos().Count.Should().Be(0);
         }
@@ -66,6 +71,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloParceiro
         public void Deve_selecionar_por_ID_um_parceiro()
         {
             var parceiro1 = Builder<Parceiro>.CreateNew().Persist();
+            _contexto.SaveChanges();
 
             var parceiroSelecionado = _repositorioParceiro.SelecionarPorID(parceiro1.ID);
 
@@ -76,9 +82,13 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloParceiro
         public void Deve_selecionar_todos_os_parceiros()
         {
             var parceiro1 = Builder<Parceiro>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var parceiro2 = Builder<Parceiro>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var parceiro3 = Builder<Parceiro>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var parceiro4 = Builder<Parceiro>.CreateNew().Persist();
+            _contexto.SaveChanges();
 
             var listaParceiros = _repositorioParceiro.SelecionarTodos();
 
@@ -91,6 +101,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloParceiro
         public void Deve_verificar_se_parceiro_existe_validacao()
         {
             var parceiro1 = Builder<Parceiro>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var parceiro2 = new Parceiro(parceiro1.Nome);
 
             bool resultado = _repositorioParceiro.Existe(parceiro2);
@@ -102,6 +113,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloParceiro
         public void Deve_permitir_se_parceiro_com_nome_e_ID_iguais_validacao()
         {
             var parceiro1 = Builder<Parceiro>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var parceiro2 = new Parceiro(parceiro1.Nome) { ID = parceiro1.ID };
 
             bool resultado = _repositorioParceiro.Existe(parceiro2);
@@ -113,6 +125,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloParceiro
         public void Deve_verificar_se_parceiro_existe_exclusao()
         {
             var parceiro1 = Builder<Parceiro>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var parceiro2 = _repositorioParceiro.SelecionarPorID(parceiro1.ID);
 
             bool resultado = _repositorioParceiro.Existe(parceiro2, true);

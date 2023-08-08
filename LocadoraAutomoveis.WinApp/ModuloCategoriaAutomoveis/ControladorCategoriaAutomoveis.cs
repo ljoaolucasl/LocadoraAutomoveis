@@ -4,9 +4,9 @@ using LocadoraAutomoveis.Infraestrutura.Repositorios;
 
 namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
 {
-    public class ControladorCategoriaAutomoveis : ControladorBase<CategoriaAutomoveis, RepositorioCategoriaAutomoveis, ServicoCategoriaAutomoveis, TabelaCategoriaAutomoveisControl, TelaCategoriaAutomoveisForm, NoService, NoService>
+    public class ControladorCategoriaAutomoveis : ControladorBase<CategoriaAutomoveis, IRepositorioCategoria, IServicoCategoriaAutomoveis, TabelaCategoriaAutomoveisControl, TelaCategoriaAutomoveisForm, NoService, NoService>
     {
-        public ControladorCategoriaAutomoveis(RepositorioCategoriaAutomoveis _repositorio, ServicoCategoriaAutomoveis _servico, TabelaCategoriaAutomoveisControl _tabela) : base(_repositorio, _servico, _tabela)
+        public ControladorCategoriaAutomoveis(IRepositorioCategoria _repositorio, IServicoCategoriaAutomoveis _servico, TabelaCategoriaAutomoveisControl _tabela) : base(_repositorio, _servico, _tabela)
         {
         }
 

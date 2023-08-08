@@ -8,6 +8,7 @@ using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Testes.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 
 namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
 {
@@ -16,6 +17,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
     {
         private Mock<IRepositorioCondutores> _repositorioMoq;
         private Mock<IValidadorCondutores> _validadorMoq;
+        private Mock<IContextoPersistencia> _contexto;
         private ServicoCondutores _servico;
 
         private Condutor _condutor;
@@ -26,7 +28,8 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
         {
             _repositorioMoq = new Mock<IRepositorioCondutores>();
             _validadorMoq = new Mock<IValidadorCondutores>();
-            _servico = new ServicoCondutores(_repositorioMoq.Object, _validadorMoq.Object);
+            _contexto = new Mock<IContextoPersistencia>();
+            _servico = new ServicoCondutores(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object);
 
             _cliente1 = new Cliente("Rafael", "rafael@gmail.com", "(49) 92332-4324", TipoDocumento.CPF,
                 "234.323.563-45", "Santa Catarina", "Lages", "São Cristovão", "Rio de Janeiro", 12);

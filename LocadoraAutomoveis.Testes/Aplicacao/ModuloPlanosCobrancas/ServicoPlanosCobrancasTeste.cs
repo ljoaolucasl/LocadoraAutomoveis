@@ -5,6 +5,7 @@ using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
+using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Testes.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -16,6 +17,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloPlanosCobrancas
     {
         private Mock<IRepositorioPlanoCobranca> _repositorioMoq;
         private Mock<IValidadorPlanoCobranca> _validadorMoq;
+        private Mock<IContextoPersistencia> _contexto;
         private ServicoPlanosCobrancas _servico;
 
         private PlanoCobranca _planoCobranca;
@@ -26,7 +28,8 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloPlanosCobrancas
         {
             _repositorioMoq = new Mock<IRepositorioPlanoCobranca>();
             _validadorMoq = new Mock<IValidadorPlanoCobranca>();
-            _servico = new ServicoPlanosCobrancas(_repositorioMoq.Object, _validadorMoq.Object);
+            _contexto = new Mock<IContextoPersistencia>();
+            _servico = new ServicoPlanosCobrancas(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object);
 
             _categoria = new CategoriaAutomoveis("Esportivo");
             _planoCobranca = new(100, 100, 100, 100, 100, 100, _categoria);

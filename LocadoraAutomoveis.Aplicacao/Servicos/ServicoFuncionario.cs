@@ -1,4 +1,5 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloFuncionario;
+using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
@@ -7,10 +8,14 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
     {
         private readonly IRepositorioFuncionario _repositorioFuncionarios;
         private readonly IValidadorFuncionario _validadorFuncionario;
-        public ServicoFuncionario(IRepositorioFuncionario repositorioFuncionarios, IValidadorFuncionario validadorFuncionario)
+        private readonly IContextoPersistencia _contextoPersistencia;
+
+        public ServicoFuncionario(IRepositorioFuncionario repositorioFuncionarios, IValidadorFuncionario validadorFuncionario,
+            IContextoPersistencia contextoPersistencia)
         {
             _repositorioFuncionarios = repositorioFuncionarios;
             _validadorFuncionario = validadorFuncionario;
+            _contextoPersistencia = contextoPersistencia;
         }
 
         #region CRUD
@@ -23,11 +28,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar adicionar o Funcionário '{NOME}'", funcionarioParaAdicionar.Nome);
+
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return resultado;
             }
             try
             {
                 _repositorioFuncionarios.Inserir(funcionarioParaAdicionar);
+
+                _contextoPersistencia.GravarDados();
 
                 Log.Debug("Adicionado o Funcionário '{NOME} #{ID}' com sucesso!", funcionarioParaAdicionar.Nome, funcionarioParaAdicionar.ID);
 
@@ -35,6 +45,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 CustomError erro = new CustomError("Falha ao tentar inserir Funcionário ", "Funcionario", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{F}", funcionarioParaAdicionar);
@@ -52,11 +64,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar editar o Funcionário '{NOME} #{ID}'", funcionarioParaEditar.Nome, funcionarioParaEditar.ID);
+
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return resultado;
             }
             try
             {
                 _repositorioFuncionarios.Editar(funcionarioParaEditar);
+
+                _contextoPersistencia.GravarDados();
 
                 Log.Debug("Editado o Funcionário '{NOME} #{ID}' com sucesso!", funcionarioParaEditar.Nome, funcionarioParaEditar.ID);
 
@@ -64,6 +81,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 CustomError erro = new CustomError("Falha ao tentar editar Funcionário ", "Funcionario", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{F}", funcionarioParaEditar);
@@ -80,6 +99,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 Log.Warning("Funcionário {ID} não encontrado para excluir", funcionarioParaExcluir.ID);
 
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return Result.Fail("Funcionário não encontrado");
             }
 
@@ -87,12 +108,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioFuncionarios.Excluir(funcionarioParaExcluir);
 
+                _contextoPersistencia.GravarDados();
+
                 Log.Debug("Excluído o Funcionário '{NOME} #{ID}' com sucesso!", funcionarioParaExcluir.Nome, funcionarioParaExcluir.ID);
 
                 return Result.Ok();
             }
             catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 Log.Warning("Falha ao tentar excluir Funcionário '{NOME} #{ID}'", funcionarioParaExcluir.Nome, funcionarioParaExcluir.ID, ex);
 
                 List<IError> erros = new();

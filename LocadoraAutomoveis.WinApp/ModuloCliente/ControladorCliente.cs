@@ -1,16 +1,10 @@
-﻿using LocadoraAutomoveis.Aplicacao.Servicos;
-using LocadoraAutomoveis.Dominio.ModuloAutomovel;
-using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
-using LocadoraAutomoveis.Dominio.ModuloCliente;
-using LocadoraAutomoveis.Infraestrutura.Repositorios;
-using LocadoraAutomoveis.WinApp.Compartilhado;
-
+﻿using LocadoraAutomoveis.Dominio.ModuloCliente;
 
 namespace LocadoraAutomoveis.WinApp.ModuloCliente
 {
-    public class ControladorCliente : ControladorBase<Cliente, RepositorioCliente, ServicoCliente, TabelaClienteControl, TelaClienteForm, NoService, NoService>
+    public class ControladorCliente : ControladorBase<Cliente, IRepositorioCliente, IServicoCliente, TabelaClienteControl, TelaClienteForm, NoService, NoService>
     {
-        public ControladorCliente(RepositorioCliente _repositorio, ServicoCliente _servico, TabelaClienteControl _tabela) : base(_repositorio, _servico, _tabela)
+        public ControladorCliente(IRepositorioCliente _repositorio, IServicoCliente _servico, TabelaClienteControl _tabela) : base(_repositorio, _servico, _tabela)
         {
         }
 

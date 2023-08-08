@@ -32,6 +32,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
         {
             //arrange/action
             var categoria = Builder<CategoriaAutomoveis>.CreateNew().Persist();
+            _contexto.SaveChanges();
 
             //assert
             _repositorioCategoriaAutomoveis.SelecionarPorID(categoria.ID).Should().Be(categoria);
@@ -42,11 +43,13 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
         {
             //arrange
             var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var categoria2 = _repositorioCategoriaAutomoveis.SelecionarPorID(categoria1.ID);
             categoria2.Nome = "Esportivo";
 
             //action
             _repositorioCategoriaAutomoveis.Editar(categoria2);
+            _contexto.SaveChanges();
 
             //assert
             var categoriaSelecionada = _repositorioCategoriaAutomoveis.SelecionarPorID(categoria1.ID);
@@ -59,10 +62,12 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
         {
             //arrange
             var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var categoriaSelecionada = _repositorioCategoriaAutomoveis.SelecionarPorID(categoria1.ID);
 
             //action
             _repositorioCategoriaAutomoveis.Excluir(categoriaSelecionada);
+            _contexto.SaveChanges();
 
             //assert
             _repositorioCategoriaAutomoveis.SelecionarTodos().Count.Should().Be(0);
@@ -73,6 +78,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
         {
             //arrange
             var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
+            _contexto.SaveChanges();
 
             //action
             var categoriaSelecionada = _repositorioCategoriaAutomoveis.SelecionarPorID(categoria1.ID);
@@ -89,6 +95,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
             var categoria2 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
             var categoria3 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
             var categoria4 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
+            _contexto.SaveChanges();
 
             //action
             var listaCategorias = _repositorioCategoriaAutomoveis.SelecionarTodos();
@@ -104,6 +111,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
         {
             //arrange
             var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var categoria2 = new CategoriaAutomoveis(categoria1.Nome);
 
             //action
@@ -118,6 +126,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
         {
             //arrange
             var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var categoria2 = new CategoriaAutomoveis(categoria1.Nome) { ID = categoria1.ID };
 
             //action
@@ -132,6 +141,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
         {
             //arrange
             var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var categoria2 = _repositorioCategoriaAutomoveis.SelecionarPorID(categoria1.ID);
 
             //action

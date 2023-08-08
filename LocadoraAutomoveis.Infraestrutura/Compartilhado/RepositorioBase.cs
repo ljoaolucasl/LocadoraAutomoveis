@@ -23,19 +23,16 @@ namespace LocadoraAutomoveis.Infraestrutura.Compartilhado
         public void Inserir(TEntidade objetoParaAdicionar)
         {
             ContextoDb.Add(objetoParaAdicionar);
-            ContextoDb.SaveChanges();
         }
 
         public void Editar(TEntidade objetoParaEditar)
         {
             ContextoDb.Update(objetoParaEditar);
-            ContextoDb.SaveChanges();
         }
 
         public void Excluir(TEntidade objetoParaDeletar)
         {
             ContextoDb.Remove(objetoParaDeletar);
-            ContextoDb.SaveChanges();
         }
 
         public abstract bool Existe(TEntidade objetoParaVerificar, bool exclusao = false);

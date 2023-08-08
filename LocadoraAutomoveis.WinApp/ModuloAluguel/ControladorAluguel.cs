@@ -1,12 +1,10 @@
-﻿using LocadoraAutomoveis.Aplicacao.Servicos;
-using LocadoraAutomoveis.Dominio.ModuloAluguel;
-using LocadoraAutomoveis.Infraestrutura.Repositorios;
+﻿using LocadoraAutomoveis.Dominio.ModuloAluguel;
 
 namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 {
-    public class ControladorAluguel : ControladorBase<Aluguel, RepositorioAluguel, ServicoAluguel, TabelaAluguelControl, TelaAluguelForm, NoService, NoService>
+    public class ControladorAluguel : ControladorBase<Aluguel, IRepositorioAluguel, IServicoAluguel, TabelaAluguelControl, TelaAluguelForm, NoService, NoService>
     {
-        public ControladorAluguel(RepositorioAluguel _repositorio, ServicoAluguel _servico, TabelaAluguelControl _tabela) : base(_repositorio, _servico, _tabela)
+        public ControladorAluguel(IRepositorioAluguel _repositorio, IServicoAluguel _servico, TabelaAluguelControl _tabela) : base(_repositorio, _servico, _tabela)
         {
             OnComandosAdicionaisAddAndEdit += ObterDependencias;
         }

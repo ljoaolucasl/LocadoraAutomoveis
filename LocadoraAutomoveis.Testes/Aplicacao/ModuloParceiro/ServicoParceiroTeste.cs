@@ -4,6 +4,7 @@ using FluentResults.Extensions.FluentAssertions;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloParceiro;
+using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Testes.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -15,6 +16,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloParceiro
     {
         private Mock<IRepositorioParceiro> _repositorioMoq;
         private Mock<IValidadorParceiro> _validadorMoq;
+        private Mock<IContextoPersistencia> _contexto;
         private ServicoParceiro _servico;
         private Parceiro _parceiro;
 
@@ -23,7 +25,8 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloParceiro
         {
             _repositorioMoq = new Mock<IRepositorioParceiro>();
             _validadorMoq = new Mock<IValidadorParceiro>();
-            _servico = new ServicoParceiro(_repositorioMoq.Object, _validadorMoq.Object);
+            _contexto = new Mock<IContextoPersistencia>();
+            _servico = new ServicoParceiro(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object);
             _parceiro = new Parceiro("Academia do Programador");
         }
 

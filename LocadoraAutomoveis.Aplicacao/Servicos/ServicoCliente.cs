@@ -1,12 +1,6 @@
-﻿using FluentResults;
-using FluentValidation.Results;
-using LocadoraAutomoveis.Aplicacao.Compartilhado;
-using LocadoraAutomoveis.Aplicacao.Extensions;
-using LocadoraAutomoveis.Dominio.Compartilhado;
-using LocadoraAutomoveis.Dominio.ModuloCliente;
-using Microsoft.Data.SqlClient;
+﻿using LocadoraAutomoveis.Dominio.ModuloCliente;
+using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
@@ -14,11 +8,14 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
     {
         private readonly IRepositorioCliente _repositorioCliente;
         private readonly IValidadorCliente _validadorCliente;
+        private readonly IContextoPersistencia _contextoPersistencia;
 
-        public ServicoCliente(IRepositorioCliente repositorioCliente, IValidadorCliente validadorCliente)
+        public ServicoCliente(IRepositorioCliente repositorioCliente, IValidadorCliente validadorCliente,
+            IContextoPersistencia contextoPersistencia)
         {
             _repositorioCliente = repositorioCliente;
             _validadorCliente = validadorCliente;
+            _contextoPersistencia = contextoPersistencia;
         }
 
         #region CRUD
@@ -31,6 +28,9 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar adicionar o Cliente '{NOME}'", clienteParaAdicionar.Nome);
+
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return resultado;
             }
 
@@ -38,12 +38,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioCliente.Inserir(clienteParaAdicionar);
 
+                _contextoPersistencia.GravarDados();
+
                 Log.Debug("Adicionado o Cliente '{NOME} #{ID}' com sucesso!", clienteParaAdicionar.Nome, clienteParaAdicionar.ID);
 
                 return Result.Ok();
             }
             catch (Exception ex)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 CustomError erro = new("Falha ao tentar inserir Cliente ", "Cliente", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{C}", clienteParaAdicionar);
@@ -61,11 +65,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar editar o Cliente '{NOME} #{ID}'", clienteParaEditar.Nome, clienteParaEditar.ID);
+
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return resultado;
             }
             try
             {
                 _repositorioCliente.Editar(clienteParaEditar);
+
+                _contextoPersistencia.GravarDados();
 
                 Log.Debug("Editado o Cliente '{NOME} #{ID}' com sucesso!", clienteParaEditar.Nome, clienteParaEditar.ID);
 
@@ -73,6 +82,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 CustomError erro = new("Falha ao tentar editar Cliente ", "Cliente", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{C}", clienteParaEditar);
@@ -89,6 +100,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 Log.Warning("Cliente {ID} não encontrado para excluir", clienteParaExcluir.ID);
 
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return Result.Fail("Cliente não encontrado");
             }
 
@@ -96,12 +109,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioCliente.Excluir(clienteParaExcluir);
 
+                _contextoPersistencia.GravarDados();
+
                 Log.Debug("Excluído o Cliente '{NOME} #{ID}' com sucesso!", clienteParaExcluir.Nome, clienteParaExcluir.ID);
 
                 return Result.Ok();
             }
             catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 Log.Warning("Falha ao tentar excluir o Cliente '{NOME} #{ID}'", clienteParaExcluir.Nome, clienteParaExcluir.ID, ex);
 
                 List<IError> erros = new();
@@ -116,6 +133,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (InvalidOperationException ex)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 Log.Warning("Falha ao tentar excluir o Cliente '{NOME} #{ID}'", clienteParaExcluir.Nome, clienteParaExcluir.ID, ex);
 
                 List<IError> erros = new();

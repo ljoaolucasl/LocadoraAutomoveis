@@ -33,6 +33,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCupom
         {
             var parceiro = Builder<Parceiro>.CreateNew().Build();
             var cupom = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
+            _contexto.SaveChanges();
 
             _repositorioCupom.SelecionarPorID(cupom.ID).Should().Be(cupom);
         }
@@ -42,10 +43,12 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCupom
         {
             var parceiro = Builder<Parceiro>.CreateNew().Build();
             var cupom1 = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
+            _contexto.SaveChanges();
             var cupom2 = _repositorioCupom.SelecionarPorID(cupom1.ID);
             cupom2.Nome = "Cupom";
 
             _repositorioCupom.Editar(cupom2);
+            _contexto.SaveChanges();
 
             var cupomSelecionado = _repositorioCupom.SelecionarPorID(cupom1.ID);
             _repositorioCupom.SelecionarTodos().Count.Should().Be(1);
@@ -57,9 +60,11 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCupom
         {
             var parceiro = Builder<Parceiro>.CreateNew().Build();
             var cupom = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
+            _contexto.SaveChanges();
             var cupomSelecionado = _repositorioCupom.SelecionarPorID(cupom.ID);
 
             _repositorioCupom.Excluir(cupomSelecionado);
+            _contexto.SaveChanges();
 
             _repositorioCupom.SelecionarTodos().Count.Should().Be(0);
         }
@@ -69,6 +74,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCupom
         {
             var parceiro = Builder<Parceiro>.CreateNew().Build();
             var cupom = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
+            _contexto.SaveChanges();
 
             var cupomSelecionado = _repositorioCupom.SelecionarPorID(cupom.ID);
 
@@ -81,9 +87,13 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCupom
             var parceiro = Builder<Parceiro>.CreateNew().Build();
 
             var cupom1 = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
+            _contexto.SaveChanges();
             var cupom2 = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
+            _contexto.SaveChanges();
             var cupom3 = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
+            _contexto.SaveChanges();
             var cupom4 = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
+            _contexto.SaveChanges();
 
             var listaCupons = _repositorioCupom.SelecionarTodos();
 
@@ -97,6 +107,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCupom
         {
             var parceiro = Builder<Parceiro>.CreateNew().Build();
             var cupom1 = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
+            _contexto.SaveChanges();
             var cupom2 = new Cupom(cupom1.Nome, 12, DateTime.Now, new Parceiro("Teste"));
 
             bool resultado = _repositorioCupom.Existe(cupom2);
@@ -109,6 +120,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCupom
         {
             var parceiro = Builder<Parceiro>.CreateNew().Build();
             var cupom1 = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
+            _contexto.SaveChanges();
             var cupom2 = new Cupom(cupom1.Nome, 12, DateTime.Now, new Parceiro("Teste")) { ID = cupom1.ID };
 
             bool resultado = _repositorioCupom.Existe(cupom2);
@@ -121,6 +133,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCupom
         {
             var parceiro = Builder<Parceiro>.CreateNew().Build();
             var cupom1 = Builder<Cupom>.CreateNew().With(c => c.Parceiro = parceiro).Persist();
+            _contexto.SaveChanges();
             var cupom2 = _repositorioCupom.SelecionarPorID(cupom1.ID);
 
             bool resultado = _repositorioCupom.Existe(cupom2, true);

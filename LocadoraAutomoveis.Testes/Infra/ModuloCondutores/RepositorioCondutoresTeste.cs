@@ -42,6 +42,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCondutores
         {
             var cliente = Builder<Cliente>.CreateNew().Build();
             var condutor = Builder<Condutor>.CreateNew().With(c => c.Cliente = cliente).Persist();
+            _contexto.SaveChanges();
 
             _repositorioCondutores.SelecionarPorID(condutor.ID).Should().Be(condutor);
         }
@@ -51,10 +52,12 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCondutores
         {
             var cliente1 = Builder<Cliente>.CreateNew().Build();
             var condutor1 = Builder<Condutor>.CreateNew().With(c => c.Cliente = cliente1).Persist();
+            _contexto.SaveChanges();
             var condutor2 = _repositorioCondutores.SelecionarPorID(condutor1.ID);
             condutor2.Nome = "Felipe";
 
             _repositorioCondutores.Editar(condutor2);
+            _contexto.SaveChanges();
 
             var condutorSelecionado = _repositorioCondutores.SelecionarPorID(condutor1.ID);
             _repositorioCondutores.SelecionarTodos().Should().HaveCount(1);
@@ -66,9 +69,11 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCondutores
         {
             var cliente1 = Builder<Cliente>.CreateNew().Build();
             var condutor1 = Builder<Condutor>.CreateNew().With(c => c.Cliente = cliente1).Persist();
+            _contexto.SaveChanges();
             var disciplinaSelecionada = _repositorioCondutores.SelecionarPorID(condutor1.ID);
 
             _repositorioCondutores.Excluir(disciplinaSelecionada);
+            _contexto.SaveChanges();
 
             _repositorioCondutores.SelecionarTodos().Should().HaveCount(0);
         }
@@ -78,6 +83,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCondutores
         {
             var cliente1 = Builder<Cliente>.CreateNew().Build();
             var condutor1 = Builder<Condutor>.CreateNew().With(c => c.Cliente = cliente1).Persist();
+            _contexto.SaveChanges();
 
             var condutorSelecionado = _repositorioCondutores.SelecionarPorID(condutor1.ID);
 
@@ -89,9 +95,13 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCondutores
         {
             var cliente1 = Builder<Cliente>.CreateNew().Build();
             var condutor1 = Builder<Condutor>.CreateNew().With(c => c.Cliente = cliente1).Persist();
+            _contexto.SaveChanges();
             var condutor2 = Builder<Condutor>.CreateNew().With(c => c.Cliente = cliente1).Persist();
+            _contexto.SaveChanges();
             var condutor3 = Builder<Condutor>.CreateNew().With(c => c.Cliente = cliente1).Persist();
+            _contexto.SaveChanges();
             var condutor4 = Builder<Condutor>.CreateNew().With(c => c.Cliente = cliente1).Persist();
+            _contexto.SaveChanges();
 
             var listaCondutores = _repositorioCondutores.SelecionarTodos();
 
@@ -105,6 +115,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCondutores
         {
             var cliente1 = Builder<Cliente>.CreateNew().Build();
             var condutor1 = Builder<Condutor>.CreateNew().With(c => c.Cliente = cliente1).Persist();
+            _contexto.SaveChanges();
             var condutor2 = new Condutor(condutor1.Cliente, condutor1.TipoCondutor, condutor1.Nome, condutor1.Email, condutor1.Telefone, condutor1.CPF, condutor1.CNH,
                 condutor1.Validade);
 
@@ -118,6 +129,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCondutores
         {
             var cliente1 = Builder<Cliente>.CreateNew().Build();
             var condutor1 = Builder<Condutor>.CreateNew().With(c => c.Cliente = cliente1).Persist();
+            _contexto.SaveChanges();
             var condutor2 = _repositorioCondutores.SelecionarPorID(condutor1.ID);
 
             bool resultado = _repositorioCondutores.Existe(condutor2);
@@ -130,6 +142,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCondutores
         {
             var cliente1 = Builder<Cliente>.CreateNew().Build();
             var condutor1 = Builder<Condutor>.CreateNew().With(c => c.Cliente = cliente1).Persist();
+            _contexto.SaveChanges();
             var condutor2 = _repositorioCondutores.SelecionarPorID(condutor1.ID);
 
             bool resultado = _repositorioCondutores.Existe(condutor2, true);
@@ -143,6 +156,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCondutores
         {
             var cliente1 = Builder<Cliente>.CreateNew().Build();
             var condutor1 = Builder<Condutor>.CreateNew().With(c => c.Cliente = cliente1).Persist();
+            _contexto.SaveChanges();
             var condutor2 = _repositorioCondutores.SelecionarPorID(condutor1.ID);
 
             bool resultado = _repositorioCondutores.Existe(condutor2);

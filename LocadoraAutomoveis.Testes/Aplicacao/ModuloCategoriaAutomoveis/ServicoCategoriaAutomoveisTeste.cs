@@ -4,6 +4,7 @@ using FluentResults.Extensions.FluentAssertions;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Testes.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -15,6 +16,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
     {
         private Mock<IRepositorioCategoria> _repositorioMoq;
         private Mock<IValidadorCategoria> _validadorMoq;
+        private Mock<IContextoPersistencia> _contexto;
         private ServicoCategoriaAutomoveis _servico;
         private CategoriaAutomoveis _categoria;
 
@@ -23,7 +25,8 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
         {
             _repositorioMoq = new Mock<IRepositorioCategoria>();
             _validadorMoq = new Mock<IValidadorCategoria>();
-            _servico = new ServicoCategoriaAutomoveis(_repositorioMoq.Object, _validadorMoq.Object);
+            _contexto = new Mock<IContextoPersistencia>();
+            _servico = new ServicoCategoriaAutomoveis(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object);
             _categoria = new CategoriaAutomoveis("Esportivo");
         }
 

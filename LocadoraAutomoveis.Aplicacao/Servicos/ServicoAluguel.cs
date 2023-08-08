@@ -197,9 +197,14 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (aluguelParaValidar.Cupom != null && _repositorioAluguel.CupomNaoExiste(aluguelParaValidar, servicoCupom.SelecionarTodosOsRegistros()))
                 erros.Add(new CustomError("Cupom Inválido", "Aluguel"));
             else if (aluguelParaValidar.Cupom != null)
-                aluguelParaValidar.Cupom = servicoCupom.SelecionarTodosOsRegistros().FirstOrDefault(c => c.Nome == aluguelParaValidar.Cupom.Nome);
+                aluguelParaValidar.Cupom = ObterCupomCompleto(aluguelParaValidar);
 
             return Result.Fail(erros);
+        }
+
+        private Cupom? ObterCupomCompleto(Aluguel aluguelParaObterCupom)
+        {
+            return servicoCupom.SelecionarTodosOsRegistros().FirstOrDefault(c => c.Nome == aluguelParaObterCupom.Cupom.Nome);
         }
     }
 }

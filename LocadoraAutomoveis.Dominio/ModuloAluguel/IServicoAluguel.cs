@@ -20,5 +20,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
         IServicoCupom servicoCupom { get; }
         IServicoTaxaEServico servicoTaxaEServico { get; }
 
+        Cupom? ObterCupomCompleto(Aluguel aluguelParaValidar);
+
     }
 }

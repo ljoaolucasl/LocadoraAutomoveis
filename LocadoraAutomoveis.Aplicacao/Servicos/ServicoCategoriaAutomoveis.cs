@@ -1,5 +1,6 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
@@ -143,12 +144,19 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
                 _contextoPersistencia.DesfazerAlteracoes();
 
                 Log.Warning("Falha ao tentar excluir a Categoria '{NOME} #{ID}'", categoriaParaExcluir.Nome, categoriaParaExcluir.ID, ex);
-
                 List<IError> erros = new();
 
-                if (ex.Message.Contains("'CategoriaAutomoveis' and 'Automovel' "))
+                if (ex.Message.Contains("FK_TBAluguel_TBCategoriaAutomoveis"))
+                    erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Aluguel." +
+                        " Primeiro exclua o Aluguel relacionado", "CategoriaAutomoveis"));
+
+                else if (ex.Message.Contains("FK_TBAutomovel_TBCategoriaAutomoveis"))
                     erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Automóvel." +
                         " Primeiro exclua o Automóvel relacionado", "CategoriaAutomoveis"));
+
+                else if (ex.Message.Contains("FK_TBPlanoCobranca_TBCategoriaAutomoveis"))
+                    erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Plano de Cobrança." +
+                        " Primeiro exclua o Plano de Cobrança relacionado", "CategoriaAutomoveis"));
                 else
                     erros.Add(new CustomError("Falha ao tentar excluir a Categoria de Automóveis", "CategoriaAutomoveis"));
 

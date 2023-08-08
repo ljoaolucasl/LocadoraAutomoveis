@@ -24,8 +24,8 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
             RuleFor(a => a.Automovel)
                 .NotNull().WithMessage("'Automóvel' é obrigatório.");
 
-            RuleFor(a => a.Cupom)
-                .NotNull().WithMessage("'Cupom' é obrigatório.");
+            //RuleFor(a => a.Cupom)
+            //    .NotNull().WithMessage("'Cupom' é obrigatório.");
 
             RuleFor(a => a.ListaTaxasEServicos)
                 .Must(lista => lista != null && lista.Count > 0).WithMessage("'Lista de Taxas e Serviços' não pode ser vazia.");

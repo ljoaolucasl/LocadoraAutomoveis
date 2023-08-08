@@ -123,7 +123,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
         {
             _aluguel.Funcionario = cmbFuncionario.SelectedItem as Funcionario;
             _aluguel.Cliente = cmbCliente.SelectedItem as Cliente;
-            _aluguel.CategoriaAutomoveis = cmbFuncionario.SelectedItem as CategoriaAutomoveis;
+            _aluguel.CategoriaAutomoveis = cmbCategoriaAutomoveis.SelectedItem as CategoriaAutomoveis;
             _aluguel.PlanoCobranca = cmbPlanoCobranca.SelectedItem as PlanoCobranca;
             _aluguel.Condutor = cmbCondutor.SelectedItem as Condutor;
             _aluguel.Automovel = cmbAutomovel.SelectedItem as Automovel;

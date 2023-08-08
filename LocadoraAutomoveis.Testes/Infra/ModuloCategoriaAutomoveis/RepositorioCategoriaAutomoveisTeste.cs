@@ -32,6 +32,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCategoriaAutomoveis
         {
             //arrange/action
             var categoria = Builder<CategoriaAutomoveis>.CreateNew().Persist();
+            _contexto.SaveChanges();
 
             //assert
             _repositorioCategoriaAutomoveis.SelecionarPorID(categoria.ID).Should().Be(categoria);

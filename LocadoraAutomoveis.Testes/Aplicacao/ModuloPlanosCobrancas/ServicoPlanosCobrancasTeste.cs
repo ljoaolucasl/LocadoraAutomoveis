@@ -28,6 +28,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloPlanosCobrancas
         {
             _repositorioMoq = new Mock<IRepositorioPlanoCobranca>();
             _validadorMoq = new Mock<IValidadorPlanoCobranca>();
+            _contexto = new Mock<IContextoPersistencia>();
             _servico = new ServicoPlanosCobrancas(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object);
 
             _categoria = new CategoriaAutomoveis("Esportivo");

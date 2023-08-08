@@ -25,6 +25,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCupom
         {
             _repositorioMoq = new Mock<IRepositorioCupom>();
             _validadorMoq = new Mock<IValidadorCupom>();
+            _contexto = new Mock<IContextoPersistencia>();
             _servico = new ServicoCupom(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object);
             _cupom = new Cupom();
         }

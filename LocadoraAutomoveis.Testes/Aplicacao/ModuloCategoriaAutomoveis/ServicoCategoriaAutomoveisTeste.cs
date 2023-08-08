@@ -25,6 +25,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCategoriaAutomoveis
         {
             _repositorioMoq = new Mock<IRepositorioCategoria>();
             _validadorMoq = new Mock<IValidadorCategoria>();
+            _contexto = new Mock<IContextoPersistencia>();
             _servico = new ServicoCategoriaAutomoveis(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object);
             _categoria = new CategoriaAutomoveis("Esportivo");
         }

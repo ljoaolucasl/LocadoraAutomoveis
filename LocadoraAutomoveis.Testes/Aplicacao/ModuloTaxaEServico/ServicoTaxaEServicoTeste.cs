@@ -6,11 +6,8 @@ using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Testes.Compartilhado;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using System.Reflection;
-using System.Runtime.Serialization;
 
 namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloTaxaEServico
 {
@@ -28,6 +25,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloTaxaEServico
         {
             _repositorioMoq = new Mock<IRepositorioTaxaEServico>();
             _validadorMoq = new Mock<IValidadorTaxaEServico>();
+            _contexto = new Mock<IContextoPersistencia>();
             _servico = new ServicoTaxaEServico(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object);
             _taxa = new TaxaEServico("Teste", 100, Tipo.Diario);
         }

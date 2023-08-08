@@ -28,6 +28,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
         {
             _repositorioMoq = new Mock<IRepositorioCondutores>();
             _validadorMoq = new Mock<IValidadorCondutores>();
+            _contexto = new Mock<IContextoPersistencia>();
             _servico = new ServicoCondutores(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object);
 
             _cliente1 = new Cliente("Rafael", "rafael@gmail.com", "(49) 92332-4324", TipoDocumento.CPF,

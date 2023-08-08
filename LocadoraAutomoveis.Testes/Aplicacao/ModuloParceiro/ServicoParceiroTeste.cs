@@ -25,6 +25,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloParceiro
         {
             _repositorioMoq = new Mock<IRepositorioParceiro>();
             _validadorMoq = new Mock<IValidadorParceiro>();
+            _contexto = new Mock<IContextoPersistencia>();
             _servico = new ServicoParceiro(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object);
             _parceiro = new Parceiro("Academia do Programador");
         }

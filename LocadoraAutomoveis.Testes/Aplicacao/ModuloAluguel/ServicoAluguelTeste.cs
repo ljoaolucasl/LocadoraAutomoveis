@@ -44,6 +44,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
         {
             _repositorioMoq = new Mock<IRepositorioAluguel>();
             _validadorMoq = new Mock<IValidadorAluguel>();
+            _contexto = new Mock<IContextoPersistencia>();
 
             servicoFuncionarioMoq = new Mock<IServicoFuncionario>();
             servicoClienteMoq = new Mock<IServicoCliente>();

@@ -1,15 +1,13 @@
 ﻿using FluentResults;
-using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.Extensions;
 using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
-using LocadoraAutomoveis.Infraestrutura.Repositorios;
 
 namespace LocadoraAutomoveis.WinApp.ModuloAutomovel
 {
-    public class ControladorAutomovel : ControladorBase<Automovel, RepositorioAutomovel, ServicoAutomovel, TabelaAutomovelControl, TelaAutomovelForm, ServicoCategoriaAutomoveis, NoService>
+    public class ControladorAutomovel : ControladorBase<Automovel, IRepositorioAutomovel, IServicoAutomovel, TabelaAutomovelControl, TelaAutomovelForm, IServicoCategoriaAutomoveis, NoService>
     {
-        public ControladorAutomovel(RepositorioAutomovel _repositorio, ServicoAutomovel _servico, TabelaAutomovelControl _tabela, ServicoCategoriaAutomoveis _repositorio2) : base(_repositorio, _servico, _tabela, _repositorio2)
+        public ControladorAutomovel(IRepositorioAutomovel _repositorio, IServicoAutomovel _servico, TabelaAutomovelControl _tabela, IServicoCategoriaAutomoveis _repositorio2) : base(_repositorio, _servico, _tabela, _repositorio2)
         {
             OnComandosAdicionaisAddAndEdit += ObterDependencias;
             OnVerificar += ObterDisponibilidade;

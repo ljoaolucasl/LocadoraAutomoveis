@@ -5,6 +5,7 @@ using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Testes.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -16,6 +17,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAutomovel
     {
         private Mock<IRepositorioAutomovel> _repositorioMoq;
         private Mock<IValidadorAutomovel> _validadorMoq;
+        private Mock<IContextoPersistencia> _contexto;
         private ServicoAutomovel _servico;
 
         private Automovel _automovel;
@@ -25,7 +27,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAutomovel
         {
             _repositorioMoq = new Mock<IRepositorioAutomovel>();
             _validadorMoq = new Mock<IValidadorAutomovel>();
-            _servico = new ServicoAutomovel(_repositorioMoq.Object, _validadorMoq.Object);
+            _servico = new ServicoAutomovel(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object);
 
             CategoriaAutomoveis categoria = new CategoriaAutomoveis("Esportivo");
             _automovel = new Automovel(categoria, "REW-4512", "Honda","Azul", "Super", new byte[12], TipoCombustível.Gasolina, 20, 2022, 245, false);

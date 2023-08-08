@@ -4,6 +4,7 @@ using FluentResults.Extensions.FluentAssertions;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloCupom;
+using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Testes.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -15,6 +16,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCupom
     {
         private Mock<IRepositorioCupom> _repositorioMoq;
         private Mock<IValidadorCupom> _validadorMoq;
+        private Mock<IContextoPersistencia> _contexto;
         private ServicoCupom _servico;
         private Cupom _cupom;
 
@@ -23,7 +25,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCupom
         {
             _repositorioMoq = new Mock<IRepositorioCupom>();
             _validadorMoq = new Mock<IValidadorCupom>();
-            _servico = new ServicoCupom(_repositorioMoq.Object, _validadorMoq.Object);
+            _servico = new ServicoCupom(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object);
             _cupom = new Cupom();
         }
 

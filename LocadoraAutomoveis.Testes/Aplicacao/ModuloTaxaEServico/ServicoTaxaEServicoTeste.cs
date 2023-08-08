@@ -4,6 +4,7 @@ using FluentResults.Extensions.FluentAssertions;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
+using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Testes.Compartilhado;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloTaxaEServico
     {
         private Mock<IRepositorioTaxaEServico> _repositorioMoq;
         private Mock<IValidadorTaxaEServico> _validadorMoq;
+        private Mock<IContextoPersistencia> _contexto;
         private ServicoTaxaEServico _servico;
         private TaxaEServico _taxa;
 
@@ -26,7 +28,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloTaxaEServico
         {
             _repositorioMoq = new Mock<IRepositorioTaxaEServico>();
             _validadorMoq = new Mock<IValidadorTaxaEServico>();
-            _servico = new ServicoTaxaEServico(_repositorioMoq.Object, _validadorMoq.Object);
+            _servico = new ServicoTaxaEServico(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object);
             _taxa = new TaxaEServico("Teste", 100, Tipo.Diario);
         }
 

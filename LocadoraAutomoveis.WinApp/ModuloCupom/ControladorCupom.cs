@@ -1,12 +1,11 @@
-﻿using LocadoraAutomoveis.Aplicacao.Servicos;
-using LocadoraAutomoveis.Dominio.ModuloCupom;
-using LocadoraAutomoveis.Infraestrutura.Repositorios;
+﻿using LocadoraAutomoveis.Dominio.ModuloCupom;
+using LocadoraAutomoveis.Dominio.ModuloParceiro;
 
 namespace LocadoraAutomoveis.WinApp.ModuloCupom
 {
-    public class ControladorCupom : ControladorBase<Cupom, RepositorioCupom, ServicoCupom, TabelaCupomControl, TelaCupomForm, ServicoParceiro, NoService>
+    public class ControladorCupom : ControladorBase<Cupom, IRepositorioCupom, IServicoCupom, TabelaCupomControl, TelaCupomForm, IServicoParceiro, NoService>
     {
-        public ControladorCupom(RepositorioCupom repositorioCupom, ServicoCupom servicoCupom, TabelaCupomControl tabelaCupom, ServicoParceiro servicoParceiro) : base(repositorioCupom, servicoCupom, tabelaCupom, servicoParceiro)
+        public ControladorCupom(IRepositorioCupom repositorioCupom, IServicoCupom servicoCupom, TabelaCupomControl tabelaCupom, IServicoParceiro servicoParceiro) : base(repositorioCupom, servicoCupom, tabelaCupom, servicoParceiro)
         {
             OnComandosAdicionaisAddAndEdit += ObterDependencias;
         }

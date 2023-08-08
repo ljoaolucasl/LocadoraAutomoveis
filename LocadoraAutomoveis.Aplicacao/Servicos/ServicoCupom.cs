@@ -1,4 +1,5 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloCupom;
+using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
@@ -7,11 +8,13 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
     {
         private readonly IRepositorioCupom _repositorioCupom;
         private readonly IValidadorCupom _validadorCupom;
+        private readonly IContextoPersistencia _contextoPersistencia;
 
-        public ServicoCupom(IRepositorioCupom repositorioCupom, IValidadorCupom validadorCupom)
+        public ServicoCupom(IRepositorioCupom repositorioCupom, IValidadorCupom validadorCupom, IContextoPersistencia contextoPersistencia)
         {
             _repositorioCupom = repositorioCupom;
             _validadorCupom = validadorCupom;
+            _contextoPersistencia = contextoPersistencia;
         }
 
         #region CRUD
@@ -24,6 +27,9 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar adicionar o Cupom '{NOME}'", cupomParaAdicionar.Nome);
+
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return resultado;
             }
 
@@ -31,12 +37,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioCupom.Inserir(cupomParaAdicionar);
 
+                _contextoPersistencia.GravarDados();
+
                 Log.Debug("Adicionado o Cupom '{NOME} #{ID}' com sucesso!", cupomParaAdicionar.Nome, cupomParaAdicionar.ID);
 
                 return Result.Ok();
             }
             catch (Exception ex)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 CustomError erro = new("Falha ao tentar inserir cupom", "Cupom", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{C}", cupomParaAdicionar);
@@ -54,11 +64,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar editar o Cupom '{NOME} #{ID}'", cupomParaEditar.Nome, cupomParaEditar.ID);
+
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return resultado;
             }
             try
             {
                 _repositorioCupom.Editar(cupomParaEditar);
+
+                _contextoPersistencia.GravarDados();
 
                 Log.Debug("Editado o Cupom '{NOME} #{ID}' com sucesso!", cupomParaEditar.Nome, cupomParaEditar.ID);
 
@@ -66,6 +81,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 CustomError erro = new("Falha ao tentar editar cupom", "Cupom", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{C}", cupomParaEditar);
@@ -82,6 +99,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 Log.Warning("Cupom {ID} não encontrado para excluir", cupomParaExcluir.ID);
 
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return Result.Fail("Cupom não encontrado");
             }
 
@@ -89,12 +108,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioCupom.Excluir(cupomParaExcluir);
 
+                _contextoPersistencia.GravarDados();
+
                 Log.Debug("Excluído o Cupom '{NOME} #{ID}' com sucesso!", cupomParaExcluir.Nome, cupomParaExcluir.ID);
 
                 return Result.Ok();
             }
             catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 Log.Warning("Falha ao tentar excluir o Cupom '{NOME} #{ID}'", cupomParaExcluir.Nome, cupomParaExcluir.ID, ex);
 
                 List<IError> erros = new();

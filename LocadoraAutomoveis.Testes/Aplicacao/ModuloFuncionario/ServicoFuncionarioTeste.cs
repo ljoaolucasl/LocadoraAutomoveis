@@ -17,6 +17,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using LocadoraAutomoveis.Testes.Compartilhado;
 using Microsoft.EntityFrameworkCore;
+using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 
 namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloFuncionario
 {
@@ -25,6 +26,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloFuncionario
     {
         private Mock<IRepositorioFuncionario> _repositorioMoq;
         private Mock<IValidadorFuncionario> _validadorMoq;
+        private Mock<IContextoPersistencia> _contexto;
         private ServicoFuncionario _servico;
         private Funcionario _funcionario;
 
@@ -33,7 +35,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloFuncionario
         {
             _repositorioMoq = new Mock<IRepositorioFuncionario>();
             _validadorMoq = new Mock<IValidadorFuncionario>();
-            _servico = new ServicoFuncionario(_repositorioMoq.Object, _validadorMoq.Object);
+            _servico = new ServicoFuncionario(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object);
             _funcionario = new Funcionario("Mateus", Convert.ToDateTime("08/08/2023"), 1350);
         }
 

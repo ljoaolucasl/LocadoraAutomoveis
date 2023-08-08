@@ -1,4 +1,5 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
+using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
@@ -7,11 +8,14 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
     {
         private readonly IRepositorioTaxaEServico _repositorioTaxaEServico;
         private readonly IValidadorTaxaEServico _validadorTaxaEServico;
+        private readonly IContextoPersistencia _contextoPersistencia;
 
-        public ServicoTaxaEServico(IRepositorioTaxaEServico repositorioTaxaEServico, IValidadorTaxaEServico validadorTaxaEServico)
+        public ServicoTaxaEServico(IRepositorioTaxaEServico repositorioTaxaEServico, IValidadorTaxaEServico validadorTaxaEServico,
+            IContextoPersistencia contextoPersistencia)
         {
             _repositorioTaxaEServico = repositorioTaxaEServico;
             _validadorTaxaEServico = validadorTaxaEServico;
+            _contextoPersistencia = contextoPersistencia;
         }
 
         #region CRUD
@@ -24,6 +28,9 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar inserir a Taxa e Serviço '{NOME}'", taxaParaAdicionar.Nome);
+
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return resultado;
             }
 
@@ -31,12 +38,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioTaxaEServico.Inserir(taxaParaAdicionar);
 
+                _contextoPersistencia.GravarDados();
+
                 Log.Debug("Inserido a Taxa e Serviço '{NOME} #{ID}' com sucesso!", taxaParaAdicionar.Nome, taxaParaAdicionar.ID);
 
                 return Result.Ok();
             }
             catch (Exception ex)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 CustomError erro = new("Falha ao tentar inserir Taxa e Serviço ", "Taxa", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{T}", taxaParaAdicionar);
@@ -54,11 +65,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar editar a Taxa e Serviço '{NOME} #{ID}'", taxaParaEditar.Nome, taxaParaEditar.ID);
+
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return resultado;
             }
             try
             {
                 _repositorioTaxaEServico.Editar(taxaParaEditar);
+
+                _contextoPersistencia.GravarDados();
 
                 Log.Debug("Editado a Taxa e Serviço '{NOME} #{ID}' com sucesso!", taxaParaEditar.Nome, taxaParaEditar.ID);
 
@@ -66,6 +82,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 CustomError erro = new("Falha ao tentar editar Taxa e Serviço ", "Taxa", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{T}", taxaParaEditar);
@@ -82,6 +100,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 Log.Warning("Taxa e Serviço {ID} não encontrado para excluir", taxaParaExcluir.ID);
 
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return Result.Fail("Taxa e Serviço não encontrado");
             }
 
@@ -89,12 +109,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioTaxaEServico.Excluir(taxaParaExcluir);
 
+                _contextoPersistencia.GravarDados();
+
                 Log.Debug("Excluído a Taxa e Serviço '{NOME} #{ID}' com sucesso!", taxaParaExcluir.Nome, taxaParaExcluir.ID);
 
                 return Result.Ok();
             }
             catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 Log.Warning("Falha ao tentar excluir a Taxa e Serviço '{NOME} #{ID}'", taxaParaExcluir.Nome, taxaParaExcluir.ID, ex);
 
                 List<IError> erros = new();

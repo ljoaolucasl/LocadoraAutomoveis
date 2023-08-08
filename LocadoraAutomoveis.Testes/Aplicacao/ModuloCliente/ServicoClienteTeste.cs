@@ -15,6 +15,7 @@ using System.Runtime.Serialization;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Testes.Compartilhado;
 using Microsoft.EntityFrameworkCore;
+using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 
 namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCliente
 {
@@ -23,6 +24,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCliente
     {
         private Mock<IRepositorioCliente> _repositorioMoq;
         private Mock<IValidadorCliente> _validadorMoq;
+        private Mock<IContextoPersistencia> _contexto;
         private ServicoCliente _servico;
         private Cliente _cliente;
 
@@ -31,7 +33,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCliente
         {
             _repositorioMoq = new Mock<IRepositorioCliente>();
             _validadorMoq = new Mock<IValidadorCliente>();
-            _servico = new ServicoCliente(_repositorioMoq.Object, _validadorMoq.Object);
+            _servico = new ServicoCliente(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object);
             _cliente = new Cliente("Rafael", "rafael@gmail.com", "(49) 92332-4324", TipoDocumento.CPF,
                 "234.323.563-45", "Santa Catarina", "Lages", "São Cristovão", "Rio de Janeiro", 12);
         }

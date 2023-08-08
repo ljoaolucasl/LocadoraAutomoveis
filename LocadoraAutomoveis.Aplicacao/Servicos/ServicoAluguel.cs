@@ -7,6 +7,7 @@ using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
+using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
@@ -15,21 +16,25 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
     {
         private readonly IRepositorioAluguel _repositorioAluguel;
         private readonly IValidadorAluguel _validadorAluguel;
-        public readonly IServicoFuncionario servicoFuncionario;
-        public readonly IServicoCliente servicoCliente;
-        public readonly IServicoCategoriaAutomoveis servicoCategoriaAutomoveis;
-        public readonly IServicoPlanoCobranca servicoPlanosCobrancas;
-        public readonly IServicoCondutor servicoCondutores;
-        public readonly IServicoAutomovel servicoAutomovel;
-        public readonly IServicoCupom servicoCupom;
-        public readonly IServicoTaxaEServico servicoTaxaEServico;
+        private readonly IContextoPersistencia _contextoPersistencia;
+        public IServicoFuncionario servicoFuncionario { get; }
+        public IServicoCliente servicoCliente { get; }
+        public IServicoCategoriaAutomoveis servicoCategoriaAutomoveis { get; }
+        public IServicoPlanoCobranca servicoPlanosCobrancas { get; }
+        public IServicoCondutor servicoCondutores { get; }
+        public IServicoAutomovel servicoAutomovel { get; }
+        public IServicoCupom servicoCupom { get; }
+        public IServicoTaxaEServico servicoTaxaEServico { get; }
 
-        public ServicoAluguel(IRepositorioAluguel repositorioAluguel, IValidadorAluguel validadorAluguel, IServicoFuncionario servicoFuncionario,
-            IServicoCliente servicoCliente, IServicoCategoriaAutomoveis servicoCategoriaAutomoveis, IServicoPlanoCobranca servicoPlanosCobrancas,
-            IServicoCondutor servicoCondutores, IServicoAutomovel servicoAutomovel, IServicoCupom servicoCupom, IServicoTaxaEServico servicoTaxaEServico)
+        public ServicoAluguel(IRepositorioAluguel repositorioAluguel, IValidadorAluguel validadorAluguel,
+            IContextoPersistencia contextoPersistencia, IServicoFuncionario servicoFuncionario,
+            IServicoCliente servicoCliente, IServicoCategoriaAutomoveis servicoCategoriaAutomoveis,
+            IServicoPlanoCobranca servicoPlanosCobrancas, IServicoCondutor servicoCondutores,
+            IServicoAutomovel servicoAutomovel, IServicoCupom servicoCupom, IServicoTaxaEServico servicoTaxaEServico)
         {
             _repositorioAluguel = repositorioAluguel;
             _validadorAluguel = validadorAluguel;
+            _contextoPersistencia = contextoPersistencia;
             this.servicoFuncionario = servicoFuncionario;
             this.servicoCliente = servicoCliente;
             this.servicoCategoriaAutomoveis = servicoCategoriaAutomoveis;
@@ -39,6 +44,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             this.servicoCupom = servicoCupom;
             this.servicoTaxaEServico = servicoTaxaEServico;
         }
+
+
 
         #region CRUD
         public Result Inserir(Aluguel aluguelParaAdicionar)
@@ -50,11 +57,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar inserir o Aluguel '{CLIENTE}'", aluguelParaAdicionar.Cliente.Nome);
+
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return resultado;
             }
             try
             {
                 _repositorioAluguel.Inserir(aluguelParaAdicionar);
+
+                _contextoPersistencia.GravarDados();
 
                 Log.Debug("Inserido o Aluguel '{CLIENTE} #{ID}' com sucesso!", aluguelParaAdicionar.Cliente.Nome, aluguelParaAdicionar.ID);
 
@@ -62,6 +74,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 CustomError erro = new("Falha ao tentar inserir o Aluguel ", "Automovel", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{A}", aluguelParaAdicionar);
@@ -79,11 +93,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar editar o Aluguel '{CLIENTE} #{ID}'", aluguelParaEditar.Cliente.Nome, aluguelParaEditar.ID);
+
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return resultado;
             }
             try
             {
                 _repositorioAluguel.Editar(aluguelParaEditar);
+
+                _contextoPersistencia.GravarDados();
 
                 Log.Debug("Editado o Aluguel '{CLIENTE} #{ID}' com sucesso!", aluguelParaEditar.Cliente.Nome, aluguelParaEditar.ID);
 
@@ -91,6 +110,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 CustomError erro = new("Falha ao tentar editar o Aluguel ", "Automovel", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{A}", aluguelParaEditar);
@@ -107,6 +128,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 Log.Warning("Aluguel {ID} não encontrado para excluir", aluguelParaExcluir.ID);
 
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return Result.Fail("Aluguel não encontrado");
             }
             try
@@ -115,12 +138,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
                 {
                     _repositorioAluguel.Excluir(aluguelParaExcluir);
 
+                    _contextoPersistencia.GravarDados();
+
                     Log.Debug("Excluído o Aluguel '{CLIENTE} #{ID}' com sucesso!", aluguelParaExcluir.Cliente.Nome, aluguelParaExcluir.ID);
 
                     return Result.Ok();
                 }
                 else
                 {
+                    _contextoPersistencia.DesfazerAlteracoes();
+
                     Log.Warning("Falha ao tentar excluir o Aluguel '{CLIENTE} #{ID}'. Aluguel está em aberto", aluguelParaExcluir.Cliente.Nome, aluguelParaExcluir.ID);
 
                     List<IError> erros = new();
@@ -132,6 +159,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 Log.Warning("Falha ao tentar excluir o Aluguel '{CLIENTE} #{ID}'", aluguelParaExcluir.Cliente.Nome, aluguelParaExcluir.ID, ex);
 
                 List<IError> erros = new();

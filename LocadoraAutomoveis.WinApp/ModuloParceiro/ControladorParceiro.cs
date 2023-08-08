@@ -1,13 +1,11 @@
-﻿using LocadoraAutomoveis.Aplicacao.Servicos;
-using LocadoraAutomoveis.Dominio.ModuloParceiro;
-using LocadoraAutomoveis.Infraestrutura.Repositorios;
+﻿using LocadoraAutomoveis.Dominio.ModuloParceiro;
 
 namespace LocadoraAutomoveis.WinApp.ModuloParceiro
 {
-    public class ControladorParceiro : ControladorBase<Parceiro, RepositorioParceiro,
-        ServicoParceiro, TabelaParceiroControl, TelaParceiroForm, NoService, NoService>
+    public class ControladorParceiro : ControladorBase<Parceiro, IRepositorioParceiro,
+        IServicoParceiro, TabelaParceiroControl, TelaParceiroForm, NoService, NoService>
     {
-        public ControladorParceiro(RepositorioParceiro repositorioParceiro, ServicoParceiro servicoParceiro, TabelaParceiroControl tabelaParceiro) : base(repositorioParceiro, servicoParceiro, tabelaParceiro)
+        public ControladorParceiro(IRepositorioParceiro repositorioParceiro, IServicoParceiro servicoParceiro, TabelaParceiroControl tabelaParceiro) : base(repositorioParceiro, servicoParceiro, tabelaParceiro)
         {
         }
 

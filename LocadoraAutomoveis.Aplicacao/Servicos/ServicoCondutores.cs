@@ -1,12 +1,6 @@
-﻿using FluentResults;
-using FluentValidation.Results;
-using LocadoraAutomoveis.Aplicacao.Compartilhado;
-using LocadoraAutomoveis.Aplicacao.Extensions;
-using LocadoraAutomoveis.Dominio.Compartilhado;
-using LocadoraAutomoveis.Dominio.ModuloCondutores;
-using Microsoft.Data.SqlClient;
+﻿using LocadoraAutomoveis.Dominio.ModuloCondutores;
+using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
@@ -14,11 +8,14 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
     {
         private readonly IRepositorioCondutores _repositorioCondutor;
         private readonly IValidadorCondutores _validadorCondutor;
+        private readonly IContextoPersistencia _contextoPersistencia;
 
-        public ServicoCondutores(IRepositorioCondutores repositorioCondutor, IValidadorCondutores validadorCondutor)
+        public ServicoCondutores(IRepositorioCondutores repositorioCondutor, IValidadorCondutores validadorCondutor,
+            IContextoPersistencia contextoPersistencia)
         {
             _repositorioCondutor = repositorioCondutor;
             _validadorCondutor = validadorCondutor;
+            _contextoPersistencia = contextoPersistencia;
         }
 
         #region CRUD
@@ -31,6 +28,9 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar adicionar o Condutor '{NOME}'", condutorParaAdicionar.Nome);
+
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return resultado;
             }
 
@@ -38,12 +38,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioCondutor.Inserir(condutorParaAdicionar);
 
+                _contextoPersistencia.GravarDados();
+
                 Log.Debug("Adicionado o Condutor '{NOME} #{ID}' com sucesso!", condutorParaAdicionar.Nome, condutorParaAdicionar.ID);
 
                 return Result.Ok();
             }
             catch (Exception ex)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 CustomError erro = new("Falha ao tentar inserir o Condutor ", "Condutor", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{C}", condutorParaAdicionar);
@@ -61,11 +65,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar editar o Condutor '{NOME} #{ID}'", condutorParaEditar.Nome, condutorParaEditar.ID);
+
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return resultado;
             }
             try
             {
                 _repositorioCondutor.Editar(condutorParaEditar);
+
+                _contextoPersistencia.GravarDados();
 
                 Log.Debug("Editado o Condutor '{NOME} #{ID}' com sucesso!", condutorParaEditar.Nome, condutorParaEditar.ID);
 
@@ -73,6 +82,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 CustomError erro = new("Falha ao tentar editar o Condutor ", "Condutor", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{C}", condutorParaEditar);
@@ -89,6 +100,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 Log.Warning("Condutor {ID} não encontrado para excluir", condutorParaExcluir.ID);
 
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return Result.Fail("Condutor não encontrado");
             }
 
@@ -96,12 +109,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioCondutor.Excluir(condutorParaExcluir);
 
+                _contextoPersistencia.GravarDados();
+
                 Log.Debug("Excluído o Condutor '{NOME} #{ID}' com sucesso!", condutorParaExcluir.Nome, condutorParaExcluir.ID);
 
                 return Result.Ok();
             }
             catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 Log.Warning("Falha ao tentar excluir o Condutor '{NOME} #{ID}'", condutorParaExcluir.Nome, condutorParaExcluir.ID, ex);
 
                 List<IError> erros = new();

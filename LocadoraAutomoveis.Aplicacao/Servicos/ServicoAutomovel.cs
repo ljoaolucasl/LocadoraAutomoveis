@@ -1,5 +1,6 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
@@ -8,11 +9,14 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
     {
         private readonly IRepositorioAutomovel _repositorioAutomovel;
         private readonly IValidadorAutomovel _validadorAutomovel;
+        private readonly IContextoPersistencia _contextoPersistencia;
 
-        public ServicoAutomovel(IRepositorioAutomovel repositorioAutomovel, IValidadorAutomovel validadorAutomovel)
+        public ServicoAutomovel(IRepositorioAutomovel repositorioAutomovel, IValidadorAutomovel validadorAutomovel,
+            IContextoPersistencia contextoPersistencia)
         {
             _repositorioAutomovel = repositorioAutomovel;
             _validadorAutomovel = validadorAutomovel;
+            _contextoPersistencia = contextoPersistencia;
         }
 
         #region CRUD
@@ -25,6 +29,9 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar inserir o Automóvel '{PLACA}'", automovelParaAdicionar.Placa);
+
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return resultado;
             }
 
@@ -32,12 +39,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioAutomovel.Inserir(automovelParaAdicionar);
 
+                _contextoPersistencia.GravarDados();
+
                 Log.Debug("Inserido o Automóvel '{PLACA} #{ID}' com sucesso!", automovelParaAdicionar.Placa, automovelParaAdicionar.ID);
 
                 return Result.Ok();
             }
             catch (Exception ex)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 CustomError erro = new("Falha ao tentar inserir o Automóvel ", "Automovel", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{A}", automovelParaAdicionar);
@@ -55,11 +66,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar editar o Automóvel '{PLACA} #{ID}'", automovelParaEditar.Placa, automovelParaEditar.ID);
+
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return resultado;
             }
             try
             {
                 _repositorioAutomovel.Editar(automovelParaEditar);
+
+                _contextoPersistencia.GravarDados();
 
                 Log.Debug("Editado o Automóvel '{PLACA} #{ID}' com sucesso!", automovelParaEditar.Placa, automovelParaEditar.ID);
 
@@ -67,6 +83,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 CustomError erro = new("Falha ao tentar editar o Automóvel ", "Automovel", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{A}", automovelParaEditar);
@@ -83,6 +101,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 Log.Warning("Automóvel {ID} não encontrado para excluir", automovelParaExcluir.ID);
 
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return Result.Fail("Automóvel não encontrado");
             }
 
@@ -90,12 +110,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioAutomovel.Excluir(automovelParaExcluir);
 
+                _contextoPersistencia.GravarDados();
+
                 Log.Debug("Excluído o Automóvel '{PLACA} #{ID}' com sucesso!", automovelParaExcluir.Placa, automovelParaExcluir.ID);
 
                 return Result.Ok();
             }
             catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 Log.Warning("Falha ao tentar excluir o Automóvel '{PLACA} #{ID}'", automovelParaExcluir.Placa, automovelParaExcluir.ID, ex);
 
                 List<IError> erros = new();

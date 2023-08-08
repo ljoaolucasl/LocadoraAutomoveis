@@ -1,13 +1,6 @@
-﻿using FluentResults;
-using FluentValidation.Results;
-using LocadoraAutomoveis.Aplicacao.Compartilhado;
-using LocadoraAutomoveis.Aplicacao.Extensions;
-using LocadoraAutomoveis.Dominio.Compartilhado;
-using LocadoraAutomoveis.Dominio.Extensions;
-using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
-using Microsoft.Data.SqlClient;
+﻿using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
+using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {
@@ -15,11 +8,14 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
     {
         private readonly IRepositorioPlanoCobranca _repositorioPlanoCobranca;
         private readonly IValidadorPlanoCobranca _validadorPlanoCobranca;
+        private readonly IContextoPersistencia _contextoPersistencia;
 
-        public ServicoPlanosCobrancas(IRepositorioPlanoCobranca repositorioPlanoCobranca, IValidadorPlanoCobranca validadorPlanoCobranca)
+        public ServicoPlanosCobrancas(IRepositorioPlanoCobranca repositorioPlanoCobranca, IValidadorPlanoCobranca validadorPlanoCobranca,
+            IContextoPersistencia contextoPersistencia)
         {
             _repositorioPlanoCobranca = repositorioPlanoCobranca;
             _validadorPlanoCobranca = validadorPlanoCobranca;
+            _contextoPersistencia = contextoPersistencia;
         }
 
         #region CRUD
@@ -32,6 +28,9 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar adicionar o Plano de Cobrança'{ID}'", planoCobrancaParaAdicionar.ID);
+
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return resultado;
             }
 
@@ -39,12 +38,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioPlanoCobranca.Inserir(planoCobrancaParaAdicionar);
 
+                _contextoPersistencia.GravarDados();
+
                 Log.Debug("Adicionado o Plano de Cobrança'{NOME} #{ID}' com sucesso!", planoCobrancaParaAdicionar, planoCobrancaParaAdicionar.ID);
 
                 return Result.Ok();
             }
             catch (Exception ex)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 CustomError erro = new("Falha ao tentar inserir Plano de Cobrança", "Plano de Cobrança", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{P}", planoCobrancaParaAdicionar);
@@ -62,11 +65,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar editar o Plano de Cobrança'{NOME} #{ID}'", planoCobrancaParaEditar, planoCobrancaParaEditar.ID);
+
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return resultado;
             }
             try
             {
                 _repositorioPlanoCobranca.Editar(planoCobrancaParaEditar);
+
+                _contextoPersistencia.GravarDados();
 
                 Log.Debug("Editado o Plano de Cobrança'{NOME} #{ID}' com sucesso!", planoCobrancaParaEditar, planoCobrancaParaEditar.ID);
 
@@ -74,6 +82,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 CustomError erro = new("Falha ao tentar editar plano de cobrança", "Plano de Cobrança", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{P}", planoCobrancaParaEditar);
@@ -90,6 +100,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 Log.Warning("Plano de Cobrança {ID} não encontrado para excluir", planoCobrancaParaExcluir.ID);
 
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return Result.Fail("Plano de Cobrança não encontrado");
             }
 
@@ -97,12 +109,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioPlanoCobranca.Excluir(planoCobrancaParaExcluir);
 
+                _contextoPersistencia.GravarDados();
+
                 Log.Debug("Excluído o Plano de Cobrança'{NOME} #{ID}' com sucesso!", planoCobrancaParaExcluir, planoCobrancaParaExcluir.ID);
 
                 return Result.Ok();
             }
             catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 Log.Warning("Falha ao tentar excluir o Plano de Cobrança'{NOME} #{ID}'", planoCobrancaParaExcluir, planoCobrancaParaExcluir.ID, ex);
 
                 List<IError> erros = new();

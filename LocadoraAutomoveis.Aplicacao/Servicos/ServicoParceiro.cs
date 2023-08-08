@@ -1,4 +1,5 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloParceiro;
+using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
@@ -7,11 +8,14 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
     {
         private readonly IRepositorioParceiro _repositorioParceiro;
         private readonly IValidadorParceiro _validadorParceiro;
+        private readonly IContextoPersistencia _contextoPersistencia;
 
-        public ServicoParceiro(IRepositorioParceiro repositorioParceiro, IValidadorParceiro validadorParceiro)
+        public ServicoParceiro(IRepositorioParceiro repositorioParceiro, IValidadorParceiro validadorParceiro,
+            IContextoPersistencia contextoPersistencia)
         {
             _repositorioParceiro = repositorioParceiro;
             _validadorParceiro = validadorParceiro;
+            _contextoPersistencia = contextoPersistencia;
         }
 
         #region CRUD
@@ -24,6 +28,9 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar adicionar o Parceiro '{NOME}'", parceiroParaAdicionar.Nome);
+
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return resultado;
             }
 
@@ -31,12 +38,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioParceiro.Inserir(parceiroParaAdicionar);
 
+                _contextoPersistencia.GravarDados();
+
                 Log.Debug("Adicionado o Parceiro '{NOME} #{ID}' com sucesso!", parceiroParaAdicionar.Nome, parceiroParaAdicionar.ID);
 
                 return Result.Ok();
             }
             catch (Exception ex)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 CustomError erro = new("Falha ao tentar inserir parceiro", "Parceiro", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{P}", parceiroParaAdicionar);
@@ -54,11 +65,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (resultado.IsFailed)
             {
                 Log.Warning("Falha ao tentar editar o Parceiro '{NOME} #{ID}'", parceiroParaEditar.Nome, parceiroParaEditar.ID);
+
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return resultado;
             }
             try
             {
                 _repositorioParceiro.Editar(parceiroParaEditar);
+
+                _contextoPersistencia.GravarDados();
 
                 Log.Debug("Editado o Parceiro '{NOME} #{ID}' com sucesso!", parceiroParaEditar.Nome, parceiroParaEditar.ID);
 
@@ -66,6 +82,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 CustomError erro = new("Falha ao tentar editar parceiro", "Parceiro", ex.Message);
 
                 Log.Error(ex, erro.ErrorMessage + "{P}", parceiroParaEditar);
@@ -82,6 +100,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 Log.Warning("Parceiro {ID} não encontrado para excluir", parceiroParaExcluir.ID);
 
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 return Result.Fail("Parceiro não encontrado");
             }
 
@@ -89,12 +109,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioParceiro.Excluir(parceiroParaExcluir);
 
+                _contextoPersistencia.GravarDados();
+
                 Log.Debug("Excluído o Parceiro '{NOME} #{ID}' com sucesso!", parceiroParaExcluir.Nome, parceiroParaExcluir.ID);
 
                 return Result.Ok();
             }
             catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlException)
             {
+                _contextoPersistencia.DesfazerAlteracoes();
+
                 Log.Warning("Falha ao tentar excluir o Parceiro '{NOME} #{ID}'", parceiroParaExcluir.Nome, parceiroParaExcluir.ID, ex);
 
                 List<IError> erros = new();

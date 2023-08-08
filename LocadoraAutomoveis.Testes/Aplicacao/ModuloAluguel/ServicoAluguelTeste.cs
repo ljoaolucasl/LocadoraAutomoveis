@@ -13,6 +13,7 @@ using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.Dominio.ModuloParceiro;
 using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
+using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Testes.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -24,6 +25,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
     {
         private Mock<IRepositorioAluguel> _repositorioMoq;
         private Mock<IValidadorAluguel> _validadorMoq;
+        private Mock<IContextoPersistencia> _contexto;
         private Mock<IServicoFuncionario> servicoFuncionarioMoq;
         private Mock<IServicoCliente> servicoClienteMoq;
         private Mock<IServicoCategoriaAutomoveis> servicoCategoriaAutomoveisMoq;
@@ -52,7 +54,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
             servicoCupomMoq = new Mock<IServicoCupom>();
             servicoTaxaEServicoMoq = new Mock<IServicoTaxaEServico>();
 
-            _servico = new ServicoAluguel(_repositorioMoq.Object, _validadorMoq.Object, servicoFuncionarioMoq.Object,
+            _servico = new ServicoAluguel(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object, servicoFuncionarioMoq.Object,
                 servicoClienteMoq.Object, servicoCategoriaAutomoveisMoq.Object, servicoPlanosCobrancasMoq.Object,
                 servicoCondutoresMoq.Object, servicoAutomovelMoq.Object, servicoCupomMoq.Object, servicoTaxaEServicoMoq.Object);
 

@@ -1,26 +1,14 @@
-using LocadoraAutomoveis.Aplicacao.Servicos;
-using LocadoraAutomoveis.Dominio.ModuloAutomovel;
-using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
-using LocadoraAutomoveis.Dominio.ModuloCliente;
-using LocadoraAutomoveis.Dominio.ModuloCupom;
-using LocadoraAutomoveis.Dominio.ModuloFuncionario;
-using LocadoraAutomoveis.Dominio.ModuloParceiro;
-using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
-using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
-using LocadoraAutomoveis.Infraestrutura.Compartilhado;
-using LocadoraAutomoveis.Infraestrutura.Repositorios;
+using LocadoraAutomoveis.WinApp.Compartilhado.Injection;
+using LocadoraAutomoveis.WinApp.ModuloAluguel;
 using LocadoraAutomoveis.WinApp.ModuloAutomovel;
 using LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis;
-using LocadoraAutomoveis.WinApp.ModuloCupom;
 using LocadoraAutomoveis.WinApp.ModuloCliente;
+using LocadoraAutomoveis.WinApp.ModuloCondutores;
+using LocadoraAutomoveis.WinApp.ModuloCupom;
 using LocadoraAutomoveis.WinApp.ModuloFuncionario;
 using LocadoraAutomoveis.WinApp.ModuloParceiro;
 using LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.WinApp.ModuloTaxaEServico;
-using LocadoraAutomoveis.WinApp.ModuloCondutores;
-using LocadoraAutomoveis.Dominio.ModuloCondutores;
-using LocadoraAutomoveis.WinApp.ModuloAluguel;
-using LocadoraAutomoveis.Dominio.ModuloAluguel;
 
 namespace LocadoraAutomoveis.WinApp
 {
@@ -28,51 +16,11 @@ namespace LocadoraAutomoveis.WinApp
     {
         private static TelaPrincipalForm _telaPrincipal;
 
-        private ContextoDados _contextoDb;
-
         private IControladorBase _controladorBase;
 
         private DataGridView _grid;
 
-        private RepositorioCategoriaAutomoveis _repositorioCategoria;
-        private ServicoCategoriaAutomoveis _servicoCategoria;
-        private TabelaCategoriaAutomoveisControl _tabelaCategoria;
-
-        private RepositorioFuncionario _repositorioFuncionario;
-        private ServicoFuncionario _servicoFuncionario;
-        private TabelaFuncionarioControl _tabelaFuncionario;
-
-        private RepositorioTaxaEServico _repositorioTaxaEServico;
-        private ServicoTaxaEServico _servicoTaxaEServico;
-        private TabelaTaxaEServicoControl _tabelaTaxaEServico;
-
-        private RepositorioParceiro _repositorioParceiro;
-        private ServicoParceiro _servicoParceiro;
-        private TabelaParceiroControl _tabelaParceiro;
-
-        private RepositorioAutomovel _repositorioAutomovel;
-        private ServicoAutomovel _servicoAutomovel;
-        private TabelaAutomovelControl _tabelaAutomovel;
-
-        private RepositorioCliente _repositorioCliente;
-        private ServicoCliente _servicoCliente;
-        private TabelaClienteControl _tabelaCliente;
-
-        private RepositorioCupom _repositorioCupom;
-        private ServicoCupom _servicoCupom;
-        private TabelaCupomControl _tabelaCupom;
-
-        private RepositorioCondutores _repositorioCondutores;
-        private ServicoCondutores _servicoCondutores;
-        private TabelaCondutoresControl _tabelaCondutores;
-
-        private RepositorioPlanosCobrancas _repositorioPlanosCobrancas;
-        private ServicoPlanosCobrancas _servicoPlanosCobrancas;
-        private TabelaPlanosCobrancasControl _tabelaPlanosCobrancas;
-
-        private RepositorioAluguel _repositorioAluguel;
-        private ServicoAluguel _servicoAluguel;
-        private TabelaAluguelControl _tabelaAluguel;
+        private readonly IoC injecao;
 
         public TelaPrincipalForm()
         {
@@ -80,7 +28,7 @@ namespace LocadoraAutomoveis.WinApp
 
             _telaPrincipal = this;
 
-            ConfigurarInstancias();
+            injecao = new IoC_DependencyInjection();
 
             ConfigurarBotoes();
         }
@@ -90,117 +38,70 @@ namespace LocadoraAutomoveis.WinApp
             _telaPrincipal.lbStatus.Text = status;
         }
 
-        private void ConfigurarInstancias()
-        {
-            _contextoDb = new LocadoraAutomoveisDesignFactory().CreateDbContext(null);
-
-            _repositorioCategoria = new RepositorioCategoriaAutomoveis(_contextoDb);
-            _servicoCategoria = new ServicoCategoriaAutomoveis(_repositorioCategoria, new ValidadorCategoriaAutomoveis());
-            _tabelaCategoria = new TabelaCategoriaAutomoveisControl();
-
-            _repositorioFuncionario = new RepositorioFuncionario(_contextoDb);
-            _servicoFuncionario = new ServicoFuncionario(_repositorioFuncionario, new ValidadorFuncionario());
-            _tabelaFuncionario = new TabelaFuncionarioControl();
-
-            _repositorioTaxaEServico = new RepositorioTaxaEServico(_contextoDb);
-            _servicoTaxaEServico = new ServicoTaxaEServico(_repositorioTaxaEServico, new ValidadorTaxaEServico());
-            _tabelaTaxaEServico = new TabelaTaxaEServicoControl();
-
-            _repositorioParceiro = new RepositorioParceiro(_contextoDb);
-            _servicoParceiro = new ServicoParceiro(_repositorioParceiro, new ValidadorParceiro());
-            _tabelaParceiro = new TabelaParceiroControl();
-
-            _repositorioAutomovel = new RepositorioAutomovel(_contextoDb);
-            _servicoAutomovel = new ServicoAutomovel(_repositorioAutomovel, new ValidadorAutomovel());
-            _tabelaAutomovel = new TabelaAutomovelControl();
-
-            _repositorioCliente = new RepositorioCliente(_contextoDb);
-            _servicoCliente = new ServicoCliente(_repositorioCliente, new ValidadorCliente());
-            _tabelaCliente = new TabelaClienteControl();
-
-            _repositorioCupom = new RepositorioCupom(_contextoDb);
-            _servicoCupom = new ServicoCupom(_repositorioCupom, new ValidadorCupom());
-            _tabelaCupom = new TabelaCupomControl();
-
-            _repositorioCondutores = new RepositorioCondutores(_contextoDb);
-            _servicoCondutores = new ServicoCondutores(_repositorioCondutores, new ValidadorCondutores());
-            _tabelaCondutores = new TabelaCondutoresControl();
-
-            _repositorioPlanosCobrancas = new RepositorioPlanosCobrancas(_contextoDb);
-            _servicoPlanosCobrancas = new ServicoPlanosCobrancas(_repositorioPlanosCobrancas, new ValidadorPlanosCobrancas());
-            _tabelaPlanosCobrancas = new TabelaPlanosCobrancasControl();
-
-            _repositorioAluguel = new RepositorioAluguel(_contextoDb);
-            _servicoAluguel = new ServicoAluguel(_repositorioAluguel, new ValidadorAluguel(), _servicoFuncionario,
-                _servicoCliente, _servicoCategoria, _servicoPlanosCobrancas, _servicoCondutores, _servicoAutomovel,
-                _servicoCupom, _servicoTaxaEServico);
-            _tabelaAluguel = new TabelaAluguelControl();
-        }
-
         #region BotoesTabelas
         private void btnAluguel_Click(object sender, EventArgs e)
         {
-            _controladorBase = new ControladorAluguel(_repositorioAluguel, _servicoAluguel, _tabelaAluguel);
+            _controladorBase = injecao.Get<ControladorAluguel>();
             ConfigurarTelaPrincipal();
         }
 
         private void btnCategoria_Click(object sender, EventArgs e)
         {
-            _controladorBase = new ControladorCategoriaAutomoveis(_repositorioCategoria, _servicoCategoria, _tabelaCategoria);
+            _controladorBase = injecao.Get<ControladorCategoriaAutomoveis>();
             ConfigurarTelaPrincipal();
         }
 
         private void btnFuncionario_Click(object sender, EventArgs e)
         {
-            _controladorBase = new ControladorFuncionario(_repositorioFuncionario, _servicoFuncionario, _tabelaFuncionario);
+            _controladorBase = injecao.Get<ControladorFuncionario>();
             ConfigurarTelaPrincipal();
         }
 
         private void btnTaxa_Click(object sender, EventArgs e)
         {
-            _controladorBase = new ControladorTaxaEServico(_repositorioTaxaEServico, _servicoTaxaEServico, _tabelaTaxaEServico);
+            _controladorBase = injecao.Get<ControladorTaxaEServico>();
             ConfigurarTelaPrincipal();
         }
 
         private void btnParceiro_Click(object sender, EventArgs e)
         {
-            _controladorBase = new ControladorParceiro(_repositorioParceiro, _servicoParceiro, _tabelaParceiro);
+            _controladorBase = injecao.Get<ControladorParceiro>();
             ConfigurarTelaPrincipal();
         }
 
         private void btnAutomovel_Click(object sender, EventArgs e)
         {
-            _controladorBase = new ControladorAutomovel(_repositorioAutomovel, _servicoAutomovel, _tabelaAutomovel, _servicoCategoria);
+            _controladorBase = injecao.Get<ControladorAutomovel>();
             ConfigurarTelaPrincipal();
         }
 
         private void btnFuncionario_Click_1(object sender, EventArgs e)
         {
-            _controladorBase = new ControladorFuncionario(_repositorioFuncionario, _servicoFuncionario, _tabelaFuncionario);
+            _controladorBase = injecao.Get<ControladorFuncionario>();
             ConfigurarTelaPrincipal();
         }
 
         private void btnCliente_Click(object sender, EventArgs e)
         {
-            _controladorBase = new ControladorCliente(_repositorioCliente, _servicoCliente, _tabelaCliente);
+            _controladorBase = injecao.Get<ControladorCliente>();
             ConfigurarTelaPrincipal();
         }
 
         private void btnCupom_Click(object sender, EventArgs e)
         {
-            _controladorBase = new ControladorCupom(_repositorioCupom, _servicoCupom, _tabelaCupom, _servicoParceiro);
+            _controladorBase = injecao.Get<ControladorCupom>();
             ConfigurarTelaPrincipal();
         }
 
         private void btnCondutores_Click_1(object sender, EventArgs e)
         {
-            _controladorBase = new ControladorCondutores(_repositorioCondutores, _servicoCondutores, _tabelaCondutores, _servicoCliente);
+            _controladorBase = injecao.Get<ControladorCondutores>();
             ConfigurarTelaPrincipal();
         }
 
         private void btnPlanosCobrancas_Click(object sender, EventArgs e)
         {
-            _controladorBase = new ControladorPlanosCobrancas(_repositorioPlanosCobrancas, _servicoPlanosCobrancas, _tabelaPlanosCobrancas, _servicoCategoria);
+            _controladorBase = injecao.Get<ControladorPlanosCobrancas>();
             ConfigurarTelaPrincipal();
         }
         #endregion
@@ -273,16 +174,16 @@ namespace LocadoraAutomoveis.WinApp
 
         private void ConfigurarBotoes()
         {
-            coresBotoes.Add(_tabelaCategoria.Controls[0], btnCategoria);
-            coresBotoes.Add(_tabelaFuncionario.Controls[0], btnFuncionario);
-            coresBotoes.Add(_tabelaTaxaEServico.Controls[0], btnTaxa);
-            coresBotoes.Add(_tabelaParceiro.Controls[0], btnParceiro);
-            coresBotoes.Add(_tabelaAutomovel.Controls[0], btnAutomovel);
-            coresBotoes.Add(_tabelaCliente.Controls[0], btnCliente);
-            coresBotoes.Add(_tabelaCupom.Controls[0], btnCupom);
-            coresBotoes.Add(_tabelaCondutores.Controls[0], btnCondutores);
-            coresBotoes.Add(_tabelaPlanosCobrancas.Controls[0], btnPlanosCobrancas);
-            coresBotoes.Add(_tabelaAluguel.Controls[0], btnAluguel);
+            coresBotoes.Add(injecao.Get<TabelaCategoriaAutomoveisControl>().Controls[0], btnCategoria);
+            coresBotoes.Add(injecao.Get<TabelaFuncionarioControl>().Controls[0], btnFuncionario);
+            coresBotoes.Add(injecao.Get<TabelaTaxaEServicoControl>().Controls[0], btnTaxa);
+            coresBotoes.Add(injecao.Get<TabelaParceiroControl>().Controls[0], btnParceiro);
+            coresBotoes.Add(injecao.Get<TabelaAutomovelControl>().Controls[0], btnAutomovel);
+            coresBotoes.Add(injecao.Get<TabelaClienteControl>().Controls[0], btnCliente);
+            coresBotoes.Add(injecao.Get<TabelaCupomControl>().Controls[0], btnCupom);
+            coresBotoes.Add(injecao.Get<TabelaCondutoresControl>().Controls[0], btnCondutores);
+            coresBotoes.Add(injecao.Get<TabelaPlanosCobrancasControl>().Controls[0], btnPlanosCobrancas);
+            coresBotoes.Add(injecao.Get<TabelaAluguelControl>().Controls[0], btnAluguel);
 
             btnCategoria.MouseEnter += btnColor_MouseEnter;
             btnCategoria.MouseLeave += btnColor_MouseLeave;

@@ -30,6 +30,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloTaxaEServico
         {
             //arrange/action
             var taxa = Builder<TaxaEServico>.CreateNew().Persist();
+            _contexto.SaveChanges();
 
             //assert
             _repositorioTaxaEServico.SelecionarPorID(taxa.ID).Should().Be(taxa);
@@ -40,11 +41,13 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloTaxaEServico
         {
             //arrange
             var taxa1 = Builder<TaxaEServico>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var taxa2 = _repositorioTaxaEServico.SelecionarPorID(taxa1.ID);
             taxa2.Nome = "Esportivo";
 
             //action
             _repositorioTaxaEServico.Editar(taxa2);
+            _contexto.SaveChanges();
 
             //assert
             var taxaSelecionada = _repositorioTaxaEServico.SelecionarPorID(taxa1.ID);
@@ -57,10 +60,12 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloTaxaEServico
         {
             //arrange
             var taxa1 = Builder<TaxaEServico>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var taxaSelecionada = _repositorioTaxaEServico.SelecionarPorID(taxa1.ID);
 
             //action
             _repositorioTaxaEServico.Excluir(taxaSelecionada);
+            _contexto.SaveChanges();
 
             //assert
             _repositorioTaxaEServico.SelecionarTodos().Count.Should().Be(0);
@@ -71,6 +76,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloTaxaEServico
         {
             //arrange
             var taxa1 = Builder<TaxaEServico>.CreateNew().Persist();
+            _contexto.SaveChanges();
 
             //action
             var taxaSelecionada = _repositorioTaxaEServico.SelecionarPorID(taxa1.ID);
@@ -84,9 +90,13 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloTaxaEServico
         {
             //arrange
             var taxa1 = Builder<TaxaEServico>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var taxa2 = Builder<TaxaEServico>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var taxa3 = Builder<TaxaEServico>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var taxa4 = Builder<TaxaEServico>.CreateNew().Persist();
+            _contexto.SaveChanges();
 
             //action
             var listaTaxas = _repositorioTaxaEServico.SelecionarTodos();
@@ -102,6 +112,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloTaxaEServico
         {
             //arrange
             var taxa1 = Builder<TaxaEServico>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var taxa2 = new TaxaEServico(taxa1.Nome, 10, Tipo.Diario);
 
             //action
@@ -116,6 +127,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloTaxaEServico
         {
             //arrange
             var taxa1 = Builder<TaxaEServico>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var taxa2 = new TaxaEServico(taxa1.Nome, 10, Tipo.Diario) { ID = taxa1.ID };
 
             //action
@@ -130,6 +142,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloTaxaEServico
         {
             //arrange
             var taxa1 = Builder<TaxaEServico>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var taxa2 = _repositorioTaxaEServico.SelecionarPorID(taxa1.ID);
 
             //action

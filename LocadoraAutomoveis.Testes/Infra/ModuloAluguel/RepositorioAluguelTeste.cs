@@ -67,6 +67,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
         {
             //action
             _repositorioAluguel.Inserir(_aluguel);
+            _contexto.SaveChanges();
 
             //assert
             _repositorioAluguel.SelecionarPorID(_aluguel.ID).Should().Be(_aluguel);
@@ -77,11 +78,13 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
         {
             //arrange
             _repositorioAluguel.Inserir(_aluguel);
+            _contexto.SaveChanges();
             var aluguel2 = _repositorioAluguel.SelecionarPorID(_aluguel.ID);
             aluguel2.DataPrevistaRetorno = new DateTime(2023, 8, 10);
 
             //action
             _repositorioAluguel.Editar(aluguel2);
+            _contexto.SaveChanges();
 
             //assert
             var aluguelSelecionado = _repositorioAluguel.SelecionarPorID(_aluguel.ID);
@@ -94,10 +97,12 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
         {
             //arrange
             _repositorioAluguel.Inserir(_aluguel);
+            _contexto.SaveChanges();
             var aluguelSelecionado = _repositorioAluguel.SelecionarPorID(_aluguel.ID);
 
             //action
             _repositorioAluguel.Excluir(aluguelSelecionado);
+            _contexto.SaveChanges();
 
             //assert
             _repositorioAluguel.SelecionarTodos().Should().HaveCount(0);
@@ -108,6 +113,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
         {
             //arrange
             _repositorioAluguel.Inserir(_aluguel);
+            _contexto.SaveChanges();
 
             //action
             var aluguelSelecionado = _repositorioAluguel.SelecionarPorID(_aluguel.ID);
@@ -142,9 +148,13 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
             Aluguel aluguel4 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), new DateTime(2023, 8, 6), quilometrosRodados, nivelTanque, valorTotal, false);
 
             _repositorioAluguel.Inserir(aluguel1);
+            _contexto.SaveChanges();
             _repositorioAluguel.Inserir(aluguel2);
+            _contexto.SaveChanges();
             _repositorioAluguel.Inserir(aluguel3);
+            _contexto.SaveChanges();
             _repositorioAluguel.Inserir(aluguel4);
+            _contexto.SaveChanges();
 
             //action
             var listaAluguels = _repositorioAluguel.SelecionarTodos();
@@ -160,6 +170,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
         {
             //arrange
             _repositorioAluguel.Inserir(_aluguel);
+            _contexto.SaveChanges();
             var aluguel2 = new Aluguel(_aluguel.Funcionario, _aluguel.Cliente, _aluguel.CategoriaAutomoveis, _aluguel.PlanoCobranca, _aluguel.Condutor, _aluguel.Automovel,
                 _aluguel.Cupom, _aluguel.ListaTaxasEServicos, _aluguel.DataLocacao, _aluguel.DataPrevistaRetorno, _aluguel.DataDevolucao, _aluguel.QuilometrosRodados,
                 _aluguel.CombustivelRestante, _aluguel.ValorTotal, _aluguel.Concluido);
@@ -180,6 +191,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
         {
             //arrange
             _repositorioAluguel.Inserir(_aluguel);
+            _contexto.SaveChanges();
             var aluguel2 = _repositorioAluguel.SelecionarPorID(_aluguel.ID);
 
             //action
@@ -194,6 +206,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
         {
             //arrange
             _repositorioAluguel.Inserir(_aluguel);
+            _contexto.SaveChanges();
             var aluguel2 = _repositorioAluguel.SelecionarPorID(_aluguel.ID);
 
             //action

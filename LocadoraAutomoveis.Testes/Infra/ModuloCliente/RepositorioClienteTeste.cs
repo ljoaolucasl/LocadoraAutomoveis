@@ -1,5 +1,4 @@
 ﻿using FizzWare.NBuilder;
-using FluentAssertions;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
@@ -23,8 +22,8 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCliente
             _repositorioCondutor = new RepositorioCondutores(_contexto);
 
             _contexto.RemoveRange(new RepositorioAluguel(_contexto).SelecionarTodos());
-            _contexto.RemoveRange(_repositorioCliente.Registros);
             _contexto.RemoveRange(_repositorioCondutor.Registros);
+            _contexto.RemoveRange(_repositorioCliente.Registros);
 
             BuilderSetup.SetCreatePersistenceMethod<Cliente>(_repositorioCliente.Inserir);
         }
@@ -33,6 +32,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCliente
         public void Deve_adicionar_um_cliente()
         {
             var cliente = Builder<Cliente>.CreateNew().Persist();
+            _contexto.SaveChanges();
 
             _repositorioCliente.SelecionarPorID(cliente.ID).Should().Be(cliente);
         }
@@ -41,6 +41,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCliente
         public void Deve_editar_um_cliente()
         {
             var cliente1 = Builder<Cliente>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var cliente2 = _repositorioCliente.SelecionarPorID(cliente1.ID);
             cliente2.Nome = "Marcos";
             cliente2.Email = "mateuszancheta@gmail.com";
@@ -54,6 +55,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCliente
             cliente2.Numero = 12;
 
             _repositorioCliente.Editar(cliente2);
+            _contexto.SaveChanges();
 
             var funcionarioSelecionado = _repositorioCliente.SelecionarPorID(cliente1.ID);
             _repositorioCliente.SelecionarTodos().Count.Should().Be(1);
@@ -64,9 +66,11 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCliente
         public void Deve_excluir_um_cliente()
         {
             var cliente1 = Builder<Cliente>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var clienteSelecionado = _repositorioCliente.SelecionarPorID(cliente1.ID);
 
             _repositorioCliente.Excluir(clienteSelecionado);
+            _contexto.SaveChanges();
 
             _repositorioCliente.SelecionarTodos().Count.Should().Be(0);
         }
@@ -75,6 +79,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCliente
         public void Deve_selecionar_por_ID_um_cliente()
         {
             var cliente1 = Builder<Cliente>.CreateNew().Persist();
+            _contexto.SaveChanges();
 
             var clienteSelecionado = _repositorioCliente.SelecionarPorID(cliente1.ID);
 
@@ -86,9 +91,13 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCliente
         {
             //arrange
             var cliente1 = Builder<Cliente>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var cliente2 = Builder<Cliente>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var cliente3 = Builder<Cliente>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var cliente4 = Builder<Cliente>.CreateNew().Persist();
+            _contexto.SaveChanges();
 
             //action
             var listaClientes = _repositorioCliente.SelecionarTodos();
@@ -103,6 +112,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCliente
         public void Deve_verificar_se_cliente_existe_validacao()
         {
             var cliente1 = Builder<Cliente>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var cliente2 = new Cliente(cliente1.Nome, cliente1.Email, cliente1.Telefone, 
                 cliente1.TipoCliente, cliente1.Documento, cliente1.Estado, cliente1.Cidade,
                 cliente1.Bairro, cliente1.Rua, cliente1.Numero);
@@ -116,6 +126,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCliente
         public void Deve_permitir_se_cliente_com_nome_e_ID_iguais_validacao()
         {
             var cliente1 = Builder<Cliente>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var cliente2 = new Cliente(cliente1.Nome, cliente1.Email, cliente1.Telefone,
                 cliente1.TipoCliente, cliente1.Documento, cliente1.Estado, cliente1.Cidade,
                 cliente1.Bairro, cliente1.Rua, cliente1.Numero) { ID = cliente1.ID };
@@ -129,6 +140,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCliente
         public void Deve_verificar_se_cliente_existe_exclusao()
         {
             var cliente1 = Builder<Cliente>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var cliente2 = _repositorioCliente.SelecionarPorID(cliente1.ID);
 
             bool resultado = _repositorioCliente.Existe(cliente2, true);

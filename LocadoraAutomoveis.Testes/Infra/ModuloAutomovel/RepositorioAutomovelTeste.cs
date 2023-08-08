@@ -32,6 +32,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAutomovel
             //arrange/action
             var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Build();
             var automovel = Builder<Automovel>.CreateNew().With(c => c.Categoria = categoria1).With(c => c.Imagem = new byte[12]).Persist();
+            _contexto.SaveChanges();
 
             //assert
             _repositorioAutomovel.SelecionarPorID(automovel.ID).Should().Be(automovel);
@@ -43,11 +44,13 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAutomovel
             //arrange
             var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Build();
             var automovel1 = Builder<Automovel>.CreateNew().With(c => c.Categoria = categoria1).With(c => c.Imagem = new byte[12]).Persist();
+            _contexto.SaveChanges();
             var automovel2 = _repositorioAutomovel.SelecionarPorID(automovel1.ID);
             automovel2.Modelo = "Esportivo";
 
             //action
             _repositorioAutomovel.Editar(automovel2);
+            _contexto.SaveChanges();
 
             //assert
             var automovelSelecionado = _repositorioAutomovel.SelecionarPorID(automovel1.ID);
@@ -61,10 +64,12 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAutomovel
             //arrange
             var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Build();
             var automovel1 = Builder<Automovel>.CreateNew().With(c => c.Categoria = categoria1).With(c => c.Imagem = new byte[12]).Persist();
+            _contexto.SaveChanges();
             var automovelSelecionada = _repositorioAutomovel.SelecionarPorID(automovel1.ID);
 
             //action
             _repositorioAutomovel.Excluir(automovelSelecionada);
+            _contexto.SaveChanges();
 
             //assert
             _repositorioAutomovel.SelecionarTodos().Should().HaveCount(0);
@@ -76,6 +81,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAutomovel
             //arrange
             var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Build();
             var automovel1 = Builder<Automovel>.CreateNew().With(c => c.Categoria = categoria1).With(c => c.Imagem = new byte[12]).Persist();
+            _contexto.SaveChanges();
 
             //action
             var automovelSelecionada = _repositorioAutomovel.SelecionarPorID(automovel1.ID);
@@ -93,6 +99,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAutomovel
             var automovel2 = Builder<Automovel>.CreateNew().With(c => c.Categoria = categoria1).With(c => c.Imagem = new byte[12]).Persist();
             var automovel3 = Builder<Automovel>.CreateNew().With(c => c.Categoria = categoria1).With(c => c.Imagem = new byte[12]).Persist();
             var automovel4 = Builder<Automovel>.CreateNew().With(c => c.Categoria = categoria1).With(c => c.Imagem = new byte[12]).Persist();
+            _contexto.SaveChanges();
 
             //action
             var listaautomovels = _repositorioAutomovel.SelecionarTodos();
@@ -113,6 +120,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAutomovel
             var automovel2 = Builder<Automovel>.CreateNew().With(c => c.Categoria = categoria2).With(c => c.Imagem = new byte[12]).Persist();
             var automovel3 = Builder<Automovel>.CreateNew().With(c => c.Categoria = categoria1).With(c => c.Imagem = new byte[12]).Persist();
             var automovel4 = Builder<Automovel>.CreateNew().With(c => c.Categoria = categoria2).With(c => c.Imagem = new byte[12]).Persist();
+            _contexto.SaveChanges();
 
             //action
             var listaAutomoveis = _repositorioAutomovel.SelecionarPorCategoria(categoria2);
@@ -131,6 +139,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAutomovel
             var automovel1 = Builder<Automovel>.CreateNew().With(c => c.Categoria = categoria1).With(c => c.Imagem = new byte[12]).Persist();
             var automovel2 = new Automovel(automovel1.Categoria, automovel1.Placa, automovel1.Marca, automovel1.Cor, automovel1.Modelo, automovel1.Imagem,
                 automovel1.TipoCombustivel, automovel1.CapacidadeCombustivel, automovel1.Ano, automovel1.Quilometragem, false);
+            _contexto.SaveChanges();
 
             //action
             bool resultado = _repositorioAutomovel.Existe(automovel2);
@@ -146,6 +155,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAutomovel
             var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Build();
             var automovel1 = Builder<Automovel>.CreateNew().With(c => c.Categoria = categoria1).With(c => c.Imagem = new byte[12]).Persist();
             var automovel2 = _repositorioAutomovel.SelecionarPorID(automovel1.ID);
+            _contexto.SaveChanges();
 
             //action
             bool resultado = _repositorioAutomovel.Existe(automovel2);
@@ -160,6 +170,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAutomovel
             //arrange
             var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Build();
             var automovel1 = Builder<Automovel>.CreateNew().With(c => c.Categoria = categoria1).With(c => c.Imagem = new byte[12]).Persist();
+            _contexto.SaveChanges();
             var automovel2 = _repositorioAutomovel.SelecionarPorID(automovel1.ID);
 
             //action

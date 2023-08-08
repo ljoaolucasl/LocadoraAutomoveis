@@ -32,6 +32,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloFuncionario
         public void Deve_adicionar_um_funcionario()
         {
             var funcionario = Builder<Funcionario>.CreateNew().Persist();
+            _contexto.SaveChanges();
 
             _repositorioFuncionarios.SelecionarPorID(funcionario.ID).Should().Be(funcionario);
         }
@@ -40,12 +41,14 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloFuncionario
         public void Deve_editar_um_funcionario()
         {
             var funcionario1 = Builder<Funcionario>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var funcionario2 = _repositorioFuncionarios.SelecionarPorID(funcionario1.ID);
             funcionario2.Nome = "Felipe";
             funcionario2.Admissao = DateTime.Parse("12/08/2023");
             funcionario2.Salario = 1300;
 
             _repositorioFuncionarios.Editar(funcionario2);
+            _contexto.SaveChanges();
 
             var funcionarioSelecionado = _repositorioFuncionarios.SelecionarPorID(funcionario1.ID);
             _repositorioFuncionarios.SelecionarTodos().Count.Should().Be(1);
@@ -56,9 +59,11 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloFuncionario
         public void Deve_excluir_um_funcionario()
         {
             var funcionario1 = Builder<Funcionario>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var funcionarioSelecionado = _repositorioFuncionarios.SelecionarPorID(funcionario1.ID);
 
             _repositorioFuncionarios.Excluir(funcionarioSelecionado);
+            _contexto.SaveChanges();
 
             _repositorioFuncionarios.SelecionarTodos().Count.Should().Be(0);
         }
@@ -67,6 +72,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloFuncionario
         public void Deve_selecionar_por_ID_um_funcionario()
         {
             var funcionario1 = Builder<Funcionario>.CreateNew().Persist();
+            _contexto.SaveChanges();
 
             var funcionarioSelecionado = _repositorioFuncionarios.SelecionarPorID(funcionario1.ID);
 
@@ -77,9 +83,13 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloFuncionario
         public void Deve_selecionar_todos_os_funcionarios()
         {
             var funcionario1 = Builder<Funcionario>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var funcionario2 = Builder<Funcionario>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var funcionario3 = Builder<Funcionario>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var funcionario4 = Builder<Funcionario>.CreateNew().Persist();
+            _contexto.SaveChanges();
 
             var listaFuncionarios = _repositorioFuncionarios.SelecionarTodos();
 
@@ -92,6 +102,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloFuncionario
         public void Deve_verificar_se_funcionario_existe_validacao()
         {
             var funcionario1 = Builder<Funcionario>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var funcionario2 = new Funcionario(funcionario1.Nome, Convert.ToDateTime("05/08/2023"), 500);
 
             bool resultado = _repositorioFuncionarios.Existe(funcionario2);
@@ -103,6 +114,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloFuncionario
         public void Deve_permitir_se_funcionario_com_nome_e_ID_iguais_validacao()
         {
             var funcionario1 = Builder<Funcionario>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var funcionario2 = new Funcionario(funcionario1.Nome, Convert.ToDateTime("05/08/2023"), 500) { ID = funcionario1.ID };
 
             bool resultado = _repositorioFuncionarios.Existe(funcionario2);
@@ -114,6 +126,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloFuncionario
         public void Deve_verificar_se_funcionario_existe_exclusao()
         {
             var funcionario1 = Builder<Funcionario>.CreateNew().Persist();
+            _contexto.SaveChanges();
             var funcionario2 = _repositorioFuncionarios.SelecionarPorID(funcionario1.ID);
 
             bool resultado = _repositorioFuncionarios.Existe(funcionario2, true);

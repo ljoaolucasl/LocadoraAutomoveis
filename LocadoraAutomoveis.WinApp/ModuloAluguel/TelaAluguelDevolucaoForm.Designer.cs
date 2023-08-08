@@ -101,7 +101,7 @@
             // 
             lbErroCupom.AutoSize = true;
             lbErroCupom.ForeColor = Color.FromArgb(192, 0, 0);
-            lbErroCupom.Location = new Point(133, 270);
+            lbErroCupom.Location = new Point(136, 270);
             lbErroCupom.Name = "lbErroCupom";
             lbErroCupom.Size = new Size(159, 15);
             lbErroCupom.TabIndex = 126;
@@ -246,6 +246,7 @@
             // 
             txtKmAutomovel.Enabled = false;
             txtKmAutomovel.Location = new Point(463, 184);
+            txtKmAutomovel.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
             txtKmAutomovel.Name = "txtKmAutomovel";
             txtKmAutomovel.Size = new Size(120, 23);
             txtKmAutomovel.TabIndex = 105;
@@ -408,7 +409,7 @@
             // 
             lbErroKmPercorrida.AutoSize = true;
             lbErroKmPercorrida.ForeColor = Color.FromArgb(192, 0, 0);
-            lbErroKmPercorrida.Location = new Point(463, 315);
+            lbErroKmPercorrida.Location = new Point(463, 316);
             lbErroKmPercorrida.Name = "lbErroKmPercorrida";
             lbErroKmPercorrida.Size = new Size(194, 15);
             lbErroKmPercorrida.TabIndex = 134;

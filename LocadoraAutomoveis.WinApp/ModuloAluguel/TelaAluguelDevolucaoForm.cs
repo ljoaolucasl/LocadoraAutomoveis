@@ -12,7 +12,7 @@ using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 {
-    public partial class TelaAluguelDevolucaoForm : Form, ITelaBase<Aluguel>
+    public partial class TelaAluguelDevolucaoForm : Form, ITelaAluguel
     {
         private Aluguel _aluguel;
 

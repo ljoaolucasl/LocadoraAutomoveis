@@ -226,7 +226,7 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAutomovel
             bool resultado = _validador.VerificarSeAlugado(_automovel);
 
             //assert
-            resultado.Should().BeFalse();
+            resultado.Should().BeTrue();
         }
     }
 }

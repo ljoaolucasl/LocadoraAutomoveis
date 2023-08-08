@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             barraBotoes = new ToolStrip();
-            btnCliente = new ToolStripButton();
+            btnCondutores = new ToolStripButton();
             btnAutomovel = new ToolStripButton();
             btnFuncionario = new ToolStripButton();
             btnCategoria = new ToolStripButton();
             btnTaxa = new ToolStripButton();
             btnParceiro = new ToolStripButton();
             btnCupom = new ToolStripButton();
-            btnCondutores = new ToolStripButton();
             btnPlanosCobrancas = new ToolStripButton();
+            btnCliente = new ToolStripButton();
             barraAcoes = new ToolStrip();
             btnAdicionar = new ToolStripButton();
             btnEditar = new ToolStripButton();
@@ -49,6 +49,7 @@
             stripStatus = new StatusStrip();
             lbStatus = new ToolStripStatusLabel();
             plPrincipal = new Panel();
+            btnAluguel = new ToolStripButton();
             barraBotoes.SuspendLayout();
             barraAcoes.SuspendLayout();
             stripStatus.SuspendLayout();
@@ -60,7 +61,7 @@
             barraBotoes.Dock = DockStyle.Left;
             barraBotoes.GripMargin = new Padding(0);
             barraBotoes.GripStyle = ToolStripGripStyle.Hidden;
-            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCondutores, btnAutomovel, btnFuncionario, btnCategoria, btnTaxa, btnParceiro, btnCupom, btnPlanosCobrancas, btnCliente });
+            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCondutores, btnAutomovel, btnFuncionario, btnCategoria, btnTaxa, btnParceiro, btnCupom, btnPlanosCobrancas, btnAluguel, btnCliente });
             barraBotoes.LayoutStyle = ToolStripLayoutStyle.VerticalStackWithOverflow;
             barraBotoes.Location = new Point(0, 0);
             barraBotoes.Name = "barraBotoes";
@@ -70,22 +71,21 @@
             barraBotoes.TabIndex = 0;
             barraBotoes.Text = "toolStrip1";
             // 
-            // btnCliente
+            // btnCondutores
             // 
-            btnCliente.BackColor = Color.Gainsboro;
-            btnCliente.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnCliente.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnCliente.ForeColor = Color.Black;
-            btnCliente.ImageTransparentColor = Color.Magenta;
-            btnCliente.Margin = new Padding(0);
-            btnCliente.Name = "btnCliente";
-            btnCliente.Padding = new Padding(20, 10, 20, 10);
-            btnCliente.RightToLeft = RightToLeft.No;
-            btnCliente.Size = new Size(258, 42);
-            btnCliente.Text = "Clientes";
-            btnCliente.TextDirection = ToolStripTextDirection.Horizontal;
-            btnCliente.ToolTipText = "Funcionários";
-            btnCliente.Click += btnCliente_Click;
+            btnCondutores.BackColor = Color.Gainsboro;
+            btnCondutores.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnCondutores.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCondutores.ForeColor = Color.Black;
+            btnCondutores.ImageTransparentColor = Color.Magenta;
+            btnCondutores.Margin = new Padding(0);
+            btnCondutores.Name = "btnCondutores";
+            btnCondutores.Padding = new Padding(20, 10, 20, 10);
+            btnCondutores.RightToLeft = RightToLeft.No;
+            btnCondutores.Size = new Size(258, 42);
+            btnCondutores.Text = "Condutores";
+            btnCondutores.TextDirection = ToolStripTextDirection.Horizontal;
+            btnCondutores.Click += btnCondutores_Click_1;
             // 
             // btnAutomovel
             // 
@@ -188,23 +188,6 @@
             btnCupom.ToolTipText = "Cupons";
             btnCupom.Click += btnCupom_Click;
             // 
-            // btnCondutores
-            // 
-            btnCondutores.BackColor = Color.Gainsboro;
-            btnCondutores.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnCondutores.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnCondutores.ForeColor = Color.Black;
-            btnCondutores.ImageTransparentColor = Color.Magenta;
-            btnCondutores.Margin = new Padding(0);
-            btnCondutores.Name = "btnCondutores";
-            btnCondutores.Padding = new Padding(20, 10, 20, 10);
-            btnCondutores.RightToLeft = RightToLeft.No;
-            btnCondutores.Size = new Size(258, 42);
-            btnCondutores.Text = "Condutores";
-            btnCondutores.TextDirection = ToolStripTextDirection.Horizontal;
-            btnCondutores.ToolTipText = "Cupons";
-            btnCondutores.Click += btnCondutores_Click_1;
-            // 
             // btnPlanosCobrancas
             // 
             btnPlanosCobrancas.BackColor = Color.Gainsboro;
@@ -221,6 +204,22 @@
             btnPlanosCobrancas.TextDirection = ToolStripTextDirection.Horizontal;
             btnPlanosCobrancas.ToolTipText = "Planos de Cobranças";
             btnPlanosCobrancas.Click += btnPlanosCobrancas_Click;
+            // 
+            // btnCliente
+            // 
+            btnCliente.BackColor = Color.Gainsboro;
+            btnCliente.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnCliente.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCliente.ForeColor = Color.Black;
+            btnCliente.ImageTransparentColor = Color.Magenta;
+            btnCliente.Margin = new Padding(0);
+            btnCliente.Name = "btnCliente";
+            btnCliente.Padding = new Padding(20, 10, 20, 10);
+            btnCliente.RightToLeft = RightToLeft.No;
+            btnCliente.Size = new Size(258, 42);
+            btnCliente.Text = "Clientes";
+            btnCliente.TextDirection = ToolStripTextDirection.Horizontal;
+            btnCliente.Click += btnCliente_Click;
             // 
             // barraAcoes
             // 
@@ -325,6 +324,23 @@
             plPrincipal.ControlAdded += plPrincipal_ControlAdded;
             plPrincipal.ControlRemoved += plPrincipal_ControlRemoved;
             // 
+            // btnAluguel
+            // 
+            btnAluguel.BackColor = Color.Gainsboro;
+            btnAluguel.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnAluguel.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnAluguel.ForeColor = Color.Black;
+            btnAluguel.ImageTransparentColor = Color.Magenta;
+            btnAluguel.Margin = new Padding(0);
+            btnAluguel.Name = "btnAluguel";
+            btnAluguel.Padding = new Padding(20, 10, 20, 10);
+            btnAluguel.RightToLeft = RightToLeft.No;
+            btnAluguel.Size = new Size(258, 42);
+            btnAluguel.Text = "Aluguéis";
+            btnAluguel.TextDirection = ToolStripTextDirection.Horizontal;
+            btnAluguel.ToolTipText = "Aluguéis";
+            btnAluguel.Click += btnAluguel_Click;
+            // 
             // TelaPrincipalForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -372,5 +388,6 @@
         private ToolStripButton btnCupom;
         private ToolStripButton btnCondutores;
         private ToolStripButton btnPlanosCobrancas;
+        private ToolStripButton btnAluguel;
     }
 }

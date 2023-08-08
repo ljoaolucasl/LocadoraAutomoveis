@@ -13,16 +13,17 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
         protected override string TipoCadastro => "Aluguéis";
 
-        private void ObterDependencias(TelaAluguelForm tela, Aluguel aluguel)
+        private void ObterDependencias(ITelaAluguel tela, Aluguel aluguel)
         {
-            _servico.servicoFuncionario.SelecionarTodosOsRegistros();
-            _servico.servicoCliente.SelecionarTodosOsRegistros();
-            _servico.servicoCategoriaAutomoveis.SelecionarTodosOsRegistros();
-            _servico.servicoPlanosCobrancas.SelecionarTodosOsRegistros();
-            _servico.servicoCondutores.SelecionarTodosOsRegistros();
-            _servico.servicoAutomovel.SelecionarTodosOsRegistros();
-            _servico.servicoCupom.SelecionarTodosOsRegistros();
-            _servico.servicoTaxaEServico.SelecionarTodosOsRegistros();
+            var funcionarios = _servico.servicoFuncionario.SelecionarTodosOsRegistros();
+            var clientes = _servico.servicoCliente.SelecionarTodosOsRegistros();
+            var categorias = _servico.servicoCategoriaAutomoveis.SelecionarTodosOsRegistros();
+            var planos = _servico.servicoPlanosCobrancas.SelecionarTodosOsRegistros();
+            var condutores = _servico.servicoCondutores.SelecionarTodosOsRegistros();
+            var automoveis = _servico.servicoAutomovel.SelecionarTodosOsRegistros();
+            var taxas = _servico.servicoTaxaEServico.SelecionarTodosOsRegistros();
+
+            tela.CarregarDependencias(funcionarios, clientes, categorias, planos, condutores, automoveis, taxas);
         }
     }
 }

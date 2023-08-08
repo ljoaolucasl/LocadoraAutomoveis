@@ -241,7 +241,7 @@
             // txtQuilometragem
             // 
             txtQuilometragem.Location = new Point(171, 441);
-            txtQuilometragem.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
+            txtQuilometragem.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
             txtQuilometragem.Name = "txtQuilometragem";
             txtQuilometragem.Size = new Size(120, 23);
             txtQuilometragem.TabIndex = 10;

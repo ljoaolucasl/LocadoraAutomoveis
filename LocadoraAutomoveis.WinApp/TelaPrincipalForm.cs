@@ -19,6 +19,8 @@ using LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.WinApp.ModuloTaxaEServico;
 using LocadoraAutomoveis.WinApp.ModuloCondutores;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
+using LocadoraAutomoveis.WinApp.ModuloAluguel;
+using LocadoraAutomoveis.Dominio.ModuloAluguel;
 
 namespace LocadoraAutomoveis.WinApp
 {
@@ -67,6 +69,10 @@ namespace LocadoraAutomoveis.WinApp
         private RepositorioPlanosCobrancas _repositorioPlanosCobrancas;
         private ServicoPlanosCobrancas _servicoPlanosCobrancas;
         private TabelaPlanosCobrancasControl _tabelaPlanosCobrancas;
+
+        private RepositorioAluguel _repositorioAluguel;
+        private ServicoAluguel _servicoAluguel;
+        private TabelaAluguelControl _tabelaAluguel;
 
         public TelaPrincipalForm()
         {
@@ -123,9 +129,21 @@ namespace LocadoraAutomoveis.WinApp
             _repositorioPlanosCobrancas = new RepositorioPlanosCobrancas(_contextoDb);
             _servicoPlanosCobrancas = new ServicoPlanosCobrancas(_repositorioPlanosCobrancas, new ValidadorPlanosCobrancas());
             _tabelaPlanosCobrancas = new TabelaPlanosCobrancasControl();
+
+            _repositorioAluguel = new RepositorioAluguel(_contextoDb);
+            _servicoAluguel = new ServicoAluguel(_repositorioAluguel, new ValidadorAluguel(), _servicoFuncionario,
+                _servicoCliente, _servicoCategoria, _servicoPlanosCobrancas, _servicoCondutores, _servicoAutomovel,
+                _servicoCupom, _servicoTaxaEServico);
+            _tabelaAluguel = new TabelaAluguelControl();
         }
 
         #region BotoesTabelas
+        private void btnAluguel_Click(object sender, EventArgs e)
+        {
+            _controladorBase = new ControladorAluguel(_repositorioAluguel, _servicoAluguel, _tabelaAluguel);
+            ConfigurarTelaPrincipal();
+        }
+
         private void btnCategoria_Click(object sender, EventArgs e)
         {
             _controladorBase = new ControladorCategoriaAutomoveis(_repositorioCategoria, _servicoCategoria, _tabelaCategoria);
@@ -264,6 +282,7 @@ namespace LocadoraAutomoveis.WinApp
             coresBotoes.Add(_tabelaCupom.Controls[0], btnCupom);
             coresBotoes.Add(_tabelaCondutores.Controls[0], btnCondutores);
             coresBotoes.Add(_tabelaPlanosCobrancas.Controls[0], btnPlanosCobrancas);
+            coresBotoes.Add(_tabelaAluguel.Controls[0], btnAluguel);
 
             btnCategoria.MouseEnter += btnColor_MouseEnter;
             btnCategoria.MouseLeave += btnColor_MouseLeave;
@@ -291,6 +310,9 @@ namespace LocadoraAutomoveis.WinApp
 
             btnPlanosCobrancas.MouseEnter += btnColor_MouseEnter;
             btnPlanosCobrancas.MouseLeave += btnColor_MouseLeave;
+
+            btnAluguel.MouseEnter += btnColor_MouseEnter;
+            btnAluguel.MouseLeave += btnColor_MouseLeave;
         }
 
         private void btnColor_MouseEnter(object sender, EventArgs e)
@@ -328,6 +350,5 @@ namespace LocadoraAutomoveis.WinApp
         }
 
         #endregion
-
     }
 }

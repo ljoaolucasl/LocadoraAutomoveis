@@ -68,6 +68,7 @@
             lbErroCupom = new Label();
             lbErroTaxas = new Label();
             lbErroValorTotal = new Label();
+            label11 = new Label();
             ((System.ComponentModel.ISupportInitialize)txtKmAutomovel).BeginInit();
             tbTaxas.SuspendLayout();
             tbControlTaxasAdicionadas.SuspendLayout();
@@ -197,6 +198,7 @@
             // 
             txtKmAutomovel.Enabled = false;
             txtKmAutomovel.Location = new Point(465, 180);
+            txtKmAutomovel.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
             txtKmAutomovel.Name = "txtKmAutomovel";
             txtKmAutomovel.Size = new Size(120, 23);
             txtKmAutomovel.TabIndex = 14;
@@ -244,9 +246,9 @@
             // 
             // btnCupom
             // 
-            btnCupom.Location = new Point(267, 299);
+            btnCupom.Location = new Point(275, 303);
             btnCupom.Name = "btnCupom";
-            btnCupom.Size = new Size(106, 32);
+            btnCupom.Size = new Size(106, 28);
             btnCupom.TabIndex = 20;
             btnCupom.Text = "Aplicar Cupom";
             btnCupom.UseVisualStyleBackColor = true;
@@ -266,7 +268,7 @@
             // 
             lbErroFuncionario.AutoSize = true;
             lbErroFuncionario.ForeColor = Color.FromArgb(192, 0, 0);
-            lbErroFuncionario.Location = new Point(138, 9);
+            lbErroFuncionario.Location = new Point(138, 15);
             lbErroFuncionario.Name = "lbErroFuncionario";
             lbErroFuncionario.Size = new Size(182, 15);
             lbErroFuncionario.TabIndex = 75;
@@ -321,7 +323,7 @@
             // 
             lbErroCondutor.AutoSize = true;
             lbErroCondutor.ForeColor = Color.FromArgb(192, 0, 0);
-            lbErroCondutor.Location = new Point(465, 59);
+            lbErroCondutor.Location = new Point(465, 64);
             lbErroCondutor.Name = "lbErroCondutor";
             lbErroCondutor.Size = new Size(170, 15);
             lbErroCondutor.TabIndex = 80;
@@ -400,6 +402,7 @@
             btnGravar.TabIndex = 84;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = true;
+            btnGravar.Click += btnGravar_Click;
             // 
             // label12
             // 
@@ -413,17 +416,20 @@
             // lbValorTotal
             // 
             lbValorTotal.AutoSize = true;
-            lbValorTotal.Location = new Point(169, 578);
+            lbValorTotal.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lbValorTotal.ForeColor = Color.Green;
+            lbValorTotal.Location = new Point(184, 576);
             lbValorTotal.Name = "lbValorTotal";
-            lbValorTotal.Size = new Size(20, 15);
+            lbValorTotal.Size = new Size(15, 17);
             lbValorTotal.TabIndex = 87;
-            lbValorTotal.Text = "R$";
+            lbValorTotal.Text = "0";
+            lbValorTotal.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lbErroCupom
             // 
             lbErroCupom.AutoSize = true;
             lbErroCupom.ForeColor = Color.FromArgb(192, 0, 0);
-            lbErroCupom.Location = new Point(133, 281);
+            lbErroCupom.Location = new Point(138, 287);
             lbErroCupom.Name = "lbErroCupom";
             lbErroCupom.Size = new Size(159, 15);
             lbErroCupom.TabIndex = 88;
@@ -434,7 +440,7 @@
             // 
             lbErroTaxas.AutoSize = true;
             lbErroTaxas.ForeColor = Color.FromArgb(192, 0, 0);
-            lbErroTaxas.Location = new Point(517, 328);
+            lbErroTaxas.Location = new Point(513, 328);
             lbErroTaxas.Name = "lbErroTaxas";
             lbErroTaxas.Size = new Size(147, 15);
             lbErroTaxas.TabIndex = 89;
@@ -445,18 +451,28 @@
             // 
             lbErroValorTotal.AutoSize = true;
             lbErroValorTotal.ForeColor = Color.FromArgb(192, 0, 0);
-            lbErroValorTotal.Location = new Point(173, 559);
+            lbErroValorTotal.Location = new Point(169, 559);
             lbErroValorTotal.Name = "lbErroValorTotal";
             lbErroValorTotal.Size = new Size(173, 15);
             lbErroValorTotal.TabIndex = 90;
             lbErroValorTotal.Text = "*Campo Valor Total em branco*";
             lbErroValorTotal.Visible = false;
             // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(158, 578);
+            label11.Name = "label11";
+            label11.Size = new Size(20, 15);
+            label11.TabIndex = 91;
+            label11.Text = "R$";
+            // 
             // TelaAluguelForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(684, 637);
+            Controls.Add(label11);
             Controls.Add(lbErroValorTotal);
             Controls.Add(lbErroTaxas);
             Controls.Add(lbErroCupom);
@@ -498,6 +514,7 @@
             Name = "TelaAluguelForm";
             ShowIcon = false;
             Text = "Cadastro de Aluguel";
+            Shown += TelaAluguelForm_Shown;
             ((System.ComponentModel.ISupportInitialize)txtKmAutomovel).EndInit();
             tbTaxas.ResumeLayout(false);
             tbControlTaxasAdicionadas.ResumeLayout(false);
@@ -547,5 +564,6 @@
         private Label lbErroCupom;
         private Label lbErroTaxas;
         private Label lbErroValorTotal;
+        private Label label11;
     }
 }

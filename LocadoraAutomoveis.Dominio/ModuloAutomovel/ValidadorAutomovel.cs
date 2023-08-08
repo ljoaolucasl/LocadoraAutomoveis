@@ -44,7 +44,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAutomovel
 
         public bool VerificarSeAlugado(Automovel automovelParaValidar)
         {
-            return !automovelParaValidar.Alugado;
+            return automovelParaValidar.Alugado;
         }
 
         private void ValidarTamanho(byte[] imagem, ValidationContext<Automovel> contexto)

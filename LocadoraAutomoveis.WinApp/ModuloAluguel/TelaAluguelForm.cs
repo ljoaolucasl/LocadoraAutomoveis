@@ -121,6 +121,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             _aluguel.Cupom = txtCupom.Text == "" ? null : new Cupom() { Nome = txtCupom.Text };
 
             _resultado = OnValidarEObterCupom(_aluguel);
+            CalcularValorTotal();
 
             if (_resultado.IsFailed)
             {
@@ -256,6 +257,37 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             cmbAutomovel.SelectedValueChanged += cmbAutomovel_SelectedValueChanged;
             cmbCliente.SelectedValueChanged += cmbCliente_SelectedValueChanged;
             cmbCategoriaAutomoveis.SelectedValueChanged += cmbCategoriaAutomoveis_SelectedValueChanged;
+        }
+
+        private void atualizarValor_SelectedValueChanged(object sender, EventArgs e)
+        {
+            CalcularValorTotal();
+        }
+
+        private void CalcularValorTotal()
+        {
+            decimal valorTotal = 0;
+            PlanoCobranca planoCobranca;
+            if (cmbCategoriaAutomoveis.SelectedItem is CategoriaAutomoveis categoriaEscolhida)
+                planoCobranca = planosCobrancas.Find(p => p.CategoriaAutomoveis.ID == categoriaEscolhida.ID);
+            else
+                planoCobranca = cmbPlanoCobranca.SelectedItem as PlanoCobranca;
+
+            TipoPlano tipoPlano = Utils.GetEnumValueFromDescription<TipoPlano>(cmbPlanoCobranca.SelectedItem as string);
+            decimal? quilometrosRodados = txtKmAutomovel.Value;
+            List<TaxaEServico> taxasEServicos = listTaxas.CheckedItems.Cast<TaxaEServico>().ToList();
+            Cupom cupom = _aluguel.Cupom;
+
+            // Calcula o valor do plano de cobrança selecionado
+            valorTotal = PlanoCobranca.CalcularPlanoCobranca(valorTotal, planoCobranca, tipoPlano, quilometrosRodados);
+
+            // Calcula o valor das taxas e serviços selecionados
+            valorTotal = TaxaEServico.CalcularTaxasEServicos(valorTotal, taxasEServicos);
+
+            // Aplica o valor do cupom, se houver
+            valorTotal = Cupom.AplicarDesconto(valorTotal, cupom);
+
+            lbValorTotal.Text = valorTotal.ToString();
         }
     }
 }

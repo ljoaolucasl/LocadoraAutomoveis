@@ -19,6 +19,16 @@ namespace LocadoraAutomoveis.Dominio.ModuloTaxaEServico
         {
         }
 
+        public static decimal CalcularTaxasEServicos(decimal valorTotal, List<TaxaEServico> taxasEServicos)
+        {
+            if (taxasEServicos != null)
+            {
+                valorTotal += taxasEServicos.Sum(taxa => taxa.Valor);
+            }
+
+            return valorTotal;
+        }
+
         public override bool Equals(object? obj)
         {
             return obj is TaxaEServico servico &&

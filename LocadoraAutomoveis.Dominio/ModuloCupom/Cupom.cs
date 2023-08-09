@@ -24,6 +24,16 @@ namespace LocadoraAutomoveis.Dominio.ModuloCupom
             
         }
 
+        public static decimal AplicarDesconto(decimal valorTotal, Cupom cupom)
+        {
+            if (cupom != null)
+            {
+                valorTotal -= cupom.Valor;
+            }
+
+            return valorTotal;
+        }
+
         public override string ToString()
         {
             return Nome;

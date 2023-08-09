@@ -202,6 +202,7 @@
             txtKmAutomovel.Name = "txtKmAutomovel";
             txtKmAutomovel.Size = new Size(120, 23);
             txtKmAutomovel.TabIndex = 14;
+            txtKmAutomovel.ValueChanged += atualizarValor_SelectedValueChanged;
             // 
             // dateLocacao
             // 
@@ -210,6 +211,7 @@
             dateLocacao.Name = "dateLocacao";
             dateLocacao.Size = new Size(154, 23);
             dateLocacao.TabIndex = 15;
+            dateLocacao.ValueChanged += atualizarValor_SelectedValueChanged;
             // 
             // datePrevistaRetorno
             // 
@@ -218,6 +220,7 @@
             datePrevistaRetorno.Name = "datePrevistaRetorno";
             datePrevistaRetorno.Size = new Size(154, 23);
             datePrevistaRetorno.TabIndex = 17;
+            datePrevistaRetorno.ValueChanged += atualizarValor_SelectedValueChanged;
             // 
             // label9
             // 
@@ -372,6 +375,7 @@
             listTaxas.Name = "listTaxas";
             listTaxas.Size = new Size(614, 176);
             listTaxas.TabIndex = 0;
+            listTaxas.SelectedValueChanged += atualizarValor_SelectedValueChanged;
             // 
             // tbControlTaxasAdicionadas
             // 

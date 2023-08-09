@@ -1,4 +1,5 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloAluguel;
+﻿using LocadoraAutomoveis.Dominio.Extensions;
+using LocadoraAutomoveis.Dominio.ModuloAluguel;
 using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloAluguel
@@ -19,7 +20,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             foreach (Aluguel item in alugueis)
             {
                 DataGridViewRow row = new();
-                row.CreateCells(gridAluguel, item.ID, item.Condutor.Nome, item.Automovel.Placa, item.PlanoCobranca, item.DataLocacao.ToString("d"), item.DataPrevistaRetorno.ToString("d"), item.DataDevolucao.HasValue ? item.DataDevolucao.Value.ToString("d") : "", item.ValorTotal.ToString("F2"));
+                row.CreateCells(gridAluguel, item.ID, item.Condutor.Nome, item.Automovel.Placa, item.Plano.ToDescriptionString(), item.DataLocacao.ToString("d"), item.DataPrevistaRetorno.ToString("d"), item.DataDevolucao.HasValue ? item.DataDevolucao.Value.ToString("d") : "", item.ValorTotal.ToString("F2"));
                 row.Cells[0].Tag = item;
                 gridAluguel.Rows.Add(row);
             }

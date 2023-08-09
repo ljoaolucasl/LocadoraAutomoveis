@@ -411,6 +411,8 @@
             txtKmPercorrida.Name = "txtKmPercorrida";
             txtKmPercorrida.Size = new Size(120, 23);
             txtKmPercorrida.TabIndex = 133;
+            txtKmPercorrida.Click += selecaoAutomaticaNumericUpDown_Click;
+            txtKmPercorrida.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // label15
             // 

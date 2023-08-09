@@ -6,10 +6,12 @@ using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
+using LocadoraAutomoveis.Dominio.ModuloConfiguracao;
 using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
+using LocadoraAutomoveis.Infraestrutura.ModuloConfiguracao;
 using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloAluguel
@@ -108,7 +110,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
             _aluguel.QuilometrosRodados = Convert.ToDecimal(txtKmPercorrida.Value);
             _aluguel.ListaTaxasEServicos = listTaxas.CheckedItems.Cast<TaxaEServico>().ToList();
-            _aluguel.ValorTotal = Convert.ToDecimal(txtValorTotal.Text);
+            _aluguel.ValorTotal = Convert.ToDecimal(lbValorTotal.Text);
             _aluguel.Concluido = true;
 
             return _aluguel;
@@ -152,30 +154,50 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                 ((TextBox)((NumericUpDown)sender).Controls[1]).SelectAll();
         }
 
-        //private void CalcularValorTotal()
-        //{
-        //    decimal valorTotal = 0;
-        //    PlanoCobranca planoCobranca;
-        //    if (cmbCategoriaAutomoveis.SelectedItem is CategoriaAutomoveis categoriaEscolhida)
-        //        planoCobranca = planosCobrancas.Find(p => p.CategoriaAutomoveis.ID == categoriaEscolhida.ID);
-        //    else
-        //        planoCobranca = cmbPlanoCobranca.SelectedItem as PlanoCobranca;
+        private void atualizarValor_SelectedValueChanged(object sender, EventArgs e)
+        {
+            CalcularValorTotalDevolucao();
+        }
 
-        //    TipoPlano tipoPlano = Utils.GetEnumValueFromDescription<TipoPlano>(cmbPlanoCobranca.SelectedItem as string);
-        //    decimal? quilometrosRodados = txtKmAutomovel.Value;
-        //    List<TaxaEServico> taxasEServicos = listTaxas.CheckedItems.Cast<TaxaEServico>().ToList();
-        //    Cupom cupom = _aluguel.Cupom;
+        private void CalcularValorTotalDevolucao()
+        {
+            RepositorioConfiguracao repositorioConfiguracao = new();
+            PrecoCombustivel precoCombustivel = repositorioConfiguracao.ObterConfiguracaoPrecos();
+            decimal valorTotal = 0;
+            PlanoCobranca planoCobranca = _aluguel.PlanoCobranca;
+            TipoPlano tipoPlano = _aluguel.Plano;
+            NivelTanque nivelTanque = (NivelTanque)cmbNivelTanque.SelectedIndex;
+            Automovel automovel = cmbAutomovel.SelectedItem as Automovel;
+            TipoCombustível tipoCombustivel = automovel.TipoCombustivel;
+            decimal quilometrosPercorridos = _aluguel.QuilometrosRodados ?? 0;
+            List<TaxaEServico> taxasEServicos = _aluguel.ListaTaxasEServicos;
+            Cupom cupom = _aluguel.Cupom;
+            TimeSpan intervalo = (TimeSpan)(_aluguel.DataDevolucao - _aluguel.DataLocacao);
+            int diasLocados = (int)intervalo.TotalDays;
 
-        //    // Calcula o valor do plano de cobrança selecionado
-        //    valorTotal = PlanoCobranca.CalcularPlanoCobranca(valorTotal, planoCobranca, tipoPlano, quilometrosRodados);
+            valorTotal = PlanoCobranca.CalcularPlanoCobrancaFinal(valorTotal, planoCobranca, tipoPlano, quilometrosPercorridos, diasLocados);
 
-        //    // Calcula o valor das taxas e serviços selecionados
-        //    valorTotal = TaxaEServico.CalcularTaxasEServicos(valorTotal, taxasEServicos);
+            valorTotal = TaxaEServico.CalcularTaxasEServicos(valorTotal, taxasEServicos);
 
-        //    // Aplica o valor do cupom, se houver
-        //    valorTotal = Cupom.AplicarDesconto(valorTotal, cupom);
+            valorTotal = Cupom.AplicarDesconto(valorTotal, cupom);
 
-        //    lbValorTotal.Text = valorTotal.ToString();
-        //}
+            decimal valorCombustivel = PrecoCombustivel.CalcularValorCombustivel(_aluguel.Automovel.CapacidadeCombustivel, nivelTanque, tipoCombustivel, precoCombustivel);
+
+            int diasAtraso = 0;
+            if (_aluguel.DataDevolucao > _aluguel.DataPrevistaRetorno)
+            {
+                TimeSpan diferencaDias = (TimeSpan)(_aluguel.DataDevolucao - _aluguel.DataPrevistaRetorno);
+                diasAtraso = diferencaDias.Days;
+            }
+
+            if (_aluguel.DataDevolucao.Value > _aluguel.DataPrevistaRetorno)
+            {
+                valorTotal += Aluguel.AplicarMultaAtraso(valorTotal, diasAtraso);
+            }
+
+            valorTotal += valorCombustivel;
+
+            lbValorTotal.Text = valorTotal.ToString();
+        }
     }
 }

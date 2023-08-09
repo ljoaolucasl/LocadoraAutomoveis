@@ -98,6 +98,14 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
                    ValorTotal == aluguel.ValorTotal &&
                    Concluido == aluguel.Concluido;
         }
+
+        public static decimal AplicarMultaAtraso(decimal valorTotal, int diasAtraso)
+        {
+            decimal multa = valorTotal * 0.1m;
+            decimal taxaAtraso = 50 * diasAtraso;
+
+            return multa + taxaAtraso;
+        }
     }
 
     public enum NivelTanque

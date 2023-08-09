@@ -25,10 +25,10 @@ namespace LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas
 
         public PlanoCobranca()
         {
-            
+
         }
 
-        public static decimal CalcularPlanoCobranca(decimal valorTotal, PlanoCobranca planoCobranca, TipoPlano tipoPlano, decimal? quilometrosRodados)
+        public static decimal CalcularPlanoCobrancaPrevisto(decimal valorTotal, PlanoCobranca planoCobranca, TipoPlano tipoPlano, decimal? quilometrosRodados)
         {
             decimal valorBaseDoPlano;
             switch (tipoPlano)
@@ -46,6 +46,35 @@ namespace LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas
                 case TipoPlano.Controlador:
                     valorBaseDoPlano = planoCobranca.PlanoControlador_ValorDiario;
                     valorTotal += valorBaseDoPlano;
+                    break;
+            }
+
+            return valorTotal;
+        }
+
+        public static decimal CalcularPlanoCobrancaFinal(decimal valorTotal, PlanoCobranca planoCobranca, TipoPlano tipoPlano, decimal quilometrosRodados, int diasLocacao)
+        {
+            switch (tipoPlano)
+            {
+                case TipoPlano.Diario:
+                    valorTotal += planoCobranca.PlanoDiario_ValorDiario * diasLocacao;
+                    decimal valorPorKmRodado = planoCobranca.PlanoDiario_ValorKm;
+                    valorTotal += valorPorKmRodado * quilometrosRodados;
+                    break;
+
+                case TipoPlano.Livre:
+                    valorTotal += planoCobranca.PlanoLivre_ValorDiario * diasLocacao;
+                    break;
+
+                case TipoPlano.Controlador:
+                    valorTotal += planoCobranca.PlanoControlador_ValorDiario * diasLocacao;
+                    decimal kmFranquiaDiaria = planoCobranca.PlanoControlador_ValorKm;
+                    if (quilometrosRodados > kmFranquiaDiaria)
+                    {
+                        decimal kmExcedente = quilometrosRodados - kmFranquiaDiaria;
+                        decimal valorPorKmExcedente = planoCobranca.PlanoControlador_LimiteKm;
+                        valorTotal += valorPorKmExcedente * kmExcedente;
+                    }
                     break;
             }
 

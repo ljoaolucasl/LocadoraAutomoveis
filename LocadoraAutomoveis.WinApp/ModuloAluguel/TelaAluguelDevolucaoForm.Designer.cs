@@ -68,7 +68,7 @@
             lbErroNivelTanque = new Label();
             label17 = new Label();
             cmbNivelTanque = new ComboBox();
-            txtValorTotal = new Label();
+            lbValorTotal = new Label();
             tbControlTaxasAdicionadas.SuspendLayout();
             tbTaxas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)txtKmAutomovel).BeginInit();
@@ -90,7 +90,7 @@
             // 
             lbErroTaxas.AutoSize = true;
             lbErroTaxas.ForeColor = Color.FromArgb(192, 0, 0);
-            lbErroTaxas.Location = new Point(527, 413);
+            lbErroTaxas.Location = new Point(448, 413);
             lbErroTaxas.Name = "lbErroTaxas";
             lbErroTaxas.Size = new Size(147, 15);
             lbErroTaxas.TabIndex = 127;
@@ -166,6 +166,7 @@
             listTaxas.Name = "listTaxas";
             listTaxas.Size = new Size(614, 176);
             listTaxas.TabIndex = 138;
+            listTaxas.SelectedValueChanged += atualizarValor_SelectedValueChanged;
             // 
             // lbErroFuncionario
             // 
@@ -384,6 +385,7 @@
             dateDevolucao.Name = "dateDevolucao";
             dateDevolucao.Size = new Size(154, 23);
             dateDevolucao.TabIndex = 130;
+            dateDevolucao.ValueChanged += atualizarValor_SelectedValueChanged;
             // 
             // label13
             // 
@@ -411,6 +413,7 @@
             txtKmPercorrida.Name = "txtKmPercorrida";
             txtKmPercorrida.Size = new Size(120, 23);
             txtKmPercorrida.TabIndex = 133;
+            txtKmPercorrida.ValueChanged += atualizarValor_SelectedValueChanged;
             txtKmPercorrida.Click += selecaoAutomaticaNumericUpDown_Click;
             txtKmPercorrida.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
@@ -451,25 +454,26 @@
             cmbNivelTanque.Name = "cmbNivelTanque";
             cmbNivelTanque.Size = new Size(154, 23);
             cmbNivelTanque.TabIndex = 135;
+            cmbNivelTanque.SelectedValueChanged += atualizarValor_SelectedValueChanged;
             // 
-            // txtValorTotal
+            // lbValorTotal
             // 
-            txtValorTotal.AutoSize = true;
-            txtValorTotal.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            txtValorTotal.ForeColor = Color.Green;
-            txtValorTotal.Location = new Point(204, 673);
-            txtValorTotal.Name = "txtValorTotal";
-            txtValorTotal.Size = new Size(15, 17);
-            txtValorTotal.TabIndex = 138;
-            txtValorTotal.Text = "0";
-            txtValorTotal.TextAlign = ContentAlignment.MiddleLeft;
+            lbValorTotal.AutoSize = true;
+            lbValorTotal.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lbValorTotal.ForeColor = Color.Green;
+            lbValorTotal.Location = new Point(204, 673);
+            lbValorTotal.Name = "lbValorTotal";
+            lbValorTotal.Size = new Size(15, 17);
+            lbValorTotal.TabIndex = 138;
+            lbValorTotal.Text = "0";
+            lbValorTotal.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // TelaAluguelDevolucaoForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(699, 717);
-            Controls.Add(txtValorTotal);
+            Controls.Add(lbValorTotal);
             Controls.Add(lbErroNivelTanque);
             Controls.Add(label17);
             Controls.Add(cmbNivelTanque);
@@ -561,6 +565,6 @@
         private Label label17;
         private ComboBox cmbNivelTanque;
         private CheckedListBox listTaxas;
-        private Label txtValorTotal;
+        private Label lbValorTotal;
     }
 }

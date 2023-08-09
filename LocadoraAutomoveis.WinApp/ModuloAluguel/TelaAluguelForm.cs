@@ -280,7 +280,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             Cupom cupom = _aluguel.Cupom;
 
             // Calcula o valor do plano de cobrança selecionado
-            valorTotal = PlanoCobranca.CalcularPlanoCobranca(valorTotal, planoCobranca, tipoPlano, quilometrosRodados);
+            valorTotal = PlanoCobranca.CalcularPlanoCobrancaPrevisto(valorTotal, planoCobranca, tipoPlano, quilometrosRodados);
 
             // Calcula o valor das taxas e serviços selecionados
             valorTotal = TaxaEServico.CalcularTaxasEServicos(valorTotal, taxasEServicos);

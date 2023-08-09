@@ -110,6 +110,10 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado.Injection
             servicos.AddScoped<IRepositorioAluguel, RepositorioAluguel>();
             servicos.AddScoped<TabelaAluguelControl>();
 
+            servicos.AddTransient<IEnviadorEmail, EnviadorEmail>();
+            servicos.AddTransient<IGeradorPDF, GeradorPDF>();
+            servicos.AddTransient<EmailConfig>();
+
             servicos.AddTransient<ControladorConfiguracao>();
             servicos.AddScoped<IRepositorioConfiguracao, RepositorioConfiguracao>();
 

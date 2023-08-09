@@ -20,8 +20,8 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
         IServicoAutomovel servicoAutomovel { get; }
         IServicoCupom servicoCupom { get; }
         IServicoTaxaEServico servicoTaxaEServico { get; }
-        EnviadorEmail enviarEmail { get; }
-        GeradorPDF gerarPDF { get; }
+        IEnviadorEmail enviarEmail { get; }
+        IGeradorPDF gerarPDF { get; }
         List<IError> ValidarCupom(Aluguel aluguelParaValidar);
     }
 }

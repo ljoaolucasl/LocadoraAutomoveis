@@ -1,8 +1,5 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Dominio.ModuloAluguel;
-using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
-using LocadoraAutomoveis.WinApp.ModuloAutomovel;
-using LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas;
 
 namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 {

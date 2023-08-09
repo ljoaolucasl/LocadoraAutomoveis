@@ -25,14 +25,14 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
         public IServicoAutomovel servicoAutomovel { get; }
         public IServicoCupom servicoCupom { get; }
         public IServicoTaxaEServico servicoTaxaEServico { get; }
-        public EnviadorEmail enviarEmail { get; }
-        public GeradorPDF gerarPDF { get; }
+        public IEnviadorEmail enviarEmail { get; }
+        public IGeradorPDF gerarPDF { get; }
 
         public ServicoAluguel(IRepositorioAluguel repositorioAluguel, IValidadorAluguel validadorAluguel,
             IContextoPersistencia contextoPersistencia, IServicoFuncionario servicoFuncionario,
             IServicoCliente servicoCliente, IServicoCategoriaAutomoveis servicoCategoriaAutomoveis,
             IServicoPlanoCobranca servicoPlanosCobrancas, IServicoCondutor servicoCondutores,
-            IServicoAutomovel servicoAutomovel, IServicoCupom servicoCupom, IServicoTaxaEServico servicoTaxaEServico, EnviadorEmail enviarEmail, GeradorPDF gerarPDF)
+            IServicoAutomovel servicoAutomovel, IServicoCupom servicoCupom, IServicoTaxaEServico servicoTaxaEServico, IEnviadorEmail enviarEmail, IGeradorPDF gerarPDF)
         {
             _repositorioAluguel = repositorioAluguel;
             _validadorAluguel = validadorAluguel;
@@ -70,11 +70,11 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
                 aluguelParaAdicionar.Automovel.Alugado = true;
 
-                _contextoPersistencia.GravarDados();
-
                 byte[] pdfLocacao = gerarPDF.GerarPDF(aluguelParaAdicionar);
 
                 enviarEmail.EnviarEmailAluguel(aluguelParaAdicionar, pdfLocacao);
+
+                _contextoPersistencia.GravarDados();
 
                 Log.Debug("Inserido o Aluguel '{CLIENTE} #{ID}' com sucesso!", aluguelParaAdicionar.Cliente.Nome, aluguelParaAdicionar.ID);
 

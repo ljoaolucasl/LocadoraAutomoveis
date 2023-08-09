@@ -1,9 +1,9 @@
-﻿using System.Net.Mail;
-using System.Net;
+﻿using MailKit.Net.Smtp;
+using MimeKit;
 
 namespace LocadoraAutomoveis.Dominio.ModuloAluguel
 {
-    public class EnviadorEmail
+    public class EnviadorEmail : IEnviadorEmail
     {
         private readonly string _emailRemetente;
         private readonly string _senhaRemetente;
@@ -18,39 +18,46 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
             _portaSmtp = login.PortaSmtp;
         }
 
-        public async Task EnviarEmailAluguel(Aluguel aluguel, byte[] pdfBytes)
+        public void EnviarEmailAluguel(Aluguel aluguel, byte[] pdfBytes)
         {
-            using var clienteSmtp = new SmtpClient(_servidorSmtp)
+            var mensagem = new MimeMessage();
+            mensagem.From.Add(new MailboxAddress("Locadora de Automóveis", _emailRemetente));
+            mensagem.To.Add(new MailboxAddress(aluguel.Cliente.Nome, aluguel.Cliente.Email));
+            mensagem.Subject = "Detalhes da Locação";
+
+            var corpoMensagem = new TextPart("html")
             {
-                Port = _portaSmtp,
-                Credentials = new NetworkCredential(_emailRemetente, _senhaRemetente),
-                EnableSsl = true
+                Text = $@"
+            <html>
+            <body>
+                <p>Olá, {aluguel.Cliente.Nome}!</p>
+                <p>Segue em anexo o PDF com os detalhes da sua locação:</p>
+                <p>Obrigado por escolher nossos serviços!</p>
+                <p>Atenciosamente,</p>
+                <p>A Equipe da Locadora de Veículos</p>
+            </body>
+            </html>"
             };
 
-            var mensagem = new MailMessage
+            var anexo = new MimePart("application", "pdf")
             {
-                From = new MailAddress(_emailRemetente),
-                Subject = "Detalhes da Locação",
-                IsBodyHtml = true,
-                Body = $@"
-                        <html>
-                        <body>
-                            <p>Olá, {aluguel.Cliente.Nome}!</p>
-                            <p>Segue em anexo o PDF com os detalhes da sua locação:</p>
-                            <p>Obrigado por escolher nossos serviços!</p>
-                            <br>
-                            <p>Atenciosamente,</p>
-                            <p>A Equipe da Locadora de Veículos</p>
-                        </body>
-                        </html>"
+                Content = new MimeContent(new MemoryStream(pdfBytes)),
+                ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+                ContentTransferEncoding = ContentEncoding.Base64,
+                FileName = "DetalhesLocacao.pdf"
             };
 
-            mensagem.To.Add(aluguel.Cliente.Email);
+            var corpoMultiparte = new Multipart("mixed");
+            corpoMultiparte.Add(corpoMensagem);
+            corpoMultiparte.Add(anexo);
 
-            var attachment = new Attachment(new MemoryStream(pdfBytes), "DetalhesLocacao.pdf");
-            mensagem.Attachments.Add(attachment);
+            mensagem.Body = corpoMultiparte;
 
-            await clienteSmtp.SendMailAsync(mensagem);
+            using var clienteSmtp = new SmtpClient();
+            clienteSmtp.Connect(_servidorSmtp, _portaSmtp, true);
+            clienteSmtp.Authenticate(_emailRemetente, _senhaRemetente);
+            clienteSmtp.Send(mensagem);
+            clienteSmtp.Disconnect(true);
         }
     }
 }

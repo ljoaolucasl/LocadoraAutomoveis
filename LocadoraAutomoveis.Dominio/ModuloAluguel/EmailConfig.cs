@@ -3,8 +3,8 @@
     public class EmailConfig
     {
         public string Remetente => "byourownbug@gmail.com";
-        public string Senha => "academiaprogramador@byob";
+        public string Senha => "ygntpcykewhlcthm";
         public string ServidorSmtp => "smtp.gmail.com";
-        public int PortaSmtp => 587;
+        public int PortaSmtp => 465;
     }
 }

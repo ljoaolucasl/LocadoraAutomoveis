@@ -34,7 +34,8 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
         private Mock<IServicoAutomovel> servicoAutomovelMoq;
         private Mock<IServicoCupom> servicoCupomMoq;
         private Mock<IServicoTaxaEServico> servicoTaxaEServicoMoq;
-
+        private Mock<IGeradorPDF> geradorPdfMoq;
+        private Mock<IEnviadorEmail> enviadorEmailMoq;
         private ServicoAluguel _servico;
 
         private Aluguel _aluguel;
@@ -54,10 +55,13 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
             servicoAutomovelMoq = new Mock<IServicoAutomovel>();
             servicoCupomMoq = new Mock<IServicoCupom>();
             servicoTaxaEServicoMoq = new Mock<IServicoTaxaEServico>();
+            geradorPdfMoq = new Mock<IGeradorPDF>();
+            enviadorEmailMoq = new Mock<IEnviadorEmail>();
 
             _servico = new ServicoAluguel(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object, servicoFuncionarioMoq.Object,
                 servicoClienteMoq.Object, servicoCategoriaAutomoveisMoq.Object, servicoPlanosCobrancasMoq.Object,
-                servicoCondutoresMoq.Object, servicoAutomovelMoq.Object, servicoCupomMoq.Object, servicoTaxaEServicoMoq.Object);
+                servicoCondutoresMoq.Object, servicoAutomovelMoq.Object, servicoCupomMoq.Object, servicoTaxaEServicoMoq.Object, enviadorEmailMoq.Object,
+                geradorPdfMoq.Object);
 
             Funcionario funcionario = Builder<Funcionario>.CreateNew().Build();
             Cliente cliente = Builder<Cliente>.CreateNew().Build();

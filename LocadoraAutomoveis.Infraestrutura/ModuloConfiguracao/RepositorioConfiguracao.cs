@@ -5,7 +5,7 @@ namespace LocadoraAutomoveis.Infraestrutura.ModuloConfiguracao
 {
     public class RepositorioConfiguracao : IRepositorioConfiguracao
     {
-        private readonly string FilePath = @"C:\temp\configuracao_precos.json";
+        private readonly string FilePath = @"configuracao_precos.json";
 
         public PrecoCombustivel ObterConfiguracaoPrecos()
         {

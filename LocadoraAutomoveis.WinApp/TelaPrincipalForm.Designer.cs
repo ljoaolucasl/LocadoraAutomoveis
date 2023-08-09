@@ -37,6 +37,7 @@
             btnParceiro = new ToolStripButton();
             btnCupom = new ToolStripButton();
             btnPlanosCobrancas = new ToolStripButton();
+            btnAluguel = new ToolStripButton();
             btnCliente = new ToolStripButton();
             barraAcoes = new ToolStrip();
             btnAdicionar = new ToolStripButton();
@@ -46,10 +47,10 @@
             btnFiltrar = new ToolStripButton();
             separadorBarra = new ToolStripSeparator();
             lbTipoCadastro = new ToolStripLabel();
+            btnDevolucao = new ToolStripButton();
             stripStatus = new StatusStrip();
             lbStatus = new ToolStripStatusLabel();
             plPrincipal = new Panel();
-            btnAluguel = new ToolStripButton();
             barraBotoes.SuspendLayout();
             barraAcoes.SuspendLayout();
             stripStatus.SuspendLayout();
@@ -205,6 +206,23 @@
             btnPlanosCobrancas.ToolTipText = "Planos de Cobranças";
             btnPlanosCobrancas.Click += btnPlanosCobrancas_Click;
             // 
+            // btnAluguel
+            // 
+            btnAluguel.BackColor = Color.Gainsboro;
+            btnAluguel.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnAluguel.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnAluguel.ForeColor = Color.Black;
+            btnAluguel.ImageTransparentColor = Color.Magenta;
+            btnAluguel.Margin = new Padding(0);
+            btnAluguel.Name = "btnAluguel";
+            btnAluguel.Padding = new Padding(20, 10, 20, 10);
+            btnAluguel.RightToLeft = RightToLeft.No;
+            btnAluguel.Size = new Size(258, 42);
+            btnAluguel.Text = "Aluguéis";
+            btnAluguel.TextDirection = ToolStripTextDirection.Horizontal;
+            btnAluguel.ToolTipText = "Aluguéis";
+            btnAluguel.Click += btnAluguel_Click;
+            // 
             // btnCliente
             // 
             btnCliente.BackColor = Color.Gainsboro;
@@ -226,7 +244,7 @@
             barraAcoes.AutoSize = false;
             barraAcoes.BackColor = Color.White;
             barraAcoes.GripStyle = ToolStripGripStyle.Hidden;
-            barraAcoes.Items.AddRange(new ToolStripItem[] { btnAdicionar, btnEditar, btnExcluir, toolStripSeparator1, btnFiltrar, separadorBarra, lbTipoCadastro });
+            barraAcoes.Items.AddRange(new ToolStripItem[] { btnAdicionar, btnEditar, btnExcluir, toolStripSeparator1, btnFiltrar, separadorBarra, lbTipoCadastro, btnDevolucao });
             barraAcoes.Location = new Point(259, 0);
             barraAcoes.Name = "barraAcoes";
             barraAcoes.Size = new Size(754, 53);
@@ -300,6 +318,19 @@
             lbTipoCadastro.Name = "lbTipoCadastro";
             lbTipoCadastro.Size = new Size(0, 50);
             // 
+            // btnDevolucao
+            // 
+            btnDevolucao.BackColor = Color.DarkGray;
+            btnDevolucao.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            btnDevolucao.ImageScaling = ToolStripItemImageScaling.None;
+            btnDevolucao.ImageTransparentColor = Color.Magenta;
+            btnDevolucao.Margin = new Padding(10);
+            btnDevolucao.Name = "btnDevolucao";
+            btnDevolucao.Padding = new Padding(5);
+            btnDevolucao.Size = new Size(89, 33);
+            btnDevolucao.Text = "Devolução";
+            btnDevolucao.Click += btnDevolucao_Click;
+            // 
             // stripStatus
             // 
             stripStatus.Items.AddRange(new ToolStripItem[] { lbStatus });
@@ -323,23 +354,6 @@
             plPrincipal.TabIndex = 3;
             plPrincipal.ControlAdded += plPrincipal_ControlAdded;
             plPrincipal.ControlRemoved += plPrincipal_ControlRemoved;
-            // 
-            // btnAluguel
-            // 
-            btnAluguel.BackColor = Color.Gainsboro;
-            btnAluguel.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnAluguel.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnAluguel.ForeColor = Color.Black;
-            btnAluguel.ImageTransparentColor = Color.Magenta;
-            btnAluguel.Margin = new Padding(0);
-            btnAluguel.Name = "btnAluguel";
-            btnAluguel.Padding = new Padding(20, 10, 20, 10);
-            btnAluguel.RightToLeft = RightToLeft.No;
-            btnAluguel.Size = new Size(258, 42);
-            btnAluguel.Text = "Aluguéis";
-            btnAluguel.TextDirection = ToolStripTextDirection.Horizontal;
-            btnAluguel.ToolTipText = "Aluguéis";
-            btnAluguel.Click += btnAluguel_Click;
             // 
             // TelaPrincipalForm
             // 
@@ -389,5 +403,6 @@
         private ToolStripButton btnCondutores;
         private ToolStripButton btnPlanosCobrancas;
         private ToolStripButton btnAluguel;
+        private ToolStripButton btnDevolucao;
     }
 }

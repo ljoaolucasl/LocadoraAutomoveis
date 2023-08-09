@@ -32,6 +32,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
             _aluguel = new Aluguel();
 
+            ObterAluguel();
+
             txtKmPercorrida.Controls[0].Visible = false;
         }
 
@@ -79,10 +81,18 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                 cmbPlanoCobranca.Text = value.PlanoCobranca.CategoriaAutomoveis.Nome;
                 cmbCondutor.Text = value.Condutor.Nome;
                 cmbAutomovel.Text = value.Automovel.Placa;
-                listTaxas.Items.Clear();
-                listTaxas.Items.AddRange(value.ListaTaxasEServicos.ToArray());
-                txtCupom.Text = value.Cupom.Nome;
-
+                value.Automovel.Alugado = false;
+                for (int i = 0; i < value.ListaTaxasEServicos.Count; i++)
+                {
+                    for (int j = 0; j < listTaxas.Items.Count; j++)
+                    {
+                        if (listTaxas.Items[j] == value.ListaTaxasEServicos[i])
+                            listTaxas.SetItemChecked(j, true);
+                    }
+                }
+                txtCupom.Text = value.Cupom == null ? "" : value.Cupom.Nome;
+                dateLocacao.Value = value.DataLocacao;
+                datePrevistaRetorno.Value = value.DataPrevistaRetorno;
                 _aluguel = value;
             }
         }

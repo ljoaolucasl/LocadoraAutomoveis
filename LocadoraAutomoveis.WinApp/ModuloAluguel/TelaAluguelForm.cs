@@ -94,10 +94,13 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                 cmbCondutor.Text = value.Condutor.Nome;
                 cmbAutomovel.Text = value.Automovel.Placa;
                 value.Automovel.Alugado = false;
-                for (int i = 0; i < listTaxas.Items.Count; i++)
+                for (int i = 0; i < value.ListaTaxasEServicos.Count; i++)
                 {
-                    if (listTaxas.Items[i] == value.ListaTaxasEServicos[i])
-                        listTaxas.SetItemChecked(i, true);
+                    for (int j = 0; j < listTaxas.Items.Count; j++)
+                    {
+                        if (listTaxas.Items[j] == value.ListaTaxasEServicos[i])
+                            listTaxas.SetItemChecked(j, true);
+                    }
                 }
                 txtCupom.Text = value.Cupom.Nome;
                 dateLocacao.Value = value.DataLocacao;

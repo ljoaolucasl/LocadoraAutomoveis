@@ -20,11 +20,11 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
 
             RuleFor(a => a.Condutor)
                 .NotNull().WithMessage("'Condutor' é obrigatório.")
-                .Must(c => c.Validade > DateTime.Now).WithMessage("'Condutor' é obrigatório.");
+                .Must(c => c == null || c.Validade > DateTime.Now).WithMessage("'Condutor' é obrigatório.");
 
             RuleFor(a => a.Automovel)
                 .NotNull().WithMessage("'Automóvel' é obrigatório.")
-                .Must(a => a.Alugado == false).WithMessage("'Automóvel' já está alugado.");
+                .Must(a => a == null || a.Alugado == false).WithMessage("'Automóvel' já está alugado.");
 
             RuleFor(a => a.ListaTaxasEServicos)
                 .Must(lista => lista != null && lista.Count > 0).WithMessage("'Lista de Taxas e Serviços' não pode ser vazia.");

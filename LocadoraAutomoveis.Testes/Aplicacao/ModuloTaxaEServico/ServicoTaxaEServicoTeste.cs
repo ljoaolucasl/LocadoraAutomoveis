@@ -3,6 +3,7 @@ using FluentResults;
 using FluentResults.Extensions.FluentAssertions;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Servicos;
+using LocadoraAutomoveis.Dominio.ModuloAluguel;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Testes.Compartilhado;
@@ -16,7 +17,8 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloTaxaEServico
     {
         private Mock<IRepositorioTaxaEServico> _repositorioMoq;
         private Mock<IValidadorTaxaEServico> _validadorMoq;
-        private Mock<IContextoPersistencia> _contexto;
+        private Mock<IContextoPersistencia> _contextoMoq;
+        private Mock<IRepositorioAluguel> _repositorioAluguelMoq;
         private ServicoTaxaEServico _servico;
         private TaxaEServico _taxa;
 
@@ -25,8 +27,9 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloTaxaEServico
         {
             _repositorioMoq = new Mock<IRepositorioTaxaEServico>();
             _validadorMoq = new Mock<IValidadorTaxaEServico>();
-            _contexto = new Mock<IContextoPersistencia>();
-            _servico = new ServicoTaxaEServico(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object);
+            _contextoMoq = new Mock<IContextoPersistencia>();
+            _repositorioAluguelMoq = new Mock<IRepositorioAluguel>();
+            _servico = new ServicoTaxaEServico(_repositorioMoq.Object, _validadorMoq.Object, _repositorioAluguelMoq.Object, _contextoMoq.Object);
             _taxa = new TaxaEServico("Teste", 100, Tipo.Diario);
         }
 

@@ -106,6 +106,11 @@ namespace LocadoraAutomoveis.WinApp
         }
         #endregion
 
+        private void btnConfiguracao_Click(object sender, EventArgs e)
+        {
+
+        }
+
         #region CRUD
         private void btnAdd_Click(object sender, EventArgs e)
         {

@@ -76,7 +76,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
             decimal valorTotal = 1000;
 
             _aluguel = new Aluguel(funcionario, cliente, categoria, plano, condutor, automovel, cupom,
-                listTaxa, dataLocacao, dataPrevista, dataDevolucao, quilometrosRodados, nivelTanque, valorTotal, true);
+                listTaxa, dataLocacao, dataPrevista, dataDevolucao, quilometrosRodados, nivelTanque, valorTotal, true, TipoPlano.Diario);
         }
 
         #region Testes Inserir

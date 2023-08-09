@@ -76,6 +76,9 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                     b.Property<Guid>("FuncionarioID")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Plano")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("PlanoCobrancaID")
                         .HasColumnType("uniqueidentifier");
 

@@ -59,7 +59,9 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
             NivelTanque nivelTanque = NivelTanque.MeioTanque;
             decimal valorTotal = 1000;
 
-            _aluguel = new Aluguel(funcionario, cliente, categoria, plano, condutor, automovel, cupom, listTaxa, dataLocacao, dataPrevista, dataDevolucao, quilometrosRodados, nivelTanque, valorTotal, true);
+            _aluguel = new Aluguel(funcionario, cliente, categoria, plano, condutor,
+                automovel, cupom, listTaxa, dataLocacao, dataPrevista, dataDevolucao,
+                quilometrosRodados, nivelTanque, valorTotal, true, TipoPlano.Diario);
         }
 
         [TestMethod]
@@ -142,10 +144,10 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
             NivelTanque nivelTanque = NivelTanque.MeioTanque;
             decimal valorTotal = 1000;
 
-            Aluguel aluguel1 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, dataLocacao, dataPrevista, dataDevolucao, quilometrosRodados, nivelTanque, valorTotal, false);
-            Aluguel aluguel2 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), new DateTime(2023, 8, 6), quilometrosRodados, nivelTanque, valorTotal, false);
-            Aluguel aluguel3 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), new DateTime(2023, 8, 6), quilometrosRodados, nivelTanque, valorTotal, false);
-            Aluguel aluguel4 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), new DateTime(2023, 8, 6), quilometrosRodados, nivelTanque, valorTotal, false);
+            Aluguel aluguel1 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, dataLocacao, dataPrevista, dataDevolucao, quilometrosRodados, nivelTanque, valorTotal, false, TipoPlano.Diario);
+            Aluguel aluguel2 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), new DateTime(2023, 8, 6), quilometrosRodados, nivelTanque, valorTotal, false, TipoPlano.Diario);
+            Aluguel aluguel3 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), new DateTime(2023, 8, 6), quilometrosRodados, nivelTanque, valorTotal, false, TipoPlano.Diario);
+            Aluguel aluguel4 = new(funcionario1, cliente1, categoria1, plano1, condutor1, automovel1, cupom1, taxas1, new DateTime(2023, 8, 5), new DateTime(2023, 8, 6), new DateTime(2023, 8, 6), quilometrosRodados, nivelTanque, valorTotal, false, TipoPlano.Diario);
 
             _repositorioAluguel.Inserir(aluguel1);
             _contexto.SaveChanges();
@@ -173,7 +175,7 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
             _contexto.SaveChanges();
             var aluguel2 = new Aluguel(_aluguel.Funcionario, _aluguel.Cliente, _aluguel.CategoriaAutomoveis, _aluguel.PlanoCobranca, _aluguel.Condutor, _aluguel.Automovel,
                 _aluguel.Cupom, _aluguel.ListaTaxasEServicos, _aluguel.DataLocacao, _aluguel.DataPrevistaRetorno, _aluguel.DataDevolucao, _aluguel.QuilometrosRodados,
-                _aluguel.CombustivelRestante, _aluguel.ValorTotal, _aluguel.Concluido);
+                _aluguel.CombustivelRestante, _aluguel.ValorTotal, _aluguel.Concluido, _aluguel.Plano);
 
             Aluguel teste1 = new();
 

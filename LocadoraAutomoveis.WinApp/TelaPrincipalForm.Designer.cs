@@ -51,6 +51,7 @@
             stripStatus = new StatusStrip();
             lbStatus = new ToolStripStatusLabel();
             plPrincipal = new Panel();
+            btnConfiguracao = new ToolStripButton();
             barraBotoes.SuspendLayout();
             barraAcoes.SuspendLayout();
             stripStatus.SuspendLayout();
@@ -62,7 +63,7 @@
             barraBotoes.Dock = DockStyle.Left;
             barraBotoes.GripMargin = new Padding(0);
             barraBotoes.GripStyle = ToolStripGripStyle.Hidden;
-            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCondutores, btnAutomovel, btnFuncionario, btnCategoria, btnTaxa, btnParceiro, btnCupom, btnPlanosCobrancas, btnAluguel, btnCliente });
+            barraBotoes.Items.AddRange(new ToolStripItem[] { btnCondutores, btnAutomovel, btnFuncionario, btnCategoria, btnTaxa, btnParceiro, btnCupom, btnPlanosCobrancas, btnAluguel, btnCliente, btnConfiguracao });
             barraBotoes.LayoutStyle = ToolStripLayoutStyle.VerticalStackWithOverflow;
             barraBotoes.Location = new Point(0, 0);
             barraBotoes.Name = "barraBotoes";
@@ -355,6 +356,22 @@
             plPrincipal.ControlAdded += plPrincipal_ControlAdded;
             plPrincipal.ControlRemoved += plPrincipal_ControlRemoved;
             // 
+            // btnConfiguracao
+            // 
+            btnConfiguracao.BackColor = Color.Gainsboro;
+            btnConfiguracao.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnConfiguracao.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnConfiguracao.ForeColor = Color.Black;
+            btnConfiguracao.ImageTransparentColor = Color.Magenta;
+            btnConfiguracao.Margin = new Padding(0);
+            btnConfiguracao.Name = "btnConfiguracao";
+            btnConfiguracao.Padding = new Padding(20, 10, 20, 10);
+            btnConfiguracao.RightToLeft = RightToLeft.No;
+            btnConfiguracao.Size = new Size(258, 42);
+            btnConfiguracao.Text = "Configurações";
+            btnConfiguracao.TextDirection = ToolStripTextDirection.Horizontal;
+            btnConfiguracao.Click += btnConfiguracao_Click;
+            // 
             // TelaPrincipalForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -403,6 +420,7 @@
         private ToolStripButton btnCondutores;
         private ToolStripButton btnPlanosCobrancas;
         private ToolStripButton btnAluguel;
+        private ToolStripButton btnConfiguracao;
         private ToolStripButton btnDevolucao;
     }
 }

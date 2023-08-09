@@ -14,6 +14,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Mapeadores
             builder.Property(a => a.DataPrevistaRetorno).IsRequired();
             builder.Property(a => a.ValorTotal).IsRequired();
             builder.Property(a => a.Concluido).IsRequired();
+            builder.Property(a => a.Plano).IsRequired();
             builder.Property(a => a.DataDevolucao);
             builder.Property(a => a.QuilometrosRodados);
             builder.Property(a => a.CombustivelRestante);

@@ -36,7 +36,9 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAluguel
             NivelTanque nivelTanque = NivelTanque.MeioTanque;
             decimal valorTotal = 1000;
 
-            _aluguel = new Aluguel(funcionario, cliente, categoria, plano, condutor, automovel, cupom, listTaxa, dataLocacao, dataPrevista, dataDevolucao, quilometrosRodados, nivelTanque, valorTotal, true);
+            _aluguel = new Aluguel(funcionario, cliente, categoria, plano, condutor,
+                automovel, cupom, listTaxa, dataLocacao, dataPrevista,
+                dataDevolucao, quilometrosRodados, nivelTanque, valorTotal, true, TipoPlano.Diario);
         }
 
         [TestMethod]

@@ -16,6 +16,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
         public Cliente Cliente { get; set; }
         public CategoriaAutomoveis CategoriaAutomoveis { get; set; }
         public PlanoCobranca PlanoCobranca { get; set; }
+        public TipoPlano Plano { get; set; }
         public Condutor Condutor { get; set; }
         public Automovel Automovel { get; set; }
         public Cupom? Cupom { get; set; }
@@ -31,7 +32,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
         public Aluguel(Funcionario funcionario, Cliente cliente, CategoriaAutomoveis categoriaAutomoveis, PlanoCobranca planoCobranca,
             Condutor condutor, Automovel automovel, Cupom? cupom, List<TaxaEServico> listaTaxasEServicos, DateTime dataLocacao,
             DateTime dataPrevistaRetorno, DateTime? dataDevolucao, decimal? quilometrosRodados, NivelTanque? combustivelRestante,
-            decimal valorTotal, bool concluido)
+            decimal valorTotal, bool concluido, TipoPlano plano)
         {
             Funcionario = funcionario;
             Cliente = cliente;
@@ -48,6 +49,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
             CombustivelRestante = combustivelRestante;
             ValorTotal = valorTotal;
             Concluido = concluido;
+            Plano = plano;
         }
 
         public Aluguel()
@@ -62,6 +64,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
                    EqualityComparer<Cliente>.Default.Equals(Cliente, aluguel.Cliente) &&
                    EqualityComparer<CategoriaAutomoveis>.Default.Equals(CategoriaAutomoveis, aluguel.CategoriaAutomoveis) &&
                    EqualityComparer<PlanoCobranca>.Default.Equals(PlanoCobranca, aluguel.PlanoCobranca) &&
+                   Plano == aluguel.Plano &&
                    EqualityComparer<Condutor>.Default.Equals(Condutor, aluguel.Condutor) &&
                    EqualityComparer<Automovel>.Default.Equals(Automovel, aluguel.Automovel) &&
                    EqualityComparer<Cupom?>.Default.Equals(Cupom, aluguel.Cupom) &&
@@ -82,6 +85,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
                    EqualityComparer<Cliente>.Default.Equals(Cliente, aluguel.Cliente) &&
                    EqualityComparer<CategoriaAutomoveis>.Default.Equals(CategoriaAutomoveis, aluguel.CategoriaAutomoveis) &&
                    EqualityComparer<PlanoCobranca>.Default.Equals(PlanoCobranca, aluguel.PlanoCobranca) &&
+                   Plano == aluguel.Plano &&
                    EqualityComparer<Condutor>.Default.Equals(Condutor, aluguel.Condutor) &&
                    EqualityComparer<Automovel>.Default.Equals(Automovel, aluguel.Automovel) &&
                    EqualityComparer<Cupom?>.Default.Equals(Cupom, aluguel.Cupom) &&

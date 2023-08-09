@@ -188,6 +188,7 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
                     ClienteID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CategoriaAutomoveisID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PlanoCobrancaID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Plano = table.Column<int>(type: "int", nullable: false),
                     CondutorID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AutomovelID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CupomID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),

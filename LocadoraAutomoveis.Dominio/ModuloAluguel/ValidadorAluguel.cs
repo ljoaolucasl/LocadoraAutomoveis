@@ -18,6 +18,9 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
             RuleFor(a => a.PlanoCobranca)
                 .NotNull().WithMessage("'Plano de Cobrança' é obrigatório.");
 
+            RuleFor(p => p.Plano)
+                .IsInEnum().WithMessage("'Plano' inválido.");
+
             RuleFor(a => a.Condutor)
                 .NotNull().WithMessage("'Condutor' é obrigatório.")
                 .Must(c => c == null || c.Validade > DateTime.Now).WithMessage("CNH do 'Condutor' está fora da validade.");

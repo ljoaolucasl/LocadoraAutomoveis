@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraAutomoveis.Infraestrutura.Migrations
 {
     [DbContext(typeof(ContextoDados))]
-    [Migration("20230807203751_Add-Tabelas")]
+    [Migration("20230809182447_Add-Tabelas")]
     partial class AddTabelas
     {
         /// <inheritdoc />
@@ -78,6 +78,9 @@ namespace LocadoraAutomoveis.Infraestrutura.Migrations
 
                     b.Property<Guid>("FuncionarioID")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Plano")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("PlanoCobrancaID")
                         .HasColumnType("uniqueidentifier");

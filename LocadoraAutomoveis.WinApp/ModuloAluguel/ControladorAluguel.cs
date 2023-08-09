@@ -32,11 +32,13 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             TelaAluguelDevolucaoForm tela = new();
 
             tela.Entidade = aluguel;
+            tela.OnGravarRegistro+= _servico.Editar;
 
-            TelaPrincipalForm.AtualizarStatus($"Devolvendo Aluguel");
+            ObterDependencias(tela);
 
-            if (tela.ShowDialog() == DialogResult.OK)
-                ObterDependencias(tela);
+            TelaPrincipalForm.AtualizarStatus($"Devolução Aluguel");
+
+            if (tela.ShowDialog() == DialogResult.OK);
         }
 
         private void ObterDependencias(ITelaAluguel tela)

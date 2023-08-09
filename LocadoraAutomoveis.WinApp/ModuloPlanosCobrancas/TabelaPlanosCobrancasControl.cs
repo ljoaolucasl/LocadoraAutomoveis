@@ -19,7 +19,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
             foreach (PlanoCobranca item in planosCobrancas)
             {
                 DataGridViewRow row = new();
-                row.CreateCells(gridPlanosCobrancas, item.ID, item.CategoriaAutomoveis.Nome, item.PlanoDiario_ValorDiario, item.PlanoDiario_ValorKm, item.PlanoLivre_ValorDiario, item.PlanoControlador_ValorDiario, item.PlanoControlador_ValorKm, item.PlanoControlador_LimiteKm);
+                row.CreateCells(gridPlanosCobrancas, item.ID, item.CategoriaAutomoveis.Nome, $"R$ {item.PlanoDiario_ValorDiario}", $"R$ {item.PlanoDiario_ValorKm}", $"R$ {item.PlanoLivre_ValorDiario}", $"R$ {item.PlanoControlador_ValorDiario}", $"R$ {item.PlanoControlador_ValorKm}", item.PlanoControlador_LimiteKm);
                 row.Cells[0].Tag = item;
                 gridPlanosCobrancas.Rows.Add(row);
             }

@@ -19,7 +19,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloFuncionario
             foreach (Funcionario item in padroes)
             {
                 DataGridViewRow row = new();
-                row.CreateCells(gridFuncionario, item.ID, item.Nome, item.Admissao.ToString("d"), item.Salario);
+                row.CreateCells(gridFuncionario, item.ID, item.Nome, item.Admissao.ToString("d"), $"R$ {item.Salario}");
                 row.Cells[0].Tag = item;
                 gridFuncionario.Rows.Add(row);
             }

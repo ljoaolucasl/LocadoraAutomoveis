@@ -28,6 +28,30 @@ namespace LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas
             
         }
 
+        public static decimal CalcularPlanoCobranca(decimal valorTotal, PlanoCobranca planoCobranca, TipoPlano tipoPlano, decimal? quilometrosRodados)
+        {
+            decimal valorBaseDoPlano;
+            switch (tipoPlano)
+            {
+                case TipoPlano.Diario:
+                    valorBaseDoPlano = planoCobranca.PlanoDiario_ValorDiario;
+                    valorTotal += valorBaseDoPlano;
+                    break;
+
+                case TipoPlano.Livre:
+                    valorBaseDoPlano = planoCobranca.PlanoLivre_ValorDiario;
+                    valorTotal += valorBaseDoPlano;
+                    break;
+
+                case TipoPlano.Controlador:
+                    valorBaseDoPlano = planoCobranca.PlanoControlador_ValorDiario;
+                    valorTotal += valorBaseDoPlano;
+                    break;
+            }
+
+            return valorTotal;
+        }
+
         public override bool Equals(object? obj)
         {
             return obj is PlanoCobranca cobranca &&

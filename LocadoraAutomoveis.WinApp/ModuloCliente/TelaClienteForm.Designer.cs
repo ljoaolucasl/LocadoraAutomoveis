@@ -371,6 +371,8 @@
             txtNumero.Name = "txtNumero";
             txtNumero.Size = new Size(120, 23);
             txtNumero.TabIndex = 46;
+            txtNumero.Click += selecaoAutomaticaNumericUpDown_Click;
+            txtNumero.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // txtCPF
             // 

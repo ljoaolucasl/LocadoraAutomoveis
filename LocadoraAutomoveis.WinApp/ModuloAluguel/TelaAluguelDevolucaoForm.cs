@@ -123,7 +123,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                     case "DataDevolucao": lbErroDataDevolucao.Text = item.ErrorMessage; lbErroDataDevolucao.Visible = true; dateDevolucao.Focus(); break;
                     case "KmPercorrida": lbErroKmPercorrida.Text = item.ErrorMessage; lbErroKmPercorrida.Visible = true; txtKmPercorrida.Focus(); break;
                     case "TipoCombustivel": lbErroNivelTanque.Text = item.ErrorMessage; lbErroNivelTanque.Visible = true; cmbNivelTanque.Focus(); break;
-                    case "Taxas": lbErroTaxas.Text = item.ErrorMessage; lbErroTaxas.Visible = true; listTaxas.Focus(); break;
+                    case "ListaTaxasEServicos": lbErroTaxas.Text = item.ErrorMessage; lbErroTaxas.Visible = true; listTaxas.Focus(); break;
                     case "ValorTotal": lbErroValorTotal.Text = item.ErrorMessage; lbErroValorTotal.Visible = true; lblTextoValor.Focus(); break;
                 }
             }
@@ -140,5 +140,42 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             _resultado.Errors.Clear();
             _resultado.Reasons.Clear();
         }
+
+        private void selecaoAutomaticaNumericUpDown_Enter(object sender, EventArgs e)
+        {
+            ((TextBox)((NumericUpDown)sender).Controls[1]).SelectAll();
+        }
+
+        private void selecaoAutomaticaNumericUpDown_Click(object sender, EventArgs e)
+        {
+            if (((NumericUpDown)sender).Controls[1].Text == "0,00" || ((NumericUpDown)sender).Controls[1].Text == "0")
+                ((TextBox)((NumericUpDown)sender).Controls[1]).SelectAll();
+        }
+
+        //private void CalcularValorTotal()
+        //{
+        //    decimal valorTotal = 0;
+        //    PlanoCobranca planoCobranca;
+        //    if (cmbCategoriaAutomoveis.SelectedItem is CategoriaAutomoveis categoriaEscolhida)
+        //        planoCobranca = planosCobrancas.Find(p => p.CategoriaAutomoveis.ID == categoriaEscolhida.ID);
+        //    else
+        //        planoCobranca = cmbPlanoCobranca.SelectedItem as PlanoCobranca;
+
+        //    TipoPlano tipoPlano = Utils.GetEnumValueFromDescription<TipoPlano>(cmbPlanoCobranca.SelectedItem as string);
+        //    decimal? quilometrosRodados = txtKmAutomovel.Value;
+        //    List<TaxaEServico> taxasEServicos = listTaxas.CheckedItems.Cast<TaxaEServico>().ToList();
+        //    Cupom cupom = _aluguel.Cupom;
+
+        //    // Calcula o valor do plano de cobrança selecionado
+        //    valorTotal = PlanoCobranca.CalcularPlanoCobranca(valorTotal, planoCobranca, tipoPlano, quilometrosRodados);
+
+        //    // Calcula o valor das taxas e serviços selecionados
+        //    valorTotal = TaxaEServico.CalcularTaxasEServicos(valorTotal, taxasEServicos);
+
+        //    // Aplica o valor do cupom, se houver
+        //    valorTotal = Cupom.AplicarDesconto(valorTotal, cupom);
+
+        //    lbValorTotal.Text = valorTotal.ToString();
+        //}
     }
 }

@@ -307,7 +307,7 @@
             // 
             lbErroKmDisponivel2.AutoSize = true;
             lbErroKmDisponivel2.ForeColor = Color.FromArgb(192, 0, 0);
-            lbErroKmDisponivel2.Location = new Point(168, 147);
+            lbErroKmDisponivel2.Location = new Point(158, 147);
             lbErroKmDisponivel2.Name = "lbErroKmDisponivel2";
             lbErroKmDisponivel2.Size = new Size(92, 15);
             lbErroKmDisponivel2.TabIndex = 33;

@@ -143,11 +143,15 @@
             // 
             // txtSalario
             // 
+            txtSalario.DecimalPlaces = 2;
             txtSalario.InterceptArrowKeys = false;
             txtSalario.Location = new Point(93, 141);
+            txtSalario.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
             txtSalario.Name = "txtSalario";
             txtSalario.Size = new Size(120, 23);
             txtSalario.TabIndex = 11;
+            txtSalario.Click += selecaoAutomaticaNumericUpDown_Click;
+            txtSalario.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // TelaFuncionarioForm
             // 

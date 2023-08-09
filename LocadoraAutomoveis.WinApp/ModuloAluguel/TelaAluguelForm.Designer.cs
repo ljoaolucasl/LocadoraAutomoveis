@@ -76,6 +76,7 @@
             // 
             // cmbFuncionario
             // 
+            cmbFuncionario.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbFuncionario.FormattingEnabled = true;
             cmbFuncionario.Location = new Point(138, 33);
             cmbFuncionario.Name = "cmbFuncionario";
@@ -102,6 +103,7 @@
             // 
             // cmbCliente
             // 
+            cmbCliente.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCliente.FormattingEnabled = true;
             cmbCliente.Location = new Point(138, 82);
             cmbCliente.Name = "cmbCliente";
@@ -119,6 +121,7 @@
             // 
             // cmbCategoriaAutomoveis
             // 
+            cmbCategoriaAutomoveis.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCategoriaAutomoveis.FormattingEnabled = true;
             cmbCategoriaAutomoveis.Location = new Point(138, 130);
             cmbCategoriaAutomoveis.Name = "cmbCategoriaAutomoveis";
@@ -136,6 +139,7 @@
             // 
             // cmbPlanoCobranca
             // 
+            cmbPlanoCobranca.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPlanoCobranca.FormattingEnabled = true;
             cmbPlanoCobranca.Location = new Point(138, 180);
             cmbPlanoCobranca.Name = "cmbPlanoCobranca";
@@ -153,6 +157,7 @@
             // 
             // cmbCondutor
             // 
+            cmbCondutor.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCondutor.FormattingEnabled = true;
             cmbCondutor.Location = new Point(465, 82);
             cmbCondutor.Name = "cmbCondutor";
@@ -170,6 +175,7 @@
             // 
             // cmbAutomovel
             // 
+            cmbAutomovel.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbAutomovel.FormattingEnabled = true;
             cmbAutomovel.Location = new Point(465, 133);
             cmbAutomovel.Name = "cmbAutomovel";
@@ -202,6 +208,7 @@
             txtKmAutomovel.Name = "txtKmAutomovel";
             txtKmAutomovel.Size = new Size(120, 23);
             txtKmAutomovel.TabIndex = 14;
+            txtKmAutomovel.ValueChanged += atualizarValor_SelectedValueChanged;
             // 
             // dateLocacao
             // 
@@ -210,6 +217,7 @@
             dateLocacao.Name = "dateLocacao";
             dateLocacao.Size = new Size(154, 23);
             dateLocacao.TabIndex = 15;
+            dateLocacao.ValueChanged += atualizarValor_SelectedValueChanged;
             // 
             // datePrevistaRetorno
             // 
@@ -218,6 +226,7 @@
             datePrevistaRetorno.Name = "datePrevistaRetorno";
             datePrevistaRetorno.Size = new Size(154, 23);
             datePrevistaRetorno.TabIndex = 17;
+            datePrevistaRetorno.ValueChanged += atualizarValor_SelectedValueChanged;
             // 
             // label9
             // 
@@ -372,6 +381,7 @@
             listTaxas.Name = "listTaxas";
             listTaxas.Size = new Size(614, 176);
             listTaxas.TabIndex = 0;
+            listTaxas.SelectedValueChanged += atualizarValor_SelectedValueChanged;
             // 
             // tbControlTaxasAdicionadas
             // 

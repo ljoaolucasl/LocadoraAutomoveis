@@ -140,5 +140,16 @@ namespace LocadoraAutomoveis.WinApp.ModuloCliente
                 txtCPF.Text = "";
             }
         }
+
+        private void selecaoAutomaticaNumericUpDown_Enter(object sender, EventArgs e)
+        {
+            ((TextBox)((NumericUpDown)sender).Controls[1]).SelectAll();
+        }
+
+        private void selecaoAutomaticaNumericUpDown_Click(object sender, EventArgs e)
+        {
+            if (((NumericUpDown)sender).Controls[1].Text == "0,00" || ((NumericUpDown)sender).Controls[1].Text == "0")
+                ((TextBox)((NumericUpDown)sender).Controls[1]).SelectAll();
+        }
     }
 }

@@ -411,6 +411,8 @@
             txtKmPercorrida.Name = "txtKmPercorrida";
             txtKmPercorrida.Size = new Size(120, 23);
             txtKmPercorrida.TabIndex = 133;
+            txtKmPercorrida.Click += selecaoAutomaticaNumericUpDown_Click;
+            txtKmPercorrida.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // label15
             // 
@@ -443,6 +445,7 @@
             // 
             // cmbNivelTanque
             // 
+            cmbNivelTanque.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbNivelTanque.FormattingEnabled = true;
             cmbNivelTanque.Location = new Point(133, 382);
             cmbNivelTanque.Name = "cmbNivelTanque";

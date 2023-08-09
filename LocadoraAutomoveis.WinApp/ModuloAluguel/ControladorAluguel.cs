@@ -35,7 +35,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
             TelaPrincipalForm.AtualizarStatus($"Devolução Aluguel");
 
-            if (tela.ShowDialog() == DialogResult.OK);
+            if (tela.ShowDialog() == DialogResult.OK)
+                CarregarRegistros();
         }
 
         private void ObterDependencias(ITelaAluguel tela)

@@ -4,6 +4,7 @@ using LocadoraAutomoveis.WinApp.ModuloAutomovel;
 using LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.WinApp.ModuloCliente;
 using LocadoraAutomoveis.WinApp.ModuloCondutores;
+using LocadoraAutomoveis.WinApp.ModuloConfiguracao;
 using LocadoraAutomoveis.WinApp.ModuloCupom;
 using LocadoraAutomoveis.WinApp.ModuloFuncionario;
 using LocadoraAutomoveis.WinApp.ModuloParceiro;
@@ -108,7 +109,8 @@ namespace LocadoraAutomoveis.WinApp
 
         private void btnConfiguracao_Click(object sender, EventArgs e)
         {
-
+            var controlador = injecao.Get<ControladorConfiguracao>();
+            controlador.ConfigurarPrecos();
         }
 
         #region CRUD
@@ -219,6 +221,9 @@ namespace LocadoraAutomoveis.WinApp
 
             btnAluguel.MouseEnter += btnColor_MouseEnter;
             btnAluguel.MouseLeave += btnColor_MouseLeave;
+
+            btnConfiguracao.MouseEnter += btnColor_MouseEnter;
+            btnConfiguracao.MouseLeave += btnColor_MouseLeave;
         }
 
         private void btnColor_MouseEnter(object sender, EventArgs e)

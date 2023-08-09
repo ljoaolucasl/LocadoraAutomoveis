@@ -1,11 +1,11 @@
-﻿using LocadoraAutomoveis.Dominio.Configuracoes;
+﻿using LocadoraAutomoveis.Dominio.ModuloConfiguracao;
 using Newtonsoft.Json;
 
-namespace LocadoraAutomoveis.Infraestrutura.ConfiguracoesEmJson
+namespace LocadoraAutomoveis.Infraestrutura.ModuloConfiguracao
 {
     public class RepositorioConfiguracao : IRepositorioConfiguracao
     {
-        private const string FilePath = "configuracao_precos.json";
+        private readonly string FilePath = @"C:\temp\configuracao_precos.json";
 
         public PrecoCombustivel ObterConfiguracaoPrecos()
         {
@@ -17,15 +17,10 @@ namespace LocadoraAutomoveis.Infraestrutura.ConfiguracoesEmJson
             return new PrecoCombustivel();
         }
 
-        public void SalvarConfiguracaoPrecos(PrecoCombustivel configuracao)
+        public void SalvarConfiguracoesPrecos(PrecoCombustivel configuracao)
         {
             string json = JsonConvert.SerializeObject(configuracao);
             File.WriteAllText(FilePath, json);
-        }
-
-        public void SalvarConfiguracoesPrecos(PrecoCombustivel configuracao)
-        {
-            throw new NotImplementedException();
         }
     }
 }

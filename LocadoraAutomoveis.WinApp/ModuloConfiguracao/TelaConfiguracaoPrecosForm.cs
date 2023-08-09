@@ -1,27 +1,21 @@
-﻿using LocadoraAutomoveis.Dominio.Configuracoes;
+﻿using LocadoraAutomoveis.Dominio.ModuloConfiguracao;
 using LocadoraAutomoveis.WinApp.Extensions;
 
-namespace LocadoraAutomoveis.WinApp.Compartilhado.TelaConfiguracao
+namespace LocadoraAutomoveis.WinApp.ModuloConfiguracao
 {
     public partial class TelaConfiguracaoPrecosForm : Form
     {
-        private readonly IRepositorioConfiguracao _repositorioConfiguracao;
+        internal PrecoCombustivel configuracao;
 
-        public TelaConfiguracaoPrecosForm(IRepositorioConfiguracao repositorioConfiguracao)
+        public TelaConfiguracaoPrecosForm()
         {
-            _repositorioConfiguracao = repositorioConfiguracao;
-
             InitializeComponent();
 
             this.ConfigurarDialog();
-
-            ConfigurarCampos();
         }
 
         private void CarregarConfiguracoes()
         {
-            PrecoCombustivel configuracao = _repositorioConfiguracao.ObterConfiguracaoPrecos();
-
             txtGasolina.Value = configuracao.Gasolina;
             txtEtanol.Value = configuracao.Etanol;
             txtDiesel.Value = configuracao.Diesel;
@@ -30,15 +24,10 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado.TelaConfiguracao
 
         private void SalvarConfiguracoes()
         {
-            var configuracao = new PrecoCombustivel
-            {
-                Gasolina = txtGasolina.Value,
-                Etanol = txtEtanol.Value,
-                Diesel = txtDiesel.Value,
-                Gas = txtGas.Value,
-            };
-
-            _repositorioConfiguracao.SalvarConfiguracoesPrecos(configuracao);
+            configuracao.Gasolina = txtGasolina.Value;
+            configuracao.Etanol = txtEtanol.Value;
+            configuracao.Diesel = txtDiesel.Value;
+            configuracao.Gas = txtGas.Value;
         }
 
         private void ConfigurarCampos()
@@ -54,6 +43,22 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado.TelaConfiguracao
         private void btnGravar_Click(object sender, EventArgs e)
         {
             SalvarConfiguracoes();
+        }
+
+        private void TelaConfiguracaoPrecosForm_Shown(object sender, EventArgs e)
+        {
+            ConfigurarCampos();
+        }
+
+        private void selecaoAutomaticaNumericUpDown_Enter(object sender, EventArgs e)
+        {
+            ((TextBox)((NumericUpDown)sender).Controls[1]).SelectAll();
+        }
+
+        private void selecaoAutomaticaNumericUpDown_Click(object sender, EventArgs e)
+        {
+            if (((NumericUpDown)sender).Controls[1].Text == "0")
+                ((TextBox)((NumericUpDown)sender).Controls[1]).SelectAll();
         }
     }
 }

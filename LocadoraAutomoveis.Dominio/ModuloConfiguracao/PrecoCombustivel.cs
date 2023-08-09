@@ -1,4 +1,4 @@
-﻿namespace LocadoraAutomoveis.Dominio.Configuracoes
+﻿namespace LocadoraAutomoveis.Dominio.ModuloConfiguracao
 {
     public class PrecoCombustivel
     {

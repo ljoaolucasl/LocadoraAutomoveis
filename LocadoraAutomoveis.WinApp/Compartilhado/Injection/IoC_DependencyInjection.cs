@@ -4,18 +4,21 @@ using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
+using LocadoraAutomoveis.Dominio.ModuloConfiguracao;
 using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.Dominio.ModuloParceiro;
 using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
+using LocadoraAutomoveis.Infraestrutura.ModuloConfiguracao;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
 using LocadoraAutomoveis.WinApp.ModuloAluguel;
 using LocadoraAutomoveis.WinApp.ModuloAutomovel;
 using LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.WinApp.ModuloCliente;
 using LocadoraAutomoveis.WinApp.ModuloCondutores;
+using LocadoraAutomoveis.WinApp.ModuloConfiguracao;
 using LocadoraAutomoveis.WinApp.ModuloCupom;
 using LocadoraAutomoveis.WinApp.ModuloFuncionario;
 using LocadoraAutomoveis.WinApp.ModuloParceiro;
@@ -106,6 +109,9 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado.Injection
             servicos.AddTransient<IValidadorAluguel, ValidadorAluguel>();
             servicos.AddScoped<IRepositorioAluguel, RepositorioAluguel>();
             servicos.AddScoped<TabelaAluguelControl>();
+
+            servicos.AddTransient<ControladorConfiguracao>();
+            servicos.AddScoped<IRepositorioConfiguracao, RepositorioConfiguracao>();
 
             container = servicos.BuildServiceProvider();
         }

@@ -1,4 +1,4 @@
-﻿namespace LocadoraAutomoveis.WinApp.Compartilhado.TelaConfiguracao
+﻿namespace LocadoraAutomoveis.WinApp.ModuloConfiguracao
 {
     partial class TelaConfiguracaoPrecosForm
     {
@@ -55,11 +55,14 @@
             // 
             // txtGasolina
             // 
+            txtGasolina.DecimalPlaces = 2;
             txtGasolina.Location = new Point(99, 46);
             txtGasolina.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
             txtGasolina.Name = "txtGasolina";
             txtGasolina.Size = new Size(219, 23);
             txtGasolina.TabIndex = 1;
+            txtGasolina.Click += selecaoAutomaticaNumericUpDown_Click;
+            txtGasolina.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // btnCancelar
             // 
@@ -68,7 +71,7 @@
             btnCancelar.Location = new Point(285, 223);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(85, 37);
-            btnCancelar.TabIndex = 125;
+            btnCancelar.TabIndex = 6;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             // 
@@ -79,18 +82,21 @@
             btnGravar.Location = new Point(194, 223);
             btnGravar.Name = "btnGravar";
             btnGravar.Size = new Size(85, 37);
-            btnGravar.TabIndex = 124;
+            btnGravar.TabIndex = 5;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = true;
             btnGravar.Click += btnGravar_Click;
             // 
             // txtDiesel
             // 
+            txtDiesel.DecimalPlaces = 2;
             txtDiesel.Location = new Point(99, 84);
             txtDiesel.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
             txtDiesel.Name = "txtDiesel";
             txtDiesel.Size = new Size(219, 23);
-            txtDiesel.TabIndex = 127;
+            txtDiesel.TabIndex = 2;
+            txtDiesel.Click += selecaoAutomaticaNumericUpDown_Click;
+            txtDiesel.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // label2
             // 
@@ -103,11 +109,14 @@
             // 
             // txtEtanol
             // 
+            txtEtanol.DecimalPlaces = 2;
             txtEtanol.Location = new Point(99, 122);
             txtEtanol.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
             txtEtanol.Name = "txtEtanol";
             txtEtanol.Size = new Size(219, 23);
-            txtEtanol.TabIndex = 129;
+            txtEtanol.TabIndex = 3;
+            txtEtanol.Click += selecaoAutomaticaNumericUpDown_Click;
+            txtEtanol.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // label3
             // 
@@ -120,11 +129,14 @@
             // 
             // txtGas
             // 
+            txtGas.DecimalPlaces = 2;
             txtGas.Location = new Point(99, 160);
             txtGas.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
             txtGas.Name = "txtGas";
             txtGas.Size = new Size(219, 23);
-            txtGas.TabIndex = 131;
+            txtGas.TabIndex = 4;
+            txtGas.Click += selecaoAutomaticaNumericUpDown_Click;
+            txtGas.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
             // label4
             // 
@@ -135,7 +147,7 @@
             label4.TabIndex = 130;
             label4.Text = "Gás:";
             // 
-            // TelaConfiguracaoForm
+            // TelaConfiguracaoPrecosForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -150,8 +162,9 @@
             Controls.Add(btnGravar);
             Controls.Add(txtGasolina);
             Controls.Add(label1);
-            Name = "TelaConfiguracaoForm";
+            Name = "TelaConfiguracaoPrecosForm";
             Text = "Configuração de Preços";
+            Shown += TelaConfiguracaoPrecosForm_Shown;
             ((System.ComponentModel.ISupportInitialize)txtGasolina).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtDiesel).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtEtanol).EndInit();

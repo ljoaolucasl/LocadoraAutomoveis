@@ -121,6 +121,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             _aluguel.Cupom = txtCupom.Text == "" ? null : new Cupom() { Nome = txtCupom.Text };
 
             _resultado = OnValidarEObterCupom(_aluguel);
+
             CalcularValorTotal();
 
             if (_resultado.IsFailed)

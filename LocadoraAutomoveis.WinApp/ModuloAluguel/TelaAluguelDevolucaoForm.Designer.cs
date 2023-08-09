@@ -443,6 +443,7 @@
             // 
             // cmbNivelTanque
             // 
+            cmbNivelTanque.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbNivelTanque.FormattingEnabled = true;
             cmbNivelTanque.Location = new Point(133, 382);
             cmbNivelTanque.Name = "cmbNivelTanque";

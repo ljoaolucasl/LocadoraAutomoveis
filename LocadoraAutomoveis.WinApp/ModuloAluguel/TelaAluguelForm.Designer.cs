@@ -76,6 +76,7 @@
             // 
             // cmbFuncionario
             // 
+            cmbFuncionario.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbFuncionario.FormattingEnabled = true;
             cmbFuncionario.Location = new Point(138, 33);
             cmbFuncionario.Name = "cmbFuncionario";
@@ -102,6 +103,7 @@
             // 
             // cmbCliente
             // 
+            cmbCliente.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCliente.FormattingEnabled = true;
             cmbCliente.Location = new Point(138, 82);
             cmbCliente.Name = "cmbCliente";
@@ -119,6 +121,7 @@
             // 
             // cmbCategoriaAutomoveis
             // 
+            cmbCategoriaAutomoveis.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCategoriaAutomoveis.FormattingEnabled = true;
             cmbCategoriaAutomoveis.Location = new Point(138, 130);
             cmbCategoriaAutomoveis.Name = "cmbCategoriaAutomoveis";
@@ -136,6 +139,7 @@
             // 
             // cmbPlanoCobranca
             // 
+            cmbPlanoCobranca.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPlanoCobranca.FormattingEnabled = true;
             cmbPlanoCobranca.Location = new Point(138, 180);
             cmbPlanoCobranca.Name = "cmbPlanoCobranca";
@@ -153,6 +157,7 @@
             // 
             // cmbCondutor
             // 
+            cmbCondutor.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCondutor.FormattingEnabled = true;
             cmbCondutor.Location = new Point(465, 82);
             cmbCondutor.Name = "cmbCondutor";
@@ -170,6 +175,7 @@
             // 
             // cmbAutomovel
             // 
+            cmbAutomovel.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbAutomovel.FormattingEnabled = true;
             cmbAutomovel.Location = new Point(465, 133);
             cmbAutomovel.Name = "cmbAutomovel";

@@ -57,7 +57,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloConfiguracao
 
         private void selecaoAutomaticaNumericUpDown_Click(object sender, EventArgs e)
         {
-            if (((NumericUpDown)sender).Controls[1].Text == "0")
+            if (((NumericUpDown)sender).Controls[1].Text == "0,00")
                 ((TextBox)((NumericUpDown)sender).Controls[1]).SelectAll();
         }
     }

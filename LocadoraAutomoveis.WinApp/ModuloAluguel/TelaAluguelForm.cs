@@ -1,5 +1,6 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
+using LocadoraAutomoveis.Dominio.Extensions;
 using LocadoraAutomoveis.Dominio.ModuloAluguel;
 using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
@@ -27,6 +28,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
         private List<Condutor> condutores;
 
+        private List<PlanoCobranca> planosCobrancas;
+
         public TelaAluguelForm()
         {
             InitializeComponent();
@@ -41,7 +44,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
         }
 
         public void CarregarDependencias(List<Funcionario> funcionarios, List<Cliente> clientes, List<CategoriaAutomoveis> categorias,
-            List<PlanoCobranca> planos, List<Condutor> condutores, List<Automovel> automoveis, List<TaxaEServico> taxaEServicos)
+            List<PlanoCobranca> planosCobrancas, List<Condutor> condutores, List<Automovel> automoveis, List<TaxaEServico> taxaEServicos)
         {
             cmbFuncionario.DataSource = funcionarios;
             cmbFuncionario.DisplayMember = "Nome";
@@ -55,13 +58,18 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             cmbCategoriaAutomoveis.DisplayMember = "Nome";
             cmbCategoriaAutomoveis.ValueMember = "ID";
 
-            cmbPlanoCobranca.DataSource = planos;
-            cmbPlanoCobranca.DisplayMember = "Nome";
-            cmbPlanoCobranca.ValueMember = "ID";
+            TipoPlano[] planos = Enum.GetValues<TipoPlano>();
+
+            foreach (TipoPlano plano in planos)
+            {
+                cmbPlanoCobranca.Items.Add(plano.ToDescriptionString());
+            }
 
             this.condutores = new List<Condutor>(condutores);
 
             this.automoveis = new List<Automovel>(automoveis);
+
+            this.planosCobrancas = new List<PlanoCobranca>(planosCobrancas);
 
             listTaxas.DataSource = taxaEServicos;
             listTaxas.DisplayMember = "Nome";
@@ -90,7 +98,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                 cmbFuncionario.Text = value.Funcionario.Nome;
                 cmbCliente.Text = value.Cliente.Nome;
                 cmbCategoriaAutomoveis.Text = value.CategoriaAutomoveis.Nome;
-                cmbPlanoCobranca.Text = value.PlanoCobranca.CategoriaAutomoveis.Nome;
+                cmbPlanoCobranca.Text = value.Plano.ToDescriptionString();
                 cmbCondutor.Text = value.Condutor.Nome;
                 cmbAutomovel.Text = value.Automovel.Placa;
                 value.Automovel.Alugado = false;
@@ -155,7 +163,11 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             _aluguel.Funcionario = cmbFuncionario.SelectedItem as Funcionario;
             _aluguel.Cliente = cmbCliente.SelectedItem as Cliente;
             _aluguel.CategoriaAutomoveis = cmbCategoriaAutomoveis.SelectedItem as CategoriaAutomoveis;
-            _aluguel.PlanoCobranca = cmbPlanoCobranca.SelectedItem as PlanoCobranca;
+
+            if (cmbCategoriaAutomoveis.SelectedItem is CategoriaAutomoveis categoriaEscolhida)
+                _aluguel.PlanoCobranca = planosCobrancas.Find(p => p.CategoriaAutomoveis.ID == categoriaEscolhida.ID);
+
+            _aluguel.Plano = Utils.GetEnumValueFromDescription<TipoPlano>(cmbPlanoCobranca.SelectedItem as string);
             _aluguel.Condutor = cmbCondutor.SelectedItem as Condutor;
             _aluguel.Automovel = cmbAutomovel.SelectedItem as Automovel;
             _aluguel.Cupom = txtCupom.Text == "" ? null : new Cupom() { Nome = txtCupom.Text };
@@ -178,6 +190,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                     case "Cliente": lbErroCliente.Text = item.ErrorMessage; lbErroCliente.Visible = true; cmbCliente.Focus(); break;
                     case "CategoriaAutomoveis": lbErroGrupoAutomoveis.Text = item.ErrorMessage; lbErroGrupoAutomoveis.Visible = true; cmbCategoriaAutomoveis.Focus(); break;
                     case "PlanoCobranca": lbErroPlanoCobranca.Text = item.ErrorMessage; lbErroPlanoCobranca.Visible = true; cmbPlanoCobranca.Focus(); break;
+                    case "Plano": lbErroPlanoCobranca.Text = item.ErrorMessage; lbErroPlanoCobranca.Visible = true; cmbPlanoCobranca.Focus(); break;
                     case "Condutor": lbErroCondutor.Text = item.ErrorMessage; lbErroCondutor.Visible = true; cmbCondutor.Focus(); break;
                     case "Automovel": lbErroAutomovel.Text = item.ErrorMessage; lbErroAutomovel.Visible = true; cmbAutomovel.Focus(); break;
                     case "DataLocacao": lbErroDataLocacao.Text = item.ErrorMessage; lbErroDataLocacao.Visible = true; dateLocacao.Focus(); break;

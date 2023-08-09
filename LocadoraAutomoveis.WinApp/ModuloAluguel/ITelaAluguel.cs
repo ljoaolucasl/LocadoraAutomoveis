@@ -12,7 +12,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
     public interface ITelaAluguel : ITelaBase<Aluguel>
     {
         void CarregarDependencias(List<Funcionario> funcionarios, List<Cliente> clientes, List<CategoriaAutomoveis> categorias,
-            List<PlanoCobranca> planos, List<Condutor> condutores, List<Automovel> automoveis, List<TaxaEServico> taxaEServicos);
+            List<PlanoCobranca> planosCobrancas, List<Condutor> condutores, List<Automovel> automoveis, List<TaxaEServico> taxaEServicos);
 
         event Func<Aluguel, Result> OnValidarEObterCupom;
     }

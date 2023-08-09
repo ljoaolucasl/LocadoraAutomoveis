@@ -1,5 +1,6 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
+using LocadoraAutomoveis.Dominio.Extensions;
 using LocadoraAutomoveis.Dominio.ModuloAluguel;
 using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
@@ -17,6 +18,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
         private Aluguel _aluguel;
 
         private Result _resultado;
+
+        private List<PlanoCobranca> planosCobrancas;
 
         public event Func<Aluguel, Result> OnGravarRegistro;
 
@@ -36,7 +39,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
         }
 
         public void CarregarDependencias(List<Funcionario> funcionarios, List<Cliente> clientes, List<CategoriaAutomoveis> categorias,
-            List<PlanoCobranca> planos, List<Condutor> condutores, List<Automovel> automoveis, List<TaxaEServico> taxaEServicos)
+            List<PlanoCobranca> planosCobrancas, List<Condutor> condutores, List<Automovel> automoveis, List<TaxaEServico> taxaEServicos)
         {
             cmbFuncionario.DataSource = funcionarios;
             cmbFuncionario.DisplayMember = "Nome";
@@ -50,9 +53,14 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             cmbCategoriaAutomoveis.DisplayMember = "Nome";
             cmbCategoriaAutomoveis.ValueMember = "ID";
 
-            cmbPlanoCobranca.DataSource = planos;
-            cmbPlanoCobranca.DisplayMember = "Nome";
-            cmbPlanoCobranca.ValueMember = "ID";
+            TipoPlano[] planos = Enum.GetValues<TipoPlano>();
+
+            foreach (TipoPlano plano in planos)
+            {
+                cmbPlanoCobranca.Items.Add(plano.ToDescriptionString());
+            }
+
+            this.planosCobrancas = new List<PlanoCobranca>(planosCobrancas);
 
             cmbCondutor.DataSource = condutores;
             cmbCondutor.DisplayMember = "Nome";
@@ -76,7 +84,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                 cmbFuncionario.Text = value.Funcionario.Nome;
                 cmbCliente.Text = value.Cliente.Nome;
                 cmbCategoriaAutomoveis.Text = value.CategoriaAutomoveis.Nome;
-                cmbPlanoCobranca.Text = value.PlanoCobranca.CategoriaAutomoveis.Nome;
+                cmbPlanoCobranca.Text = value.Plano.ToDescriptionString();
                 cmbCondutor.Text = value.Condutor.Nome;
                 cmbAutomovel.Text = value.Automovel.Placa;
                 listTaxas.Items.Clear();
@@ -112,7 +120,12 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             _aluguel.Funcionario = cmbFuncionario.SelectedItem as Funcionario;
             _aluguel.Cliente = cmbCliente.SelectedItem as Cliente;
             _aluguel.CategoriaAutomoveis = cmbFuncionario.SelectedItem as CategoriaAutomoveis;
-            _aluguel.PlanoCobranca = cmbPlanoCobranca.SelectedItem as PlanoCobranca;
+
+            if (cmbCategoriaAutomoveis.SelectedItem is CategoriaAutomoveis categoriaEscolhida)
+                _aluguel.PlanoCobranca = planosCobrancas.Find(p => p.CategoriaAutomoveis.ID == categoriaEscolhida.ID);
+
+            _aluguel.Plano = Utils.GetEnumValueFromDescription<TipoPlano>(cmbPlanoCobranca.SelectedItem as string);
+
             _aluguel.Condutor = cmbCondutor.SelectedItem as Condutor;
             _aluguel.Automovel = cmbAutomovel.SelectedItem as Automovel;
             _aluguel.DataLocacao = Convert.ToDateTime(dateLocacao.Value);

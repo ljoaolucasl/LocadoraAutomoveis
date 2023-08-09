@@ -39,6 +39,7 @@
             btnPlanosCobrancas = new ToolStripButton();
             btnAluguel = new ToolStripButton();
             btnCliente = new ToolStripButton();
+            btnConfiguracao = new ToolStripButton();
             barraAcoes = new ToolStrip();
             btnAdicionar = new ToolStripButton();
             btnEditar = new ToolStripButton();
@@ -51,7 +52,6 @@
             stripStatus = new StatusStrip();
             lbStatus = new ToolStripStatusLabel();
             plPrincipal = new Panel();
-            btnConfiguracao = new ToolStripButton();
             barraBotoes.SuspendLayout();
             barraAcoes.SuspendLayout();
             stripStatus.SuspendLayout();
@@ -240,12 +240,28 @@
             btnCliente.TextDirection = ToolStripTextDirection.Horizontal;
             btnCliente.Click += btnCliente_Click;
             // 
+            // btnConfiguracao
+            // 
+            btnConfiguracao.BackColor = Color.Gainsboro;
+            btnConfiguracao.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnConfiguracao.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnConfiguracao.ForeColor = Color.Black;
+            btnConfiguracao.ImageTransparentColor = Color.Magenta;
+            btnConfiguracao.Margin = new Padding(0);
+            btnConfiguracao.Name = "btnConfiguracao";
+            btnConfiguracao.Padding = new Padding(20, 10, 20, 10);
+            btnConfiguracao.RightToLeft = RightToLeft.No;
+            btnConfiguracao.Size = new Size(258, 42);
+            btnConfiguracao.Text = "Configurações";
+            btnConfiguracao.TextDirection = ToolStripTextDirection.Horizontal;
+            btnConfiguracao.Click += btnConfiguracao_Click;
+            // 
             // barraAcoes
             // 
             barraAcoes.AutoSize = false;
             barraAcoes.BackColor = Color.White;
             barraAcoes.GripStyle = ToolStripGripStyle.Hidden;
-            barraAcoes.Items.AddRange(new ToolStripItem[] { btnAdicionar, btnEditar, btnExcluir, toolStripSeparator1, btnFiltrar, separadorBarra, lbTipoCadastro, btnDevolucao });
+            barraAcoes.Items.AddRange(new ToolStripItem[] { btnAdicionar, btnEditar, btnExcluir, toolStripSeparator1, btnFiltrar, separadorBarra, btnDevolucao, lbTipoCadastro });
             barraAcoes.Location = new Point(259, 0);
             barraAcoes.Name = "barraAcoes";
             barraAcoes.Size = new Size(754, 53);
@@ -355,22 +371,6 @@
             plPrincipal.TabIndex = 3;
             plPrincipal.ControlAdded += plPrincipal_ControlAdded;
             plPrincipal.ControlRemoved += plPrincipal_ControlRemoved;
-            // 
-            // btnConfiguracao
-            // 
-            btnConfiguracao.BackColor = Color.Gainsboro;
-            btnConfiguracao.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnConfiguracao.Font = new Font("Verdana", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnConfiguracao.ForeColor = Color.Black;
-            btnConfiguracao.ImageTransparentColor = Color.Magenta;
-            btnConfiguracao.Margin = new Padding(0);
-            btnConfiguracao.Name = "btnConfiguracao";
-            btnConfiguracao.Padding = new Padding(20, 10, 20, 10);
-            btnConfiguracao.RightToLeft = RightToLeft.No;
-            btnConfiguracao.Size = new Size(258, 42);
-            btnConfiguracao.Text = "Configurações";
-            btnConfiguracao.TextDirection = ToolStripTextDirection.Horizontal;
-            btnConfiguracao.Click += btnConfiguracao_Click;
             // 
             // TelaPrincipalForm
             // 

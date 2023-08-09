@@ -1,5 +1,8 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Dominio.ModuloAluguel;
+using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+using LocadoraAutomoveis.WinApp.ModuloAutomovel;
+using LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas;
 
 namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 {
@@ -20,6 +23,20 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                 return Result.Fail(erros);
 
             return Result.Ok();
+        }
+
+        public void Devolver()
+        {
+            var aluguel = _tabela.ObterRegistroSelecionado();
+
+            TelaAluguelDevolucaoForm tela = new();
+
+            tela.Entidade = aluguel;
+
+            TelaPrincipalForm.AtualizarStatus($"Devolvendo Aluguel");
+
+            if (tela.ShowDialog() == DialogResult.OK)
+                ObterDependencias(tela);
         }
 
         private void ObterDependencias(ITelaAluguel tela)

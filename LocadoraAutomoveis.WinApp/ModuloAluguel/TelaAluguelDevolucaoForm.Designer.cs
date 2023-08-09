@@ -37,7 +37,6 @@
             btnGravar = new Button();
             tbControlTaxasAdicionadas = new TabControl();
             tbTaxas = new TabPage();
-            listTaxas = new ListBox();
             lbErroFuncionario = new Label();
             lbErroCliente = new Label();
             txtCupom = new TextBox();
@@ -69,6 +68,7 @@
             lbErroNivelTanque = new Label();
             label17 = new Label();
             cmbNivelTanque = new ComboBox();
+            listTaxas = new CheckedListBox();
             tbControlTaxasAdicionadas.SuspendLayout();
             tbTaxas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)txtKmAutomovel).BeginInit();
@@ -167,16 +167,6 @@
             tbTaxas.TabIndex = 0;
             tbTaxas.Text = "Taxas Adicionais";
             tbTaxas.UseVisualStyleBackColor = true;
-            // 
-            // listTaxas
-            // 
-            listTaxas.Dock = DockStyle.Fill;
-            listTaxas.FormattingEnabled = true;
-            listTaxas.ItemHeight = 15;
-            listTaxas.Location = new Point(3, 3);
-            listTaxas.Name = "listTaxas";
-            listTaxas.Size = new Size(614, 176);
-            listTaxas.TabIndex = 0;
             // 
             // lbErroFuncionario
             // 
@@ -461,6 +451,15 @@
             cmbNivelTanque.Size = new Size(154, 23);
             cmbNivelTanque.TabIndex = 135;
             // 
+            // listTaxas
+            // 
+            listTaxas.Dock = DockStyle.Fill;
+            listTaxas.FormattingEnabled = true;
+            listTaxas.Location = new Point(3, 3);
+            listTaxas.Name = "listTaxas";
+            listTaxas.Size = new Size(614, 176);
+            listTaxas.TabIndex = 138;
+            // 
             // TelaAluguelDevolucaoForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -558,6 +557,6 @@
         private Label lbErroNivelTanque;
         private Label label17;
         private ComboBox cmbNivelTanque;
-        private ListBox listTaxas;
+        private CheckedListBox listTaxas;
     }
 }

@@ -35,6 +35,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
             _aluguel = new Aluguel();
 
+            ObterAluguel();
+
             txtKmPercorrida.Controls[0].Visible = false;
         }
 
@@ -53,12 +55,9 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             cmbCategoriaAutomoveis.DisplayMember = "Nome";
             cmbCategoriaAutomoveis.ValueMember = "ID";
 
-            TipoPlano[] planos = Enum.GetValues<TipoPlano>();
-
-            foreach (TipoPlano plano in planos)
-            {
-                cmbPlanoCobranca.Items.Add(plano.ToDescriptionString());
-            }
+            cmbPlanoCobranca.DataSource = Enum.GetValues<TipoPlano>()
+                            .Select(plano => plano.ToDescriptionString())
+                            .ToList();
 
             this.planosCobrancas = new List<PlanoCobranca>(planosCobrancas);
 
@@ -87,10 +86,18 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                 cmbPlanoCobranca.Text = value.Plano.ToDescriptionString();
                 cmbCondutor.Text = value.Condutor.Nome;
                 cmbAutomovel.Text = value.Automovel.Placa;
-                listTaxas.Items.Clear();
-                listTaxas.Items.AddRange(value.ListaTaxasEServicos.ToArray());
-                txtCupom.Text = value.Cupom.Nome;
-
+                value.Automovel.Alugado = false;
+                for (int i = 0; i < value.ListaTaxasEServicos.Count; i++)
+                {
+                    for (int j = 0; j < listTaxas.Items.Count; j++)
+                    {
+                        if (listTaxas.Items[j] == value.ListaTaxasEServicos[i])
+                            listTaxas.SetItemChecked(j, true);
+                    }
+                }
+                txtCupom.Text = value.Cupom == null ? "" : value.Cupom.Nome;
+                dateLocacao.Value = value.DataLocacao;
+                datePrevistaRetorno.Value = value.DataPrevistaRetorno;
                 _aluguel = value;
             }
         }
@@ -124,6 +131,9 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             if (cmbCategoriaAutomoveis.SelectedItem is CategoriaAutomoveis categoriaEscolhida)
                 _aluguel.PlanoCobranca = planosCobrancas.Find(p => p.CategoriaAutomoveis.ID == categoriaEscolhida.ID);
 
+            if (cmbPlanoCobranca.SelectedItem == null)
+                _aluguel.Plano = (TipoPlano)100;
+            else
             _aluguel.Plano = Utils.GetEnumValueFromDescription<TipoPlano>(cmbPlanoCobranca.SelectedItem as string);
 
             _aluguel.Condutor = cmbCondutor.SelectedItem as Condutor;
@@ -131,7 +141,12 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             _aluguel.DataLocacao = Convert.ToDateTime(dateLocacao.Value);
             _aluguel.DataDevolucao = Convert.ToDateTime(dateDevolucao.Value);
             _aluguel.DataPrevistaRetorno = Convert.ToDateTime(datePrevistaRetorno.Value);
+
+            if (cmbNivelTanque.SelectedItem == null)
+                _aluguel.CombustivelRestante = (NivelTanque)100;
+            else
             _aluguel.CombustivelRestante = Utils.GetEnumValueFromDescription<NivelTanque>(cmbNivelTanque.SelectedItem as string);
+
             _aluguel.QuilometrosRodados = Convert.ToDecimal(txtKmPercorrida.Value);
             _aluguel.Automovel.Quilometragem = Convert.ToDecimal(txtKmAutomovel.Value);
             _aluguel.Cupom.Valor = Convert.ToDecimal(txtCupom);

@@ -47,6 +47,7 @@
             btnFiltrar = new ToolStripButton();
             separadorBarra = new ToolStripSeparator();
             lbTipoCadastro = new ToolStripLabel();
+            btnDevolucao = new ToolStripButton();
             stripStatus = new StatusStrip();
             lbStatus = new ToolStripStatusLabel();
             plPrincipal = new Panel();
@@ -244,7 +245,7 @@
             barraAcoes.AutoSize = false;
             barraAcoes.BackColor = Color.White;
             barraAcoes.GripStyle = ToolStripGripStyle.Hidden;
-            barraAcoes.Items.AddRange(new ToolStripItem[] { btnAdicionar, btnEditar, btnExcluir, toolStripSeparator1, btnFiltrar, separadorBarra, lbTipoCadastro });
+            barraAcoes.Items.AddRange(new ToolStripItem[] { btnAdicionar, btnEditar, btnExcluir, toolStripSeparator1, btnFiltrar, separadorBarra, lbTipoCadastro, btnDevolucao });
             barraAcoes.Location = new Point(259, 0);
             barraAcoes.Name = "barraAcoes";
             barraAcoes.Size = new Size(754, 53);
@@ -317,6 +318,19 @@
             lbTipoCadastro.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             lbTipoCadastro.Name = "lbTipoCadastro";
             lbTipoCadastro.Size = new Size(0, 50);
+            // 
+            // btnDevolucao
+            // 
+            btnDevolucao.BackColor = Color.DarkGray;
+            btnDevolucao.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            btnDevolucao.ImageScaling = ToolStripItemImageScaling.None;
+            btnDevolucao.ImageTransparentColor = Color.Magenta;
+            btnDevolucao.Margin = new Padding(10);
+            btnDevolucao.Name = "btnDevolucao";
+            btnDevolucao.Padding = new Padding(5);
+            btnDevolucao.Size = new Size(89, 33);
+            btnDevolucao.Text = "Devolução";
+            btnDevolucao.Click += btnDevolucao_Click;
             // 
             // stripStatus
             // 
@@ -407,5 +421,6 @@
         private ToolStripButton btnPlanosCobrancas;
         private ToolStripButton btnAluguel;
         private ToolStripButton btnConfiguracao;
+        private ToolStripButton btnDevolucao;
     }
 }

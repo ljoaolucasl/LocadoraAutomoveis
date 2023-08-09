@@ -139,6 +139,12 @@ namespace LocadoraAutomoveis.WinApp
                 (_controladorBase as ControladorAutomovel).Filtrar();
         }
 
+        private void btnDevolucao_Click(object sender, EventArgs e)
+        {
+            if (_controladorBase is ControladorAluguel)
+                (_controladorBase as ControladorAluguel).Devolver();
+        }
+
         #region ConfiguracoesIniciais
         private void ConfigurarTelaPrincipal()
         {
@@ -261,5 +267,6 @@ namespace LocadoraAutomoveis.WinApp
         }
 
         #endregion
+
     }
 }

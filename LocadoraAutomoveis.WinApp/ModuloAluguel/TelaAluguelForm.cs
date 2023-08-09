@@ -58,12 +58,9 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             cmbCategoriaAutomoveis.DisplayMember = "Nome";
             cmbCategoriaAutomoveis.ValueMember = "ID";
 
-            TipoPlano[] planos = Enum.GetValues<TipoPlano>();
-
-            foreach (TipoPlano plano in planos)
-            {
-                cmbPlanoCobranca.Items.Add(plano.ToDescriptionString());
-            }
+            cmbPlanoCobranca.DataSource = Enum.GetValues<TipoPlano>()
+                            .Select(plano => plano.ToDescriptionString())
+                            .ToList();
 
             this.condutores = new List<Condutor>(condutores);
 
@@ -167,7 +164,11 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             if (cmbCategoriaAutomoveis.SelectedItem is CategoriaAutomoveis categoriaEscolhida)
                 _aluguel.PlanoCobranca = planosCobrancas.Find(p => p.CategoriaAutomoveis.ID == categoriaEscolhida.ID);
 
-            _aluguel.Plano = Utils.GetEnumValueFromDescription<TipoPlano>(cmbPlanoCobranca.SelectedItem as string);
+            if (cmbPlanoCobranca.SelectedItem == null)
+                _aluguel.Plano = (TipoPlano)100;
+            else
+                _aluguel.Plano = Utils.GetEnumValueFromDescription<TipoPlano>(cmbPlanoCobranca.SelectedItem as string);
+
             _aluguel.Condutor = cmbCondutor.SelectedItem as Condutor;
             _aluguel.Automovel = cmbAutomovel.SelectedItem as Automovel;
             _aluguel.Cupom = txtCupom.Text == "" ? null : new Cupom() { Nome = txtCupom.Text };

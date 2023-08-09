@@ -38,7 +38,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomovel
             _tabela.AtualizarLista(listaAutomoveisFiltrados);
         }
 
-        private void ObterDependencias(TelaAutomovelForm tela, Automovel automovel)
+        private void ObterDependencias(TelaAutomovelForm tela)
         {
             var categorias = _servico2.SelecionarTodosOsRegistros();
 

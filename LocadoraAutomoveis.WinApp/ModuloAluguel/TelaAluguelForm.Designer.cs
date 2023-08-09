@@ -44,7 +44,7 @@
             label8 = new Label();
             txtKmAutomovel = new NumericUpDown();
             dateLocacao = new DateTimePicker();
-            dateDevolucao = new DateTimePicker();
+            datePrevistaRetorno = new DateTimePicker();
             label9 = new Label();
             label10 = new Label();
             txtCupom = new TextBox();
@@ -211,13 +211,13 @@
             dateLocacao.Size = new Size(154, 23);
             dateLocacao.TabIndex = 15;
             // 
-            // dateDevolucao
+            // datePrevistaRetorno
             // 
-            dateDevolucao.Format = DateTimePickerFormat.Short;
-            dateDevolucao.Location = new Point(465, 239);
-            dateDevolucao.Name = "dateDevolucao";
-            dateDevolucao.Size = new Size(154, 23);
-            dateDevolucao.TabIndex = 17;
+            datePrevistaRetorno.Format = DateTimePickerFormat.Short;
+            datePrevistaRetorno.Location = new Point(465, 239);
+            datePrevistaRetorno.Name = "datePrevistaRetorno";
+            datePrevistaRetorno.Size = new Size(154, 23);
+            datePrevistaRetorno.TabIndex = 17;
             // 
             // label9
             // 
@@ -252,6 +252,7 @@
             btnCupom.TabIndex = 20;
             btnCupom.Text = "Aplicar Cupom";
             btnCupom.UseVisualStyleBackColor = true;
+            btnCupom.Click += btnCupom_Click;
             // 
             // lbErroCliente
             // 
@@ -259,9 +260,9 @@
             lbErroCliente.ForeColor = Color.FromArgb(192, 0, 0);
             lbErroCliente.Location = new Point(138, 64);
             lbErroCliente.Name = "lbErroCliente";
-            lbErroCliente.Size = new Size(156, 15);
+            lbErroCliente.Size = new Size(51, 15);
             lbErroCliente.TabIndex = 74;
-            lbErroCliente.Text = "*Campo Cliente em branco*";
+            lbErroCliente.Text = "msgErro";
             lbErroCliente.Visible = false;
             // 
             // lbErroFuncionario
@@ -270,9 +271,9 @@
             lbErroFuncionario.ForeColor = Color.FromArgb(192, 0, 0);
             lbErroFuncionario.Location = new Point(138, 15);
             lbErroFuncionario.Name = "lbErroFuncionario";
-            lbErroFuncionario.Size = new Size(182, 15);
+            lbErroFuncionario.Size = new Size(51, 15);
             lbErroFuncionario.TabIndex = 75;
-            lbErroFuncionario.Text = "*Campo Funcionário em branco*";
+            lbErroFuncionario.Text = "msgErro";
             lbErroFuncionario.Visible = false;
             // 
             // lbErroGrupoAutomoveis
@@ -281,9 +282,9 @@
             lbErroGrupoAutomoveis.ForeColor = Color.FromArgb(192, 0, 0);
             lbErroGrupoAutomoveis.Location = new Point(138, 112);
             lbErroGrupoAutomoveis.Name = "lbErroGrupoAutomoveis";
-            lbErroGrupoAutomoveis.Size = new Size(235, 15);
+            lbErroGrupoAutomoveis.Size = new Size(51, 15);
             lbErroGrupoAutomoveis.TabIndex = 76;
-            lbErroGrupoAutomoveis.Text = "*Campo Grupo de Automóveis em branco*";
+            lbErroGrupoAutomoveis.Text = "msgErro";
             lbErroGrupoAutomoveis.Visible = false;
             // 
             // lbErroPlanoCobranca
@@ -292,9 +293,9 @@
             lbErroPlanoCobranca.ForeColor = Color.FromArgb(192, 0, 0);
             lbErroPlanoCobranca.Location = new Point(138, 163);
             lbErroPlanoCobranca.Name = "lbErroPlanoCobranca";
-            lbErroPlanoCobranca.Size = new Size(219, 15);
+            lbErroPlanoCobranca.Size = new Size(51, 15);
             lbErroPlanoCobranca.TabIndex = 77;
-            lbErroPlanoCobranca.Text = "*Campo Plano de Cobrança em branco*";
+            lbErroPlanoCobranca.Text = "msgErro";
             lbErroPlanoCobranca.Visible = false;
             // 
             // lbErroDataLocacao
@@ -303,9 +304,9 @@
             lbErroDataLocacao.ForeColor = Color.FromArgb(192, 0, 0);
             lbErroDataLocacao.Location = new Point(138, 223);
             lbErroDataLocacao.Name = "lbErroDataLocacao";
-            lbErroDataLocacao.Size = new Size(190, 15);
+            lbErroDataLocacao.Size = new Size(51, 15);
             lbErroDataLocacao.TabIndex = 78;
-            lbErroDataLocacao.Text = "*Campo Data Locação em branco*";
+            lbErroDataLocacao.Text = "msgErro";
             lbErroDataLocacao.Visible = false;
             // 
             // lbErroDataDevolucao
@@ -314,9 +315,9 @@
             lbErroDataDevolucao.ForeColor = Color.FromArgb(192, 0, 0);
             lbErroDataDevolucao.Location = new Point(465, 221);
             lbErroDataDevolucao.Name = "lbErroDataDevolucao";
-            lbErroDataDevolucao.Size = new Size(202, 15);
+            lbErroDataDevolucao.Size = new Size(51, 15);
             lbErroDataDevolucao.TabIndex = 79;
-            lbErroDataDevolucao.Text = "*Campo Data Devolução em branco*";
+            lbErroDataDevolucao.Text = "msgErro";
             lbErroDataDevolucao.Visible = false;
             // 
             // lbErroCondutor
@@ -325,9 +326,9 @@
             lbErroCondutor.ForeColor = Color.FromArgb(192, 0, 0);
             lbErroCondutor.Location = new Point(465, 64);
             lbErroCondutor.Name = "lbErroCondutor";
-            lbErroCondutor.Size = new Size(170, 15);
+            lbErroCondutor.Size = new Size(51, 15);
             lbErroCondutor.TabIndex = 80;
-            lbErroCondutor.Text = "*Campo Condutor em branco*";
+            lbErroCondutor.Text = "msgErro";
             lbErroCondutor.Visible = false;
             // 
             // lbErroAutomovel
@@ -336,9 +337,9 @@
             lbErroAutomovel.ForeColor = Color.FromArgb(192, 0, 0);
             lbErroAutomovel.Location = new Point(465, 115);
             lbErroAutomovel.Name = "lbErroAutomovel";
-            lbErroAutomovel.Size = new Size(178, 15);
+            lbErroAutomovel.Size = new Size(51, 15);
             lbErroAutomovel.TabIndex = 81;
-            lbErroAutomovel.Text = "*Campo Automóvel em branco*";
+            lbErroAutomovel.Text = "msgErro";
             lbErroAutomovel.Visible = false;
             // 
             // lbErroKmAutomovel
@@ -347,9 +348,9 @@
             lbErroKmAutomovel.ForeColor = Color.FromArgb(192, 0, 0);
             lbErroKmAutomovel.Location = new Point(465, 163);
             lbErroKmAutomovel.Name = "lbErroKmAutomovel";
-            lbErroKmAutomovel.Size = new Size(199, 15);
+            lbErroKmAutomovel.Size = new Size(51, 15);
             lbErroKmAutomovel.TabIndex = 82;
-            lbErroKmAutomovel.Text = "*Campo KM Automóvel em branco*";
+            lbErroKmAutomovel.Text = "msgErro";
             lbErroKmAutomovel.Visible = false;
             // 
             // tbTaxas
@@ -431,9 +432,9 @@
             lbErroCupom.ForeColor = Color.FromArgb(192, 0, 0);
             lbErroCupom.Location = new Point(138, 287);
             lbErroCupom.Name = "lbErroCupom";
-            lbErroCupom.Size = new Size(159, 15);
+            lbErroCupom.Size = new Size(51, 15);
             lbErroCupom.TabIndex = 88;
-            lbErroCupom.Text = "*Campo Cupom em branco*";
+            lbErroCupom.Text = "msgErro";
             lbErroCupom.Visible = false;
             // 
             // lbErroTaxas
@@ -442,9 +443,9 @@
             lbErroTaxas.ForeColor = Color.FromArgb(192, 0, 0);
             lbErroTaxas.Location = new Point(513, 328);
             lbErroTaxas.Name = "lbErroTaxas";
-            lbErroTaxas.Size = new Size(147, 15);
+            lbErroTaxas.Size = new Size(51, 15);
             lbErroTaxas.TabIndex = 89;
-            lbErroTaxas.Text = "*Campo Taxas em branco*";
+            lbErroTaxas.Text = "msgErro";
             lbErroTaxas.Visible = false;
             // 
             // lbErroValorTotal
@@ -453,9 +454,9 @@
             lbErroValorTotal.ForeColor = Color.FromArgb(192, 0, 0);
             lbErroValorTotal.Location = new Point(169, 559);
             lbErroValorTotal.Name = "lbErroValorTotal";
-            lbErroValorTotal.Size = new Size(173, 15);
+            lbErroValorTotal.Size = new Size(51, 15);
             lbErroValorTotal.TabIndex = 90;
-            lbErroValorTotal.Text = "*Campo Valor Total em branco*";
+            lbErroValorTotal.Text = "msgErro";
             lbErroValorTotal.Visible = false;
             // 
             // label11
@@ -493,7 +494,7 @@
             Controls.Add(btnCupom);
             Controls.Add(txtCupom);
             Controls.Add(label10);
-            Controls.Add(dateDevolucao);
+            Controls.Add(datePrevistaRetorno);
             Controls.Add(label9);
             Controls.Add(dateLocacao);
             Controls.Add(txtKmAutomovel);
@@ -540,7 +541,7 @@
         private Label label8;
         private NumericUpDown txtKmAutomovel;
         private DateTimePicker dateLocacao;
-        private DateTimePicker dateDevolucao;
+        private DateTimePicker datePrevistaRetorno;
         private Label label9;
         private Label label10;
         private TextBox txtCupom;

@@ -21,6 +21,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
         public event Func<Aluguel, Result> OnGravarRegistro;
 
+        public event Func<Aluguel, Result> OnValidarEObterCupom;
+
         private List<Automovel> automoveis;
 
         private List<Condutor> condutores;
@@ -91,11 +93,37 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                 cmbPlanoCobranca.Text = value.PlanoCobranca.CategoriaAutomoveis.Nome;
                 cmbCondutor.Text = value.Condutor.Nome;
                 cmbAutomovel.Text = value.Automovel.Placa;
-                listTaxas.Items.Clear();
-                listTaxas.Items.AddRange(value.ListaTaxasEServicos.ToArray());
+                value.Automovel.Alugado = false;
+                for (int i = 0; i < listTaxas.Items.Count; i++)
+                {
+                    if (listTaxas.Items[i] == value.ListaTaxasEServicos[i])
+                        listTaxas.SetItemChecked(i, true);
+                }
                 txtCupom.Text = value.Cupom.Nome;
-
+                dateLocacao.Value = value.DataLocacao;
+                datePrevistaRetorno.Value = value.DataPrevistaRetorno;
                 _aluguel = value;
+            }
+        }
+
+        private void btnCupom_Click(object sender, EventArgs e)
+        {
+            ResetarErros();
+
+            _aluguel.Cupom = txtCupom.Text == "" ? null : new Cupom() { Nome = txtCupom.Text };
+
+            _resultado = OnValidarEObterCupom(_aluguel);
+
+            if (_resultado.IsFailed)
+            {
+                MostrarErros();
+                return;
+            }
+            else if (_aluguel.Cupom != null)
+            {
+                lbErroCupom.Text = "Cupom aplicado!";
+                lbErroCupom.Visible = true;
+                lbErroCupom.ForeColor = Color.Green;
             }
         }
 
@@ -127,12 +155,12 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             _aluguel.PlanoCobranca = cmbPlanoCobranca.SelectedItem as PlanoCobranca;
             _aluguel.Condutor = cmbCondutor.SelectedItem as Condutor;
             _aluguel.Automovel = cmbAutomovel.SelectedItem as Automovel;
-            _aluguel.DataLocacao = dateLocacao.Value;
-            _aluguel.DataDevolucao = dateDevolucao.Value;
-            _aluguel.Automovel.Quilometragem = txtKmAutomovel.Value;
             _aluguel.Cupom = txtCupom.Text == "" ? null : new Cupom() { Nome = txtCupom.Text };
-            _aluguel.ListaTaxasEServicos = listTaxas.SelectedItem as List<TaxaEServico>;
+            _aluguel.ListaTaxasEServicos = listTaxas.CheckedItems.Cast<TaxaEServico>().ToList();
+            _aluguel.DataLocacao = dateLocacao.Value;
+            _aluguel.DataPrevistaRetorno = datePrevistaRetorno.Value;
             _aluguel.ValorTotal = Convert.ToDecimal(lbValorTotal.Text);
+            _aluguel.Concluido = false;
 
             return _aluguel;
         }
@@ -150,9 +178,9 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                     case "Condutor": lbErroCondutor.Text = item.ErrorMessage; lbErroCondutor.Visible = true; cmbCondutor.Focus(); break;
                     case "Automovel": lbErroAutomovel.Text = item.ErrorMessage; lbErroAutomovel.Visible = true; cmbAutomovel.Focus(); break;
                     case "DataLocacao": lbErroDataLocacao.Text = item.ErrorMessage; lbErroDataLocacao.Visible = true; dateLocacao.Focus(); break;
-                    case "DataDevolucao": lbErroDataDevolucao.Text = item.ErrorMessage; lbErroDataDevolucao.Visible = true; dateDevolucao.Focus(); break;
+                    case "DataDevolucao": lbErroDataDevolucao.Text = item.ErrorMessage; lbErroDataDevolucao.Visible = true; datePrevistaRetorno.Focus(); break;
                     case "KmAutomovel": lbErroKmAutomovel.Text = item.ErrorMessage; lbErroKmAutomovel.Visible = true; txtKmAutomovel.Focus(); break;
-                    case "Cupom": lbErroCupom.Text = item.ErrorMessage; lbErroCupom.Visible = true; txtCupom.Focus(); break;
+                    case "Cupom": lbErroCupom.Text = item.ErrorMessage; lbErroCupom.Visible = true; lbErroCupom.ForeColor = Color.FromArgb(192, 0, 0); txtCupom.Focus(); break;
                     case "Taxas": lbErroTaxas.Text = item.ErrorMessage; lbErroTaxas.Visible = true; listTaxas.Focus(); break;
                     case "ValorTotal": lbErroValorTotal.Text = item.ErrorMessage; lbErroValorTotal.Visible = true; lbValorTotal.Focus(); break;
                 }

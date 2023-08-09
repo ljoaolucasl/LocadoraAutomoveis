@@ -64,6 +64,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioAluguel.Inserir(aluguelParaAdicionar);
 
+                aluguelParaAdicionar.Automovel.Alugado = true;
+
                 _contextoPersistencia.GravarDados();
 
                 Log.Debug("Inserido o Aluguel '{CLIENTE} #{ID}' com sucesso!", aluguelParaAdicionar.Cliente.Nome, aluguelParaAdicionar.ID);
@@ -100,6 +102,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioAluguel.Editar(aluguelParaEditar);
 
+                aluguelParaEditar.Automovel.Alugado = true;
+
                 _contextoPersistencia.GravarDados();
 
                 Log.Debug("Editado o Aluguel '{CLIENTE} #{ID}' com sucesso!", aluguelParaEditar.Cliente.Nome, aluguelParaEditar.ID);
@@ -135,6 +139,8 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
                 if (_validadorAluguel.ValidarSeAluguelConcluido(aluguelParaExcluir))
                 {
                     _repositorioAluguel.Excluir(aluguelParaExcluir);
+
+                    aluguelParaExcluir.Automovel.Alugado = false;
 
                     _contextoPersistencia.GravarDados();
 
@@ -205,17 +211,24 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             if (_repositorioAluguel.Existe(aluguelParaValidar))
                 erros.Add(new CustomError("Esse Aluguel já existe", "Aluguel"));
 
-            if (aluguelParaValidar.Cupom != null && _repositorioAluguel.CupomNaoExiste(aluguelParaValidar, servicoCupom.SelecionarTodosOsRegistros()))
-                erros.Add(new CustomError("Cupom Inválido", "Aluguel"));
-            else if (aluguelParaValidar.Cupom != null)
-                aluguelParaValidar.Cupom = ObterCupomCompleto(aluguelParaValidar);
+            erros.AddRange(ValidarCupom(aluguelParaValidar));
 
             return Result.Fail(erros);
         }
 
-        public Cupom? ObterCupomCompleto(Aluguel aluguelParaObterCupom)
+        public List<IError> ValidarCupom(Aluguel aluguelParaValidar)
         {
-            return servicoCupom.SelecionarTodosOsRegistros().FirstOrDefault(c => c.Nome == aluguelParaObterCupom.Cupom.Nome);
+            List<IError> erros = new();
+
+            if (aluguelParaValidar.Cupom != null)
+            {
+                aluguelParaValidar.Cupom = _repositorioAluguel.ObterCupomCompleto(aluguelParaValidar, servicoCupom.SelecionarTodosOsRegistros());
+
+                if (_validadorAluguel.CupomValido(aluguelParaValidar) == false)
+                    erros.Add(new CustomError("Cupom Inválido", "Cupom"));
+            }
+
+            return erros;
         }
     }
 }

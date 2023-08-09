@@ -20,6 +20,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
         public event Func<Aluguel, Result> OnGravarRegistro;
 
+        public event Func<Aluguel, Result> OnValidarEObterCupom;
+
         public TelaAluguelDevolucaoForm()
         {
             InitializeComponent();

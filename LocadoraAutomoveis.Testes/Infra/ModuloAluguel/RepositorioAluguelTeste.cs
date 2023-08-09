@@ -215,15 +215,5 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAluguel
             //assert
             resultado.Should().BeTrue();
         }
-
-        [TestMethod]
-        public void Deve_verificar_se_Cupom_do_Aluguel_existe()
-        {
-            //action
-            bool resultado = _repositorioAluguel.CupomNaoExiste(_aluguel, new List<Cupom> { _aluguel.Cupom });
-
-            //assert
-            resultado.Should().BeFalse();
-        }
     }
 }

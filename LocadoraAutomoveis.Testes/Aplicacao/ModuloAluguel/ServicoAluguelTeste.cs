@@ -84,7 +84,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
         public void Deve_inserir_Aluguel_quando_valido()
         {
             //arrange
-            servicoCupomMoq.Setup(c => c.SelecionarTodosOsRegistros()).Returns(new List<Cupom>() { _aluguel.Cupom });
+            _aluguel.Cupom = null;
 
             //action
             var resultado = _servico.Inserir(_aluguel);
@@ -98,7 +98,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
         public void Nao_Deve_inserir_Aluguel_quando_invalido()
         {
             //arrange
-            servicoCupomMoq.Setup(c => c.SelecionarTodosOsRegistros()).Returns(new List<Cupom>() { _aluguel.Cupom });
+            _aluguel.Cupom = null;
             _validadorMoq.Setup(x => x.Validate(It.IsAny<Aluguel>())).Returns(() =>
             {
                 var resultado = new ValidationResult();
@@ -118,7 +118,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
         public void Nao_Deve_inserir_Aluguel_quando_ja_existe()
         {
             //arrange
-            servicoCupomMoq.Setup(c => c.SelecionarTodosOsRegistros()).Returns(new List<Cupom>() { _aluguel.Cupom });
+            _aluguel.Cupom = null;
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<Aluguel>(), false)).Returns(true);
 
             //action
@@ -133,7 +133,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
         [TestMethod]
         public void Deve_tratar_erro_quando_falha_ao_tentar_inserir_Aluguel()
         {
-            servicoCupomMoq.Setup(c => c.SelecionarTodosOsRegistros()).Returns(new List<Cupom>() { _aluguel.Cupom });
+            _aluguel.Cupom = null;
             _repositorioMoq.Setup(x => x.Inserir(It.IsAny<Aluguel>()))
                 .Throws(() =>
                 {
@@ -154,7 +154,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
         public void Deve_editar_Aluguel_quando_valido()
         {
             //action
-            servicoCupomMoq.Setup(c => c.SelecionarTodosOsRegistros()).Returns(new List<Cupom>() { _aluguel.Cupom });
+            _aluguel.Cupom = null;
             var resultado = _servico.Editar(_aluguel);
 
             //assent
@@ -166,7 +166,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
         public void Nao_Deve_editar_Aluguel_quando_invalido()
         {
             //arrange
-            servicoCupomMoq.Setup(c => c.SelecionarTodosOsRegistros()).Returns(new List<Cupom>() { _aluguel.Cupom });
+            _aluguel.Cupom = null;
             _validadorMoq.Setup(x => x.Validate(It.IsAny<Aluguel>())).Returns(() =>
             {
                 var resultado = new ValidationResult();
@@ -186,7 +186,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
         public void Nao_Deve_editar_Aluguel_quando_ja_existe()
         {
             //arrange
-            servicoCupomMoq.Setup(c => c.SelecionarTodosOsRegistros()).Returns(new List<Cupom>() { _aluguel.Cupom });
+            _aluguel.Cupom = null;
             _repositorioMoq.Setup(x => x.Existe(It.IsAny<Aluguel>(), false)).Returns(true);
 
             //action
@@ -201,7 +201,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
         [TestMethod]
         public void Deve_tratar_erro_quando_falha_ao_tentar_editar_Aluguel()
         {
-            servicoCupomMoq.Setup(c => c.SelecionarTodosOsRegistros()).Returns(new List<Cupom>() { _aluguel.Cupom });
+            _aluguel.Cupom = null;
             _repositorioMoq.Setup(x => x.Editar(It.IsAny<Aluguel>()))
                 .Throws(() =>
                 {

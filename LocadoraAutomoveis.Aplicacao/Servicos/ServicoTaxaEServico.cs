@@ -1,4 +1,5 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
+﻿using LocadoraAutomoveis.Dominio.ModuloAluguel;
+using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,13 +10,15 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
         private readonly IRepositorioTaxaEServico _repositorioTaxaEServico;
         private readonly IValidadorTaxaEServico _validadorTaxaEServico;
         private readonly IContextoPersistencia _contextoPersistencia;
+        private readonly IRepositorioAluguel _repositorioAluguel;
 
         public ServicoTaxaEServico(IRepositorioTaxaEServico repositorioTaxaEServico, IValidadorTaxaEServico validadorTaxaEServico,
-            IContextoPersistencia contextoPersistencia)
+            IRepositorioAluguel repositorioAluguel, IContextoPersistencia contextoPersistencia)
         {
             _repositorioTaxaEServico = repositorioTaxaEServico;
             _validadorTaxaEServico = validadorTaxaEServico;
             _contextoPersistencia = contextoPersistencia;
+            _repositorioAluguel = repositorioAluguel;
         }
 
         #region CRUD
@@ -170,6 +173,17 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
                 erros.Add(new CustomError("Essa Taxa e Serviço já existe", "Nome"));
 
             return Result.Fail(erros);
+        }
+
+        public Result VerificarDisponibilidade(TaxaEServico taxaParaValidar)
+        {
+            if (_validadorTaxaEServico.VerificarSeRelacionadoComAluguelAberto(taxaParaValidar, _repositorioAluguel.SelecionarTodos()))
+            {
+                return new CustomError("Essa Taxa e Serviço está relacionada a um Aluguel em Aberto." +
+                        " Primeiro conclua o Aluguel relacionado", "Taxa");
+            }
+
+            return Result.Ok();
         }
     }
 }

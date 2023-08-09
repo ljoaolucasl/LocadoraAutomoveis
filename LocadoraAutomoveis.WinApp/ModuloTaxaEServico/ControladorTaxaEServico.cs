@@ -1,4 +1,6 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
+﻿using FluentResults;
+using LocadoraAutomoveis.Dominio.ModuloAutomovel;
+using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 
 namespace LocadoraAutomoveis.WinApp.ModuloTaxaEServico
 {
@@ -6,8 +8,14 @@ namespace LocadoraAutomoveis.WinApp.ModuloTaxaEServico
     {
         public ControladorTaxaEServico(IRepositorioTaxaEServico _repositorio, IServicoTaxaEServico _servico, TabelaTaxaEServicoControl _tabela) : base(_repositorio, _servico, _tabela)
         {
+            OnVerificar += ObterDisponibilidade;
         }
 
         protected override string TipoCadastro => "Taxas e Serviços";
+
+        public Result ObterDisponibilidade(TaxaEServico taxa)
+        {
+            return _servico.VerificarDisponibilidade(taxa);
+        }
     }
 }

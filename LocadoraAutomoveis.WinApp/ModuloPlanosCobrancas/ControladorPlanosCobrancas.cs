@@ -11,7 +11,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
             OnComandosAdicionaisAddAndEdit += ObterDependencias;
         }
 
-        private void ObterDependencias(TelaPlanosCobrancasForm tela, PlanoCobranca planoCobranca)
+        private void ObterDependencias(TelaPlanosCobrancasForm tela)
         {
             var categorias = _servico2.SelecionarTodosOsRegistros();
 

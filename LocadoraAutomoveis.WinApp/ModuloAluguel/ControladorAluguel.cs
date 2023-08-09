@@ -1,4 +1,5 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloAluguel;
+﻿using FluentResults;
+using LocadoraAutomoveis.Dominio.ModuloAluguel;
 
 namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 {
@@ -11,7 +12,17 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
         protected override string TipoCadastro => "Aluguéis";
 
-        private void ObterDependencias(ITelaAluguel tela, Aluguel aluguel)
+        private Result ValidarCupom(Aluguel aluguel)
+        {
+            List<IError> erros = _servico.ValidarCupom(aluguel);
+
+            if (erros.Count > 0)
+                return Result.Fail(erros);
+
+            return Result.Ok();
+        }
+
+        private void ObterDependencias(ITelaAluguel tela)
         {
             var funcionarios = _servico.servicoFuncionario.SelecionarTodosOsRegistros();
             var clientes = _servico.servicoCliente.SelecionarTodosOsRegistros();
@@ -22,6 +33,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             var taxas = _servico.servicoTaxaEServico.SelecionarTodosOsRegistros();
 
             tela.CarregarDependencias(funcionarios, clientes, categorias, planos, condutores, automoveis, taxas);
+
+            tela.OnValidarEObterCupom += ValidarCupom;
         }
     }
 }

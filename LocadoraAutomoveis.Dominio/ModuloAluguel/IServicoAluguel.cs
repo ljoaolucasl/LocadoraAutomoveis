@@ -1,4 +1,5 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloAutomovel;
+﻿using FluentResults;
+using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
@@ -19,8 +20,6 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
         IServicoAutomovel servicoAutomovel { get; }
         IServicoCupom servicoCupom { get; }
         IServicoTaxaEServico servicoTaxaEServico { get; }
-
-        Cupom? ObterCupomCompleto(Aluguel aluguelParaValidar);
-
+        List<IError> ValidarCupom(Aluguel aluguelParaValidar);
     }
 }

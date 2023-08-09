@@ -4,6 +4,6 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
 {
     public interface IRepositorioAluguel : IRepositorioBase<Aluguel>
     {
-        bool CupomNaoExiste(Aluguel aluguelParaValidar, List<Cupom> cupons);
+        Cupom? ObterCupomCompleto(Aluguel aluguelParaValidar, List<Cupom> cupoms);
     }
 }

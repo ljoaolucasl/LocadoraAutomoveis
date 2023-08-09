@@ -28,9 +28,11 @@ namespace LocadoraAutomoveis.Infraestrutura.Repositorios
                 .Include(a => a.Cupom).Include(a => a.ListaTaxasEServicos).Include(a => a.Funcionario).Include(a => a.PlanoCobranca).ToList();
         }
 
-        public bool CupomNaoExiste(Aluguel aluguelParaValidar, List<Cupom> cupons)
+        public Cupom? ObterCupomCompleto(Aluguel aluguelParaObterCupom, List<Cupom> cupons)
         {
-            return !cupons.Contains(aluguelParaValidar.Cupom);
+            if (cupons.Any(c => c.Nome.ToUpper() == aluguelParaObterCupom.Cupom.Nome.ToUpper()))
+                return cupons.FirstOrDefault(c => c.Nome.ToUpper() == aluguelParaObterCupom.Cupom.Nome.ToUpper());
+            return aluguelParaObterCupom.Cupom;
         }
     }
 }

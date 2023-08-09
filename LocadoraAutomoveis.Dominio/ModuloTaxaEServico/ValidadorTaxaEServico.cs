@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using LocadoraAutomoveis.Dominio.ModuloAluguel;
 using System.Text.RegularExpressions;
 
 namespace LocadoraAutomoveis.Dominio.ModuloTaxaEServico
@@ -15,6 +16,11 @@ namespace LocadoraAutomoveis.Dominio.ModuloTaxaEServico
             RuleFor(t => t.Valor)
                 .NotEqual(0)
                 .NotEmpty();
+        }
+
+        public bool VerificarSeRelacionadoComAluguelAberto(TaxaEServico taxaParaValidar, List<Aluguel> alugueis)
+        {
+            return alugueis.Any(a => a.ListaTaxasEServicos.Contains(taxaParaValidar) && a.Concluido == false);
         }
 
         private void ValidarCaractereInvalido(string nome, ValidationContext<TaxaEServico> contexto)

@@ -25,8 +25,8 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAluguel
             Cliente cliente = new();
             CategoriaAutomoveis categoria = new();
             PlanoCobranca plano = new();
-            Condutor condutor = new();
-            Automovel automovel = new();
+            Condutor condutor = new() { Validade = DateTime.Now.AddDays(1) };
+            Automovel automovel = new() { Alugado = false };
             Cupom cupom = new();
             List<TaxaEServico> listTaxa = new() { new TaxaEServico() };
             DateTime dataLocacao = DateTime.Now;
@@ -115,10 +115,36 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAluguel
         }
 
         [TestMethod]
+        public void Nao_deve_aceitar_Condutor_validade_vencida()
+        {
+            //arrange
+            _aluguel.Condutor.Validade = DateTime.Now.AddDays(-1);
+
+            //action
+            ValidationResult resultado = _validador.Validate(_aluguel);
+
+            //assert
+            resultado.IsValid.Should().BeFalse();
+        }
+
+        [TestMethod]
         public void Nao_deve_aceitar_Automovel_nulo()
         {
             //arrange
             _aluguel.Automovel = null;
+
+            //action
+            ValidationResult resultado = _validador.Validate(_aluguel);
+
+            //assert
+            resultado.IsValid.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Nao_deve_aceitar_Automovel_ja_alugado()
+        {
+            //arrange
+            _aluguel.Automovel.Alugado = true;
 
             //action
             ValidationResult resultado = _validador.Validate(_aluguel);

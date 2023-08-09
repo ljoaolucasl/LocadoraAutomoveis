@@ -1,4 +1,5 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloAutomovel;
+﻿using FluentResults;
+using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
@@ -12,5 +13,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
     {
         void CarregarDependencias(List<Funcionario> funcionarios, List<Cliente> clientes, List<CategoriaAutomoveis> categorias,
             List<PlanoCobranca> planos, List<Condutor> condutores, List<Automovel> automoveis, List<TaxaEServico> taxaEServicos);
+
+        event Func<Aluguel, Result> OnValidarEObterCupom;
     }
 }

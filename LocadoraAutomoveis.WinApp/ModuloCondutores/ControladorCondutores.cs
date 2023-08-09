@@ -13,7 +13,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
 
         protected override string TipoCadastro => "Funcionários";
 
-        private void ObterDependencias(TelaCondutoresForm tela, Condutor condutor)
+        private void ObterDependencias(TelaCondutoresForm tela)
         {
             var clientes = _servico2.SelecionarTodosOsRegistros();
 

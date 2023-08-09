@@ -10,7 +10,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloCupom
             OnComandosAdicionaisAddAndEdit += ObterDependencias;
         }
 
-        private void ObterDependencias(TelaCupomForm tela, Cupom cupom)
+        private void ObterDependencias(TelaCupomForm tela)
         {
             var parceiros = _servico2.SelecionarTodosOsRegistros();
 

@@ -18,7 +18,7 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado
 
         protected abstract string TipoCadastro { get; }
 
-        protected event Action<TTela, TEntidade> OnComandosAdicionaisAddAndEdit;
+        protected event Action<TTela> OnComandosAdicionaisAddAndEdit;
 
         protected event Func<TEntidade, Result> OnVerificar;
 
@@ -59,7 +59,7 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado
         {
             TTela tela = new();
 
-            OnComandosAdicionaisAddAndEdit?.Invoke(tela, tela.Entidade);
+            OnComandosAdicionaisAddAndEdit?.Invoke(tela);
 
             tela.OnGravarRegistro += _servico.Inserir;
 
@@ -75,7 +75,7 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado
 
             TTela tela = new();
 
-            OnComandosAdicionaisAddAndEdit?.Invoke(tela, entidade);
+            OnComandosAdicionaisAddAndEdit?.Invoke(tela);
 
             tela.Entidade = entidade;
 
@@ -129,8 +129,6 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado
 
         public virtual string ObterTipoCadastro()
         {
-            string nomeEntidade = typeof(TEntidade).Name;
-
             return $"Cadastro de {TipoCadastro}";
         }
 

@@ -19,10 +19,12 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
                 .NotNull().WithMessage("'Plano de Cobrança' é obrigatório.");
 
             RuleFor(a => a.Condutor)
-                .NotNull().WithMessage("'Condutor' é obrigatório.");
+                .NotNull().WithMessage("'Condutor' é obrigatório.")
+                .Must(c => c.Validade > DateTime.Now).WithMessage("'Condutor' é obrigatório.");
 
             RuleFor(a => a.Automovel)
-                .NotNull().WithMessage("'Automóvel' é obrigatório.");
+                .NotNull().WithMessage("'Automóvel' é obrigatório.")
+                .Must(a => a.Alugado == false).WithMessage("'Automóvel' já está alugado.");
 
             RuleFor(a => a.ListaTaxasEServicos)
                 .Must(lista => lista != null && lista.Count > 0).WithMessage("'Lista de Taxas e Serviços' não pode ser vazia.");
@@ -41,6 +43,11 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
 
             RuleFor(a => a.CombustivelRestante)
                 .IsInEnum().WithMessage("'Combustível Restante' inválido.");
+        }
+
+        public bool CupomValido(Aluguel aluguelParaValidar)
+        {
+            return aluguelParaValidar.Cupom.DataValidade > DateTime.Now;
         }
 
         public bool ValidarSeAluguelConcluido(Aluguel aluguelParaValidar)

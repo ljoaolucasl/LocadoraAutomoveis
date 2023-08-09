@@ -42,7 +42,7 @@
             lbErroCliente = new Label();
             txtCupom = new TextBox();
             label10 = new Label();
-            dateDevolucaoPrevista = new DateTimePicker();
+            datePrevistaRetorno = new DateTimePicker();
             label9 = new Label();
             dateLocacao = new DateTimePicker();
             txtKmAutomovel = new NumericUpDown();
@@ -215,14 +215,14 @@
             label10.TabIndex = 109;
             label10.Text = "Cupom:";
             // 
-            // dateDevolucaoPrevista
+            // datePrevistaRetorno
             // 
-            dateDevolucaoPrevista.Enabled = false;
-            dateDevolucaoPrevista.Format = DateTimePickerFormat.Short;
-            dateDevolucaoPrevista.Location = new Point(463, 243);
-            dateDevolucaoPrevista.Name = "dateDevolucaoPrevista";
-            dateDevolucaoPrevista.Size = new Size(154, 23);
-            dateDevolucaoPrevista.TabIndex = 108;
+            datePrevistaRetorno.Enabled = false;
+            datePrevistaRetorno.Format = DateTimePickerFormat.Short;
+            datePrevistaRetorno.Location = new Point(463, 243);
+            datePrevistaRetorno.Name = "datePrevistaRetorno";
+            datePrevistaRetorno.Size = new Size(154, 23);
+            datePrevistaRetorno.TabIndex = 108;
             // 
             // label9
             // 
@@ -487,7 +487,7 @@
             Controls.Add(lbErroCliente);
             Controls.Add(txtCupom);
             Controls.Add(label10);
-            Controls.Add(dateDevolucaoPrevista);
+            Controls.Add(datePrevistaRetorno);
             Controls.Add(label9);
             Controls.Add(dateLocacao);
             Controls.Add(txtKmAutomovel);
@@ -531,7 +531,7 @@
         private Label lbErroCliente;
         private TextBox txtCupom;
         private Label label10;
-        private DateTimePicker dateDevolucaoPrevista;
+        private DateTimePicker datePrevistaRetorno;
         private Label label9;
         private DateTimePicker dateLocacao;
         private NumericUpDown txtKmAutomovel;

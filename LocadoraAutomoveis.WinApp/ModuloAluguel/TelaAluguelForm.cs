@@ -102,7 +102,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                             listTaxas.SetItemChecked(j, true);
                     }
                 }
-                txtCupom.Text = value.Cupom.Nome;
+                txtCupom.Text = value.Cupom == null ? "" : value.Cupom.Nome;
                 dateLocacao.Value = value.DataLocacao;
                 datePrevistaRetorno.Value = value.DataPrevistaRetorno;
                 _aluguel = value;

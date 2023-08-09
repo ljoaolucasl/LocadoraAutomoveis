@@ -20,7 +20,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
 
             RuleFor(a => a.Condutor)
                 .NotNull().WithMessage("'Condutor' é obrigatório.")
-                .Must(c => c == null || c.Validade > DateTime.Now).WithMessage("'Condutor' é obrigatório.");
+                .Must(c => c == null || c.Validade > DateTime.Now).WithMessage("CNH do 'Condutor' está fora da validade.");
 
             RuleFor(a => a.Automovel)
                 .NotNull().WithMessage("'Automóvel' é obrigatório.")

@@ -131,7 +131,12 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             _aluguel.DataLocacao = Convert.ToDateTime(dateLocacao.Value);
             _aluguel.DataDevolucao = Convert.ToDateTime(dateDevolucao.Value);
             _aluguel.DataPrevistaRetorno = Convert.ToDateTime(datePrevistaRetorno.Value);
+
+            if (cmbNivelTanque.SelectedItem == null)
+                _aluguel.CombustivelRestante = (NivelTanque)100;
+            else
             _aluguel.CombustivelRestante = Utils.GetEnumValueFromDescription<NivelTanque>(cmbNivelTanque.SelectedItem as string);
+
             _aluguel.QuilometrosRodados = Convert.ToDecimal(txtKmPercorrida.Value);
             _aluguel.Automovel.Quilometragem = Convert.ToDecimal(txtKmAutomovel.Value);
             _aluguel.Cupom.Valor = Convert.ToDecimal(txtCupom);

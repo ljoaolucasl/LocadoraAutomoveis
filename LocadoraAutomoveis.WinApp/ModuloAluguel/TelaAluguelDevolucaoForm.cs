@@ -53,12 +53,9 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             cmbCategoriaAutomoveis.DisplayMember = "Nome";
             cmbCategoriaAutomoveis.ValueMember = "ID";
 
-            TipoPlano[] planos = Enum.GetValues<TipoPlano>();
-
-            foreach (TipoPlano plano in planos)
-            {
-                cmbPlanoCobranca.Items.Add(plano.ToDescriptionString());
-            }
+            cmbPlanoCobranca.DataSource = Enum.GetValues<TipoPlano>()
+                            .Select(plano => plano.ToDescriptionString())
+                            .ToList();
 
             this.planosCobrancas = new List<PlanoCobranca>(planosCobrancas);
 

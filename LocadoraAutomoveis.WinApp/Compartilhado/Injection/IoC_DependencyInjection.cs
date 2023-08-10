@@ -117,6 +117,8 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado.Injection
             servicos.AddTransient<ControladorConfiguracao>();
             servicos.AddScoped<IRepositorioConfiguracao, RepositorioConfiguracao>();
 
+            servicos.AddTransient<ICalculoAluguel, CalculoAluguel>();
+
             container = servicos.BuildServiceProvider();
         }
 

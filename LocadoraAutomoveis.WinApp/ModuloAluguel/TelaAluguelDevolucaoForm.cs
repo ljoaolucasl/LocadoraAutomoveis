@@ -6,12 +6,9 @@ using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
-using LocadoraAutomoveis.Dominio.ModuloConfiguracao;
-using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
-using LocadoraAutomoveis.Infraestrutura.ModuloConfiguracao;
 using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloAluguel
@@ -25,7 +22,10 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
         public event Func<Aluguel, Result> OnGravarRegistro;
 
         public event Func<Aluguel, Result> OnValidarEObterCupom;
-        public event Func<Aluguel, decimal> OnCalcularAluguel;
+
+        public event Func<Aluguel, decimal> OnCalcularAluguelPrevisto;
+
+        public event Func<Aluguel, decimal> OnCalcularAluguelFinal;
 
         public TelaAluguelDevolucaoForm()
         {
@@ -162,43 +162,9 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
         private void CalcularValorTotalDevolucao()
         {
-            RepositorioConfiguracao repositorioConfiguracao = new();
-            PrecoCombustivel precoCombustivel = repositorioConfiguracao.ObterConfiguracaoPrecos();
-            decimal valorTotal = 0;
-            PlanoCobranca planoCobranca = _aluguel.PlanoCobranca;
-            TipoPlano tipoPlano = _aluguel.Plano;
-            NivelTanque nivelTanque = (NivelTanque)cmbNivelTanque.SelectedIndex;
-            Automovel automovel = _aluguel.Automovel;
-            TipoCombustível tipoCombustivel = automovel.TipoCombustivel;
-            decimal quilometrosPercorridos = txtKmPercorrida.Value;
-            List<TaxaEServico> taxasEServicos = listTaxas.CheckedItems.Cast<TaxaEServico>().ToList();
-            Cupom cupom = _aluguel.Cupom;
-            TimeSpan intervalo = (TimeSpan)(_aluguel.DataDevolucao - dateDevolucao.Value);
-            int diasLocados = (int)intervalo.TotalDays;
+            _aluguel = ObterAluguel();
 
-            valorTotal = PlanoCobranca.CalcularPlanoCobrancaFinal(valorTotal, planoCobranca, tipoPlano, quilometrosPercorridos, diasLocados);
-
-            valorTotal = TaxaEServico.CalcularTaxasEServicos(valorTotal, taxasEServicos);
-
-            valorTotal = Cupom.AplicarDesconto(valorTotal, cupom);
-
-            decimal valorCombustivel = PrecoCombustivel.CalcularValorCombustivel(_aluguel.Automovel.CapacidadeCombustivel, nivelTanque, tipoCombustivel, precoCombustivel);
-
-            int diasAtraso = 0;
-            if (_aluguel.DataDevolucao > _aluguel.DataPrevistaRetorno)
-            {
-                TimeSpan diferencaDias = (TimeSpan)(_aluguel.DataDevolucao - _aluguel.DataPrevistaRetorno);
-                diasAtraso = diferencaDias.Days;
-            }
-
-            if (_aluguel.DataDevolucao.Value > _aluguel.DataPrevistaRetorno)
-            {
-                valorTotal += Aluguel.AplicarMultaAtraso(valorTotal, diasAtraso);
-            }
-
-            valorTotal += valorCombustivel;
-
-            lbValorTotal.Text = Math.Round(valorTotal, 2).ToString();
+            lbValorTotal.Text = OnCalcularAluguelFinal(_aluguel).ToString("F2");
         }
     }
 }

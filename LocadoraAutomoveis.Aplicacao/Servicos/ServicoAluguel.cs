@@ -3,11 +3,13 @@ using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
+using LocadoraAutomoveis.Dominio.ModuloConfiguracao;
 using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
+using LocadoraAutomoveis.Infraestrutura.ModuloConfiguracao;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
@@ -28,13 +30,14 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
         public IEnviadorEmail enviarEmail { get; }
         public IGeradorPDF gerarPDF { get; }
         public ICalculoAluguel calculoAluguel { get; }
+        public IRepositorioConfiguracao repositorioConfiguracao { get; }
 
         public ServicoAluguel(IRepositorioAluguel repositorioAluguel, IValidadorAluguel validadorAluguel,
             IContextoPersistencia contextoPersistencia, IServicoFuncionario servicoFuncionario,
             IServicoCliente servicoCliente, IServicoCategoriaAutomoveis servicoCategoriaAutomoveis,
             IServicoPlanoCobranca servicoPlanosCobrancas, IServicoCondutor servicoCondutores,
             IServicoAutomovel servicoAutomovel, IServicoCupom servicoCupom, IServicoTaxaEServico servicoTaxaEServico,
-            IEnviadorEmail enviarEmail, IGeradorPDF gerarPDF, ICalculoAluguel calculoAluguel)
+            IEnviadorEmail enviarEmail, IGeradorPDF gerarPDF, ICalculoAluguel calculoAluguel, IRepositorioConfiguracao repositorioConfiguracao)
         {
             _repositorioAluguel = repositorioAluguel;
             _validadorAluguel = validadorAluguel;
@@ -50,6 +53,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             this.enviarEmail = enviarEmail;
             this.gerarPDF = gerarPDF;
             this.calculoAluguel = calculoAluguel;
+            this.repositorioConfiguracao = repositorioConfiguracao;
         }
 
         #region CRUD
@@ -249,7 +253,9 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
         public decimal CalcularValorDevolucao(Aluguel aluguelParaCalcular)
         {
-            return calculoAluguel.CalcularValorTotalDevolucao(aluguelParaCalcular);
+            PrecoCombustivel precoCombustivel = repositorioConfiguracao.ObterConfiguracaoPrecos();
+
+            return calculoAluguel.CalcularValorTotalDevolucao(aluguelParaCalcular, precoCombustivel);
         }
     }
 }

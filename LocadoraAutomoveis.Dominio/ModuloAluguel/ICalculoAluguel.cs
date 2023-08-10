@@ -1,8 +1,10 @@
-﻿namespace LocadoraAutomoveis.Dominio.ModuloAluguel
+﻿using LocadoraAutomoveis.Dominio.ModuloConfiguracao;
+
+namespace LocadoraAutomoveis.Dominio.ModuloAluguel
 {
     public interface ICalculoAluguel
     {
-        decimal CalcularValorTotalDevolucao(Aluguel aluguelParaCalcular);
+        decimal CalcularValorTotalDevolucao(Aluguel aluguelParaCalcular, PrecoCombustivel precoCombustivel);
         decimal CalcularValorTotalInicial(Aluguel aluguelParaCalcular);
     }
 }

@@ -8,6 +8,7 @@ using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
+using LocadoraAutomoveis.Dominio.ModuloConfiguracao;
 using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.Dominio.ModuloParceiro;
@@ -25,7 +26,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
     {
         private Mock<IRepositorioAluguel> _repositorioMoq;
         private Mock<IValidadorAluguel> _validadorMoq;
-        private Mock<IContextoPersistencia> _contexto;
+        private Mock<IContextoPersistencia> _contextoMoq;
         private Mock<IServicoFuncionario> servicoFuncionarioMoq;
         private Mock<IServicoCliente> servicoClienteMoq;
         private Mock<IServicoCategoriaAutomoveis> servicoCategoriaAutomoveisMoq;
@@ -36,7 +37,8 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
         private Mock<IServicoTaxaEServico> servicoTaxaEServicoMoq;
         private Mock<IGeradorPDF> geradorPdfMoq;
         private Mock<IEnviadorEmail> enviadorEmailMoq;
-        private Mock<ICalculoAluguel> calculoAluguel;
+        private Mock<ICalculoAluguel> calculoAluguelMoq;
+        private Mock<IRepositorioConfiguracao> repositorioConfiguracaoMoq;
         private ServicoAluguel _servico;
 
         private Aluguel _aluguel;
@@ -46,7 +48,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
         {
             _repositorioMoq = new Mock<IRepositorioAluguel>();
             _validadorMoq = new Mock<IValidadorAluguel>();
-            _contexto = new Mock<IContextoPersistencia>();
+            _contextoMoq = new Mock<IContextoPersistencia>();
 
             servicoFuncionarioMoq = new Mock<IServicoFuncionario>();
             servicoClienteMoq = new Mock<IServicoCliente>();
@@ -58,12 +60,13 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloAluguel
             servicoTaxaEServicoMoq = new Mock<IServicoTaxaEServico>();
             geradorPdfMoq = new Mock<IGeradorPDF>();
             enviadorEmailMoq = new Mock<IEnviadorEmail>();
-            calculoAluguel = new Mock<ICalculoAluguel>();
+            calculoAluguelMoq = new Mock<ICalculoAluguel>();
+            repositorioConfiguracaoMoq = new Mock<IRepositorioConfiguracao>();
 
-            _servico = new ServicoAluguel(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object, servicoFuncionarioMoq.Object,
+            _servico = new ServicoAluguel(_repositorioMoq.Object, _validadorMoq.Object, _contextoMoq.Object, servicoFuncionarioMoq.Object,
                 servicoClienteMoq.Object, servicoCategoriaAutomoveisMoq.Object, servicoPlanosCobrancasMoq.Object,
                 servicoCondutoresMoq.Object, servicoAutomovelMoq.Object, servicoCupomMoq.Object, servicoTaxaEServicoMoq.Object, enviadorEmailMoq.Object,
-                geradorPdfMoq.Object, calculoAluguel.Object);
+                geradorPdfMoq.Object, calculoAluguelMoq.Object, repositorioConfiguracaoMoq.Object);
 
             Funcionario funcionario = Builder<Funcionario>.CreateNew().Build();
             Cliente cliente = Builder<Cliente>.CreateNew().Build();

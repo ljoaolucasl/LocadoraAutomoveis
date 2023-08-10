@@ -16,6 +16,8 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
 
         event Func<Aluguel, Result> OnValidarEObterCupom;
 
-        event Func<Aluguel, decimal> OnCalcularAluguel;
+        event Func<Aluguel, decimal> OnCalcularAluguelPrevisto;
+
+        event Func<Aluguel, decimal> OnCalcularAluguelFinal;
     }
 }

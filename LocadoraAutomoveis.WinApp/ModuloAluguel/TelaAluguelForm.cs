@@ -24,7 +24,9 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
         public event Func<Aluguel, Result> OnValidarEObterCupom;
 
-        public event Func<Aluguel, decimal> OnCalcularAluguel;
+        public event Func<Aluguel, decimal> OnCalcularAluguelPrevisto;
+
+        public event Func<Aluguel, decimal> OnCalcularAluguelFinal;
 
         private List<Automovel> automoveis;
 
@@ -271,39 +273,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
         {
             _aluguel = ObterAluguel();
 
-            lbValorTotal.Text = OnCalcularAluguel(_aluguel).ToString("F2");
-
-            //decimal valorTotal = 0;
-
-            //PlanoCobranca planoCobranca;
-
-            //if (cmbCategoriaAutomoveis.SelectedItem is CategoriaAutomoveis categoriaEscolhida)
-            //    planoCobranca = planosCobrancas.Find(p => p.CategoriaAutomoveis.ID == categoriaEscolhida.ID);
-            //else
-            //    planoCobranca = cmbPlanoCobranca.SelectedItem as PlanoCobranca;
-
-            //TipoPlano tipoPlano = Utils.GetEnumValueFromDescription<TipoPlano>(cmbPlanoCobranca.SelectedItem as string);
-
-            //decimal? quilometrosRodados = txtKmAutomovel.Value;
-
-            //List<TaxaEServico> taxasEServicos = listTaxas.CheckedItems.Cast<TaxaEServico>().ToList();
-
-            //Cupom? cupom = _aluguel.Cupom;
-
-            //TimeSpan intervalo = (TimeSpan)(_aluguel.DataDevolucao - _aluguel.DataLocacao);
-
-            //int diasLocados = (int)intervalo.TotalDays;
-
-            //// Calcula o valor do plano de cobrança selecionado
-            //valorTotal = PlanoCobranca.CalcularPlanoCobrancaPrevisto(valorTotal, planoCobranca, tipoPlano, diasLocados);
-
-            //// Calcula o valor das taxas e serviços selecionados
-            //valorTotal = TaxaEServico.CalcularTaxasEServicos(valorTotal, taxasEServicos);
-
-            //// Aplica o valor do cupom, se houver
-            //valorTotal = Cupom.AplicarDesconto(valorTotal, cupom);
-
-            //lbValorTotal.Text = valorTotal.ToString();
+            lbValorTotal.Text = OnCalcularAluguelPrevisto(_aluguel).ToString("F2");
         }
     }
 }

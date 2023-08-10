@@ -22,9 +22,14 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             return Result.Ok();
         }
 
-        private decimal CalcularValorTotal(Aluguel aluguel)
+        private decimal CalcularValorTotalPrevisto(Aluguel aluguel)
         {
             return _servico.CalcularValorPrevisto(aluguel);
+        }
+
+        private decimal CalcularValorTotalFinal(Aluguel aluguel)
+        {
+            return _servico.CalcularValorDevolucao(aluguel);
         }
 
         public void Devolver()
@@ -58,7 +63,9 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
             tela.OnValidarEObterCupom += ValidarCupom;
 
-            tela.OnCalcularAluguel += CalcularValorTotal;
+            tela.OnCalcularAluguelPrevisto += CalcularValorTotalPrevisto;
+
+            tela.OnCalcularAluguelFinal += CalcularValorTotalFinal;
         }
     }
 }

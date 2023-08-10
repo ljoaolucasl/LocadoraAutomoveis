@@ -33,7 +33,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
                 .Must(lista => lista != null && lista.Count > 0).WithMessage("'Lista de Taxas e Serviços' não pode ser vazia.");
 
             RuleFor(a => a.DataLocacao)
-                .LessThan(a => a.DataPrevistaRetorno).WithMessage("'Data de Locação' deve ser menor que a 'Data Prevista de Retorno'.");
+                .LessThan(a => a.DataPrevistaRetorno).WithMessage("'Data Locação' deve ser menor que a 'Devolução Prevista'.");
 
             RuleFor(a => a.ValorTotal)
                 .GreaterThanOrEqualTo(0).WithMessage("'Valor Total' não pode ser menor que zero.");

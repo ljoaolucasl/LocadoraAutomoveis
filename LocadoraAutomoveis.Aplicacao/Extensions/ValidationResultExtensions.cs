@@ -1,8 +1,4 @@
-﻿using FluentResults;
-using FluentValidation.Results;
-using LocadoraAutomoveis.Aplicacao.Compartilhado;
-
-namespace LocadoraAutomoveis.Aplicacao.Extensions
+﻿namespace LocadoraAutomoveis.Aplicacao.Extensions
 {
     public static class ValidationResultExtensions
     {

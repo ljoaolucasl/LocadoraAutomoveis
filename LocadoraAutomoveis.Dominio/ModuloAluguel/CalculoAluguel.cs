@@ -31,7 +31,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
             TimeSpan diasAtraso = new(1);
 
             if (aluguelParaCalcular.DataDevolucao.HasValue)
-                diasAtraso = aluguelParaCalcular.DataPrevistaRetorno - aluguelParaCalcular.DataDevolucao.Value;
+                diasAtraso = aluguelParaCalcular.DataDevolucao.Value - aluguelParaCalcular.DataPrevistaRetorno;
 
             int diasLocados = (int)intervalo.TotalDays;
 
@@ -60,12 +60,12 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
 
                 case TipoPlano.Controlador:
                     valorTotal += planoCobranca.PlanoControlador_ValorDiario * diasLocacao;
-                    decimal kmFranquiaDiaria = planoCobranca.PlanoControlador_ValorKm;
-                    if (quilometrosRodados > kmFranquiaDiaria)
+                    decimal limiteKm = planoCobranca.PlanoControlador_LimiteKm;
+                    if (quilometrosRodados > limiteKm)
                     {
-                        decimal kmExcedente = quilometrosRodados - kmFranquiaDiaria;
-                        decimal valorPorKmExcedente = planoCobranca.PlanoControlador_LimiteKm;
-                        valorTotal += valorPorKmExcedente * kmExcedente;
+                        decimal kmExtrapolado = quilometrosRodados - limiteKm;
+                        decimal valorPorKmExtrapolado = planoCobranca.PlanoControlador_ValorKm;
+                        valorTotal += valorPorKmExtrapolado * kmExtrapolado;
                     }
                     break;
             }
@@ -113,19 +113,19 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
             switch (nivelTanque)
             {
                 case NivelTanque.Vazio:
-                    quantidadeCombustivel = 0;
+                    quantidadeCombustivel = capacidadeCombustivel * 1;
                     break;
                 case NivelTanque.UmQuarto:
-                    quantidadeCombustivel = capacidadeCombustivel * 0.25m;
+                    quantidadeCombustivel = capacidadeCombustivel * 0.75m;
                     break;
                 case NivelTanque.MeioTanque:
                     quantidadeCombustivel = capacidadeCombustivel * 0.5m;
                     break;
                 case NivelTanque.TresQuartos:
-                    quantidadeCombustivel = capacidadeCombustivel * 0.75m;
+                    quantidadeCombustivel = capacidadeCombustivel * 0.25m;
                     break;
                 case NivelTanque.Cheio:
-                    quantidadeCombustivel = capacidadeCombustivel;
+                    quantidadeCombustivel = capacidadeCombustivel * 0;
                     break;
             }
 
@@ -163,7 +163,9 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
             decimal multa = valorTotal * 0.1m;
             decimal taxaAtraso = 50 * diasAtraso;
 
-            return multa + taxaAtraso;
+            valorTotal += multa + taxaAtraso;
+
+            return valorTotal;
         }
     }
 }

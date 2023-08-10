@@ -36,7 +36,8 @@ namespace LocadoraAutomoveis.Dominio.ModuloAutomovel
                 .GreaterThan(0).WithMessage("'Capacidade de Combustível' deve ser maior que zero.");
 
             RuleFor(a => a.Ano)
-                .GreaterThanOrEqualTo(DateTime.Now.Year - 30).WithMessage("'Ano' inválido.");
+                .GreaterThanOrEqualTo(DateTime.Now.Year - 30).WithMessage("'Ano' inválido.")
+                .LessThanOrEqualTo(DateTime.Now.Year + 1).WithMessage("'Ano' inválido.");
 
             RuleFor(a => a.Quilometragem)
                 .GreaterThanOrEqualTo(0).WithMessage("'Quilometragem' não pode ser menor que zero.");

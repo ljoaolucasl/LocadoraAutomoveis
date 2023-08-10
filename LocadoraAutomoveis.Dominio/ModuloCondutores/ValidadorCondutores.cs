@@ -33,8 +33,9 @@ namespace LocadoraAutomoveis.Dominio.ModuloCondutores
             .Length(11).WithMessage("'Número da CNH' deve ter 11 caracteres.");
 
             RuleFor(c => c.Validade)
+                .NotEmpty().WithMessage(@"'Validade' não pode estar vazia.")
                 .Must(ValidarData).WithMessage("A data não é válida.")
-                .NotEmpty().WithMessage(@"'Validade' não pode estar vazia.");
+                .GreaterThan(DateTime.Now.AddDays(1)).WithMessage("'Validade' inválida.");
         }
 
         private void ValidarCaractereInvalido(string nome, ValidationContext<Condutor> contexto)

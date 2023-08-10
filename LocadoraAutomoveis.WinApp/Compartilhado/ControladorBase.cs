@@ -93,9 +93,11 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado
                 tela.OnGravarRegistro += _servico.Editar;
 
                 TelaPrincipalForm.AtualizarStatus($"Editando {typeof(TEntidade).Name}");
-
+                
                 if (tela.ShowDialog() == DialogResult.OK)
                     CarregarRegistros();
+
+                CarregarRegistros();
             }
         }
 

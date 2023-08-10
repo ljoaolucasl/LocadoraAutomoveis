@@ -451,7 +451,7 @@
             // 
             lbErroTaxas.AutoSize = true;
             lbErroTaxas.ForeColor = Color.FromArgb(192, 0, 0);
-            lbErroTaxas.Location = new Point(513, 328);
+            lbErroTaxas.Location = new Point(436, 328);
             lbErroTaxas.Name = "lbErroTaxas";
             lbErroTaxas.Size = new Size(51, 15);
             lbErroTaxas.TabIndex = 89;

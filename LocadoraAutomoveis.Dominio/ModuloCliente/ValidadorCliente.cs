@@ -35,12 +35,12 @@ namespace LocadoraAutomoveis.Dominio.ModuloCliente
             .When(c => c.TipoCliente == TipoDocumento.CNPJ);
 
             RuleFor(c => c.Estado)
-                .NotEmpty().WithMessage("'Estado' não pode ser vazio.")
-                .MinimumLength(3).WithMessage("'Estado' deve ser maior ou igual a 3 caracteres.");
+                .MinimumLength(3).WithMessage("'Estado' inválido.")
+                .NotEmpty().WithMessage("'Estado' não pode ser vazio.");
 
             RuleFor(c => c.Cidade)
-                .NotEmpty().WithMessage("'Cidade' não pode ser vazio.")
-                .MinimumLength(3).WithMessage("'Cidade' deve ser maior ou igual a 3 caracteres.");
+                .MinimumLength(3).WithMessage("'Cidade' inválida.")
+                .NotEmpty().WithMessage("'Cidade' não pode ser vazio.");
 
             RuleFor(c => c.Bairro)
                 .NotEmpty().WithMessage("'Bairro' não pode ser vazio.")

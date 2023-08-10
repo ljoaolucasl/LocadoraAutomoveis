@@ -34,6 +34,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
         private List<PlanoCobranca> planosCobrancas;
 
+        private List<TaxaEServico> _taxasEServicosTemporarias;
+
         public TelaAluguelForm()
         {
             InitializeComponent();
@@ -103,6 +105,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                 cmbCondutor.Text = value.Condutor.Nome;
                 cmbAutomovel.Text = value.Automovel.Placa;
                 value.Automovel.Alugado = false;
+
                 for (int i = 0; i < value.ListaTaxasEServicos.Count; i++)
                 {
                     for (int j = 0; j < listTaxas.Items.Count; j++)
@@ -111,6 +114,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                             listTaxas.SetItemChecked(j, true);
                     }
                 }
+
                 txtCupom.Text = value.Cupom == null ? "" : value.Cupom.Nome;
                 dateLocacao.Value = value.DataLocacao;
                 datePrevistaRetorno.Value = value.DataPrevistaRetorno;
@@ -153,12 +157,16 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
         {
             ResetarErros();
 
+            _taxasEServicosTemporarias = new List<TaxaEServico>(_aluguel.ListaTaxasEServicos);
+
             _aluguel = ObterAluguel();
 
             _resultado = OnGravarRegistro(_aluguel);
 
             if (_resultado.IsFailed)
             {
+                _aluguel.ListaTaxasEServicos.Clear();
+                _aluguel.ListaTaxasEServicos.AddRange(_taxasEServicosTemporarias);
                 _aluguel.Automovel.Alugado = false;
                 MostrarErros();
             }
@@ -206,7 +214,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                     case "DataDevolucao": lbErroDataDevolucao.Text = item.ErrorMessage; lbErroDataDevolucao.Visible = true; datePrevistaRetorno.Focus(); break;
                     case "KmAutomovel": lbErroKmAutomovel.Text = item.ErrorMessage; lbErroKmAutomovel.Visible = true; txtKmAutomovel.Focus(); break;
                     case "Cupom": lbErroCupom.Text = item.ErrorMessage; lbErroCupom.Visible = true; lbErroCupom.ForeColor = Color.FromArgb(192, 0, 0); txtCupom.Focus(); break;
-                    case "Taxas": lbErroTaxas.Text = item.ErrorMessage; lbErroTaxas.Visible = true; listTaxas.Focus(); break;
                     case "ValorTotal": lbErroValorTotal.Text = item.ErrorMessage; lbErroValorTotal.Visible = true; lbValorTotal.Focus(); break;
                 }
             }

@@ -33,6 +33,21 @@ namespace LocadoraAutomoveis.Dominio.ModuloAutomovel
             Alugado = alugado;
         }
 
+        public Automovel(Automovel clone)
+        {
+            Categoria = clone.Categoria;
+            Placa = clone.Placa;
+            Marca = clone.Marca;
+            Cor = clone.Cor;
+            Modelo = clone.Modelo;
+            Imagem = clone.Imagem?.Clone() as byte[];
+            TipoCombustivel = clone.TipoCombustivel;
+            CapacidadeCombustivel = clone.CapacidadeCombustivel;
+            Ano = clone.Ano;
+            Quilometragem = clone.Quilometragem;
+            Alugado = true;
+        }
+
         public Automovel()
         {
         }

@@ -36,8 +36,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
         private List<TaxaEServico> _taxasEServicosTemporarias;
 
-        private Automovel _automovelTemporario;
-
         public TelaAluguelForm()
         {
             InitializeComponent();
@@ -164,21 +162,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
             _taxasEServicosTemporarias = new List<TaxaEServico>(_aluguel.ListaTaxasEServicos);
 
-            _automovelTemporario = new Automovel
-            {
-                Categoria = _aluguel.Automovel.Categoria,
-                Placa = _aluguel.Automovel.Placa,
-                Marca = _aluguel.Automovel.Marca,
-                Cor = _aluguel.Automovel.Cor,
-                Modelo = _aluguel.Automovel.Modelo,
-                Imagem = _aluguel.Automovel.Imagem,
-                TipoCombustivel = _aluguel.Automovel.TipoCombustivel,
-                CapacidadeCombustivel = _aluguel.Automovel.CapacidadeCombustivel,
-                Ano = _aluguel.Automovel.Ano,
-                Quilometragem = _aluguel.Automovel.Quilometragem,
-                Alugado = _aluguel.Automovel.Alugado
-            };
-
             CalcularValorTotal();
 
             _aluguel = ObterAluguel();
@@ -189,12 +172,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             {
                 _aluguel.ListaTaxasEServicos.Clear();
                 _aluguel.ListaTaxasEServicos.AddRange(_taxasEServicosTemporarias);
-                _aluguel.Automovel = _automovelTemporario;
                 MostrarErros();
-            }
-            else
-            {
-                _aluguel.Automovel.Alugado = true;
             }
         }
 

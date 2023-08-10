@@ -303,14 +303,32 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAluguel
         }
         #endregion
 
+        #region Previsao
         [TestMethod]
-        public void Primeiro_Teste()
+        public void Deve_Calcular_Total_Inicial()
         {
+            _aluguel.DataLocacao = new DateTime(2023, 8, 10);
+            _aluguel.DataPrevistaRetorno = new DateTime(2023, 8, 20);
+
+            _aluguel.PlanoCobranca = new PlanoCobranca(10, 10, 10, 10, 10, 10, _aluguel.CategoriaAutomoveis);
+
+            _aluguel.Automovel.CapacidadeCombustivel = 10;
+            _aluguel.Automovel.TipoCombustivel = TipoCombustível.Gasolina;
+
+            _aluguel.CombustivelRestante = NivelTanque.MeioTanque;
+
+            _aluguel.ListaTaxasEServicos = new List<TaxaEServico>() { new TaxaEServico() { Valor = 10 }, new TaxaEServico() { Valor = 10 }, new TaxaEServico() { Valor = 10 } };
+            _aluguel.PlanoCobranca = new PlanoCobranca(10, 10, 10, 10, 10, 10, _aluguel.CategoriaAutomoveis);
+            _aluguel.Plano = TipoPlano.Controlador;
+
+            _aluguel.Cupom = new Cupom() { Valor = 10 };
+
             decimal resultado = _calculoAluguel.CalcularValorTotalInicial(_aluguel);
 
-            decimal valorEsperado = 0;
+            decimal valorEsperado = 120;
 
             Assert.AreEqual(valorEsperado, resultado);
         }
+        #endregion
     }
 }

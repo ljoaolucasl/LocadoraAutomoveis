@@ -15,6 +15,7 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAluguel
     {
         private ValidadorAluguel _validador;
         private Aluguel _aluguel;
+        private CalculoAluguel _calculoAluguel;
 
         [TestInitialize]
         public void Setup()
@@ -28,6 +29,7 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAluguel
             Condutor condutor = new() { Validade = DateTime.Now.AddDays(1) };
             Automovel automovel = new() { Alugado = false };
             Cupom cupom = new();
+            _calculoAluguel = new CalculoAluguel();
             List<TaxaEServico> listTaxa = new() { new TaxaEServico() };
             DateTime dataLocacao = DateTime.Now;
             DateTime dataPrevista = dataLocacao.AddDays(1);

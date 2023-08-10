@@ -9,9 +9,11 @@ namespace LocadoraAutomoveis.WinApp.Extensions
             if (image == null)
                 return null;
 
-            using MemoryStream ms = new();
+            using MemoryStream ms = new MemoryStream();
 
-            image.Save(ms, ImageFormat.Jpeg);
+            var imageNew = new Bitmap(image);
+
+            imageNew.Save(ms, ImageFormat.Jpeg);
 
             return ms.ToArray();
         }

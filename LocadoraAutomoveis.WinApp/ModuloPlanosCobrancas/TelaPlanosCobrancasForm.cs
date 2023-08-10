@@ -96,6 +96,11 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
                     case "PlanoLivre_ValorDiario": lbErroPrecoDiaria3.Text = item.ErrorMessage; lbErroPrecoDiaria3.Visible = true; break;
                 }
             }
+
+            if (_resultado.Errors.Count > 0)
+            {
+                lbErrosGerais.Visible = true;
+            }
         }
 
         private void ResetarErros()
@@ -107,6 +112,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
             lbErroPrecoKm2.Visible = false;
             lbErroKmDisponivel2.Visible = false;
             lbErroPrecoDiaria3.Visible = false;
+            lbErrosGerais.Visible = false;
 
             _resultado.Errors.Clear();
             _resultado.Reasons.Clear();

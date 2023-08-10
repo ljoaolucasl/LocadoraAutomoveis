@@ -61,6 +61,7 @@
             lbErroPrecoDiaria3 = new Label();
             label19 = new Label();
             label20 = new Label();
+            lbErrosGerais = new Label();
             tabPlanosCobrancas.SuspendLayout();
             tabPlanoCobrancaPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numPrecoKm1).BeginInit();
@@ -76,7 +77,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(27, 39);
+            label1.Location = new Point(33, 26);
             label1.Name = "label1";
             label1.Size = new Size(144, 15);
             label1.TabIndex = 0;
@@ -86,7 +87,7 @@
             // 
             cmbCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCategoria.FormattingEnabled = true;
-            cmbCategoria.Location = new Point(177, 36);
+            cmbCategoria.Location = new Point(183, 23);
             cmbCategoria.Name = "cmbCategoria";
             cmbCategoria.Size = new Size(233, 23);
             cmbCategoria.TabIndex = 1;
@@ -118,7 +119,7 @@
             // 
             lbErroCategoria.AutoSize = true;
             lbErroCategoria.ForeColor = Color.FromArgb(192, 0, 0);
-            lbErroCategoria.Location = new Point(177, 18);
+            lbErroCategoria.Location = new Point(183, 5);
             lbErroCategoria.Name = "lbErroCategoria";
             lbErroCategoria.Size = new Size(92, 15);
             lbErroCategoria.TabIndex = 6;
@@ -130,7 +131,7 @@
             tabPlanosCobrancas.Controls.Add(tabPlanoCobrancaPage1);
             tabPlanosCobrancas.Controls.Add(tabPlanoCobrancaPage2);
             tabPlanosCobrancas.Controls.Add(tabPlanoCobrancaPage3);
-            tabPlanosCobrancas.Location = new Point(37, 83);
+            tabPlanosCobrancas.Location = new Point(29, 87);
             tabPlanosCobrancas.Name = "tabPlanosCobrancas";
             tabPlanosCobrancas.SelectedIndex = 0;
             tabPlanosCobrancas.Size = new Size(388, 257);
@@ -438,11 +439,24 @@
             label20.TabIndex = 38;
             label20.Text = "Tipo do Plano:";
             // 
+            // lbErrosGerais
+            // 
+            lbErrosGerais.AutoSize = true;
+            lbErrosGerais.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            lbErrosGerais.ForeColor = Color.Red;
+            lbErrosGerais.Location = new Point(33, 69);
+            lbErrosGerais.Name = "lbErrosGerais";
+            lbErrosGerais.Size = new Size(156, 15);
+            lbErrosGerais.TabIndex = 11;
+            lbErrosGerais.Text = "*Preencha todos os Planos*";
+            lbErrosGerais.Visible = false;
+            // 
             // TelaPlanosCobrancasForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(446, 415);
+            Controls.Add(lbErrosGerais);
             Controls.Add(tabPlanosCobrancas);
             Controls.Add(lbErroCategoria);
             Controls.Add(btnCancelar);
@@ -503,5 +517,6 @@
         private Label label19;
         private Label label20;
         private NumericUpDown numPrecoDiaria1;
+        private Label lbErrosGerais;
     }
 }

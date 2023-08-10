@@ -26,8 +26,8 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
                 .Must(c => c == null || c.Validade > DateTime.Now).WithMessage("CNH do 'Condutor' está fora da validade.");
 
             RuleFor(a => a.Automovel)
-                .NotNull().WithMessage("'Automóvel' é obrigatório.")
-                .Must(a => a == null || a.Alugado == false).When(a => a.DataDevolucao == null).WithMessage("'Automóvel' já está alugado.");
+                .Must(a => a == null || a.Alugado == false).When(a => a.DataDevolucao == null).WithMessage("'Automóvel' já está alugado.")
+                .NotNull().WithMessage("'Automóvel' é obrigatório.");
 
             RuleFor(a => a.DataLocacao)
                 .LessThan(a => a.DataPrevistaRetorno).WithMessage("'Data Locação' deve ser menor que a 'Devolução Prevista'.");
@@ -43,6 +43,9 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
 
             RuleFor(a => a.CombustivelRestante)
                 .IsInEnum().WithMessage("'Combustível Restante' inválido.");
+
+            RuleFor(a => a.ListaTaxasEServicos)
+                .NotNull();
         }
 
         public bool CupomValido(Aluguel aluguelParaValidar)

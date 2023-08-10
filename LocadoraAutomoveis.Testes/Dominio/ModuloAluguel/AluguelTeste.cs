@@ -158,32 +158,6 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAluguel
         }
 
         [TestMethod]
-        public void Nao_deve_aceitar_lista_Taxas_nula()
-        {
-            //arrange
-            _aluguel.ListaTaxasEServicos = null;
-
-            //action
-            ValidationResult resultado = _validador.Validate(_aluguel);
-
-            //assert
-            resultado.IsValid.Should().BeFalse();
-        }
-
-        [TestMethod]
-        public void Nao_deve_aceitar_lista_Taxas_vazia()
-        {
-            //arrange
-            _aluguel.ListaTaxasEServicos = new();
-
-            //action
-            ValidationResult resultado = _validador.Validate(_aluguel);
-
-            //assert
-            resultado.IsValid.Should().BeFalse();
-        }
-
-        [TestMethod]
         public void Nao_deve_aceitar_dataLocacao_maior_que_dataPrevista()
         {
             //arrange

@@ -154,8 +154,8 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAutomovel
             //arrange
             var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Build();
             var automovel1 = Builder<Automovel>.CreateNew().With(c => c.Categoria = categoria1).With(c => c.Imagem = new byte[12]).Persist();
-            var automovel2 = _repositorioAutomovel.SelecionarPorID(automovel1.ID);
             _contexto.SaveChanges();
+            var automovel2 = _repositorioAutomovel.SelecionarPorID(automovel1.ID);
 
             //action
             bool resultado = _repositorioAutomovel.Existe(automovel2);

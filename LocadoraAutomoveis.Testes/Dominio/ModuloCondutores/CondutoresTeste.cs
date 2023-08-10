@@ -31,13 +31,13 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloCondutores
                 "234.423.563-45", "Santa Catarina", "Lages", "São Cristovão", "Rio de Janeiro", 12);
 
             _condutor1 = new Condutor(_cliente1, true, "João", "joao@gmail.com", "(49) 95532-4374", "254.663.565-45",
-                "31345676777", DateTime.Now);
+                "31345676777", DateTime.Now.AddDays(1));
 
             _cliente2 = new Cliente("Mateus", "mateuszancheta@gmail.com", "(49) 92323-4423", TipoDocumento.CNPJ,
                 "234.423.563-45", "Santa Catarina", "Lages", "São Cristovão", "Rio de Janeiro", 12);
 
             _condutor2 = new Condutor(_cliente2, true, "João", "joao@gmail.com", "(49) 95532-4374", "43.434.134/1341-34",
-                "31345676777", DateTime.Now);
+                "31345676777", DateTime.Now.AddDays(1));
         }
 
         [TestMethod]

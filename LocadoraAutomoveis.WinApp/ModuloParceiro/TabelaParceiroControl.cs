@@ -1,4 +1,5 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloParceiro;
+﻿using LocadoraAutomoveis.Dominio.ModuloFuncionario;
+using LocadoraAutomoveis.Dominio.ModuloParceiro;
 using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloParceiro
@@ -25,8 +26,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloParceiro
             }
 
             gridParceiro.Columns[0].Visible = false;
-
-            TelaPrincipalForm.AtualizarStatus($"Visualizando {parceiros.Count} Parceiros");
+            string msg = parceiros.Count >= 1 ? "Parceiros" : "Parceiro";
+            TelaPrincipalForm.AtualizarStatus($"Visualizando {parceiros.Count} {msg}");
         }
 
         public DataGridView ObterGrid()

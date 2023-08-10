@@ -115,7 +115,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                             listTaxas.SetItemChecked(j, true);
                     }
                 }
-
                 txtCupom.Text = value.Cupom == null ? "" : value.Cupom.Nome;
                 dateLocacao.Value = value.DataLocacao;
                 datePrevistaRetorno.Value = value.DataPrevistaRetorno;
@@ -274,6 +273,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             cmbAutomovel.SelectedValueChanged += cmbAutomovel_SelectedValueChanged;
             cmbCliente.SelectedValueChanged += cmbCliente_SelectedValueChanged;
             cmbCategoriaAutomoveis.SelectedValueChanged += cmbCategoriaAutomoveis_SelectedValueChanged;
+
+            cmbCategoriaAutomoveis_SelectedValueChanged(sender, e);
         }
 
         private void atualizarValor_SelectedValueChanged(object sender, EventArgs e)

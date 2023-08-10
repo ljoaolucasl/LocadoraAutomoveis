@@ -12,11 +12,11 @@ namespace LocadoraAutomoveis.WinApp.ModuloFuncionario
             gridFuncionario.ConfigurarTabelaGrid("Número", "Nome", "Admissão", "Salário");
         }
 
-        public void AtualizarLista(List<Funcionario> padroes)
+        public void AtualizarLista(List<Funcionario> funcionarios)
         {
             gridFuncionario.Rows.Clear();
 
-            foreach (Funcionario item in padroes)
+            foreach (Funcionario item in funcionarios)
             {
                 DataGridViewRow row = new();
                 row.CreateCells(gridFuncionario, item.ID, item.Nome, item.Admissao.ToString("d"), $"R$ {item.Salario}");
@@ -25,8 +25,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloFuncionario
             }
 
             gridFuncionario.Columns[0].Visible = false;
-
-            TelaPrincipalForm.AtualizarStatus($"Visualizando {padroes.Count} Funcionário(s)");
+            string msg = funcionarios.Count >= 1 ? "Funcionários" : "Funcionário";
+            TelaPrincipalForm.AtualizarStatus($"Visualizando {funcionarios.Count} {msg}");
         }
 
         public DataGridView ObterGrid()

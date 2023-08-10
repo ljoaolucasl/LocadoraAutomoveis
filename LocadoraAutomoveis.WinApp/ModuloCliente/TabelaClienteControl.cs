@@ -14,11 +14,11 @@ namespace LocadoraAutomoveis.WinApp.ModuloCliente
             gridCliente.ConfigurarTabelaGrid("Id", "Nome", "Telefone", "Email", "Tipo Cliente", "Documento");
         }
 
-        public void AtualizarLista(List<Cliente> padroes)
+        public void AtualizarLista(List<Cliente> clientes)
         {
             gridCliente.Rows.Clear();
 
-            foreach (Cliente item in padroes)
+            foreach (Cliente item in clientes)
             {
                 DataGridViewRow row = new();
                 row.CreateCells(gridCliente, item.ID, item.Nome, item.Telefone, item.Email,
@@ -28,8 +28,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloCliente
             }
 
             gridCliente.Columns[0].Visible = false;
-
-            TelaPrincipalForm.AtualizarStatus($"Visualizando {padroes.Count} Cliente(s)");
+            string msg = clientes.Count >= 1 ? "Clientes" : "Cliente";
+            TelaPrincipalForm.AtualizarStatus($"Visualizando {clientes.Count} {msg}");
         }
 
         public DataGridView ObterGrid()

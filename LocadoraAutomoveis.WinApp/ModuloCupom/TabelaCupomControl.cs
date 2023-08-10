@@ -1,4 +1,5 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloCupom;
+﻿using LocadoraAutomoveis.Dominio.ModuloCondutores;
+using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloCupom
@@ -25,8 +26,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloCupom
             }
 
             gridCupom.Columns[0].Visible = false;
-
-            TelaPrincipalForm.AtualizarStatus($"Visualizando {cupons.Count} Cupons");
+            string msg = cupons.Count >= 1 ? "Cupons" : "Cupom";
+            TelaPrincipalForm.AtualizarStatus($"Visualizando {cupons.Count} {msg}");
         }
 
         public DataGridView ObterGrid()

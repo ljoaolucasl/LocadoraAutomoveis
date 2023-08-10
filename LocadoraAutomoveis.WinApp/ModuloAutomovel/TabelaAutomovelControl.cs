@@ -1,4 +1,5 @@
 ﻿using LocadoraAutomoveis.Dominio.Extensions;
+using LocadoraAutomoveis.Dominio.ModuloAluguel;
 using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.WinApp.Extensions;
 
@@ -26,8 +27,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAutomovel
             }
 
             gridAutomovel.Columns[0].Visible = false;
-
-            TelaPrincipalForm.AtualizarStatus($"Visualizando {automoveis.Count} Automóveis");
+            string msg = automoveis.Count >= 1 ? "Automóveis" : "Automóvel";
+            TelaPrincipalForm.AtualizarStatus($"Visualizando {automoveis.Count} {msg}");
         }
 
         public DataGridView ObterGrid()

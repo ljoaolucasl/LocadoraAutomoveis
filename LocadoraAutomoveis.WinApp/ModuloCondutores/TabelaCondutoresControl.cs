@@ -1,4 +1,5 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloAutomovel;
+using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
 using LocadoraAutomoveis.WinApp.Compartilhado;
 using LocadoraAutomoveis.WinApp.Extensions;
@@ -27,8 +28,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloCondutores
             }
 
             gridCondutores.Columns[0].Visible = false;
-
-            TelaPrincipalForm.AtualizarStatus($"Visualizando {condutores.Count} Condutores");
+            string msg = condutores.Count >= 1 ? "Condutores" : "Condutor";
+            TelaPrincipalForm.AtualizarStatus($"Visualizando {condutores.Count} {msg}");
         }
 
         public DataGridView ObterGrid()

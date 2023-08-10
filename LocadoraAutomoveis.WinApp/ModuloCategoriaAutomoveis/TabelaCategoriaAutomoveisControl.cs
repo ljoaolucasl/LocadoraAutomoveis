@@ -1,4 +1,5 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
+﻿using LocadoraAutomoveis.Dominio.ModuloAluguel;
+using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
@@ -25,8 +26,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloCategoriaAutomoveis
             }
 
             gridCategoriaAutomoveis.Columns[0].Visible = false;
-
-            TelaPrincipalForm.AtualizarStatus($"Visualizando {categorias.Count} Categorias");
+            string msg = categorias.Count >= 1 ? "Categorias" : "Categoria";
+            TelaPrincipalForm.AtualizarStatus($"Visualizando {categorias.Count} {msg}");
         }
 
         public DataGridView ObterGrid()

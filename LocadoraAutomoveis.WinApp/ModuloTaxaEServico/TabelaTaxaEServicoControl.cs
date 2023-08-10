@@ -1,4 +1,5 @@
 ﻿using LocadoraAutomoveis.Dominio.Extensions;
+using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using LocadoraAutomoveis.WinApp.Extensions;
 
@@ -26,8 +27,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloTaxaEServico
             }
 
             gridTaxaEServico.Columns[0].Visible = false;
-
-            TelaPrincipalForm.AtualizarStatus($"Visualizando {taxas.Count} Taxas e Serviços");
+            string msg = taxas.Count >= 1 ? "Taxas e Serviços" : "Taxa e Serviço";
+            TelaPrincipalForm.AtualizarStatus($"Visualizando {taxas.Count} {msg}");
         }
 
         public DataGridView ObterGrid()

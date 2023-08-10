@@ -26,8 +26,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             }
 
             gridAluguel.Columns[0].Visible = false;
-
-            TelaPrincipalForm.AtualizarStatus($"Visualizando {alugueis.Count} Aluguéis");
+            string msg = alugueis.Count <= 1 ? "Aluguéis" : "Aluguel";
+            TelaPrincipalForm.AtualizarStatus($"Visualizando {alugueis.Count} {msg}");
         }
 
         public DataGridView ObterGrid()

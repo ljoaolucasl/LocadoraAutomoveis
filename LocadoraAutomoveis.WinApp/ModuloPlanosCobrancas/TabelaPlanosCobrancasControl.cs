@@ -1,4 +1,5 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
+﻿using LocadoraAutomoveis.Dominio.ModuloParceiro;
+using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
 using LocadoraAutomoveis.WinApp.Extensions;
 
 namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
@@ -25,8 +26,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
             }
 
             gridPlanosCobrancas.Columns[0].Visible = false;
-
-            TelaPrincipalForm.AtualizarStatus($"Visualizando {planosCobrancas.Count} Planos de Cobrança");
+            string msg = planosCobrancas.Count >= 1 ? "Planos de Cobranças" : "Plano de Cobrança";
+            TelaPrincipalForm.AtualizarStatus($"Visualizando {planosCobrancas.Count} {msg}");
         }
 
         public DataGridView ObterGrid()

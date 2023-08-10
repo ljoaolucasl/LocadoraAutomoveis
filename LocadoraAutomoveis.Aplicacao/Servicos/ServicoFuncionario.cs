@@ -138,7 +138,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
             Log.Warning("Falha ao tentar excluir Funcionário '{NOME} #{ID}'", funcionarioParaExcluir.Nome, funcionarioParaExcluir.ID, exception);
 
-            if (exception.Message.Contains("FK_TBAluguel_TBFuncionario"))
+            if (exception.Message.Contains("FK_TBAluguel_TBFuncionario") || exception.Message.Contains("'Funcionario' and 'Aluguel'"))
                 erros.Add(new CustomError("Esse Funcionário está relacionado a um Aluguel." +
                     " Primeiro exclua o Aluguel relacionado", "Funcionario"));
             else

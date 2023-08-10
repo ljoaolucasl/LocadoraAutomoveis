@@ -1,5 +1,6 @@
 ﻿using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
+using System.Linq;
 
 namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
 {
@@ -14,8 +15,13 @@ namespace LocadoraAutomoveis.WinApp.ModuloPlanosCobrancas
         private void ObterDependencias(TelaPlanosCobrancasForm tela)
         {
             var categorias = _servico2.SelecionarTodosOsRegistros();
+            var taxas = _servico.SelecionarTodosOsRegistros();
 
-            tela.CarregarCategorias(categorias);
+            List<CategoriaAutomoveis> categoriasFiltradas = categorias
+                .Where(categoria => taxas
+                .All(taxa => taxa.CategoriaAutomoveis != categoria)).ToList();
+
+            tela.CarregarCategorias(categoriasFiltradas);
         }
 
         protected override string TipoCadastro => "Planos de Cobranças";

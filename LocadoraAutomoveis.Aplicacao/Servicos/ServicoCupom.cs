@@ -137,7 +137,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
             Log.Warning("Falha ao tentar excluir o Cupom '{NOME} #{ID}'", cupomParaExcluir.Nome, cupomParaExcluir.ID, exception);
 
-            if (exception.Message.Contains("FK_TBAluguel_TBCupom"))
+            if (exception.Message.Contains("FK_TBAluguel_TBCupom") || exception.Message.Contains("'Cupom' and 'Aluguel'"))
                 erros.Add(new CustomError("Esse Cupom está relacionado a um Aluguel." +
             " Primeiro exclua o Aluguel relacionado", "Cupom"));
             else

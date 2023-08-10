@@ -136,7 +136,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
             Log.Warning("Falha ao tentar excluir o Plano de Cobrança'{NOME} #{ID}'", planoCobrancaParaExcluir, planoCobrancaParaExcluir.ID, exception);
 
-            if (exception.Message.Contains("FK_TBAluguel_TBPlanoCobranca"))
+            if (exception.Message.Contains("FK_TBAluguel_TBPlanoCobranca") || exception.Message.Contains("'PlanoCobranca' and 'Aluguel'"))
                 erros.Add(new CustomError("Esse Plano de Cobrança está relacionado a um Aluguel." +
             " Primeiro exclua o Aluguel relacionado", "Plano de Cobrança"));
             else

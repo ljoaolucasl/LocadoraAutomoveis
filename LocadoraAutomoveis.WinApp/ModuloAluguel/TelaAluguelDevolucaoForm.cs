@@ -75,7 +75,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                 txtCupom.Text = value.Cupom == null ? "" : value.Cupom.Nome;
                 dateLocacao.Value = value.DataLocacao;
                 datePrevistaRetorno.Value = value.DataPrevistaRetorno;
-
+                lbValorTotal.Text = value.ValorTotal.ToString("F2");
                 _aluguel = value;
             }
         }
@@ -92,12 +92,17 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
         {
             ResetarErros();
 
+            CalcularValorTotalDevolucao();
+
             _aluguel = ObterAluguel();
 
             _resultado = OnGravarRegistro(_aluguel);
 
             if (_resultado.IsFailed)
+            {
+                _aluguel.Concluido = false;
                 MostrarErros();
+            }
         }
 
         private Aluguel ObterAluguel()
@@ -163,7 +168,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
         private void CalcularValorTotalDevolucao()
         {
             _aluguel = ObterAluguel();
-
+            _aluguel.Concluido = false;
             lbValorTotal.Text = OnCalcularAluguelFinal(_aluguel).ToString("F2");
         }
     }

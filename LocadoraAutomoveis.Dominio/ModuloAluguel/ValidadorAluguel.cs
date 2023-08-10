@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Org.BouncyCastle.Crypto.Engines;
 
 namespace LocadoraAutomoveis.Dominio.ModuloAluguel
 {
@@ -29,9 +28,6 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
             RuleFor(a => a.Automovel)
                 .NotNull().WithMessage("'Automóvel' é obrigatório.")
                 .Must(a => a == null || a.Alugado == false).WithMessage("'Automóvel' já está alugado.");
-
-            RuleFor(a => a.ListaTaxasEServicos)
-                .Must(lista => lista != null && lista.Count > 0).WithMessage("'Lista de Taxas e Serviços' não pode ser vazia.");
 
             RuleFor(a => a.DataLocacao)
                 .LessThan(a => a.DataPrevistaRetorno).WithMessage("'Data Locação' deve ser menor que a 'Devolução Prevista'.");

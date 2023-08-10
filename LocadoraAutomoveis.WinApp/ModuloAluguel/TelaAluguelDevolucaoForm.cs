@@ -37,6 +37,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
             _aluguel = new Aluguel();
 
+            _aluguel.ListaTaxasEServicos = new List<TaxaEServico>();
+
             txtKmPercorrida.Controls[0].Visible = false;
         }
 
@@ -136,7 +138,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                     case "DataDevolucao": lbErroDataDevolucao.Text = item.ErrorMessage; lbErroDataDevolucao.Visible = true; dateDevolucao.Focus(); break;
                     case "KmPercorrida": lbErroKmPercorrida.Text = item.ErrorMessage; lbErroKmPercorrida.Visible = true; txtKmPercorrida.Focus(); break;
                     case "TipoCombustivel": lbErroNivelTanque.Text = item.ErrorMessage; lbErroNivelTanque.Visible = true; cmbNivelTanque.Focus(); break;
-                    case "ListaTaxasEServicos": lbErroTaxas.Text = item.ErrorMessage; lbErroTaxas.Visible = true; listTaxas.Focus(); break;
                     case "ValorTotal": lbErroValorTotal.Text = item.ErrorMessage; lbErroValorTotal.Visible = true; lblTextoValor.Focus(); break;
                 }
             }

@@ -117,19 +117,19 @@ namespace LocadoraAutomoveis.WinApp
         private void btnAdd_Click(object sender, EventArgs e)
         {
             _controladorBase.Inserir();
-            ResetarBotoes();
+            ConfigurarBotoesFuncoes();
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
             _controladorBase.Editar();
-            ResetarBotoes();
+            ConfigurarBotoesFuncoes();
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
             _controladorBase.Excluir();
-            ResetarBotoes();
+            ConfigurarBotoesFuncoes();
         }
         #endregion
 
@@ -150,7 +150,7 @@ namespace LocadoraAutomoveis.WinApp
         {
             ConfigurarToolTips();
             InicializarTabela();
-            ResetarBotoes();
+            ConfigurarBotoesFuncoes();
         }
 
         private void InicializarTabela()
@@ -173,12 +173,20 @@ namespace LocadoraAutomoveis.WinApp
             barraAcoes.Visible = true;
         }
 
-        private void ResetarBotoes()
+        private void ConfigurarBotoesFuncoes()
         {
             bool temLinhaSelecionada = _grid.SelectedRows.Count > 0;
 
             btnEditar.Enabled = temLinhaSelecionada;
             btnExcluir.Enabled = temLinhaSelecionada;
+            btnFiltrar.Enabled = false;
+            btnDevolucao.Enabled = false;
+
+            if (_controladorBase is ControladorCategoriaAutomoveis)
+                btnFiltrar.Enabled = temLinhaSelecionada;
+
+            if (_controladorBase is ControladorAluguel)
+                btnDevolucao.Enabled = temLinhaSelecionada;
         }
         #endregion
 

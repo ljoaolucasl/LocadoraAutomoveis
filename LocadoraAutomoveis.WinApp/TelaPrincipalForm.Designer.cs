@@ -47,8 +47,8 @@
             toolStripSeparator1 = new ToolStripSeparator();
             btnFiltrar = new ToolStripButton();
             separadorBarra = new ToolStripSeparator();
-            lbTipoCadastro = new ToolStripLabel();
             btnDevolucao = new ToolStripButton();
+            lbTipoCadastro = new ToolStripLabel();
             stripStatus = new StatusStrip();
             lbStatus = new ToolStripStatusLabel();
             plPrincipal = new Panel();
@@ -266,6 +266,7 @@
             barraAcoes.Name = "barraAcoes";
             barraAcoes.Size = new Size(754, 53);
             barraAcoes.TabIndex = 1;
+            barraAcoes.Visible = false;
             // 
             // btnAdicionar
             // 
@@ -329,12 +330,6 @@
             separadorBarra.Name = "separadorBarra";
             separadorBarra.Size = new Size(6, 53);
             // 
-            // lbTipoCadastro
-            // 
-            lbTipoCadastro.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            lbTipoCadastro.Name = "lbTipoCadastro";
-            lbTipoCadastro.Size = new Size(0, 50);
-            // 
             // btnDevolucao
             // 
             btnDevolucao.BackColor = Color.DarkGray;
@@ -347,6 +342,12 @@
             btnDevolucao.Size = new Size(89, 33);
             btnDevolucao.Text = "Devolução";
             btnDevolucao.Click += btnDevolucao_Click;
+            // 
+            // lbTipoCadastro
+            // 
+            lbTipoCadastro.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            lbTipoCadastro.Name = "lbTipoCadastro";
+            lbTipoCadastro.Size = new Size(0, 50);
             // 
             // stripStatus
             // 
@@ -365,9 +366,9 @@
             // plPrincipal
             // 
             plPrincipal.Dock = DockStyle.Fill;
-            plPrincipal.Location = new Point(259, 53);
+            plPrincipal.Location = new Point(259, 0);
             plPrincipal.Name = "plPrincipal";
-            plPrincipal.Size = new Size(754, 551);
+            plPrincipal.Size = new Size(754, 604);
             plPrincipal.TabIndex = 3;
             plPrincipal.ControlAdded += plPrincipal_ControlAdded;
             plPrincipal.ControlRemoved += plPrincipal_ControlRemoved;

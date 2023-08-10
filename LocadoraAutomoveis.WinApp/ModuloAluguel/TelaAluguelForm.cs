@@ -46,6 +46,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
             _aluguel = new Aluguel();
 
+            _aluguel.ListaTaxasEServicos = new List<TaxaEServico>();
+
             txtKmAutomovel.Controls[0].Visible = false;
         }
 

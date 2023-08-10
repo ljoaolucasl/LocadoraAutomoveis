@@ -3,6 +3,7 @@ using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
 using LocadoraAutomoveis.Dominio.ModuloCondutores;
+using LocadoraAutomoveis.Dominio.ModuloConfiguracao;
 using LocadoraAutomoveis.Dominio.ModuloCupom;
 using LocadoraAutomoveis.Dominio.ModuloFuncionario;
 using LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas;
@@ -19,6 +20,7 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAluguel
         [TestInitialize]
         public void Setup()
         {
+            _calculoAluguel = new CalculoAluguel();
 
             Funcionario funcionario = new();
             Cliente cliente = new();
@@ -27,7 +29,6 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAluguel
             Condutor condutor = new() { Validade = DateTime.Now.AddDays(1) };
             Automovel automovel = new() { Alugado = false };
             Cupom cupom = new();
-            _calculoAluguel = new CalculoAluguel();
             List<TaxaEServico> listTaxa = new() { new TaxaEServico() };
             DateTime dataLocacao = DateTime.Now;
             DateTime dataPrevista = dataLocacao.AddDays(1);
@@ -41,14 +42,32 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAluguel
                 dataDevolucao, quilometrosRodados, nivelTanque, valorTotal, true, TipoPlano.Diario);
         }
 
+        #region Previsao
         [TestMethod]
-        public void Primeiro_Teste()
+        public void Deve_Calcular_Total_Inicial()
         {
+            _aluguel.DataLocacao = new DateTime(2023, 8, 10);
+            _aluguel.DataPrevistaRetorno = new DateTime(2023, 8, 20);
+
+            _aluguel.PlanoCobranca = new PlanoCobranca(10, 10, 10, 10, 10, 10, _aluguel.CategoriaAutomoveis);
+
+            _aluguel.Automovel.CapacidadeCombustivel = 10;
+            _aluguel.Automovel.TipoCombustivel = TipoCombustível.Gasolina;
+
+            _aluguel.CombustivelRestante = NivelTanque.MeioTanque;
+
+            _aluguel.ListaTaxasEServicos = new List<TaxaEServico>() { new TaxaEServico() { Valor = 10 }, new TaxaEServico() { Valor = 10 }, new TaxaEServico() { Valor = 10 } };
+            _aluguel.PlanoCobranca = new PlanoCobranca(10, 10, 10, 10, 10, 10, _aluguel.CategoriaAutomoveis);
+            _aluguel.Plano = TipoPlano.Controlador;
+
+            _aluguel.Cupom = new Cupom() { Valor = 10 };
+
             decimal resultado = _calculoAluguel.CalcularValorTotalInicial(_aluguel);
 
-            decimal valorEsperado = 0;
+            decimal valorEsperado = 120;
 
             Assert.AreEqual(valorEsperado, resultado);
         }
+        #endregion
     }
 }

@@ -149,6 +149,7 @@ namespace LocadoraAutomoveis.Testes.Dominio.ModuloAluguel
         {
             //arrange
             _aluguel.Automovel.Alugado = true;
+            _aluguel.DataDevolucao = null;
 
             //action
             ValidationResult resultado = _validador.Validate(_aluguel);

@@ -74,7 +74,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
             var resultado = _servico.Inserir(_condutor);
 
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Condutor já existe");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse CNH já existe");
             _repositorioMoq.Verify(x => x.Inserir(_condutor), Times.Never());
         }
 
@@ -130,7 +130,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCondutores
             var resultado = _servico.Editar(_condutor);
 
             resultado.Should().BeFailure();
-            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse Condutor já existe");
+            resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage.Should().Be("Esse CNH já existe");
             _repositorioMoq.Verify(x => x.Editar(_condutor), Times.Never());
         }
 

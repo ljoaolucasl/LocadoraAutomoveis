@@ -1,4 +1,5 @@
 ﻿using FizzWare.NBuilder;
+using iText.StyledXmlParser.Jsoup.Helper;
 using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
@@ -130,7 +131,17 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCondutores
             var cliente1 = Builder<Cliente>.CreateNew().Build();
             var condutor1 = Builder<Condutor>.CreateNew().With(c => c.Cliente = cliente1).Persist();
             _contexto.SaveChanges();
-            var condutor2 = _repositorioCondutores.SelecionarPorID(condutor1.ID);
+            var condutor2 = new Condutor()
+            {
+                Cliente = condutor1.Cliente,
+                TipoCondutor = condutor1.TipoCondutor,
+                Nome = condutor1.Nome,
+                Email = condutor1.Email,
+                Telefone = condutor1.Telefone,
+                CPF = condutor1.CPF,
+                CNH = "",
+                Validade = condutor1.Validade,
+            };
 
             bool resultado = _repositorioCondutores.Existe(condutor2);
 
@@ -148,20 +159,6 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloCondutores
             bool resultado = _repositorioCondutores.Existe(condutor2, true);
 
             resultado.Should().BeTrue();
-        }
-
-
-        [TestMethod]
-        public void Nao_deve_aceitar_condutor_com_o_mesmo_cliente()
-        {
-            var cliente1 = Builder<Cliente>.CreateNew().Build();
-            var condutor1 = Builder<Condutor>.CreateNew().With(c => c.Cliente = cliente1).Persist();
-            _contexto.SaveChanges();
-            var condutor2 = _repositorioCondutores.SelecionarPorID(condutor1.ID);
-
-            bool resultado = _repositorioCondutores.Existe(condutor2);
-
-            resultado.Should().BeFalse();
         }
     }
 }

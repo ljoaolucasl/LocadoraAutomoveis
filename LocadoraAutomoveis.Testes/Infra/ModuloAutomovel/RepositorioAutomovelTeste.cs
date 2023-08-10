@@ -3,6 +3,8 @@ using LocadoraAutomoveis.Dominio.ModuloAutomovel;
 using LocadoraAutomoveis.Dominio.ModuloCategoriaAutomoveis;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.Repositorios;
+using System.Numerics;
+using System.Runtime.ConstrainedExecution;
 
 namespace LocadoraAutomoveis.Testes.Infra.ModuloAutomovel
 {
@@ -155,7 +157,20 @@ namespace LocadoraAutomoveis.Testes.Infra.ModuloAutomovel
             var categoria1 = Builder<CategoriaAutomoveis>.CreateNew().Build();
             var automovel1 = Builder<Automovel>.CreateNew().With(c => c.Categoria = categoria1).With(c => c.Imagem = new byte[12]).Persist();
             _contexto.SaveChanges();
-            var automovel2 = _repositorioAutomovel.SelecionarPorID(automovel1.ID);
+            var automovel2 = new Automovel()
+            {
+                Categoria = automovel1.Categoria,
+                Placa = "",
+                Marca = automovel1.Marca,
+                Cor = automovel1.Cor,
+                Modelo = automovel1.Modelo,
+                Imagem = automovel1.Imagem,
+                TipoCombustivel = automovel1.TipoCombustivel,
+                CapacidadeCombustivel = automovel1.CapacidadeCombustivel,
+                Ano = automovel1.Ano,
+                Quilometragem = automovel1.Quilometragem,
+                Alugado = automovel1.Alugado,
+            };
 
             //action
             bool resultado = _repositorioAutomovel.Existe(automovel2);

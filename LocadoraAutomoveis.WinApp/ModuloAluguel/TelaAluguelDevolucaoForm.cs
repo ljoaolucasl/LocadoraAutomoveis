@@ -167,12 +167,12 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             PlanoCobranca planoCobranca = _aluguel.PlanoCobranca;
             TipoPlano tipoPlano = _aluguel.Plano;
             NivelTanque nivelTanque = (NivelTanque)cmbNivelTanque.SelectedIndex;
-            Automovel automovel = cmbAutomovel.SelectedItem as Automovel;
+            Automovel automovel = _aluguel.Automovel;
             TipoCombustível tipoCombustivel = automovel.TipoCombustivel;
-            decimal quilometrosPercorridos = _aluguel.QuilometrosRodados ?? 0;
-            List<TaxaEServico> taxasEServicos = _aluguel.ListaTaxasEServicos;
+            decimal quilometrosPercorridos = txtKmPercorrida.Value;
+            List<TaxaEServico> taxasEServicos = listTaxas.CheckedItems.Cast<TaxaEServico>().ToList();
             Cupom cupom = _aluguel.Cupom;
-            TimeSpan intervalo = (TimeSpan)(_aluguel.DataDevolucao - _aluguel.DataLocacao);
+            TimeSpan intervalo = (TimeSpan)(_aluguel.DataDevolucao - dateDevolucao.Value);
             int diasLocados = (int)intervalo.TotalDays;
 
             valorTotal = PlanoCobranca.CalcularPlanoCobrancaFinal(valorTotal, planoCobranca, tipoPlano, quilometrosPercorridos, diasLocados);
@@ -197,7 +197,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
             valorTotal += valorCombustivel;
 
-            lbValorTotal.Text = valorTotal.ToString();
+            lbValorTotal.Text = Math.Round(valorTotal, 2).ToString();
         }
     }
 }

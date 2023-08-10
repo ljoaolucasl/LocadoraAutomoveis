@@ -46,28 +46,31 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
 
         private decimal CalcularPlanoCobrancaFinal(decimal valorTotal, PlanoCobranca planoCobranca, TipoPlano tipoPlano, decimal quilometrosRodados, int diasLocacao)
         {
-            switch (tipoPlano)
+            if (planoCobranca != null)
             {
-                case TipoPlano.Diario:
-                    valorTotal += planoCobranca.PlanoDiario_ValorDiario * diasLocacao;
-                    decimal valorPorKmRodado = planoCobranca.PlanoDiario_ValorKm;
-                    valorTotal += valorPorKmRodado * quilometrosRodados;
-                    break;
+                switch (tipoPlano)
+                {
+                    case TipoPlano.Diario:
+                        valorTotal += planoCobranca.PlanoDiario_ValorDiario * diasLocacao;
+                        decimal valorPorKmRodado = planoCobranca.PlanoDiario_ValorKm;
+                        valorTotal += valorPorKmRodado * quilometrosRodados;
+                        break;
 
-                case TipoPlano.Livre:
-                    valorTotal += planoCobranca.PlanoLivre_ValorDiario * diasLocacao;
-                    break;
+                    case TipoPlano.Livre:
+                        valorTotal += planoCobranca.PlanoLivre_ValorDiario * diasLocacao;
+                        break;
 
-                case TipoPlano.Controlador:
-                    valorTotal += planoCobranca.PlanoControlador_ValorDiario * diasLocacao;
-                    decimal limiteKm = planoCobranca.PlanoControlador_LimiteKm;
-                    if (quilometrosRodados > limiteKm)
-                    {
-                        decimal kmExtrapolado = quilometrosRodados - limiteKm;
-                        decimal valorPorKmExtrapolado = planoCobranca.PlanoControlador_ValorKm;
-                        valorTotal += valorPorKmExtrapolado * kmExtrapolado;
-                    }
-                    break;
+                    case TipoPlano.Controlador:
+                        valorTotal += planoCobranca.PlanoControlador_ValorDiario * diasLocacao;
+                        decimal limiteKm = planoCobranca.PlanoControlador_LimiteKm;
+                        if (quilometrosRodados > limiteKm)
+                        {
+                            decimal kmExtrapolado = quilometrosRodados - limiteKm;
+                            decimal valorPorKmExtrapolado = planoCobranca.PlanoControlador_ValorKm;
+                            valorTotal += valorPorKmExtrapolado * kmExtrapolado;
+                        }
+                        break;
+                }
             }
 
             return valorTotal;

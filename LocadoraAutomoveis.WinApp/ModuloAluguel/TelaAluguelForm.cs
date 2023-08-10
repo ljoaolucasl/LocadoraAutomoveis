@@ -158,7 +158,10 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             _resultado = OnGravarRegistro(_aluguel);
 
             if (_resultado.IsFailed)
+            {
+                _aluguel.Automovel.Alugado = false;
                 MostrarErros();
+            }
         }
 
         private Aluguel ObterAluguel()

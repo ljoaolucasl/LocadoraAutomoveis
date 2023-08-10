@@ -1,4 +1,5 @@
 ﻿using FluentResults;
+using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Dominio.ModuloAluguel;
 
 namespace LocadoraAutomoveis.WinApp.ModuloAluguel
@@ -8,9 +9,15 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
         public ControladorAluguel(IRepositorioAluguel _repositorio, IServicoAluguel _servico, TabelaAluguelControl _tabela) : base(_repositorio, _servico, _tabela)
         {
             OnComandosAdicionaisAddAndEdit += ObterDependencias;
+            OnVerificar += ObterSeFechado;
         }
 
         protected override string TipoCadastro => "Aluguéis";
+
+        public Result ObterSeFechado(Aluguel aluguel)
+        {
+            return _servico.VerificarSeFechado(aluguel);
+        }
 
         private Result ValidarCupom(Aluguel aluguel)
         {
@@ -39,14 +46,27 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             TelaAluguelDevolucaoForm tela = new();
 
             tela.Entidade = aluguel;
-            tela.OnGravarRegistro+= _servico.Editar;
 
-            ObterDependencias(tela);
+            Result? resultado = ObterSeFechado(aluguel);
 
-            TelaPrincipalForm.AtualizarStatus($"Devolução Aluguel");
+            if (resultado != null && resultado.IsFailed)
+            {
+                MessageBox.Show(resultado.Errors.OfType<CustomError>().FirstOrDefault().ErrorMessage,
+                    "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-            if (tela.ShowDialog() == DialogResult.OK)
-                CarregarRegistros();
+                return;
+            }
+            else
+            {
+                tela.OnGravarRegistro += _servico.Editar;
+
+                ObterDependencias(tela);
+
+                TelaPrincipalForm.AtualizarStatus($"Devolução Aluguel");
+
+                if (tela.ShowDialog() == DialogResult.OK)
+                    CarregarRegistros();
+            }
         }
 
         private void ObterDependencias(ITelaAluguel tela)

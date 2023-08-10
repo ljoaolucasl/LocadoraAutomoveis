@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Org.BouncyCastle.Crypto.Engines;
 
 namespace LocadoraAutomoveis.Dominio.ModuloAluguel
 {
@@ -56,6 +57,11 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
         public bool ValidarSeAluguelConcluido(Aluguel aluguelParaValidar)
         {
             return aluguelParaValidar.Concluido;
+        }
+
+        public bool VerificarSeAlugado(Aluguel aluguel)
+        {
+            return aluguel.Concluido;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
 
             RuleFor(a => a.Automovel)
                 .NotNull().WithMessage("'Automóvel' é obrigatório.")
-                .Must(a => a == null || a.Alugado == false).WithMessage("'Automóvel' já está alugado.");
+                .Must(a => a == null || a.Alugado == false).When(a => a.DataDevolucao == null).WithMessage("'Automóvel' já está alugado.");
 
             RuleFor(a => a.DataLocacao)
                 .LessThan(a => a.DataPrevistaRetorno).WithMessage("'Data Locação' deve ser menor que a 'Devolução Prevista'.");

@@ -39,7 +39,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
             valorTotal = CalcularValorTaxasEServicos(valorTotal, aluguelParaCalcular.ListaTaxasEServicos);
             valorTotal = CalcularValorCombustivel(valorTotal, aluguelParaCalcular.Automovel.CapacidadeCombustivel, aluguelParaCalcular.CombustivelRestante.Value, aluguelParaCalcular.Automovel.TipoCombustivel, precoCombustivel);
             valorTotal = AplicarDescontoCupom(valorTotal, aluguelParaCalcular.Cupom);
-            valorTotal = AplicarMultaAtraso(valorTotal, Convert.ToInt32(diasAtraso));
+            valorTotal = AplicarMultaAtraso(valorTotal, (int)diasAtraso.TotalDays);
 
             return valorTotal;
         }

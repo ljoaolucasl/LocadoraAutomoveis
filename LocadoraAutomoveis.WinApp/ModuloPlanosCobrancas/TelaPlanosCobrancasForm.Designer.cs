@@ -138,6 +138,7 @@
             // 
             // tabPlanoCobrancaPage1
             // 
+            tabPlanoCobrancaPage1.BackColor = Color.White;
             tabPlanoCobrancaPage1.Controls.Add(lbTipoPlano);
             tabPlanoCobrancaPage1.Controls.Add(numPrecoKm1);
             tabPlanoCobrancaPage1.Controls.Add(numPrecoDiaria1);
@@ -152,7 +153,6 @@
             tabPlanoCobrancaPage1.Size = new Size(380, 229);
             tabPlanoCobrancaPage1.TabIndex = 0;
             tabPlanoCobrancaPage1.Text = "Plano Diário";
-            tabPlanoCobrancaPage1.UseVisualStyleBackColor = true;
             // 
             // lbTipoPlano
             // 
@@ -239,6 +239,7 @@
             // 
             // tabPlanoCobrancaPage2
             // 
+            tabPlanoCobrancaPage2.BackColor = Color.White;
             tabPlanoCobrancaPage2.Controls.Add(label4);
             tabPlanoCobrancaPage2.Controls.Add(numKmDisponivel2);
             tabPlanoCobrancaPage2.Controls.Add(numPrecoKm2);
@@ -256,7 +257,6 @@
             tabPlanoCobrancaPage2.Size = new Size(380, 229);
             tabPlanoCobrancaPage2.TabIndex = 1;
             tabPlanoCobrancaPage2.Text = "Plano Controlador";
-            tabPlanoCobrancaPage2.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
@@ -374,6 +374,7 @@
             // 
             // tabPlanoCobrancaPage3
             // 
+            tabPlanoCobrancaPage3.BackColor = Color.White;
             tabPlanoCobrancaPage3.Controls.Add(label13);
             tabPlanoCobrancaPage3.Controls.Add(numPrecoDiaria3);
             tabPlanoCobrancaPage3.Controls.Add(lbErroPrecoDiaria3);
@@ -385,7 +386,6 @@
             tabPlanoCobrancaPage3.Size = new Size(380, 229);
             tabPlanoCobrancaPage3.TabIndex = 2;
             tabPlanoCobrancaPage3.Text = "Plano Livre";
-            tabPlanoCobrancaPage3.UseVisualStyleBackColor = true;
             // 
             // label13
             // 

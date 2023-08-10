@@ -177,7 +177,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
             _aluguel.Condutor = cmbCondutor.SelectedItem as Condutor;
             _aluguel.Automovel = cmbAutomovel.SelectedItem as Automovel;
-            _aluguel.Cupom = txtCupom.Text == "" ? null : new Cupom() { Nome = txtCupom.Text };
             _aluguel.ListaTaxasEServicos = listTaxas.CheckedItems.Cast<TaxaEServico>().ToList();
             _aluguel.DataLocacao = dateLocacao.Value;
             _aluguel.DataPrevistaRetorno = datePrevistaRetorno.Value;
@@ -268,6 +267,10 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
         {
             CalcularValorTotal();
         }
+        private void listTaxas_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            CalcularValorTotal();
+        }
 
         private void CalcularValorTotal()
         {
@@ -275,5 +278,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
             lbValorTotal.Text = OnCalcularAluguelPrevisto(_aluguel).ToString("F2");
         }
+
     }
 }

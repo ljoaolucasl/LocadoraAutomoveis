@@ -381,7 +381,7 @@
             listTaxas.Name = "listTaxas";
             listTaxas.Size = new Size(614, 176);
             listTaxas.TabIndex = 0;
-            listTaxas.SelectedValueChanged += atualizarValor_SelectedValueChanged;
+            listTaxas.ItemCheck += listTaxas_ItemCheck;
             // 
             // tbControlTaxasAdicionadas
             // 

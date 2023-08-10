@@ -59,13 +59,13 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             var automoveis = _servico.servicoAutomovel.SelecionarTodosOsRegistros();
             var taxas = _servico.servicoTaxaEServico.SelecionarTodosOsRegistros();
 
-            tela.CarregarDependencias(funcionarios, clientes, categorias, planos, condutores, automoveis, taxas);
-
             tela.OnValidarEObterCupom += ValidarCupom;
 
             tela.OnCalcularAluguelPrevisto += CalcularValorTotalPrevisto;
 
             tela.OnCalcularAluguelFinal += CalcularValorTotalFinal;
+
+            tela.CarregarDependencias(funcionarios, clientes, categorias, planos, condutores, automoveis, taxas);
         }
     }
 }

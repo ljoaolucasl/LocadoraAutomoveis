@@ -140,7 +140,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
             Log.Warning("Falha ao tentar excluir a Taxa e Serviço '{NOME} #{ID}'", taxaParaExcluir.Nome, taxaParaExcluir.ID, exception);
 
-            if (exception.Message.Contains("FK_TBAluguel_TBTaxaEServicos"))
+            if (exception.Message.Contains("FK_TBAluguel_TBTaxaEServicos") || exception.Message.Contains("'TaxaEServicos' and 'Aluguel'"))
                 erros.Add(new CustomError("Essa Taxa e Serviço está relacionada a um Aluguel." +
             " Primeiro exclua o Aluguel relacionado", "Taxa"));
             else

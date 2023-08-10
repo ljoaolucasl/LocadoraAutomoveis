@@ -118,6 +118,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                 txtCupom.Text = value.Cupom == null ? "" : value.Cupom.Nome;
                 dateLocacao.Value = value.DataLocacao;
                 datePrevistaRetorno.Value = value.DataPrevistaRetorno;
+                lbValorTotal.Text = value.ValorTotal.ToString("F2");
                 _aluguel = value;
             }
         }
@@ -158,6 +159,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             ResetarErros();
 
             _taxasEServicosTemporarias = new List<TaxaEServico>(_aluguel.ListaTaxasEServicos);
+
+            CalcularValorTotal();
 
             _aluguel = ObterAluguel();
 

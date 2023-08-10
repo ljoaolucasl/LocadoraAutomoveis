@@ -138,7 +138,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
             Log.Warning("Falha ao tentar excluir o Parceiro '{NOME} #{ID}'", parceiroParaExcluir.Nome, parceiroParaExcluir.ID, exception);
 
-            if (exception.Message.Contains("FK_TBCupom_TBParceiro"))
+            if (exception.Message.Contains("FK_TBCupom_TBParceiro") || exception.Message.Contains("'Parceiro' and 'Cupom'"))
                 erros.Add(new CustomError("Esse Parceiro está relacionado a um Cupom." +
                     " Primeiro exclua o Cupom relacionado", "Parceiro"));
             else

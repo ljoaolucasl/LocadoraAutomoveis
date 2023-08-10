@@ -137,15 +137,15 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
             Log.Warning("Falha ao tentar excluir a Categoria '{NOME} #{ID}'", categoriaParaExcluir.Nome, categoriaParaExcluir.ID, exception);
 
-            if (exception.Message.Contains("FK_TBAluguel_TBCategoriaAutomoveis"))
+            if (exception.Message.Contains("FK_TBAluguel_TBCategoriaAutomoveis") || exception.Message.Contains("'CategoriaAutomoveis' and 'Aluguel'"))
                 erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Aluguel." +
                     " Primeiro exclua o Aluguel relacionado", "CategoriaAutomoveis"));
 
-            else if (exception.Message.Contains("FK_TBAutomovel_TBCategoriaAutomoveis"))
+            else if (exception.Message.Contains("FK_TBAutomovel_TBCategoriaAutomoveis") || exception.Message.Contains("'CategoriaAutomoveis' and 'Automovel'"))
                 erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Automóvel." +
                     " Primeiro exclua o Automóvel relacionado", "CategoriaAutomoveis"));
 
-            else if (exception.Message.Contains("FK_TBPlanoCobranca_TBCategoriaAutomoveis"))
+            else if (exception.Message.Contains("FK_TBPlanoCobranca_TBCategoriaAutomoveis") || exception.Message.Contains("'CategoriaAutomoveis' and 'PlanoCobranca'"))
                 erros.Add(new CustomError("Essa Categoria de Automóveis está relacionada a um Plano de Cobrança." +
                     " Primeiro exclua o Plano de Cobrança relacionado", "CategoriaAutomoveis"));
             else

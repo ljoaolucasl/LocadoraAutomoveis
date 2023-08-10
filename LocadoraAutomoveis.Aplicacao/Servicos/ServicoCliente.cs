@@ -138,7 +138,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
             Log.Warning("Falha ao tentar excluir o Cliente '{NOME} #{ID}'", clienteParaExcluir.Nome, clienteParaExcluir.ID, exception);
 
-            if (exception.Message.Contains("FK_TBAluguel_TBCliente"))
+            if (exception.Message.Contains("FK_TBAluguel_TBCliente") || exception.Message.Contains("'Cliente' and 'Aluguel'"))
                 erros.Add(new CustomError("Esse Cliente está relacionado a um Aluguel." +
             " Primeiro exclua o Aluguel relacionado", "Cliente"));
             else

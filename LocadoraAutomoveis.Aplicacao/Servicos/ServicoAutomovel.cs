@@ -140,7 +140,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
             Log.Warning("Falha ao tentar excluir o Automóvel '{PLACA} #{ID}'", automovelParaExcluir.Placa, automovelParaExcluir.ID, exception);
 
-            if (exception.Message.Contains("FK_TBAluguel_TBAutomovel"))
+            if (exception.Message.Contains("FK_TBAluguel_TBAutomovel") || exception.Message.Contains("'Automovel' and 'Aluguel'"))
                 erros.Add(new CustomError("Esse Automóvel está relacionado a um Aluguel." +
                     " Primeiro exclua o Aluguel relacionado", "Automovel"));
             else

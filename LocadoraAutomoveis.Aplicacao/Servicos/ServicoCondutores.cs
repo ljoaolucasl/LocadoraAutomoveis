@@ -138,7 +138,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
             Log.Warning("Falha ao tentar excluir o Condutor '{NOME} #{ID}'", condutorParaExcluir.Nome, condutorParaExcluir.ID, exception);
 
-            if (exception.Message.Contains("FK_TBAluguel_TBCondutor"))
+            if (exception.Message.Contains("FK_TBAluguel_TBCondutor") || exception.Message.Contains("'Condutor' and 'Aluguel'"))
                 erros.Add(new CustomError("Esse Condutor está relacionado a um Aluguel." +
             " Primeiro exclua o Aluguel relacionado", "Condutor"));
             else

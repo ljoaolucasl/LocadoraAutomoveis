@@ -60,7 +60,7 @@
             txtTelefone.Mask = "(00) 00000-0000";
             txtTelefone.Name = "txtTelefone";
             txtTelefone.Size = new Size(98, 23);
-            txtTelefone.TabIndex = 58;
+            txtTelefone.TabIndex = 5;
             // 
             // lbErroTelefone
             // 
@@ -98,7 +98,7 @@
             txtEmail.Location = new Point(65, 157);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(299, 23);
-            txtEmail.TabIndex = 54;
+            txtEmail.TabIndex = 4;
             // 
             // label2
             // 
@@ -125,7 +125,7 @@
             txtNome.Location = new Point(65, 110);
             txtNome.Name = "txtNome";
             txtNome.Size = new Size(299, 23);
-            txtNome.TabIndex = 51;
+            txtNome.TabIndex = 3;
             // 
             // lbNome
             // 
@@ -143,7 +143,7 @@
             cmbCliente.Location = new Point(65, 25);
             cmbCliente.Name = "cmbCliente";
             cmbCliente.Size = new Size(299, 23);
-            cmbCliente.TabIndex = 59;
+            cmbCliente.TabIndex = 1;
             cmbCliente.SelectedIndexChanged += cmbCliente_SelectedIndexChanged;
             // 
             // label1
@@ -161,7 +161,7 @@
             chkClienteCondutor.Location = new Point(74, 65);
             chkClienteCondutor.Name = "chkClienteCondutor";
             chkClienteCondutor.Size = new Size(126, 19);
-            chkClienteCondutor.TabIndex = 61;
+            chkClienteCondutor.TabIndex = 2;
             chkClienteCondutor.Text = "Cliente é Condutor";
             chkClienteCondutor.UseVisualStyleBackColor = true;
             chkClienteCondutor.CheckedChanged += chkClienteCondutor_CheckedChanged;
@@ -172,7 +172,7 @@
             txtCPF.Mask = "000,000,000-00";
             txtCPF.Name = "txtCPF";
             txtCPF.Size = new Size(85, 23);
-            txtCPF.TabIndex = 64;
+            txtCPF.TabIndex = 6;
             // 
             // lbErroCPF
             // 
@@ -232,7 +232,7 @@
             dateValidade.Location = new Point(65, 310);
             dateValidade.Name = "dateValidade";
             dateValidade.Size = new Size(116, 23);
-            dateValidade.TabIndex = 69;
+            dateValidade.TabIndex = 8;
             // 
             // lbValidade
             // 
@@ -250,7 +250,7 @@
             btnCancelar.Location = new Point(294, 372);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(85, 37);
-            btnCancelar.TabIndex = 72;
+            btnCancelar.TabIndex = 10;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             // 
@@ -261,7 +261,7 @@
             btnGravar.Location = new Point(203, 372);
             btnGravar.Name = "btnGravar";
             btnGravar.Size = new Size(85, 37);
-            btnGravar.TabIndex = 71;
+            btnGravar.TabIndex = 9;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = true;
             btnGravar.Click += btnAdd_Click;
@@ -283,7 +283,7 @@
             txtCNH.Mask = "00000000000";
             txtCNH.Name = "txtCNH";
             txtCNH.Size = new Size(65, 23);
-            txtCNH.TabIndex = 74;
+            txtCNH.TabIndex = 7;
             // 
             // TelaCondutoresForm
             // 

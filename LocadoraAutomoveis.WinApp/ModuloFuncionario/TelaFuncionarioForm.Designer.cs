@@ -74,7 +74,7 @@
             txtNome.Location = new Point(93, 39);
             txtNome.Name = "txtNome";
             txtNome.Size = new Size(327, 23);
-            txtNome.TabIndex = 3;
+            txtNome.TabIndex = 1;
             // 
             // dateAdmissao
             // 
@@ -83,7 +83,7 @@
             dateAdmissao.Location = new Point(93, 86);
             dateAdmissao.Name = "dateAdmissao";
             dateAdmissao.Size = new Size(116, 23);
-            dateAdmissao.TabIndex = 5;
+            dateAdmissao.TabIndex = 2;
             // 
             // btnCancelar
             // 
@@ -92,7 +92,7 @@
             btnCancelar.Location = new Point(370, 185);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(85, 37);
-            btnCancelar.TabIndex = 7;
+            btnCancelar.TabIndex = 5;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             // 
@@ -103,7 +103,7 @@
             btnGravar.Location = new Point(279, 185);
             btnGravar.Name = "btnGravar";
             btnGravar.Size = new Size(85, 37);
-            btnGravar.TabIndex = 6;
+            btnGravar.TabIndex = 4;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = true;
             btnGravar.Click += btnAdd_Click;
@@ -149,7 +149,7 @@
             txtSalario.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
             txtSalario.Name = "txtSalario";
             txtSalario.Size = new Size(120, 23);
-            txtSalario.TabIndex = 11;
+            txtSalario.TabIndex = 3;
             txtSalario.Click += selecaoAutomaticaNumericUpDown_Click;
             txtSalario.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 

@@ -44,7 +44,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
         {
             var aluguel = _tabela.ObterRegistroSelecionado();
 
-            TelaAluguelDevolucaoForm tela = new();
+            TelaAluguelDevolucaoForm tela = new(aluguel);
 
             ObterDependencias(tela);
 

@@ -29,7 +29,9 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
         private List<TaxaEServico> _taxasEServicosTemporarias;
 
-        public TelaAluguelDevolucaoForm()
+        private Aluguel aluguelTeste;
+
+        public TelaAluguelDevolucaoForm(Aluguel aluguel)
         {
             InitializeComponent();
 
@@ -38,6 +40,10 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             _resultado = new Result();
 
             _aluguel = new Aluguel();
+
+            aluguelTeste = aluguel;
+
+            _taxasEServicosTemporarias = new List<TaxaEServico>(aluguel.ListaTaxasEServicos);
 
             _aluguel.ListaTaxasEServicos = new List<TaxaEServico>();
 
@@ -95,8 +101,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
         private void ValidarCampos(object sender, EventArgs e)
         {
             ResetarErros();
-
-            _taxasEServicosTemporarias = new List<TaxaEServico>(_aluguel.ListaTaxasEServicos);
 
             CalcularValorTotalDevolucao();
 
@@ -184,6 +188,18 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             dateDevolucao.ValueChanged += atualizarValor_SelectedValueChanged;
             txtKmPercorrida.ValueChanged += atualizarValor_SelectedValueChanged;
             cmbNivelTanque.SelectedValueChanged += atualizarValor_SelectedValueChanged;
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < _taxasEServicosTemporarias.Count; i++)
+            {
+                for (int j = 0; j < listTaxas.Items.Count; j++)
+                {
+                    if (listTaxas.Items[j] == _taxasEServicosTemporarias[i])
+                        listTaxas.SetItemChecked(j, true);
+                }
+            }
         }
     }
 }

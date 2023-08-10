@@ -168,7 +168,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
                 erros = validacao.ConverterParaListaDeErros();
 
             if (_repositorioCondutor.Existe(condutorParaValidar))
-                erros.Add(new CustomError("Esse Condutor já existe", "Nome"));
+                erros.Add(new CustomError("Esse CNH já existe", "CNH"));
 
             return Result.Fail(erros);
         }

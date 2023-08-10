@@ -16,7 +16,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
 
             int diasLocados = (int)intervalo.TotalDays;
 
-            valorTotal = CalcularValorPlanoCobranca(valorTotal, aluguelParaCalcular.PlanoCobranca, aluguelParaCalcular.Plano, diasLocados);
+            valorTotal = CalcularPlanoCobrancaPrevista(valorTotal, aluguelParaCalcular.PlanoCobranca, aluguelParaCalcular.Plano, diasLocados);
             valorTotal = CalcularValorTaxasEServicos(valorTotal, aluguelParaCalcular.ListaTaxasEServicos);
             valorTotal = AplicarDescontoCupom(valorTotal, aluguelParaCalcular.Cupom);
             return valorTotal;
@@ -73,7 +73,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
             return valorTotal;
         }
 
-        private decimal CalcularValorPlanoCobranca(decimal valorTotal, PlanoCobranca planoCobranca, TipoPlano tipoPlano, int diasLocados)
+        private decimal CalcularPlanoCobrancaPrevista(decimal valorTotal, PlanoCobranca planoCobranca, TipoPlano tipoPlano, int diasLocados)
         {
             decimal valorBaseDoPlano;
             switch (tipoPlano)

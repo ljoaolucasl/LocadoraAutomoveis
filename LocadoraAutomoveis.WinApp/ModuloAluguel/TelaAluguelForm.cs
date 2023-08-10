@@ -103,6 +103,11 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                 cmbFuncionario.Text = value.Funcionario.Nome;
                 cmbCliente.Text = value.Cliente.Nome;
                 cmbCategoriaAutomoveis.Text = value.CategoriaAutomoveis.Nome;
+                if (cmbCategoriaAutomoveis.SelectedItem is CategoriaAutomoveis categoriaEscolhida)
+                    cmbAutomovel.DataSource = automoveis.FindAll(x => x.Categoria.ID == categoriaEscolhida.ID);
+                cmbAutomovel.DisplayMember = "Placa";
+                cmbAutomovel.ValueMember = "ID";
+
                 cmbPlanoCobranca.Text = value.Plano.ToDescriptionString();
                 cmbCondutor.Text = value.Condutor.Nome;
                 cmbAutomovel.Text = value.Automovel.Placa;
@@ -272,9 +277,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
         {
             cmbAutomovel.SelectedValueChanged += cmbAutomovel_SelectedValueChanged;
             cmbCliente.SelectedValueChanged += cmbCliente_SelectedValueChanged;
-            cmbCategoriaAutomoveis.SelectedValueChanged += cmbCategoriaAutomoveis_SelectedValueChanged;
-
-            cmbCategoriaAutomoveis_SelectedValueChanged(sender, e);
+            cmbCategoriaAutomoveis.SelectedIndexChanged += cmbCategoriaAutomoveis_SelectedValueChanged;
         }
 
         private void atualizarValor_SelectedValueChanged(object sender, EventArgs e)

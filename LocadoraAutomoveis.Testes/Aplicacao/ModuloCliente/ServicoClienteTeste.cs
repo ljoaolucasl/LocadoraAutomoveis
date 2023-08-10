@@ -4,6 +4,7 @@ using FluentResults.Extensions.FluentAssertions;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Aplicacao.Servicos;
 using LocadoraAutomoveis.Dominio.ModuloCliente;
+using LocadoraAutomoveis.Dominio.ModuloCondutores;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Testes.Compartilhado;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCliente
         private Mock<IRepositorioCliente> _repositorioMoq;
         private Mock<IValidadorCliente> _validadorMoq;
         private Mock<IContextoPersistencia> _contexto;
+        private Mock<IServicoCondutor> servicoCondutor;
         private ServicoCliente _servico;
         private Cliente _cliente;
 
@@ -26,7 +28,8 @@ namespace LocadoraAutomoveis.Testes.Aplicacao.ModuloCliente
             _repositorioMoq = new Mock<IRepositorioCliente>();
             _validadorMoq = new Mock<IValidadorCliente>();
             _contexto = new Mock<IContextoPersistencia>();
-            _servico = new ServicoCliente(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object);
+            servicoCondutor = new Mock<IServicoCondutor>();
+            _servico = new ServicoCliente(_repositorioMoq.Object, _validadorMoq.Object, _contexto.Object, servicoCondutor.Object);
             _cliente = new Cliente("Rafael", "rafael@gmail.com", "(49) 92332-4324", TipoDocumento.CPF,
                 "234.323.563-45", "Santa Catarina", "Lages", "São Cristovão", "Rio de Janeiro", 12);
         }

@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using LocadoraAutomoveis.Dominio.ModuloCondutores;
 using System.Text.RegularExpressions;
 
 namespace LocadoraAutomoveis.Dominio.ModuloCliente
@@ -99,6 +100,11 @@ namespace LocadoraAutomoveis.Dominio.ModuloCliente
         private bool ValidarTelefone(string telefone)
         {
             return Regex.IsMatch(telefone, @"^\(\d{2}\) \d{4,5}-\d{4}$");
+        }
+
+        public bool VerificarSeClienteTemCondutor(Cliente cliente, List<Condutor> condutores)
+        {
+            return condutores.Any(c => c.Cliente.ID == cliente.ID);
         }
     }
 }

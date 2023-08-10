@@ -1,7 +1,6 @@
-﻿using LocadoraAutomoveis.Dominio.ModuloAutomovel;
-using LocadoraAutomoveis.Dominio.ModuloCliente;
+﻿using LocadoraAutomoveis.Dominio.ModuloCliente;
+using LocadoraAutomoveis.Dominio.ModuloCondutores;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
@@ -11,13 +10,15 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
         private readonly IRepositorioCliente _repositorioCliente;
         private readonly IValidadorCliente _validadorCliente;
         private readonly IContextoPersistencia _contextoPersistencia;
+        private readonly IServicoCondutor _servicoCondutor;
 
         public ServicoCliente(IRepositorioCliente repositorioCliente, IValidadorCliente validadorCliente,
-            IContextoPersistencia contextoPersistencia)
+            IContextoPersistencia contextoPersistencia, IServicoCondutor servicoCondutor)
         {
             _repositorioCliente = repositorioCliente;
             _validadorCliente = validadorCliente;
             _contextoPersistencia = contextoPersistencia;
+            _servicoCondutor = servicoCondutor;
         }
 
         #region CRUD
@@ -171,6 +172,17 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
                 erros.Add(new CustomError("Esse Cliente já existe", "Nome"));
 
             return Result.Fail(erros);
+        }
+
+        public Result VerificarSeClienteTemCondutor(Cliente cliente)
+        {
+            if (_validadorCliente.VerificarSeClienteTemCondutor(cliente, _servicoCondutor.SelecionarTodosOsRegistros()))
+            {
+                return new CustomError("Esse Cliente está relacionado a um Condutor." +
+                        " Primeiro exclua o Condutor relacionado", "Cliente");
+            }
+
+            return Result.Ok();
         }
     }
 }

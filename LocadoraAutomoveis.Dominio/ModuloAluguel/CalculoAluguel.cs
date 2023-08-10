@@ -79,22 +79,26 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
         private decimal CalcularPlanoCobrancaPrevista(decimal valorTotal, PlanoCobranca planoCobranca, TipoPlano tipoPlano, int diasLocados)
         {
             decimal valorBaseDoPlano;
-            switch (tipoPlano)
+
+            if (planoCobranca != null)
             {
-                case TipoPlano.Diario:
-                    valorBaseDoPlano = planoCobranca.PlanoDiario_ValorDiario;
-                    valorTotal += valorBaseDoPlano * diasLocados;
-                    break;
+                switch (tipoPlano)
+                {
+                    case TipoPlano.Diario:
+                        valorBaseDoPlano = planoCobranca.PlanoDiario_ValorDiario;
+                        valorTotal += valorBaseDoPlano * diasLocados;
+                        break;
 
-                case TipoPlano.Livre:
-                    valorBaseDoPlano = planoCobranca.PlanoLivre_ValorDiario;
-                    valorTotal += valorBaseDoPlano * diasLocados;
-                    break;
+                    case TipoPlano.Livre:
+                        valorBaseDoPlano = planoCobranca.PlanoLivre_ValorDiario;
+                        valorTotal += valorBaseDoPlano * diasLocados;
+                        break;
 
-                case TipoPlano.Controlador:
-                    valorBaseDoPlano = planoCobranca.PlanoControlador_ValorDiario;
-                    valorTotal += valorBaseDoPlano * diasLocados;
-                    break;
+                    case TipoPlano.Controlador:
+                        valorBaseDoPlano = planoCobranca.PlanoControlador_ValorDiario;
+                        valorTotal += valorBaseDoPlano * diasLocados;
+                        break;
+                }
             }
 
             return valorTotal;
@@ -113,39 +117,42 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
             decimal quantidadeCombustivel = 0;
             decimal valorCombustivel = 0;
 
-            switch (nivelTanque)
+            if (nivelTanque != null && tipoCombustivel != null)
             {
-                case NivelTanque.Vazio:
-                    quantidadeCombustivel = capacidadeCombustivel * 1;
-                    break;
-                case NivelTanque.UmQuarto:
-                    quantidadeCombustivel = capacidadeCombustivel * 0.75m;
-                    break;
-                case NivelTanque.MeioTanque:
-                    quantidadeCombustivel = capacidadeCombustivel * 0.5m;
-                    break;
-                case NivelTanque.TresQuartos:
-                    quantidadeCombustivel = capacidadeCombustivel * 0.25m;
-                    break;
-                case NivelTanque.Cheio:
-                    quantidadeCombustivel = capacidadeCombustivel * 0;
-                    break;
-            }
+                switch (nivelTanque)
+                {
+                    case NivelTanque.Vazio:
+                        quantidadeCombustivel = capacidadeCombustivel * 1;
+                        break;
+                    case NivelTanque.UmQuarto:
+                        quantidadeCombustivel = capacidadeCombustivel * 0.75m;
+                        break;
+                    case NivelTanque.MeioTanque:
+                        quantidadeCombustivel = capacidadeCombustivel * 0.5m;
+                        break;
+                    case NivelTanque.TresQuartos:
+                        quantidadeCombustivel = capacidadeCombustivel * 0.25m;
+                        break;
+                    case NivelTanque.Cheio:
+                        quantidadeCombustivel = capacidadeCombustivel * 0;
+                        break;
+                }
 
-            switch (tipoCombustivel)
-            {
-                case TipoCombustível.Gasolina:
-                    valorCombustivel = precoCombustivel.Gasolina;
-                    break;
-                case TipoCombustível.Diesel:
-                    valorCombustivel = precoCombustivel.Diesel;
-                    break;
-                case TipoCombustível.Etanol:
-                    valorCombustivel = precoCombustivel.Etanol;
-                    break;
-                case TipoCombustível.Gas:
-                    valorCombustivel = precoCombustivel.Gas;
-                    break;
+                switch (tipoCombustivel)
+                {
+                    case TipoCombustível.Gasolina:
+                        valorCombustivel = precoCombustivel.Gasolina;
+                        break;
+                    case TipoCombustível.Diesel:
+                        valorCombustivel = precoCombustivel.Diesel;
+                        break;
+                    case TipoCombustível.Etanol:
+                        valorCombustivel = precoCombustivel.Etanol;
+                        break;
+                    case TipoCombustível.Gas:
+                        valorCombustivel = precoCombustivel.Gas;
+                        break;
+                }
             }
 
             valorTotal += quantidadeCombustivel * valorCombustivel;

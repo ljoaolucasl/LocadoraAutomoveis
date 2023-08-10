@@ -107,7 +107,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                 cmbCondutor.Text = value.Condutor.Nome;
                 cmbAutomovel.Text = value.Automovel.Placa;
                 value.Automovel.Alugado = false;
-
                 for (int i = 0; i < value.ListaTaxasEServicos.Count; i++)
                 {
                     for (int j = 0; j < listTaxas.Items.Count; j++)

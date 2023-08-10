@@ -27,6 +27,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
         public event Func<Aluguel, decimal> OnCalcularAluguelFinal;
 
+        private List<TaxaEServico> _taxasEServicosTemporarias;
+
         public TelaAluguelDevolucaoForm()
         {
             InitializeComponent();
@@ -94,6 +96,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
         {
             ResetarErros();
 
+            _taxasEServicosTemporarias = new List<TaxaEServico>(_aluguel.ListaTaxasEServicos);
+
             CalcularValorTotalDevolucao();
 
             _aluguel = ObterAluguel();
@@ -101,7 +105,11 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             _resultado = OnGravarRegistro(_aluguel);
 
             if (_resultado.IsFailed)
+            {
+                _aluguel.ListaTaxasEServicos.Clear();
+                _aluguel.ListaTaxasEServicos.AddRange(_taxasEServicosTemporarias);
                 MostrarErros();
+            }
         }
 
         private Aluguel ObterAluguel()
@@ -168,6 +176,14 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             _aluguel = ObterAluguel();
             _aluguel.Concluido = false;
             lbValorTotal.Text = OnCalcularAluguelFinal(_aluguel).ToString("F2");
+        }
+
+        private void TelaAluguelDevolucaoForm_Shown(object sender, EventArgs e)
+        {
+            listTaxas.SelectedValueChanged += atualizarValor_SelectedValueChanged;
+            dateDevolucao.ValueChanged += atualizarValor_SelectedValueChanged;
+            txtKmPercorrida.ValueChanged += atualizarValor_SelectedValueChanged;
+            cmbNivelTanque.SelectedValueChanged += atualizarValor_SelectedValueChanged;
         }
     }
 }

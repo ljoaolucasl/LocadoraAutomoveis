@@ -1,6 +1,7 @@
 ﻿using FluentResults;
 using LocadoraAutomoveis.Aplicacao.Compartilhado;
 using LocadoraAutomoveis.Dominio.ModuloAluguel;
+using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 {
@@ -45,6 +46,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
 
             TelaAluguelDevolucaoForm tela = new();
 
+            ObterDependencias(tela);
+
             tela.Entidade = aluguel;
 
             Result? resultado = ObterSeFechado(aluguel);
@@ -59,8 +62,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             else
             {
                 tela.OnGravarRegistro += _servico.Editar;
-
-                ObterDependencias(tela);
 
                 TelaPrincipalForm.AtualizarStatus($"Devolução Aluguel");
 

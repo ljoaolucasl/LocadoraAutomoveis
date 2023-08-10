@@ -96,8 +96,6 @@ namespace LocadoraAutomoveis.WinApp.Compartilhado
                 
                 if (tela.ShowDialog() == DialogResult.OK)
                     CarregarRegistros();
-
-                CarregarRegistros();
             }
         }
 

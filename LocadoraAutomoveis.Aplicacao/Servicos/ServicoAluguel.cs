@@ -11,6 +11,7 @@ using LocadoraAutomoveis.Dominio.ModuloTaxaEServico;
 using LocadoraAutomoveis.Infraestrutura.Compartilhado;
 using LocadoraAutomoveis.Infraestrutura.ModuloConfiguracao;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Win32;
 
 namespace LocadoraAutomoveis.Aplicacao.Servicos
 {

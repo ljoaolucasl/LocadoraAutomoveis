@@ -110,11 +110,24 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
             try
             {
-                _repositorioTaxaEServico.Excluir(taxaParaExcluir);
+                if (_validadorTaxaEServico.VerificarSeRelacionadoComAluguelAberto(taxaParaExcluir, _repositorioAluguel.SelecionarTodos()))
+                {
+                    List<IError> erros = new();
 
-                _contextoPersistencia.GravarDados();
+                    erros.Add(new CustomError("Essa Taxa e Serviço está relacionada a um Aluguel em Aberto." +
+                            " Primeiro conclua o Aluguel relacionado", "Taxa"));
 
-                Log.Debug("Excluído a Taxa e Serviço '{NOME} #{ID}' com sucesso!", taxaParaExcluir.Nome, taxaParaExcluir.ID);
+                    return Result.Fail(erros);
+                }
+                else
+                {
+                    _repositorioTaxaEServico.Excluir(taxaParaExcluir);
+
+                    _contextoPersistencia.GravarDados();
+
+                    Log.Debug("Excluído a Taxa e Serviço '{NOME} #{ID}' com sucesso!", taxaParaExcluir.Nome, taxaParaExcluir.ID);
+
+                }
 
                 return Result.Ok();
             }

@@ -166,7 +166,6 @@
             listTaxas.Name = "listTaxas";
             listTaxas.Size = new Size(614, 176);
             listTaxas.TabIndex = 138;
-            listTaxas.SelectedValueChanged += atualizarValor_SelectedValueChanged;
             // 
             // lbErroFuncionario
             // 
@@ -385,7 +384,6 @@
             dateDevolucao.Name = "dateDevolucao";
             dateDevolucao.Size = new Size(154, 23);
             dateDevolucao.TabIndex = 130;
-            dateDevolucao.ValueChanged += atualizarValor_SelectedValueChanged;
             // 
             // label13
             // 
@@ -414,7 +412,6 @@
             txtKmPercorrida.Name = "txtKmPercorrida";
             txtKmPercorrida.Size = new Size(120, 23);
             txtKmPercorrida.TabIndex = 133;
-            txtKmPercorrida.ValueChanged += atualizarValor_SelectedValueChanged;
             txtKmPercorrida.Click += selecaoAutomaticaNumericUpDown_Click;
             txtKmPercorrida.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
@@ -455,7 +452,6 @@
             cmbNivelTanque.Name = "cmbNivelTanque";
             cmbNivelTanque.Size = new Size(154, 23);
             cmbNivelTanque.TabIndex = 135;
-            cmbNivelTanque.SelectedValueChanged += atualizarValor_SelectedValueChanged;
             // 
             // lbValorTotal
             // 
@@ -516,6 +512,7 @@
             Name = "TelaAluguelDevolucaoForm";
             ShowIcon = false;
             Text = "Registro de Devolução do Aluguel";
+            Shown += TelaAluguelDevolucaoForm_Shown;
             tbControlTaxasAdicionadas.ResumeLayout(false);
             tbTaxas.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)txtKmAutomovel).EndInit();

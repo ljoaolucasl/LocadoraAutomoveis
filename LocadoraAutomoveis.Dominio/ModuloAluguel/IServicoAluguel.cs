@@ -25,5 +25,6 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
         IEnviadorEmail enviarEmail { get; }
         IGeradorPDF gerarPDF { get; }
         List<IError> ValidarCupom(Aluguel aluguelParaValidar);
+        Result VerificarSeFechado(Aluguel aluguel);
     }
 }

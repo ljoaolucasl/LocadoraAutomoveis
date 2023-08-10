@@ -167,6 +167,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             {
                 _aluguel.ListaTaxasEServicos.Clear();
                 _aluguel.ListaTaxasEServicos.AddRange(_taxasEServicosTemporarias);
+                _aluguel.Automovel.Alugado = false;
                 MostrarErros();
             }
         }
@@ -213,7 +214,6 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                     case "DataDevolucao": lbErroDataDevolucao.Text = item.ErrorMessage; lbErroDataDevolucao.Visible = true; datePrevistaRetorno.Focus(); break;
                     case "KmAutomovel": lbErroKmAutomovel.Text = item.ErrorMessage; lbErroKmAutomovel.Visible = true; txtKmAutomovel.Focus(); break;
                     case "Cupom": lbErroCupom.Text = item.ErrorMessage; lbErroCupom.Visible = true; lbErroCupom.ForeColor = Color.FromArgb(192, 0, 0); txtCupom.Focus(); break;
-                    case "ListaTaxasEServicos": lbErroTaxas.Text = item.ErrorMessage; lbErroTaxas.Visible = true; listTaxas.Focus(); break;
                     case "ValorTotal": lbErroValorTotal.Text = item.ErrorMessage; lbErroValorTotal.Visible = true; lbValorTotal.Focus(); break;
                 }
             }

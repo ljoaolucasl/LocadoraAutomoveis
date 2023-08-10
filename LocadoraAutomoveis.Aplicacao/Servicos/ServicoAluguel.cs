@@ -257,5 +257,15 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
 
             return calculoAluguel.CalcularValorTotalDevolucao(aluguelParaCalcular, precoCombustivel);
         }
+
+        public Result VerificarSeFechado(Aluguel aluguel)
+        {
+            if (_validadorAluguel.VerificarSeAlugado(aluguel))
+            {
+                return new CustomError("Esse Aluguel está concluído", "Aluguel");
+            }
+
+            return Result.Ok();
+        }
     }
 }

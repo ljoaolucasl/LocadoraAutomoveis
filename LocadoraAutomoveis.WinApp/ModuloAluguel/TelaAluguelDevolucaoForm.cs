@@ -103,6 +103,11 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                 _aluguel.Concluido = false;
                 MostrarErros();
             }
+            else
+            {
+                _aluguel.Automovel.Alugado = false;
+                _aluguel.Concluido = true;
+            }
         }
 
         private Aluguel ObterAluguel()

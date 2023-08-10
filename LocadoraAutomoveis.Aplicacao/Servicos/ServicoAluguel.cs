@@ -75,8 +75,6 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioAluguel.Inserir(aluguelParaAdicionar);
 
-                aluguelParaAdicionar.Automovel.Alugado = true;
-
                 byte[] pdfLocacao = gerarPDF.GerarPDF(aluguelParaAdicionar);
 
                 enviarEmail.EnviarEmailAluguel(aluguelParaAdicionar, pdfLocacao);
@@ -117,7 +115,9 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             {
                 _repositorioAluguel.Editar(aluguelParaEditar);
 
-                aluguelParaEditar.Automovel.Alugado = true;
+                byte[] pdfLocacao = gerarPDF.GerarPDF(aluguelParaEditar);
+
+                enviarEmail.EnviarEmailAluguel(aluguelParaEditar, pdfLocacao);
 
                 _contextoPersistencia.GravarDados();
 
@@ -154,8 +154,6 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
                 if (_validadorAluguel.ValidarSeAluguelConcluido(aluguelParaExcluir))
                 {
                     _repositorioAluguel.Excluir(aluguelParaExcluir);
-
-                    aluguelParaExcluir.Automovel.Alugado = false;
 
                     _contextoPersistencia.GravarDados();
 

@@ -128,13 +128,15 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
                 {
                     aluguelParaEditar.Automovel.Alugado = false;
                     aluguelParaEditar.Concluido = true;
+                    byte[] pdfLocacao = gerarPDF.GerarPDFDevolucao(aluguelParaEditar);
+                    enviarEmail.EnviarEmailAluguel(aluguelParaEditar, pdfLocacao);
                 }
                 else
+                {
                     aluguelParaEditar.Automovel.Alugado = true;
-
-                byte[] pdfLocacao = gerarPDF.GerarPDF(aluguelParaEditar);
-
-                enviarEmail.EnviarEmailAluguel(aluguelParaEditar, pdfLocacao);
+                    byte[] pdfLocacao = gerarPDF.GerarPDF(aluguelParaEditar);
+                    enviarEmail.EnviarEmailAluguel(aluguelParaEditar, pdfLocacao);
+                }
 
                 _contextoPersistencia.GravarDados();
 

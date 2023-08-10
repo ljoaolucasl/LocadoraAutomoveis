@@ -67,6 +67,7 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
                 cmbPlanoCobranca.Text = value.Plano.ToDescriptionString();
                 cmbCondutor.Text = value.Condutor.Nome;
                 cmbAutomovel.Text = value.Automovel.Placa;
+                txtKmAutomovel.Value = value.Automovel.Quilometragem;
                 value.Automovel.Alugado = false;
                 for (int i = 0; i < value.ListaTaxasEServicos.Count; i++)
                 {

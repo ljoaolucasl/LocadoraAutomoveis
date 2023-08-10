@@ -395,7 +395,7 @@
             txtPlaca.Mask = "LLL-0A00";
             txtPlaca.Name = "txtPlaca";
             txtPlaca.Size = new Size(118, 23);
-            txtPlaca.TabIndex = 42;
+            txtPlaca.TabIndex = 7;
             // 
             // TelaAutomovelForm
             // 

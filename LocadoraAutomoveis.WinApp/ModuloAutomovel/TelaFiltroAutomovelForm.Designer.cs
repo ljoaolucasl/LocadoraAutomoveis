@@ -42,7 +42,7 @@
             btnCancelar.Location = new Point(283, 148);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(85, 37);
-            btnCancelar.TabIndex = 14;
+            btnCancelar.TabIndex = 3;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             // 
@@ -53,7 +53,7 @@
             btnAplicar.Location = new Point(192, 148);
             btnAplicar.Name = "btnAplicar";
             btnAplicar.Size = new Size(85, 37);
-            btnAplicar.TabIndex = 13;
+            btnAplicar.TabIndex = 2;
             btnAplicar.Text = "Aplicar";
             btnAplicar.UseVisualStyleBackColor = true;
             btnAplicar.Click += btnAplicar_Click;
@@ -65,7 +65,7 @@
             cbCategoria.Location = new Point(178, 80);
             cbCategoria.Name = "cbCategoria";
             cbCategoria.Size = new Size(164, 23);
-            cbCategoria.TabIndex = 15;
+            cbCategoria.TabIndex = 1;
             // 
             // lbNome
             // 

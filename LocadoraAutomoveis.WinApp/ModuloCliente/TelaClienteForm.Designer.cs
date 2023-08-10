@@ -82,7 +82,7 @@
             txtNome.Location = new Point(76, 32);
             txtNome.Name = "txtNome";
             txtNome.Size = new Size(290, 23);
-            txtNome.TabIndex = 10;
+            txtNome.TabIndex = 1;
             // 
             // lbNome
             // 
@@ -109,7 +109,7 @@
             txtEmail.Location = new Point(76, 79);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(290, 23);
-            txtEmail.TabIndex = 13;
+            txtEmail.TabIndex = 2;
             // 
             // label2
             // 
@@ -156,7 +156,7 @@
             rdbPessoaFisica.Location = new Point(124, 171);
             rdbPessoaFisica.Name = "rdbPessoaFisica";
             rdbPessoaFisica.Size = new Size(93, 19);
-            rdbPessoaFisica.TabIndex = 19;
+            rdbPessoaFisica.TabIndex = 4;
             rdbPessoaFisica.TabStop = true;
             rdbPessoaFisica.Text = "Pessoa Física";
             rdbPessoaFisica.UseVisualStyleBackColor = true;
@@ -168,7 +168,7 @@
             rdbPessoaJuridica.Location = new Point(262, 171);
             rdbPessoaJuridica.Name = "rdbPessoaJuridica";
             rdbPessoaJuridica.Size = new Size(104, 19);
-            rdbPessoaJuridica.TabIndex = 20;
+            rdbPessoaJuridica.TabIndex = 5;
             rdbPessoaJuridica.Text = "Pessoa Jurídica";
             rdbPessoaJuridica.UseVisualStyleBackColor = true;
             rdbPessoaJuridica.CheckedChanged += rdbPessoaJuridica_CheckedChanged;
@@ -218,7 +218,7 @@
             txtCidade.Location = new Point(250, 284);
             txtCidade.Name = "txtCidade";
             txtCidade.Size = new Size(130, 23);
-            txtCidade.TabIndex = 34;
+            txtCidade.TabIndex = 9;
             // 
             // lbErroCidade
             // 
@@ -256,7 +256,7 @@
             txtEstado.Location = new Point(67, 284);
             txtEstado.Name = "txtEstado";
             txtEstado.Size = new Size(107, 23);
-            txtEstado.TabIndex = 30;
+            txtEstado.TabIndex = 8;
             // 
             // label11
             // 
@@ -283,7 +283,7 @@
             txtRua.Location = new Point(66, 393);
             txtRua.Name = "txtRua";
             txtRua.Size = new Size(290, 23);
-            txtRua.TabIndex = 39;
+            txtRua.TabIndex = 11;
             // 
             // label8
             // 
@@ -310,7 +310,7 @@
             txtBairro.Location = new Point(67, 340);
             txtBairro.Name = "txtBairro";
             txtBairro.Size = new Size(290, 23);
-            txtBairro.TabIndex = 36;
+            txtBairro.TabIndex = 10;
             // 
             // label12
             // 
@@ -348,7 +348,7 @@
             btnCancelar.Location = new Point(289, 508);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(85, 37);
-            btnCancelar.TabIndex = 45;
+            btnCancelar.TabIndex = 14;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             // 
@@ -359,7 +359,7 @@
             btnGravar.Location = new Point(198, 508);
             btnGravar.Name = "btnGravar";
             btnGravar.Size = new Size(85, 37);
-            btnGravar.TabIndex = 44;
+            btnGravar.TabIndex = 13;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = true;
             btnGravar.Click += btnAdd_Click;
@@ -370,7 +370,7 @@
             txtNumero.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
             txtNumero.Name = "txtNumero";
             txtNumero.Size = new Size(120, 23);
-            txtNumero.TabIndex = 46;
+            txtNumero.TabIndex = 12;
             txtNumero.Click += selecaoAutomaticaNumericUpDown_Click;
             txtNumero.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
@@ -380,7 +380,7 @@
             txtCPF.Mask = "000,000,000-00";
             txtCPF.Name = "txtCPF";
             txtCPF.Size = new Size(85, 23);
-            txtCPF.TabIndex = 47;
+            txtCPF.TabIndex = 6;
             // 
             // txtCNPJ
             // 
@@ -388,7 +388,7 @@
             txtCNPJ.Mask = "00,000,000/0000-00";
             txtCNPJ.Name = "txtCNPJ";
             txtCNPJ.Size = new Size(116, 23);
-            txtCNPJ.TabIndex = 48;
+            txtCNPJ.TabIndex = 7;
             // 
             // txtTelefone
             // 
@@ -396,7 +396,7 @@
             txtTelefone.Mask = "(00) 00000-0000";
             txtTelefone.Name = "txtTelefone";
             txtTelefone.Size = new Size(98, 23);
-            txtTelefone.TabIndex = 49;
+            txtTelefone.TabIndex = 3;
             // 
             // TelaClienteForm
             // 

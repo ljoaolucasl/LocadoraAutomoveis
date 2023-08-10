@@ -122,7 +122,7 @@
             btnCancelar.Location = new Point(584, 668);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(85, 37);
-            btnCancelar.TabIndex = 123;
+            btnCancelar.TabIndex = 16;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             // 
@@ -133,7 +133,7 @@
             btnGravar.Location = new Point(493, 668);
             btnGravar.Name = "btnGravar";
             btnGravar.Size = new Size(85, 37);
-            btnGravar.TabIndex = 122;
+            btnGravar.TabIndex = 15;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = true;
             btnGravar.Click += btnGravar_Click;
@@ -165,7 +165,7 @@
             listTaxas.Location = new Point(3, 3);
             listTaxas.Name = "listTaxas";
             listTaxas.Size = new Size(614, 176);
-            listTaxas.TabIndex = 138;
+            listTaxas.TabIndex = 14;
             // 
             // lbErroFuncionario
             // 
@@ -193,7 +193,7 @@
             txtCupom.Location = new Point(136, 288);
             txtCupom.Name = "txtCupom";
             txtCupom.Size = new Size(151, 23);
-            txtCupom.TabIndex = 110;
+            txtCupom.TabIndex = 10;
             // 
             // label10
             // 
@@ -211,7 +211,7 @@
             datePrevistaRetorno.Location = new Point(463, 243);
             datePrevistaRetorno.Name = "datePrevistaRetorno";
             datePrevistaRetorno.Size = new Size(154, 23);
-            datePrevistaRetorno.TabIndex = 108;
+            datePrevistaRetorno.TabIndex = 9;
             // 
             // label9
             // 
@@ -229,7 +229,7 @@
             dateLocacao.Location = new Point(136, 239);
             dateLocacao.Name = "dateLocacao";
             dateLocacao.Size = new Size(154, 23);
-            dateLocacao.TabIndex = 106;
+            dateLocacao.TabIndex = 8;
             // 
             // txtKmAutomovel
             // 
@@ -238,7 +238,7 @@
             txtKmAutomovel.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
             txtKmAutomovel.Name = "txtKmAutomovel";
             txtKmAutomovel.Size = new Size(120, 23);
-            txtKmAutomovel.TabIndex = 105;
+            txtKmAutomovel.TabIndex = 7;
             // 
             // label8
             // 
@@ -274,7 +274,7 @@
             cmbAutomovel.Location = new Point(463, 137);
             cmbAutomovel.Name = "cmbAutomovel";
             cmbAutomovel.Size = new Size(121, 23);
-            cmbAutomovel.TabIndex = 101;
+            cmbAutomovel.TabIndex = 5;
             // 
             // label5
             // 
@@ -292,7 +292,7 @@
             cmbCondutor.Location = new Point(463, 86);
             cmbCondutor.Name = "cmbCondutor";
             cmbCondutor.Size = new Size(121, 23);
-            cmbCondutor.TabIndex = 99;
+            cmbCondutor.TabIndex = 3;
             // 
             // label4
             // 
@@ -310,7 +310,7 @@
             cmbPlanoCobranca.Location = new Point(136, 184);
             cmbPlanoCobranca.Name = "cmbPlanoCobranca";
             cmbPlanoCobranca.Size = new Size(154, 23);
-            cmbPlanoCobranca.TabIndex = 97;
+            cmbPlanoCobranca.TabIndex = 6;
             // 
             // label3
             // 
@@ -328,7 +328,7 @@
             cmbCategoriaAutomoveis.Location = new Point(136, 134);
             cmbCategoriaAutomoveis.Name = "cmbCategoriaAutomoveis";
             cmbCategoriaAutomoveis.Size = new Size(154, 23);
-            cmbCategoriaAutomoveis.TabIndex = 95;
+            cmbCategoriaAutomoveis.TabIndex = 4;
             // 
             // label2
             // 
@@ -346,7 +346,7 @@
             cmbCliente.Location = new Point(136, 86);
             cmbCliente.Name = "cmbCliente";
             cmbCliente.Size = new Size(154, 23);
-            cmbCliente.TabIndex = 93;
+            cmbCliente.TabIndex = 2;
             // 
             // label1
             // 
@@ -364,7 +364,7 @@
             cmbFuncionario.Location = new Point(136, 37);
             cmbFuncionario.Name = "cmbFuncionario";
             cmbFuncionario.Size = new Size(154, 23);
-            cmbFuncionario.TabIndex = 91;
+            cmbFuncionario.TabIndex = 1;
             // 
             // lbErroDataDevolucao
             // 
@@ -383,7 +383,7 @@
             dateDevolucao.Location = new Point(133, 334);
             dateDevolucao.Name = "dateDevolucao";
             dateDevolucao.Size = new Size(154, 23);
-            dateDevolucao.TabIndex = 130;
+            dateDevolucao.TabIndex = 11;
             // 
             // label13
             // 
@@ -411,7 +411,7 @@
             txtKmPercorrida.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
             txtKmPercorrida.Name = "txtKmPercorrida";
             txtKmPercorrida.Size = new Size(120, 23);
-            txtKmPercorrida.TabIndex = 133;
+            txtKmPercorrida.TabIndex = 12;
             txtKmPercorrida.Click += selecaoAutomaticaNumericUpDown_Click;
             txtKmPercorrida.Enter += selecaoAutomaticaNumericUpDown_Enter;
             // 
@@ -451,7 +451,7 @@
             cmbNivelTanque.Location = new Point(133, 382);
             cmbNivelTanque.Name = "cmbNivelTanque";
             cmbNivelTanque.Size = new Size(154, 23);
-            cmbNivelTanque.TabIndex = 135;
+            cmbNivelTanque.TabIndex = 13;
             // 
             // lbValorTotal
             // 

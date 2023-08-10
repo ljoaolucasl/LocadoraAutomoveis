@@ -81,7 +81,7 @@
             cmbFuncionario.Location = new Point(138, 33);
             cmbFuncionario.Name = "cmbFuncionario";
             cmbFuncionario.Size = new Size(154, 23);
-            cmbFuncionario.TabIndex = 0;
+            cmbFuncionario.TabIndex = 1;
             // 
             // label1
             // 
@@ -162,7 +162,7 @@
             cmbCondutor.Location = new Point(465, 82);
             cmbCondutor.Name = "cmbCondutor";
             cmbCondutor.Size = new Size(121, 23);
-            cmbCondutor.TabIndex = 8;
+            cmbCondutor.TabIndex = 3;
             // 
             // label6
             // 
@@ -180,7 +180,7 @@
             cmbAutomovel.Location = new Point(465, 133);
             cmbAutomovel.Name = "cmbAutomovel";
             cmbAutomovel.Size = new Size(121, 23);
-            cmbAutomovel.TabIndex = 10;
+            cmbAutomovel.TabIndex = 5;
             // 
             // label7
             // 
@@ -207,7 +207,7 @@
             txtKmAutomovel.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
             txtKmAutomovel.Name = "txtKmAutomovel";
             txtKmAutomovel.Size = new Size(120, 23);
-            txtKmAutomovel.TabIndex = 14;
+            txtKmAutomovel.TabIndex = 7;
             txtKmAutomovel.ValueChanged += atualizarValor_SelectedValueChanged;
             // 
             // dateLocacao
@@ -216,7 +216,7 @@
             dateLocacao.Location = new Point(138, 241);
             dateLocacao.Name = "dateLocacao";
             dateLocacao.Size = new Size(154, 23);
-            dateLocacao.TabIndex = 15;
+            dateLocacao.TabIndex = 8;
             dateLocacao.ValueChanged += atualizarValor_SelectedValueChanged;
             // 
             // datePrevistaRetorno
@@ -225,7 +225,7 @@
             datePrevistaRetorno.Location = new Point(465, 239);
             datePrevistaRetorno.Name = "datePrevistaRetorno";
             datePrevistaRetorno.Size = new Size(154, 23);
-            datePrevistaRetorno.TabIndex = 17;
+            datePrevistaRetorno.TabIndex = 9;
             datePrevistaRetorno.ValueChanged += atualizarValor_SelectedValueChanged;
             // 
             // label9
@@ -251,14 +251,14 @@
             txtCupom.Location = new Point(138, 305);
             txtCupom.Name = "txtCupom";
             txtCupom.Size = new Size(106, 23);
-            txtCupom.TabIndex = 19;
+            txtCupom.TabIndex = 10;
             // 
             // btnCupom
             // 
             btnCupom.Location = new Point(275, 303);
             btnCupom.Name = "btnCupom";
             btnCupom.Size = new Size(106, 28);
-            btnCupom.TabIndex = 20;
+            btnCupom.TabIndex = 11;
             btnCupom.Text = "Aplicar Cupom";
             btnCupom.UseVisualStyleBackColor = true;
             btnCupom.Click += btnCupom_Click;
@@ -380,7 +380,7 @@
             listTaxas.Location = new Point(3, 3);
             listTaxas.Name = "listTaxas";
             listTaxas.Size = new Size(614, 176);
-            listTaxas.TabIndex = 0;
+            listTaxas.TabIndex = 12;
             listTaxas.ItemCheck += listTaxas_ItemCheck;
             // 
             // tbControlTaxasAdicionadas
@@ -399,7 +399,7 @@
             btnCancelar.Location = new Point(575, 588);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(85, 37);
-            btnCancelar.TabIndex = 85;
+            btnCancelar.TabIndex = 14;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
             // 
@@ -410,7 +410,7 @@
             btnGravar.Location = new Point(484, 588);
             btnGravar.Name = "btnGravar";
             btnGravar.Size = new Size(85, 37);
-            btnGravar.TabIndex = 84;
+            btnGravar.TabIndex = 13;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = true;
             btnGravar.Click += btnGravar_Click;

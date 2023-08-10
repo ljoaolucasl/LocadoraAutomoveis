@@ -12,6 +12,8 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
 {
     public interface IServicoAluguel : IServicoBase<Aluguel>
     {
+        public decimal CalcularValorPrevisto(Aluguel aluguelParaCalcular);
+        public decimal CalcularValorDevolucao(Aluguel aluguelParaCalcular);
         IServicoFuncionario servicoFuncionario { get; }
         IServicoCliente servicoCliente { get; }
         IServicoCategoriaAutomoveis servicoCategoriaAutomoveis { get; }

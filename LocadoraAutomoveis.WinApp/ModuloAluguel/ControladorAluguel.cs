@@ -22,6 +22,11 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             return Result.Ok();
         }
 
+        private decimal CalcularValorTotal(Aluguel aluguel)
+        {
+            return _servico.CalcularValorPrevisto(aluguel);
+        }
+
         public void Devolver()
         {
             var aluguel = _tabela.ObterRegistroSelecionado();
@@ -52,6 +57,8 @@ namespace LocadoraAutomoveis.WinApp.ModuloAluguel
             tela.CarregarDependencias(funcionarios, clientes, categorias, planos, condutores, automoveis, taxas);
 
             tela.OnValidarEObterCupom += ValidarCupom;
+
+            tela.OnCalcularAluguel += CalcularValorTotal;
         }
     }
 }

@@ -15,5 +15,7 @@ namespace LocadoraAutomoveis.Dominio.ModuloAluguel
             List<PlanoCobranca> planosCobrancas, List<Condutor> condutores, List<Automovel> automoveis, List<TaxaEServico> taxaEServicos);
 
         event Func<Aluguel, Result> OnValidarEObterCupom;
+
+        event Func<Aluguel, decimal> OnCalcularAluguel;
     }
 }

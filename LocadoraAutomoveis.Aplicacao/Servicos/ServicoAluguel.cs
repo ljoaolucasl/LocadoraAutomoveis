@@ -27,12 +27,14 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
         public IServicoTaxaEServico servicoTaxaEServico { get; }
         public IEnviadorEmail enviarEmail { get; }
         public IGeradorPDF gerarPDF { get; }
+        public ICalculoAluguel calculoAluguel { get; }
 
         public ServicoAluguel(IRepositorioAluguel repositorioAluguel, IValidadorAluguel validadorAluguel,
             IContextoPersistencia contextoPersistencia, IServicoFuncionario servicoFuncionario,
             IServicoCliente servicoCliente, IServicoCategoriaAutomoveis servicoCategoriaAutomoveis,
             IServicoPlanoCobranca servicoPlanosCobrancas, IServicoCondutor servicoCondutores,
-            IServicoAutomovel servicoAutomovel, IServicoCupom servicoCupom, IServicoTaxaEServico servicoTaxaEServico, IEnviadorEmail enviarEmail, IGeradorPDF gerarPDF)
+            IServicoAutomovel servicoAutomovel, IServicoCupom servicoCupom, IServicoTaxaEServico servicoTaxaEServico,
+            IEnviadorEmail enviarEmail, IGeradorPDF gerarPDF, ICalculoAluguel calculoAluguel)
         {
             _repositorioAluguel = repositorioAluguel;
             _validadorAluguel = validadorAluguel;
@@ -47,6 +49,7 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             this.servicoTaxaEServico = servicoTaxaEServico;
             this.enviarEmail = enviarEmail;
             this.gerarPDF = gerarPDF;
+            this.calculoAluguel = calculoAluguel;
         }
 
         #region CRUD
@@ -237,6 +240,16 @@ namespace LocadoraAutomoveis.Aplicacao.Servicos
             }
 
             return erros;
+        }
+
+        public decimal CalcularValorPrevisto(Aluguel aluguelParaCalcular)
+        {
+            return calculoAluguel.CalcularValorTotalInicial(aluguelParaCalcular);
+        }
+
+        public decimal CalcularValorDevolucao(Aluguel aluguelParaCalcular)
+        {
+            return calculoAluguel.CalcularValorTotalDevolucao(aluguelParaCalcular);
         }
     }
 }

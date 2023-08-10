@@ -28,24 +28,24 @@ namespace LocadoraAutomoveis.Dominio.ModuloPlanosCobrancas
 
         }
 
-        public static decimal CalcularPlanoCobrancaPrevisto(decimal valorTotal, PlanoCobranca planoCobranca, TipoPlano tipoPlano, decimal? quilometrosRodados)
+        public static decimal CalcularPlanoCobrancaPrevisto(decimal valorTotal, PlanoCobranca planoCobranca, TipoPlano tipoPlano, int diasLocacao)
         {
             decimal valorBaseDoPlano;
             switch (tipoPlano)
             {
                 case TipoPlano.Diario:
                     valorBaseDoPlano = planoCobranca.PlanoDiario_ValorDiario;
-                    valorTotal += valorBaseDoPlano;
+                    valorTotal += valorBaseDoPlano * diasLocacao;
                     break;
 
                 case TipoPlano.Livre:
                     valorBaseDoPlano = planoCobranca.PlanoLivre_ValorDiario;
-                    valorTotal += valorBaseDoPlano;
+                    valorTotal += valorBaseDoPlano * diasLocacao;
                     break;
 
                 case TipoPlano.Controlador:
                     valorBaseDoPlano = planoCobranca.PlanoControlador_ValorDiario;
-                    valorTotal += valorBaseDoPlano;
+                    valorTotal += valorBaseDoPlano * diasLocacao;
                     break;
             }
 

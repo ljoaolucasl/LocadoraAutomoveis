@@ -107,5 +107,5 @@ Contribuições são bem-vindas! Abra uma issue ou envie um pull request.
 
 ## Desenvolvido por 
 - [João Lucas Claudino] - [claudinojoaolucas0@gmail.com]
-- [Rafael Santos] - [???]
+- [Rafael Santos] - [rafaelsantos138@hotmail.com]
 - [Mateus Zancheta Falcão] - [???]
